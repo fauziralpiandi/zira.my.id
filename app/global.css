@@ -1,0 +1,197 @@
+/* Tailwind Directives — Like inviting your core team to the party first */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Why not make things more stylish? */
+@layer utilities {
+  .custom-border {
+    @apply border border-neutral-800;
+    /* All about that edgy look */
+  }
+
+  .custom-bg {
+    @apply bg-neutral-900;
+    /* Darker than my coffee */
+  }
+}
+
+/* Setting the tone for the whole website, literally */
+@layer base {
+  :root {
+    /* Variables - The unsung heroes of CSS, saving us from repeating ourselves */
+    --background-color: #111;
+    --text-color: #eee;
+    --selection-background: #eee;
+    --selection-text: #111;
+    --sh-class: #EEABFB;
+    --sh-identifier: #BE69DE;
+    --sh-sign: #EEEEEE;
+    --sh-string: #F8810B;
+    --sh-keyword: #0080FF;
+    --sh-comment: #808080;
+    --sh-jsxliterals: #6266d1;
+    --sh-property: #B2D9FF;
+    --sh-entity: #CDFF84;
+  }
+
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
+    /* Smooth as your skin */
+  }
+
+  ::selection {
+    background-color: var(--selection-background);
+    color: var(--selection-text);
+  }
+
+  pre,
+  code {
+    color: var(--text-color);
+    /* Because we still need to read the code */
+  }
+
+  input[type="text"],
+  input[type="email"] {
+    appearance: none;
+    /* Neutral - no fancy borders here */
+  }
+}
+
+/* Make sure the content looks as good as it reads */
+.prose {
+  p {
+    @apply my-4 text-neutral-300;
+    /* Because paragraphs need space too */
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-semibold leading-tight tracking-tight text-neutral-200 mt-12 mb-0;
+    /* Headlines with style and substance */
+  }
+
+  strong {
+    @apply font-medium text-neutral-200;
+    /* Emphasis on the "strong" */
+  }
+
+  ul {
+    @apply list-disc pl-6;
+    /* Disciplined lists */
+  }
+
+  ol {
+    @apply list-decimal pl-6;
+    /* Counting matters */
+  }
+
+  > :first-child {
+    margin-top: 1.25em !important;
+    margin-bottom: 1.25em !important;
+    /* First impressions matter */
+  }
+
+  pre {
+    @apply custom-bg custom-border rounded-lg overflow-x-auto py-2.5 px-3.5;
+    /* Code blocks with style */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      /* Scrollbars? We don't need no stinking scrollbars! */
+    }
+  }
+
+  code {
+    @apply custom-bg custom-border rounded-lg py-1 px-1.5;
+    /* Inline code gets special treatment */
+
+    span {
+      @apply font-medium;
+      /* Because spans deserve love too */
+    }
+  }
+
+  pre code {
+    @apply border-none;
+    /* No border for you! */
+    line-height: 1.5;
+    /* Breathe, code, breathe */
+  }
+
+  a {
+    @apply animate-pulse text-neutral-300 underline decoration-neutral-500 underline-offset-2 decoration-[0.1em];
+    /* Links that practically beg to be clicked "ni-nu-ni-nu-ni-nu" lmao */
+  }
+
+  .anchor {
+    @apply absolute invisible no-underline;
+    margin-left: -1em;
+    padding-right: 0.5em;
+    width: 75%;
+    max-width: 768px;
+    cursor: pointer;
+
+    &:hover {
+      @apply visible;
+      /* Appearing like a ninja */
+    }
+
+    &::after {
+      content: "#";
+      /* Old-school hashtagging */
+    }
+  }
+
+  *:hover>.anchor {
+    @apply visible;
+    /* Still lurking around */
+  }
+
+  img {
+    @apply my-12 mx-auto grayscale rounded-lg shadow-lg;
+    /* Images are the star of the show */
+  }
+
+  blockquote {
+    @apply pl-6 border-l-4 border-neutral-700 my-8;
+    /* Because quotes need some gravitas */
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  blockquote p {
+    @apply font-light text-neutral-400;
+    /* Soft-spoken quotes */
+  }
+
+  blockquote> :first-child {
+    margin: 0;
+    /* No extra space needed for this VIP */
+  }
+
+  figcaption {
+    @apply text-sm text-neutral-400 text-center mt-2 italic;
+    /* Because captions are classy */
+  }
+}
+
+/* A balanced approach to text wrapping and word-breaking */
+.title {
+  text-wrap: balance;
+  word-break: break-word;
+}
+
+/* Because tables aren't just for eating */
+table {
+  display: block;
+  max-width: fit-content;
+  overflow-x: auto;
+  white-space: nowrap;
+  /* No breaking here, thanks */
+}

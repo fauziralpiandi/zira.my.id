@@ -1,11 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
 import { BsStars } from 'react-icons/bs'
-import { BlogPosts } from 'app/components/Posts'
-
-import shadow from 'public/imgs/shadow.webp'
-import coffee from 'public/imgs/coffee.webp'
-import time from 'public/imgs/time.webp'
+import { BiMoon } from 'react-icons/bi'
+import one from 'public/imgs/one.webp'
+import two from 'public/imgs/two.webp'
+import three from 'public/imgs/three.webp'
 
 // TextBlock component for rendering styled text paragraphs
 // Perfect for when you want to say a lot but don’t want to overwhelm with too many words.
@@ -22,7 +21,6 @@ const TextBlock: React.FC<{ children: React.ReactNode }> = ({
 interface ImageComponentProps {
   alt: string
   src: string
-  caption: string
   blurDataURL?: string
   className?: string
 }
@@ -32,7 +30,7 @@ interface ImageComponentProps {
 const ImageComponent: React.FC<ImageComponentProps> = React.memo(
   ({ alt, src, blurDataURL, className = '' }) => (
     <div
-      className={`relative h-30 md:h-60 overflow-hidden rounded-md grayscale ${className}`}
+      className={`relative h-30 md:h-60 overflow-hidden rounded-md grayscale blur-[2px] opacity-75 ${className}`}
     >
       <Image
         fill
@@ -40,7 +38,7 @@ const ImageComponent: React.FC<ImageComponentProps> = React.memo(
         src={src}
         placeholder="blur"
         blurDataURL={blurDataURL}
-        className="object-cover"
+        className="object-cover blur-[4px]"
         sizes="(max-width: 768px) 213px, 33vw"
         priority
       />
@@ -71,63 +69,68 @@ export default function Home() {
         </h1>
 
         <TextBlock>
-          I&rsquo;m a multifaceted creative with expertise in frontend
-          development, artwork, and writing.
+          &mdash;and it seems like I&rsquo;m trying to save paper and ink
+          with what You see right now&mdash; Monochrome style for
+          simplicity and a calmer aesthetic.
         </TextBlock>
 
-        <div
-          className={`
-          grid 
-          grid-cols-2 
-          md:grid-cols-3 
-          gap-3 
-          my-8
-        `}
-        >
-          {[
-            {
-              alt: 'Coffee',
-              src: coffee.src,
-              caption: 'Coffee',
-              blurDataURL: coffee.blurDataURL,
-            },
-            {
-              alt: 'Time',
-              src: time.src,
-              caption: 'Time',
-              blurDataURL: time.blurDataURL,
-              className: 'row-span-2 h-60', // Making this image taller and the star of the show!
-            },
-            {
-              alt: 'Shadow',
-              src: shadow.src,
-              caption: 'Shadow',
-              blurDataURL: shadow.blurDataURL,
-            },
-          ].map(({ alt, src, caption, blurDataURL, className }) => (
-            <ImageComponent
-              key={alt}
-              alt={alt}
-              src={src}
-              caption={caption}
-              blurDataURL={blurDataURL}
-              className={className}
+        <div className="relative my-8">
+          <div
+            className={`
+            grid 
+            grid-cols-2 
+            md:grid-cols-3 
+            gap-3
+          `}
+          >
+            {[
+              {
+                alt: 'Coffee',
+                src: one.src,
+                blurDataURL: one.blurDataURL,
+              },
+              {
+                alt: 'Time',
+                src: two.src,
+                blurDataURL: two.blurDataURL,
+                className: 'row-span-2 h-60', // Making this image taller and the star of the show!
+              },
+              {
+                alt: 'Shadow',
+                src: three.src,
+                blurDataURL: three.blurDataURL,
+              },
+            ].map(({ alt, src, blurDataURL, className }) => (
+              <ImageComponent
+                key={alt}
+                alt={alt}
+                src={src}
+                blurDataURL={blurDataURL}
+                className={className}
+              />
+            ))}
+          </div>
+
+          {/* Moon <3 */}
+          <div className="absolute inset-0 flex items-center justify-center z-10">
+            <BiMoon
+              className="text-white text-6xl md:text-9xl animate-pulse"
+              style={{ filter: 'drop-shadow(0 0 7.5px white)' }}
             />
-          ))}
+          </div>
         </div>
 
         {/* Descriptive text paragraphs */}
         {[
-          `Over the past year on the client side of website development, I\u2019ve experienced countless fun and amazing moments. My thirst for knowledge drives my passion for complex problems and questions that spark curiosity.`,
-          `Writing is my escape\u2014 a way to cool my head and seek ideas through a pencil, providing a much-needed break after endless debugging sessions that drain my logic.`,
-          `I savor coffee at night while gazing at the beautiful moon over the lake, enjoying solitude. In these moments, there\u2019s no time to think about anyone else\u2014 It\u2019s just me and the shadow of the moon.`,
-          `Monochrome style for simplicity and a calmer aesthetic.`,
+          `Do you really like bright objects at night? That\u2019s always the silliest question I\u2019ve ever heard. More annoying than those clouds that often block everything and force to hit me the hay early.`,
+          `200 notes might be more than enough to show how quiet a person like me can be, who just ends up wasting paper while always supporting Go Green, but here I am\u2014`,
+          `Keep it flowing \u2014 Keep it simple, Stupid!`,
         ].map((text, index) => (
           <TextBlock key={index}>{text}</TextBlock>
         ))}
 
-        <div className="flex w-full font-semibold my-12 animate-pulse">
-          <BlogPosts featured />
+        <div className="flex w-full font-semibold my-4 animate-pulse">
+          {/*<BlogPosts featured />*/}
         </div>
       </div>
     </section>

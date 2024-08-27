@@ -1,47 +1,29 @@
-import { site } from 'app/utils/config'
-import MarkdownIt from 'markdown-it'
-
-const wordsPerMin = 250
-const md = new MarkdownIt({
-  html: false,
-  linkify: true,
-  typographer: true,
-})
-
-interface MetaData {
-  readTime: string
-  characters: number
-  words: number
-  sentences: number
-}
+import { site } from 'app/utils/constant'
+import markdownIt from 'markdown-it'
 
 export const meta = {
-  getMeta: (text: string): MetaData => {
-    // Convert Markdown to HTML
-    const htmlText = md.render(text)
+  getMeta: (text: string) => {
+    const filter = markdownIt()
+    // Turning Markdown into plain text, like magic, but less exciting!
+    const textPlain = filter.render(text).replace(/<[^>]*>/g, '') // Because HTML tags are so last season
 
-    // Get plain text
-    const plainText = htmlText
-      .replace(/<\/?[^>]+(>|$)/g, '')
-      .replace(/&nbsp;/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim()
+    // Trim that text, no one likes extra spaces hanging around.
+    const textTrimmed = textPlain.trim()
 
-    // Splitting text into words
-    const wordsArray = plainText
-      .split(/\s+/)
-      .filter((word: string) => word.length > 0 && word.match(/^\w+$/)) // Filter only valid words
+    // Splitting text into words, we can't just guess!
+    const wordsArray = textTrimmed.split(/\s+/)
     const numberOfWords = wordsArray.length
 
-    // Counting characters (excluding spaces)
-    const numberOfCharacters = plainText.replace(/\s+/g, '').length
+    // Counting characters, one by one, we're dedicated like that.
+    const numberOfCharacters = textTrimmed.replace(/\s+/g, '').length
 
-    // Counting sentences with improved regex
-    const numberOfSentences = plainText
-      .split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s/)
-      .filter((sentence: string) => sentence.trim().length > 0).length
+    // Counting sentences, periods deserve respect too!
+    const numberOfSentences = textTrimmed
+      .split(/[.!?]+/)
+      .filter(Boolean).length
 
-    // Calculating read time
+    // Calculating reading time, because nobody has time to actually read!
+    const wordsPerMin = 200
     const minutes = Math.ceil(numberOfWords / wordsPerMin)
     const readTime = `${minutes} ${minutes === 1 ? 'min' : 'mins'}`
 
@@ -99,7 +81,7 @@ export const formatDate = (
   }
 
   // Relative time, for that friendly vibe
-  if (minutesAgo < 1) return 'Just now, like, seriously!'
+  if (minutesAgo < 1) return 'Just now!'
   if (minutesAgo < 60)
     return `${minutesAgo} min${minutesAgo === 1 ? '' : 's'} ago`
   if (hoursAgo < 24)

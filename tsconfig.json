@@ -16,16 +16,6 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUncheckedIndexedAccess": true,
-    "useUnknownInCatchVariables": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "ignoreDeprecations": "5.0",
     "plugins": [
       {
         "name": "next"

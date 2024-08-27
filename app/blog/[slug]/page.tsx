@@ -2,9 +2,10 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { meta, formatDate } from 'app/utils/meta'
 import { getBlogPosts } from 'app/utils/helper'
-import { site } from 'app/utils/config'
+import { site } from 'app/utils/constant'
 import { FaRegClock } from 'react-icons/fa'
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 
 // Let's define the type for your blog params. Because types are life.
 type BlogParams = {
@@ -149,8 +150,10 @@ export default async function BlogPost({
 
         {/* Here's where the magic happens. */}
         <article className="prose">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
-          {/* Rendering the markdown content. */}
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+            {post.content}
+          </ReactMarkdown>{' '}
+          {/* Rendering the markdown content with ReactMarkdown. */}
         </article>
       </div>
     </section>

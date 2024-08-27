@@ -2,43 +2,31 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { useMemo } from 'react'
-import { site } from 'app/utils/config'
+import { site } from 'app/utils/constant'
 
 export function Navbar() {
   const pathname = usePathname()
-
-  // Memoize nav items to avoid recalculating this array every render.
-  const navItems = useMemo(() => [{ path: '/blog', name: 'Reflecty' }], [])
+  const isBlogActive = pathname.startsWith('/blog')
 
   return (
     <aside className="pb-16">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <Link
-            href="/"
-            className="flex items-center"
-            aria-label={site.title} // Accessible, because SEO is our friend.
-          >
-            <Logo />
-          </Link>
-          <nav className="flex font-medium leading-snug tracking-normal">
-            {navItems.map(({ path, name }) => (
-              <Link
-                key={path}
-                href={path}
-                className={`flex flex-row items-center nav-link ${
-                  pathname.startsWith(path) ? 'active' : ''
-                }`}
-                aria-current={
-                  pathname.startsWith(path) ? 'page' : undefined
-                } // Help screen readers know where they are.
-              >
-                {name}
-              </Link>
-            ))}
-          </nav>
-        </div>
+      <div className="flex justify-between items-center space-x-2">
+        <Link
+          href="/"
+          className="flex items-center"
+          aria-label={site.title}
+        >
+          <Logo />
+        </Link>
+        <Link
+          href="/blog"
+          className={`flex items-center font-medium text-neutral-400 nav-link ${
+            isBlogActive ? 'current text-white' : ''
+          }`}
+          aria-current={isBlogActive ? 'page' : undefined}
+        >
+          {/* deeptalk */}
+        </Link>
       </div>
     </aside>
   )
@@ -49,11 +37,11 @@ export function Navbar() {
 const Logo = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
+    width="28"
+    height="28"
     viewBox="0 0 512 512"
     version="1.1"
-    aria-labelledby="logo-title" // Adding title for accessibility
+    aria-labelledby={site.author} // for accessibility
     role="img" // Making sure screen readers know this is an image.
   >
     <title id="logo-title">pretty</title>

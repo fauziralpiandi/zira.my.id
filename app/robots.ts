@@ -1,4 +1,4 @@
-import { site } from 'app/utils/config'
+import { site } from 'app/utils/constant'
 
 // This is where we tell search engines how to behave.
 export default function robots() {

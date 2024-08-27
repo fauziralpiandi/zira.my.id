@@ -1,4 +1,4 @@
-import { site } from 'app/utils/config'
+import { site } from 'app/utils/constant'
 
 // Alright, folks! Here we go, creating a sitemap.
 // Think of it as our website's treasure map for search engines!

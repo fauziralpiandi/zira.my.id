@@ -52,12 +52,6 @@
     color: var(--text-color);
     /* Because we still need to read the code */
   }
-
-  input[type="text"],
-  input[type="email"] {
-    appearance: none;
-    /* Neutral - no fancy borders here */
-  }
 }
 
 /* Make sure the content looks as good as it reads */
@@ -75,7 +69,7 @@
   }
 
   strong {
-    @apply font-medium text-neutral-200;
+    @apply text-white;
     /* Emphasis on the "strong" */
   }
 
@@ -125,7 +119,7 @@
   }
 
   a {
-    @apply animate-pulse text-neutral-300 underline decoration-neutral-500 underline-offset-2 decoration-[0.1em];
+    @apply text-white underline decoration-neutral-500 underline-offset-2 decoration-[0.1em];
     /* Links that practically beg to be clicked "ni-nu-ni-nu-ni-nu" lmao */
   }
 
@@ -154,7 +148,7 @@
   }
 
   img {
-    @apply my-12 mx-auto grayscale rounded-lg shadow-lg;
+    @apply my-12 mx-auto rounded-lg shadow-lg grayscale;
     /* Images are the star of the show */
   }
 

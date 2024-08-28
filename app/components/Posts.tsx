@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { formatDate } from 'app/utils/meta'
-import { getBlogPosts } from 'app/utils/helper'
+import { getPosts } from 'app/utils/helper'
 
-export interface BlogPostType {
+export interface PostType {
   slug: string
   metadata: {
     publishedAt: string
@@ -11,36 +11,31 @@ export interface BlogPostType {
   }
 }
 
-export interface BlogPostsProps {
+export interface PostsProps {
   recent?: number
   featured?: boolean
 }
 
-export async function BlogPosts({
-  recent,
-  featured = false,
-}: BlogPostsProps) {
-  let allBlogs: BlogPostType[] = []
+export async function MyPosts({ recent, featured = false }: PostsProps) {
+  let allPosts: PostType[] = []
   try {
-    allBlogs = (await getBlogPosts()).filter(Boolean) as BlogPostType[]
+    allPosts = (await getPosts()).filter(Boolean) as PostType[]
   } catch (error) {
-    console.error('Failed to fetch blog posts\u2014', error)
+    console.error('Failed to fetch posts\u2014', error)
     return (
       <div className="text-red-500">
-        Error&mdash; Unable to load blog posts. Please try again later.
+        Unable to load posts. Please try again later.
       </div>
     )
   }
 
-  if (!allBlogs.length) {
+  if (!allPosts.length) {
     return (
-      <div className="text-yellow-500">
-        Warning&mdash; No blog posts found. Check back soon for updates!
-      </div>
+      <div className="text-yellow-500">Check back soon for updates!</div>
     )
   }
 
-  const filteredBlogs = allBlogs
+  const filteredPosts = allPosts
     .filter((post) => !featured || post.metadata.isFeatured)
     .sort(
       (a, b) =>
@@ -51,11 +46,11 @@ export async function BlogPosts({
 
   return (
     <div>
-      {filteredBlogs.map((post) => (
+      {filteredPosts.map((post) => (
         <Link
           key={post.slug}
           className="flex flex-col my-4 space-y-2"
-          href={`/blog/${post.slug}`}
+          href={`/posts/${post.slug}`}
         >
           <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
             <p className="text-neutral-400 tabular-nums">

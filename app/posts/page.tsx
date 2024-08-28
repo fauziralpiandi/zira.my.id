@@ -1,36 +1,34 @@
-import { getBlogPosts } from 'app/utils/helper'
-import { BlogPosts, BlogPostType } from 'app/components/Posts'
+import { getPosts } from 'app/utils/helper'
+import { MyPosts, PostType } from 'app/components/Posts'
 
 /* Let's keep it concise but intriguing */
 const stuff = 'featuring posts \u0026 some thoughts\u2014'
 
 export const metadata = {
-  title: 'Blog',
+  title: 'Posts',
   description: stuff,
 }
 
-export default async function Blog() {
+export default async function PostsPage() {
   /* What’s a blog without content? */
-  const blogPosts = await getBlogPosts()
+  const Posts = await getPosts()
 
   /* Only the good stuff survives */
-  const allBlogs: BlogPostType[] = blogPosts.filter(
-    Boolean,
-  ) as BlogPostType[]
+  const allPosts: PostType[] = Posts.filter(Boolean) as PostType[]
 
   return (
     <section>
       <div className="animate-in">
         <div className="mb-8">
-          <h1 className="font-semibold text-2xl leading-tight tracking-tight">
+          <h1 className="font-semibold text-2xl leading-tight tracking-tight mb-2">
             {stuff} {/* Bringing that meta desc. into the spotlight */}
           </h1>
           <p className="text-neutral-400">
-            {allBlogs.length} posts &mdash; Stay tuned for more!
+            {allPosts.length} posts &mdash; Stay tuned for more!
             {/* Because we’ve got more content coming, right? */}
           </p>
         </div>
-        <BlogPosts /> {/* Rendering the blog posts like a pro */}
+        <MyPosts /> {/* Rendering the posts like a pro */}
       </div>
     </section>
   )

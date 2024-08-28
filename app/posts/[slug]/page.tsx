@@ -1,26 +1,26 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { meta, formatDate } from 'app/utils/meta'
-import { getBlogPosts } from 'app/utils/helper'
+import { getPosts } from 'app/utils/helper'
 import { site } from 'app/utils/constant'
 import { FaRegClock } from 'react-icons/fa'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 
-// Let's define the type for your blog params. Because types are life.
-type BlogParams = {
+// Let's define the type for your post params. Because types are life.
+type PostParams = {
   slug: string
 }
 
 // This function generates all the fancy metadata.
-// It's basically making sure your blog post is Instagram-ready... but for Google.
+// It's basically making sure your post is Instagram-ready... but for Google.
 export async function generateMetadata({
   params,
 }: {
-  params: BlogParams
+  params: PostParams
 }) {
-  // Step 1: Fetch all the blog posts. Yes, all of them.
-  let posts = await getBlogPosts()
+  // Step 1: Fetch all the posts. Yes, all of them.
+  let posts = await getPosts()
   // Step 2: Try to find the post with the right slug. It's like playing hide and seek.
   let post = posts.find((post) => post.slug === params.slug)
 
@@ -49,7 +49,7 @@ export async function generateMetadata({
       description,
       type: 'article',
       publishedTime,
-      url: `${site.baseUrl}/blog/${post.slug}`,
+      url: `${site.baseUrl}/posts/${post.slug}`,
       images: [{ url: ogImage }],
     },
     twitter: {
@@ -61,14 +61,10 @@ export async function generateMetadata({
   }
 }
 
-// The main event. This function handles displaying the blog post.
-export default async function BlogPost({
-  params,
-}: {
-  params: BlogParams
-}) {
-  // Fetch all the blog posts again. (Déjà vu, anyone?)
-  let posts = await getBlogPosts()
+// The main event. This function handles displaying the post.
+export default async function PostPage({ params }: { params: PostParams }) {
+  // Fetch all the posts again. (Déjà vu, anyone?)
+  let posts = await getPosts()
   // Try to find the post by its slug.
   let post = posts.find((post) => post.slug === params.slug)
 
@@ -100,13 +96,13 @@ export default async function BlogPost({
             'image': post.metadata.image
               ? `${site.baseUrl}${post.metadata.image}`
               : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            'url': `${site.baseUrl}/blog/${post.slug}`,
+            'url': `${site.baseUrl}/posts/${post.slug}`,
           }),
         }}
       />
       <div className="mb-32 animate-in">
         <div className="flex flex-col gap-8">
-          {/* Blog post metadata (title, description, etc.). */}
+          {/* Post metadata (title, description, etc.). */}
           <div className="flex flex-col max-w-2xl gap-4">
             <h1 className="font-bold text-3xl leading-tight tracking-tight">
               {post.metadata.title} {/* Make it catchy! */}

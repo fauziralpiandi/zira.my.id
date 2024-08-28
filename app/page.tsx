@@ -5,6 +5,7 @@ import { BiMoon } from 'react-icons/bi'
 import one from 'public/imgs/one.webp'
 import two from 'public/imgs/two.webp'
 import three from 'public/imgs/three.webp'
+import { MyPosts } from 'app/components/Posts'
 
 // TextBlock component for rendering styled text paragraphs
 // Perfect for when you want to say a lot but don’t want to overwhelm with too many words.
@@ -123,14 +124,14 @@ export default function Home() {
         {/* Descriptive text paragraphs */}
         {[
           `Do you really like bright objects at night? That\u2019s always the silliest question I\u2019ve ever heard. More annoying than those clouds that often block everything and force to hit me the hay early.`,
-          `200 notes might be more than enough to show how quiet a person like me can be, who just ends up wasting paper while always supporting Go Green, but here I am\u2014`,
+          `200 notes might be more than enough to show how quiet a person like me can be, but here I am,`,
           `Keep it flowing \u2014 Keep it simple, Stupid!`,
         ].map((text, index) => (
           <TextBlock key={index}>{text}</TextBlock>
         ))}
 
         <div className="flex w-full font-semibold my-4 animate-pulse">
-          {/*<BlogPosts featured />*/}
+          <MyPosts featured />
         </div>
       </div>
     </section>

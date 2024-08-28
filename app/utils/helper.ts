@@ -100,9 +100,9 @@ async function getMarkdownData(
 
 // Retrieve all the blog posts from the posts directory.
 // Because what’s a blog without blog posts? Just a sad empty shell!
-export async function getBlogPosts(): Promise<
+export async function getPosts(): Promise<
   Array<{ metadata: PostMetadata; slug: string; content: string }>
 > {
-  const postsDir = path.join(process.cwd(), 'posts')
+  const postsDir = path.join(process.cwd(), 'posted')
   return getMarkdownData(postsDir)
 }

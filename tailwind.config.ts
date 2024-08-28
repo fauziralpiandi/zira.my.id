@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 
 export default {
-  content: ['./app/**/*.{ts,tsx}', './posts/**/*.md'],
+  content: ['./app/**/*.{ts,tsx}', './posted/**/*.md'],
   theme: {
     screens: {
       'sm': '640px',

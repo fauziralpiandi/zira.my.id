@@ -81,9 +81,7 @@ export const formatDate = (
   }
 
   // Relative time, for that friendly vibe
-  if (minutesAgo < 1) return 'Just now!'
-  if (minutesAgo < 60)
-    return `${minutesAgo} min${minutesAgo === 1 ? '' : 's'} ago`
+  if (minutesAgo < 60) return 'Just now!'
   if (hoursAgo < 24)
     return `${hoursAgo} hour${hoursAgo === 1 ? '' : 's'} ago`
   if (hoursAgo < 48) return `${timeString} (Yesterday, in case you forgot)`

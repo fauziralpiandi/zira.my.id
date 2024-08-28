@@ -6,7 +6,7 @@ import { site } from 'app/utils/constant'
 
 export function Navbar() {
   const pathname = usePathname()
-  const isBlogActive = pathname.startsWith('/blog')
+  const isBlogActive = pathname.startsWith('/posts')
 
   return (
     <aside className="pb-16">
@@ -19,13 +19,13 @@ export function Navbar() {
           <Logo />
         </Link>
         <Link
-          href="/blog"
+          href="/posts"
           className={`flex items-center font-medium text-neutral-400 nav-link ${
             isBlogActive ? 'current text-white' : ''
           }`}
           aria-current={isBlogActive ? 'page' : undefined}
         >
-          {/* deeptalk */}
+          posts&mdash;
         </Link>
       </div>
     </aside>

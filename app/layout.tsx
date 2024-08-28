@@ -65,7 +65,7 @@ export default function RootLayout({
         GeistMono.variable,
       )}
     >
-      <body className="relative width-full px-8 pt-8 md:pt-16 pb-8 md:pb-16 antialiased">
+      <body className="relative width-full px-8 pt-8 md:pt-16 pb-10 md:pb-16 antialiased">
         <main className="relative max-w-2xl mx-auto">
           {/* Suspense for Navbar - holding your breath until it loads! */}
           <Suspense fallback={<div>Loading...</div>}>

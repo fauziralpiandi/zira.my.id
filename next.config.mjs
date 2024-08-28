@@ -1,19 +1,4 @@
-const ContentSecurityPolicy = `
-    default-src 'self' vercel.live;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live va.vercel-scripts.com;
-    style-src 'self' 'unsafe-inline';
-    img-src * blob: data:;
-    media-src 'none';
-    connect-src *;
-    font-src 'self' data:;
-    frame-src 'self' vercel.live;
-`;
-
 const securityHeaders = [
-  {
-    key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.replace(/\n/g, ''),
-  },
   {
     key: 'Referrer-Policy',
     value: 'origin-when-cross-origin',
@@ -38,25 +23,41 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=()',
   },
-];
+]
+
+const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data:;
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;
+`.replace(/\n/g, '')
 
 const nextConfig = {
-  experimental: {
-    ppr: false,
-  },
   logging: {
     fetches: {
       fullUrl: true,
     },
   },
-  headers() {
+  async headers() {
     return [
       {
         source: '/(.*)',
-        headers: securityHeaders,
+        headers: [
+          ...securityHeaders,
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+        ],
       },
-    ];
+    ]
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

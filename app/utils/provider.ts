@@ -2,8 +2,8 @@ import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter' // Because why do things manually when you have magic?
 
-// Define the structure for blog post metadata.
-// Because even a blog needs a little bit of style!
+// Define the structure for post metadata.
+// Because even a needs a little bit of style!
 type PostMetadata = {
   title: string
   summary: string
@@ -79,7 +79,7 @@ async function readMarkdownFile(
   }
 }
 
-// This is where we turn a bunch of Markdown files into blog posts—
+// This is where we turn a bunch of Markdown files into posts—
 // like turning water into wine, but with less divine intervention.
 async function getMarkdownData(
   dir: string,
@@ -98,11 +98,11 @@ async function getMarkdownData(
   )
 }
 
-// Retrieve all the blog posts from the posts directory.
-// Because what’s a blog without blog posts? Just a sad empty shell!
-export async function getBlogPosts(): Promise<
+// Retrieve all the posts from the posts directory.
+// Because what’s a post without content? Just a sad empty shell!
+export async function getPosts(): Promise<
   Array<{ metadata: PostMetadata; slug: string; content: string }>
 > {
-  const postsDir = path.join(process.cwd(), 'posts')
+  const postsDir = path.join(process.cwd(), 'posted')
   return getMarkdownData(postsDir)
 }

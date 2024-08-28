@@ -2,10 +2,12 @@
 title: 'Let’s Explore this Journey Together!'
 summary: 'Here it is—the new and improved space are just a click away.'
 author: 'Fauzira Alpiandi'
-publishedAt: '2024-08-25T11:33:00+07:00'
+publishedAt: '2024-08-28T17:45:00+07:00'
 image: '/introduce/featured.webp'
 isFeatured: 'true'
 ---
+
+<p className="font-medium text-lg animate-bounce">Hai!</p>
 
 ## Reflections
 

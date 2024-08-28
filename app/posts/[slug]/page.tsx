@@ -61,6 +61,18 @@ export async function generateMetadata({
   }
 }
 
+// This line is like giving your website a shot of espresso—
+// making sure it’s dynamic and ready to serve fresh content...
+export const revalidate = 60 // every 1 minute, no matter the situation.
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  let posts = await getPosts()
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+
 // The main event. This function handles displaying the post.
 export default async function PostPage({ params }: { params: PostParams }) {
   // Fetch all the posts again. (Déjà vu, anyone?)

@@ -4,7 +4,7 @@ import { site } from 'app/utils/constant'
 const Footer: React.FC = () => {
   return (
     <footer
-      className="flex justify-between items-center text-neutral-400 mt-16 text-sm font-medium"
+      className="flex justify-center items-center text-neutral-400 opacity-80 mt-16 text-sm font-medium"
       aria-label="Footer"
     >
       <p>

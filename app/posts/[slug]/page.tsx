@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { meta, formatDate } from 'app/utils/meta'
-import { getPosts } from 'app/utils/helper'
+import { getPosts } from 'app/utils/provider'
 import { site } from 'app/utils/constant'
 import { FaRegClock } from 'react-icons/fa'
 import ReactMarkdown from 'react-markdown'
@@ -63,7 +63,7 @@ export async function generateMetadata({
 
 // This line is like giving your website a shot of espresso—
 // making sure it’s dynamic and ready to serve fresh content...
-export const revalidate = 60 // every 1 minute, no matter the situation.
+export const revalidate = 3600 // every 1 hour, no matter the situation.
 export const dynamicParams = true
 
 export async function generateStaticParams() {
@@ -161,7 +161,7 @@ export default async function PostPage({ params }: { params: PostParams }) {
           <ReactMarkdown rehypePlugins={[rehypeRaw]}>
             {post.content}
           </ReactMarkdown>{' '}
-          {/* Rendering the markdown content with ReactMarkdown. */}
+          {/* Rendering the content with ReactMarkdown. */}
         </article>
       </div>
     </section>

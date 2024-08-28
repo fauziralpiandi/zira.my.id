@@ -1,4 +1,4 @@
-import { getPosts } from 'app/utils/helper'
+import { getPosts } from 'app/utils/provider'
 import { MyPosts, PostType } from 'app/components/Posts'
 
 /* Let's keep it concise but intriguing */
@@ -10,7 +10,7 @@ export const metadata = {
 }
 
 export default async function PostsPage() {
-  /* What’s a blog without content? */
+  /* What’s a without content? */
   const Posts = await getPosts()
 
   /* Only the good stuff survives */

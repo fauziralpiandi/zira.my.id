@@ -119,7 +119,7 @@
   }
 
   a {
-    @apply text-white underline decoration-neutral-500 underline-offset-2 decoration-[0.1em];
+    @apply text-white underline decoration-neutral-500 underline-offset-2 decoration-[0.1em] animate-pulse;
     /* Links that practically beg to be clicked "ni-nu-ni-nu-ni-nu" lmao */
   }
 

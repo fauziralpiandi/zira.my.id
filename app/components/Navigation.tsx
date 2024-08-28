@@ -26,7 +26,6 @@ export function Navbar() {
           aria-current={isBlogActive ? 'page' : undefined}
         >
           posts&mdash;
-          {/* deeptalk */}
         </Link>
       </div>
     </aside>

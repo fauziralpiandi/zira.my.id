@@ -5,7 +5,6 @@ import { BiMoon } from 'react-icons/bi'
 import one from 'public/imgs/one.webp'
 import two from 'public/imgs/two.webp'
 import three from 'public/imgs/three.webp'
-import { MyPosts } from 'app/components/Posts'
 
 // TextBlock component for rendering styled text paragraphs
 // Perfect for when you want to say a lot but don’t want to overwhelm with too many words.
@@ -31,7 +30,7 @@ interface ImageComponentProps {
 const ImageComponent: React.FC<ImageComponentProps> = React.memo(
   ({ alt, src, blurDataURL, className = '' }) => (
     <div
-      className={`relative h-30 md:h-60 overflow-hidden rounded-md grayscale blur-[2px] opacity-75 ${className}`}
+      className={`relative h-30 md:h-60 overflow-hidden rounded-lg grayscale opacity-50 ${className}`}
     >
       <Image
         fill
@@ -39,7 +38,7 @@ const ImageComponent: React.FC<ImageComponentProps> = React.memo(
         src={src}
         placeholder="blur"
         blurDataURL={blurDataURL}
-        className="object-cover blur-[4px]"
+        className="object-cover blur-[2px]"
         sizes="(max-width: 768px) 213px, 33vw"
         priority
       />
@@ -54,7 +53,7 @@ ImageComponent.displayName = 'ImageComponent'
 export default function Home() {
   return (
     <section>
-      <div className="animate-in">
+      <div className="animate-in mb-20">
         <h1
           className={`
           flex 
@@ -62,11 +61,14 @@ export default function Home() {
           gap-2 
           text-2xl 
           font-semibold 
-          tracking-tight 
-          mb-4
+          tracking-tight
         `}
         >
-          hey, Zira here! <BsStars className="inline animate-pulse" />
+          hey, Zira here!{' '}
+          <BsStars
+            className="inline animate-pulse"
+            style={{ filter: 'drop-shadow(0 0 5px white)' }}
+          />
         </h1>
 
         <TextBlock>
@@ -86,18 +88,18 @@ export default function Home() {
           >
             {[
               {
-                alt: 'Coffee',
+                alt: 'First',
                 src: one.src,
                 blurDataURL: one.blurDataURL,
               },
               {
-                alt: 'Time',
+                alt: 'Second',
                 src: two.src,
                 blurDataURL: two.blurDataURL,
                 className: 'row-span-2 h-60', // Making this image taller and the star of the show!
               },
               {
-                alt: 'Shadow',
+                alt: 'Third',
                 src: three.src,
                 blurDataURL: three.blurDataURL,
               },
@@ -115,7 +117,7 @@ export default function Home() {
           {/* Moon <3 */}
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <BiMoon
-              className="text-white text-6xl md:text-9xl animate-pulse"
+              className="text-white text-8xl animate-pulse"
               style={{ filter: 'drop-shadow(0 0 7.5px white)' }}
             />
           </div>
@@ -129,10 +131,6 @@ export default function Home() {
         ].map((text, index) => (
           <TextBlock key={index}>{text}</TextBlock>
         ))}
-
-        <div className="flex w-full font-semibold my-4 animate-pulse">
-          <MyPosts featured />
-        </div>
       </div>
     </section>
   )

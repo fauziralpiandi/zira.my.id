@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { BsStars } from 'react-icons/bs'
 import { BiMoon } from 'react-icons/bi'
 import one from 'public/imgs/one.webp'
@@ -7,7 +7,6 @@ import two from 'public/imgs/two.webp'
 import three from 'public/imgs/three.webp'
 
 // TextBlock component for rendering styled text paragraphs
-// Perfect for when you want to say a lot but don’t want to overwhelm with too many words.
 const TextBlock: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
@@ -17,28 +16,23 @@ const TextBlock: React.FC<{ children: React.ReactNode }> = ({
 )
 
 // Props interface for ImageComponent
-// Because every image deserves a proper introduction!
 interface ImageComponentProps {
   alt: string
-  src: string
-  blurDataURL?: string
+  src: string | StaticImageData
   className?: string
 }
 
 // ImageComponent displays an image with a caption and hover effects
-// Think of it as the VIP section for your images—fancy and eye-catching!
 const ImageComponent: React.FC<ImageComponentProps> = React.memo(
-  ({ alt, src, blurDataURL, className = '' }) => (
+  ({ alt, src, className = '' }) => (
     <div
-      className={`relative h-30 md:h-60 overflow-hidden rounded-lg grayscale opacity-50 ${className}`}
+      className={`relative h-30 md:h-60 overflow-hidden rounded-lg grayscale ${className}`}
     >
       <Image
         fill
         alt={alt}
         src={src}
-        placeholder="blur"
-        blurDataURL={blurDataURL}
-        className="object-cover blur-[2px]"
+        className="object-cover blur-sm opacity-75"
         sizes="(max-width: 768px) 213px, 33vw"
         priority
       />
@@ -48,22 +42,27 @@ const ImageComponent: React.FC<ImageComponentProps> = React.memo(
 
 ImageComponent.displayName = 'ImageComponent'
 
+// KeyWord, rendering text with drop shadow effect
+const KeyWord: React.FC<{ text: string }> = ({ text }) => (
+  <span style={{ filter: 'drop-shadow(0 0 5px white)' }}>{text}</span>
+)
+
 // Home component representing the main content of the page
-// The place where magic happens and dreams become pixels!
-export default function Home() {
+const Home: React.FC = () => {
+  const images = [
+    { alt: 'Moon', src: one.src },
+    {
+      alt: 'Moon',
+      src: two.src,
+      className: 'row-span-2 h-60',
+    },
+    { alt: 'Moon', src: three.src },
+  ]
+
   return (
     <section>
       <div className="animate-in mb-20">
-        <h1
-          className={`
-          flex 
-          items-center 
-          gap-2 
-          text-2xl 
-          font-semibold 
-          tracking-tight
-        `}
-        >
+        <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
           hey, Zira here!{' '}
           <BsStars
             className="inline animate-pulse"
@@ -72,66 +71,53 @@ export default function Home() {
         </h1>
 
         <TextBlock>
-          &mdash;and it seems like I&rsquo;m trying to save paper and ink
-          with what You see right now&mdash; Monochrome style for
-          simplicity and a calmer aesthetic.
+          &mdash;and it kinda feels like I&rsquo;m trying to save some
+          paper with what you&rsquo;re seeing right now;{' '}
+          <KeyWord text="nothing&rsquo;s colored here" />
+          &mdash; keep it simple, stupid!
         </TextBlock>
-
+        
         <div className="relative my-8">
-          <div
-            className={`
-            grid 
-            grid-cols-2 
-            md:grid-cols-3 
-            gap-3
-          `}
-          >
-            {[
-              {
-                alt: 'First',
-                src: one.src,
-                blurDataURL: one.blurDataURL,
-              },
-              {
-                alt: 'Second',
-                src: two.src,
-                blurDataURL: two.blurDataURL,
-                className: 'row-span-2 h-60', // Making this image taller and the star of the show!
-              },
-              {
-                alt: 'Third',
-                src: three.src,
-                blurDataURL: three.blurDataURL,
-              },
-            ].map(({ alt, src, blurDataURL, className }) => (
-              <ImageComponent
-                key={alt}
-                alt={alt}
-                src={src}
-                blurDataURL={blurDataURL}
-                className={className}
-              />
-            ))}
-          </div>
-
-          {/* Moon <3 */}
+          {/* Moon icon */}
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <BiMoon
               className="text-white text-8xl animate-pulse"
               style={{ filter: 'drop-shadow(0 0 7.5px white)' }}
             />
           </div>
+          {/* Grid Images */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {images.map(({ alt, src, className }) => (
+              <ImageComponent
+                key={alt}
+                alt={alt}
+                src={src}
+                className={className}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Descriptive text paragraphs */}
-        {[
-          `Do you really like bright objects at night? That\u2019s always the silliest question I\u2019ve ever heard. More annoying than those clouds that often block everything and force to hit me the hay early.`,
-          `200 notes might be more than enough to show how quiet a person like me can be, but here I am,`,
-          `Keep it flowing \u2014 Keep it simple, Stupid!`,
-        ].map((text, index) => (
-          <TextBlock key={index}>{text}</TextBlock>
-        ))}
+        <TextBlock>
+          Do you really dig <KeyWord text="bright stuff" /> at night?
+          That&rsquo;s gotta be <KeyWord text="the silliest question" />{' '}
+          I&rsquo;ve ever heard&mdash; <KeyWord text="Way more annoying" />{' '}
+          than those clouds that always block everything and force me to
+          crash early.
+        </TextBlock>
+
+        <TextBlock>
+          Hundreds of notes might be overkill to show just how quiet I can
+          be; here I am!{' '}
+          <KeyWord text="Beauty&mdash; lies in restraint." />
+        </TextBlock>
+
+        <div className="mt-8 font-medium">
+          <TextBlock>Yes! Embrace the laid–back vibe.</TextBlock>
+        </div>
       </div>
     </section>
   )
 }
+
+export default Home

@@ -66,18 +66,6 @@ export async function generateMetadata({
   }
 }
 
-// This line is like giving your website a shot of espresso—
-// making sure it’s dynamic and ready to serve fresh content...
-export const revalidate = 3600 // every hour, no matter the situation.
-export const dynamicParams = true
-
-export async function generateStaticParams() {
-  let posts = await getPosts()
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
-}
-
 // The main event. This function handles displaying the post.
 export default async function PostPage({
   params,
@@ -137,11 +125,7 @@ export default async function PostPage({
                 {readTime} &mdash;
                 {/* Perfect for the curious reader. */}
               </p>
-              <Suspense
-                fallback={
-                  <p className="h-5 text-neutral-400">Loading views...</p>
-                }
-              >
+              <Suspense fallback={<p className="h-5 text-neutral-400">Loading views...</p>}>
                 <Views slug={post.slug} />
               </Suspense>
             </div>
@@ -186,12 +170,11 @@ export default async function PostPage({
   )
 }
 
+// Function to fetch and display views
 async function Views({ slug }: { slug: string }) {
   try {
     let viewsPromise = getViewsCount()
-    incrementViews(slug).catch((err) =>
-      console.error('Failed to increment views:', err),
-    )
+    incrementViews(slug).catch((err) => console.error('Failed to increment views:', err))
     let views = await viewsPromise
     return <ViewCounter allViews={views} slug={slug} />
   } catch (error) {

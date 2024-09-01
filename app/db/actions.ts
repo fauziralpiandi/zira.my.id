@@ -10,7 +10,7 @@ export async function increment(slug: string): Promise<void> {
       INSERT INTO views (slug, count)
       VALUES (${slug}, 1)
       ON CONFLICT (slug)
-      DO UPDATE SET count = views.count + 0
+      DO UPDATE SET count = views.count + 1
     `
   } catch (error) {
     console.error('Error incrementing views count:', error)

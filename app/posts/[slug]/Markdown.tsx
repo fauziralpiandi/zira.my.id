@@ -83,7 +83,7 @@ const CustomLink = React.forwardRef<
   }
 
   return (
-    <a href={href} ref={ref} {...rest} className="animate-pulse">
+    <a href={href} ref={ref} {...rest}>
       {children}
     </a>
   )
@@ -99,7 +99,7 @@ interface RoundedImageProps extends React.ComponentProps<typeof Image> {
 }
 
 function RoundedImage({ alt, src, ...props }: RoundedImageProps) {
-  return <Image alt={alt} className="rounded-lg" src={src} {...props} />
+  return <Image alt={alt} className="rounded-lg shadow-lg" src={src} {...props} />
 }
 
 interface CodeProps extends React.HTMLProps<HTMLElement> {

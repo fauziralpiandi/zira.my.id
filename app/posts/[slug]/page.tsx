@@ -12,12 +12,6 @@ import { getViewsCount } from 'app/db/query'
 
 let incrementViews = cache(increment)
 
-async function Views({ slug }: { slug: string }) {
-  let views = await getViewsCount()
-  incrementViews(slug)
-  return <ViewCounter allViews={views} slug={slug} />
-}
-
 // Let's define the type for your post params. Because types are life.
 type PostParams = {
   slug: string
@@ -143,7 +137,11 @@ export default async function PostPage({
                 {readTime} &mdash;
                 {/* Perfect for the curious reader. */}
               </p>
-              <Suspense fallback={<p className="h-5" />}>
+              <Suspense
+                fallback={
+                  <p className="h-5 text-neutral-400">Loading views...</p>
+                }
+              >
                 <Views slug={post.slug} />
               </Suspense>
             </div>
@@ -186,4 +184,18 @@ export default async function PostPage({
       </div>
     </section>
   )
+}
+
+async function Views({ slug }: { slug: string }) {
+  try {
+    let viewsPromise = getViewsCount()
+    incrementViews(slug).catch((err) =>
+      console.error('Failed to increment views:', err),
+    )
+    let views = await viewsPromise
+    return <ViewCounter allViews={views} slug={slug} />
+  } catch (error) {
+    console.error('Failed to retrieve or increment views:', error)
+    return <span className="text-red-500">Error loading views</span>
+  }
 }

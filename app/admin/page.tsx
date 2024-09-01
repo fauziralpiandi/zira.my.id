@@ -1,7 +1,7 @@
 import Contact from './Contact'
 
 export const metadata = {
-  title: 'Contact',
+  title: 'Admin',
   description:
     'We value your feedback! Please share your thoughts and suggestions.',
 }

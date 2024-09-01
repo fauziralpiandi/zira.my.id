@@ -45,11 +45,6 @@ const cspHeader = `
 `.replace(/\n/g, '')
 
 const nextConfig = {
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
   async headers() {
     return [
       {

@@ -1,37 +1,30 @@
 import { NextResponse } from 'next/server'
 import { sql } from '@vercel/postgres'
 
-const REQUEST_LIMIT = 2
-const TIME_WINDOW = 24 * 60 * 60 * 1000
+const REQUEST_LIMIT = parseInt(process.env.REQUEST_LIMIT || '2', 10)
+const TIME_WINDOW = parseInt(process.env.TIME_WINDOW || '86400000', 10)
 
 const requestCounts = new Map<
   string,
   { count: number; firstRequestTime: number }
 >()
 
-const validateEmail = (email: string): boolean => {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-  return re.test(email)
-}
+const validateEmail = (email: string): boolean =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)
 
 const validateFeedback = (
   name: string,
   email: string,
   message: string,
-) => {
-  if (!name || name.trim().length === 0) {
-    return 'Name is required.'
-  }
-  if (!email || !validateEmail(email)) {
-    return 'Invalid email address.'
-  }
-  if (!message || message.trim().length < 50 || message.length > 500) {
+): string | null => {
+  if (!name.trim()) return 'Name is required.'
+  if (!validateEmail(email)) return 'Invalid email address.'
+  if (message.trim().length < 50 || message.length > 500)
     return 'Message must be between 50 and 500 characters long.'
-  }
   return null
 }
 
-const rateLimit = (ip: string) => {
+const rateLimit = (ip: string): boolean => {
   const currentTime = Date.now()
   const requestData = requestCounts.get(ip) || {
     count: 0,
@@ -47,14 +40,16 @@ const rateLimit = (ip: string) => {
 
   requestCounts.set(ip, requestData)
 
-  if (requestData.count > REQUEST_LIMIT) {
-    return true
-  }
-  return false
+  return requestData.count > REQUEST_LIMIT
 }
 
 export async function POST(request: Request) {
-  const ip = request.headers.get('x-forwarded-for') || 'unknown'
+  const ip =
+    request.headers.get('x-forwarded-for') ||
+    request.headers.get('x-real-ip') ||
+    request.headers.get('cf-connecting-ip') ||
+    'unknown'
+
   if (rateLimit(ip)) {
     return NextResponse.json(
       {
@@ -76,12 +71,13 @@ export async function POST(request: Request) {
       )
     }
 
-    const sanitizedName = name.trim()
-    const sanitizedEmail = email.trim()
-    const sanitizedMessage = message.trim()
+    const sanitizedName = name.trim().substring(0, 255)
+    const sanitizedEmail = email.trim().substring(0, 255)
+    const sanitizedMessage = message.trim().substring(0, 500)
 
     await sql`
-      INSERT INTO feedbacks (name, email, message) VALUES (${sanitizedName}, ${sanitizedEmail}, ${sanitizedMessage})
+      INSERT INTO feedbacks (name, email, message) 
+      VALUES (${sanitizedName}, ${sanitizedEmail}, ${sanitizedMessage})
     `
 
     return NextResponse.json(
@@ -89,9 +85,9 @@ export async function POST(request: Request) {
       { status: 201 },
     )
   } catch (error) {
-    console.error('Oops!', error)
+    console.error('Server error:', error)
     return NextResponse.json(
-      { message: 'Feedback submission failed due to a server error.' },
+      { message: 'An unexpected error occurred. Please try again later.' },
       { status: 500 },
     )
   }

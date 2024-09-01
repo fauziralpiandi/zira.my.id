@@ -128,7 +128,7 @@ const TermsOfUse = () => {
           <p>
             If you have any questions or comments regarding these terms of
             use, please reach me through the{' '}
-            <Link href="/contact">contact</Link> form provided.
+            <Link href="/admin">contact</Link> form provided.
           </p>
 
           <p>Thank you.</p>

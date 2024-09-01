@@ -8,8 +8,8 @@ type PostMetadata = {
   title: string
   summary: string
   author: string
-  publishedAt: string
-  image: string
+  date: string
+  image?: string // Optional "?"
 }
 
 // Extract the frontmatter from the Markdown file content.
@@ -32,14 +32,13 @@ function validateMetadata(metadata: PostMetadata): void {
     'title',
     'summary',
     'author',
-    'publishedAt',
-    'image',
+    'date',
   ]
 
   requiredFields.forEach((field) => {
     if (!(field in metadata)) {
       throw new Error(
-        `Missing required field: ${field}. Don't ghost us like that!`,
+        `Missing required field: "${field}" \u2014 Don't ghost us like that!`,
       )
     }
   })

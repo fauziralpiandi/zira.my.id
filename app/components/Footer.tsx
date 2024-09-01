@@ -18,8 +18,8 @@ const Footer: React.FC = React.memo(() => {
           Privacy Policy
         </Link>
         <span>/</span>
-        <Link href="/contact" className="hover:underline text-neutral-300">
-          Contact
+        <Link href="/admin" className="hover:underline text-neutral-300">
+          Admin
         </Link>
         <span>/</span>
         <Link href="/terms" className="hover:underline text-neutral-300">

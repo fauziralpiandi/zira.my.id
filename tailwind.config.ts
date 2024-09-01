@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 
 export default {
-  content: ['./app/**/*.{ts,tsx}', './posted/**/*.{html,md}'],
+  content: ['./app/**/*.{ts,tsx}', './posted/**/*.{html,md,mdx}'],
   theme: {
     screens: {
       'sm': '640px',
@@ -39,13 +39,13 @@ export default {
         DEFAULT: {
           css: {
             'h1': {
-              fontSize: '1.6rem',
+              fontSize: '1.35rem',
             },
             'h2': {
-              fontSize: '1.4rem',
+              fontSize: '1.25rem',
             },
             'h3': {
-              fontSize: '1.2rem',
+              fontSize: '1.15rem',
             },
             'p': {
               fontSize: '1rem',

@@ -52,6 +52,15 @@
     --text-color: #eee;
     --selection-background: #eee;
     --selection-text: #111;
+    --sh-class: #EEABFB;
+    --sh-identifier: #BE69DE;
+    --sh-sign: #EEEEEE;
+    --sh-string: #F8810B;
+    --sh-keyword: #0080FF;
+    --sh-comment: #808080;
+    --sh-jsxliterals: #6266d1;
+    --sh-property: #B2D9FF;
+    --sh-entity: #CDFF84;
   }
 
   html {

@@ -3,12 +3,12 @@ import path from 'path'
 import matter from 'gray-matter' // Because why do things manually when you have magic?
 
 // Define the structure for post metadata.
-// Because even a needs a little bit of style!
+// Because even a post needs a little bit of style!
 type PostMetadata = {
   title: string
-  summary: string
-  author: string
+  summary?: string
   date: string
+  author: string
   image?: string // Optional "?"
 }
 
@@ -30,9 +30,8 @@ function parseFrontmatter(fileContent: string): {
 function validateMetadata(metadata: PostMetadata): void {
   const requiredFields: (keyof PostMetadata)[] = [
     'title',
-    'summary',
-    'author',
     'date',
+    'author',
   ]
 
   requiredFields.forEach((field) => {
@@ -44,13 +43,15 @@ function validateMetadata(metadata: PostMetadata): void {
   })
 }
 
-// Get a list of all Markdown files in the directory.
+// Get a list of all Markdown and MDX files in the directory.
 // If the directory can’t be read, we’ll return an empty array
 // and pretend we didn’t see anything. It’s like a magic trick!
 async function getMarkdownFiles(dir: string): Promise<string[]> {
   try {
     const files = await fs.readdir(dir)
-    return files.filter((file) => path.extname(file) === '.md')
+    return files.filter((file) =>
+      ['.md', '.mdx'].includes(path.extname(file)),
+    )
   } catch (error) {
     console.warn(
       `Warning: Unable to read directory '${dir}': ${(error as Error).message}`,
@@ -59,7 +60,7 @@ async function getMarkdownFiles(dir: string): Promise<string[]> {
   }
 }
 
-// Read a Markdown file and parse its content.
+// Read a Markdown or MDX file and parse its content.
 // If something goes wrong, we'll log the error and throw it—
 // because errors deserve to be noticed, unlike your last relationship.
 async function readMarkdownFile(
@@ -78,7 +79,7 @@ async function readMarkdownFile(
   }
 }
 
-// This is where we turn a bunch of Markdown files into posts—
+// This is where we turn a bunch of Markdown and MDX files into posts—
 // like turning water into wine, but with less divine intervention.
 async function getMarkdownData(
   dir: string,

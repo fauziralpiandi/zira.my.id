@@ -4,8 +4,19 @@ import { meta, formatDate } from 'app/utils/meta'
 import { getPosts } from 'app/utils/provider'
 import { site } from 'app/utils/constant'
 import { FaRegClock } from 'react-icons/fa'
-import Markdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
+import { Contents } from 'app/posts/[slug]/Markdown'
+import ViewCounter from 'app/posts/[slug]/ViewsCount'
+import { Suspense, cache } from 'react'
+import { increment } from 'app/db/actions'
+import { getViewsCount } from 'app/db/query'
+
+let incrementViews = cache(increment)
+
+async function Views({ slug }: { slug: string }) {
+  let views = await getViewsCount()
+  incrementViews(slug)
+  return <ViewCounter allViews={views} slug={slug} />
+}
 
 // Let's define the type for your post params. Because types are life.
 type PostParams = {
@@ -90,7 +101,7 @@ export default async function PostPage({
   }
 
   // Extract the reading time and more meta, who doesn't love stats?
-  const { readTime, words } = meta.getMeta(post.content)
+  const { readTime } = meta.getMeta(post.content)
 
   return (
     <section>
@@ -117,19 +128,19 @@ export default async function PostPage({
         }}
       />
       <div className="mb-32 animate-in">
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6">
           {/* Post metadata (title, description, etc.). */}
           <div className="flex flex-col max-w-2xl gap-4">
-            <h1 className="font-bold text-3xl leading-tight tracking-tight">
+            <h1 className="font-bold text-2xl leading-tight tracking-tight">
               {post.metadata.title} {/* Make it catchy! */}
             </h1>
             <p className="leading-snug text-neutral-400">
               {post.metadata.summary} {/* A teaser, if you will. */}
             </p>
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-row gap-1.5">
               <p className="flex items-center gap-1.5 text-neutral-300">
                 <FaRegClock className="inline" />
-                {readTime} &mdash; {words} words
+                {readTime} &mdash;
                 {/* Perfect for the curious reader. */}
               </p>
               <Suspense fallback={<p className="h-5" />}>
@@ -148,9 +159,6 @@ export default async function PostPage({
                   {formatDate(post.metadata.date)}{' '}
                   {/* And when did write it? */}
                 </span>
-                <Suspense fallback={<p className="h-5" />}>
-                  <Views slug={post.slug} />
-                </Suspense>
               </div>
             </div>
           </div>
@@ -172,23 +180,10 @@ export default async function PostPage({
 
         {/* Here's where the magic happens. */}
         <article className="prose">
-          <Markdown rehypePlugins={[rehypeRaw]}>{post.content}</Markdown>{' '}
+          <Contents source={post.content} />{' '}
           {/* Rendering the content with ReactMarkdown. */}
         </article>
       </div>
     </section>
   )
-}
-
-import ViewCounter from 'app/components/ViewsCount'
-import { Suspense, cache } from 'react'
-import { increment } from 'app/db/actions'
-import { getViewsCount } from 'app/db/query'
-
-let incrementViews = cache(increment)
-
-async function Views({ slug }: { slug: string }) {
-  let views = await getViewsCount()
-  incrementViews(slug)
-  return <ViewCounter allViews={views} slug={slug} />
 }

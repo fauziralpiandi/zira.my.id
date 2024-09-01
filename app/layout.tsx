@@ -6,7 +6,7 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { site } from 'app/utils/constant'
 
-import Cookie from 'app/components/Cookie'
+import Cookie from 'app/cookie/Manager'
 
 // Dynamically import Navbar and Footer for a smooth user experience
 // Because who doesn't love a little suspense, right?

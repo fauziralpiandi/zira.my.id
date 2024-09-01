@@ -1,5 +1,5 @@
 import { getPosts } from 'app/utils/provider'
-import { MyPosts, PostType } from 'app/components/Posts'
+import { MyPosts, PostType } from 'app/posts/Posts'
 
 /* Let's keep it concise but intriguing */
 const desc = 'featuring posts \u0026 some thoughts\u2014'
@@ -21,7 +21,7 @@ const PostPage = async () => {
       <div className="animate-in">
         <div className="mb-8">
           <p className="text-neutral-400">
-            {allPosts.length} posts &mdash; Stay tuned for more!
+            {allPosts.length} post &mdash; Stay tuned for more!
             {/* Because we’ve got more content coming, right? */}
           </p>
         </div>

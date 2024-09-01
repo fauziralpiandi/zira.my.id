@@ -6,6 +6,8 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { site } from 'app/utils/constant'
 
+import Cookie from 'app/cookie/Manager'
+
 // Dynamically import Navbar and Footer for a smooth user experience
 // Because who doesn't love a little suspense, right?
 const Navbar = dynamic(() => import('./components/Navigation'), {
@@ -65,7 +67,7 @@ export default function RootLayout({
         GeistMono.variable,
       )}
     >
-      <body className="relative width-full px-8 pt-8 md:pt-16 pb-10 md:pb-16 antialiased">
+      <body className="relative width-full px-7 pt-8 md:pt-16 pb-10 md:pb-16 antialiased">
         <main className="relative max-w-2xl mx-auto">
           {/* Suspense for Navbar - holding your breath until it loads! */}
           <Suspense fallback={<div>Loading...</div>}>
@@ -76,6 +78,7 @@ export default function RootLayout({
           <Suspense fallback={<div>Loading...</div>}>
             <Footer />
           </Suspense>
+          <Cookie />
         </main>
       </body>
     </html>

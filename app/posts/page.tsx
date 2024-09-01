@@ -1,16 +1,16 @@
 import { getPosts } from 'app/utils/provider'
-import { MyPosts, PostType } from 'app/components/Posts'
+import { MyPosts, PostType } from 'app/posts/Posts'
 
 /* Let's keep it concise but intriguing */
-const stuff = 'featuring posts \u0026 some thoughts\u2014'
+const desc = 'featuring posts \u0026 some thoughts\u2014'
 
 export const metadata = {
   title: 'Posts',
-  description: stuff,
+  description: desc,
 }
 
-export default async function PostsPage() {
-  /* What’s a without content? */
+const PostPage = async () => {
+  /* What’s a post without content? */
   const Posts = await getPosts()
 
   /* Only the good stuff survives */
@@ -20,11 +20,8 @@ export default async function PostsPage() {
     <section>
       <div className="animate-in">
         <div className="mb-8">
-          <h1 className="font-semibold text-2xl leading-tight tracking-tight mb-2">
-            {stuff} {/* Bringing that meta desc. into the spotlight */}
-          </h1>
           <p className="text-neutral-400">
-            {allPosts.length} posts &mdash; Stay tuned for more!
+            {allPosts.length} post &mdash; Stay tuned for more!
             {/* Because we’ve got more content coming, right? */}
           </p>
         </div>
@@ -33,3 +30,5 @@ export default async function PostsPage() {
     </section>
   )
 }
+
+export default PostPage

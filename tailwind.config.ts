@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 
 export default {
-  content: ['./app/**/*.{ts,tsx}', './posted/**/*.md'],
+  content: ['./app/**/*.{ts,tsx}', './posted/**/*.{html,md,mdx}'],
   theme: {
     screens: {
       'sm': '640px',
@@ -39,17 +39,20 @@ export default {
         DEFAULT: {
           css: {
             'h1': {
-              fontSize: '1.6rem',
+              fontSize: '1.35rem',
             },
             'h2': {
-              fontSize: '1.4rem',
+              fontSize: '1.25rem',
             },
             'h3': {
-              fontSize: '1.2rem',
+              fontSize: '1.15rem',
             },
             'p': {
               fontSize: '1rem',
               lineHeight: '1.75',
+            },
+            'code': {
+              color: 'inherit',
             },
             'code::before': {
               display: 'none',
@@ -68,12 +71,12 @@ export default {
       },
       keyframes: {
         'in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateY(-5px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'in-reverse': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          '0%': { opacity: '1', transform: 'translateY(0)' },
+          '100%': { opacity: '0', transform: 'translateY(-5px)' },
         },
       },
       animation: {
@@ -81,9 +84,6 @@ export default {
         'in-reverse': 'in-reverse 300ms both',
       },
     },
-  },
-  future: {
-    hoverOnlyWhenSupported: false,
   },
   plugins: [typography],
 } satisfies Config

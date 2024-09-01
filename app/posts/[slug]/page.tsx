@@ -4,8 +4,19 @@ import { meta, formatDate } from 'app/utils/meta'
 import { getPosts } from 'app/utils/provider'
 import { site } from 'app/utils/constant'
 import { FaRegClock } from 'react-icons/fa'
-import ReactMarkdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
+import { Contents } from 'app/posts/[slug]/Markdown'
+import ViewCounter from 'app/posts/[slug]/ViewsCount'
+import { Suspense, cache } from 'react'
+import { increment } from 'app/db/actions'
+import { getViewsCount } from 'app/db/query'
+
+let incrementViews = cache(increment)
+
+async function Views({ slug }: { slug: string }) {
+  let views = await getViewsCount()
+  incrementViews(slug)
+  return <ViewCounter allViews={views} slug={slug} />
+}
 
 // Let's define the type for your post params. Because types are life.
 type PostParams = {
@@ -32,7 +43,7 @@ export async function generateMetadata({
   // Step 3: Extract the juicy details from the post.
   let {
     title,
-    publishedAt: publishedTime,
+    date: publishedTime,
     summary: description,
     image,
   } = post.metadata
@@ -63,7 +74,7 @@ export async function generateMetadata({
 
 // This line is like giving your website a shot of espresso—
 // making sure it’s dynamic and ready to serve fresh content...
-export const revalidate = 3600 // every 1 hour, no matter the situation.
+export const revalidate = 3600 // every hour, no matter the situation.
 export const dynamicParams = true
 
 export async function generateStaticParams() {
@@ -74,7 +85,11 @@ export async function generateStaticParams() {
 }
 
 // The main event. This function handles displaying the post.
-export default async function PostPage({ params }: { params: PostParams }) {
+export default async function PostPage({
+  params,
+}: {
+  params: PostParams
+}) {
   // Fetch all the posts again. (Déjà vu, anyone?)
   let posts = await getPosts()
   // Try to find the post by its slug.
@@ -85,8 +100,8 @@ export default async function PostPage({ params }: { params: PostParams }) {
     notFound()
   }
 
-  // Extract the reading time and word count, who doesn't love stats?
-  const { readTime, words } = meta.getMeta(post.content)
+  // Extract the reading time and more meta, who doesn't love stats?
+  const { readTime } = meta.getMeta(post.content)
 
   return (
     <section>
@@ -103,7 +118,7 @@ export default async function PostPage({ params }: { params: PostParams }) {
               'name': post.metadata.author,
             },
             'headline': post.metadata.title,
-            'datePublished': post.metadata.publishedAt,
+            'datePublished': post.metadata.date,
             'description': post.metadata.summary,
             'image': post.metadata.image
               ? `${site.baseUrl}${post.metadata.image}`
@@ -113,20 +128,25 @@ export default async function PostPage({ params }: { params: PostParams }) {
         }}
       />
       <div className="mb-32 animate-in">
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6">
           {/* Post metadata (title, description, etc.). */}
           <div className="flex flex-col max-w-2xl gap-4">
-            <h1 className="font-bold text-3xl leading-tight tracking-tight">
+            <h1 className="font-bold text-2xl leading-tight tracking-tight">
               {post.metadata.title} {/* Make it catchy! */}
             </h1>
             <p className="leading-snug text-neutral-400">
               {post.metadata.summary} {/* A teaser, if you will. */}
             </p>
-            <p className="flex items-center gap-1.5 text-neutral-300">
-              <FaRegClock className="inline" />
-              {readTime} &mdash; {words} words{' '}
-              {/* Perfect for the curious reader. */}
-            </p>
+            <div className="flex flex-row gap-1.5">
+              <p className="flex items-center gap-1.5 text-neutral-300">
+                <FaRegClock className="inline" />
+                {readTime} &mdash;
+                {/* Perfect for the curious reader. */}
+              </p>
+              <Suspense fallback={<p className="h-5" />}>
+                <Views slug={post.slug} />
+              </Suspense>
+            </div>
           </div>
 
           {/* Credits matter. */}
@@ -134,10 +154,12 @@ export default async function PostPage({ params }: { params: PostParams }) {
             <div className="flex-col">
               <p className="font-medium">{post.metadata.author}</p>{' '}
               {/* Who wrote this brilliance? */}
-              <span className="text-neutral-400">
-                {formatDate(post.metadata.publishedAt)}{' '}
-                {/* And when did write it? */}
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="text-neutral-400">
+                  {formatDate(post.metadata.date)}{' '}
+                  {/* And when did write it? */}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -150,7 +172,7 @@ export default async function PostPage({ params }: { params: PostParams }) {
               alt={post.metadata.title}
               width={720}
               height={360}
-              className="-ml-7 w-[calc(100%+56px)] max-w-none md:rounded-lg lg:-ml-20 lg:w-[calc(100%+160px)] grayscale"
+              className="-ml-7 w-[calc(100%+56px)] max-w-none md:rounded-lg grayscale"
               priority
             />
           </div>
@@ -158,9 +180,7 @@ export default async function PostPage({ params }: { params: PostParams }) {
 
         {/* Here's where the magic happens. */}
         <article className="prose">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-            {post.content}
-          </ReactMarkdown>{' '}
+          <Contents source={post.content} />{' '}
           {/* Rendering the content with ReactMarkdown. */}
         </article>
       </div>

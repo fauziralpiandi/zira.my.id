@@ -27,17 +27,20 @@ const Popup = ({
   )
 }
 
-const Contact = () => {
+const useFeedbackForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   })
-  const [showPopup, setShowPopup] = useState(false)
+
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [showPopup, setShowPopup] = useState(false)
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
@@ -45,7 +48,7 @@ const Contact = () => {
     }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
 
@@ -82,6 +85,28 @@ const Contact = () => {
       setLoading(false)
     }
   }
+
+  return {
+    formData,
+    loading,
+    errorMessage,
+    showPopup,
+    handleChange,
+    handleSubmit,
+    setShowPopup,
+  }
+}
+
+const Contact = () => {
+  const {
+    formData,
+    loading,
+    errorMessage,
+    showPopup,
+    handleChange,
+    handleSubmit,
+    setShowPopup,
+  } = useFeedbackForm()
 
   return (
     <div className="mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 shadow-lg rounded-xl">

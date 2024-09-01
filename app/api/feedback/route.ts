@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { sql } from '@vercel/postgres'
 
-const REQUEST_LIMIT = 3
+const REQUEST_LIMIT = 2
 const TIME_WINDOW = 24 * 60 * 60 * 1000
 
 const requestCounts = new Map<

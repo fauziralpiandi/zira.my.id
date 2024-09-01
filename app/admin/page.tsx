@@ -9,7 +9,9 @@ export const metadata = {
 const PrivacyPolicy = () => {
   return (
     <section>
-      <Contact />
+      <div className="animate-in">
+        <Contact />
+      </div>
     </section>
   )
 }

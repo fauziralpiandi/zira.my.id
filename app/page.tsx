@@ -76,7 +76,7 @@ const Home: React.FC = () => {
           <KeyWord text="nothing&rsquo;s colored here" />
           &mdash; keep it simple, stupid!
         </TextBlock>
-        
+
         <div className="relative my-8">
           {/* Moon icon */}
           <div className="absolute inset-0 flex items-center justify-center z-10">

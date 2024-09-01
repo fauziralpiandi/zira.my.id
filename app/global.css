@@ -3,6 +3,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
+  }
+
+  50% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+  }
+
+  100% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.text-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
 /* Why not make things more stylish? */
 @layer utilities {
   .custom-border {
@@ -24,15 +52,10 @@
     --text-color: #eee;
     --selection-background: #eee;
     --selection-text: #111;
-    --sh-class: #EEABFB;
-    --sh-identifier: #BE69DE;
-    --sh-sign: #EEEEEE;
-    --sh-string: #F8810B;
-    --sh-keyword: #0080FF;
-    --sh-comment: #808080;
-    --sh-jsxliterals: #6266d1;
-    --sh-property: #B2D9FF;
-    --sh-entity: #CDFF84;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
@@ -46,12 +69,6 @@
     background-color: var(--selection-background);
     color: var(--selection-text);
   }
-
-  pre,
-  code {
-    color: var(--text-color);
-    /* Because we still need to read the code */
-  }
 }
 
 /* Make sure the content looks as good as it reads */
@@ -59,18 +76,23 @@
   p {
     @apply my-4 text-neutral-300;
     /* Because paragraphs need space too */
+    margin-top: 1rem;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-semibold leading-tight tracking-tight text-neutral-200 mt-12 mb-0;
+    @apply font-semibold leading-tight tracking-tight text-neutral-200 mt-12;
     /* Headlines with style and substance */
   }
 
   strong {
-    @apply text-white;
+    @apply font-medium text-neutral-100;
     /* Emphasis on the "strong" */
+  }
+
+  li {
+    @apply my-4 text-neutral-300;
   }
 
   ul {
@@ -112,7 +134,7 @@
   }
 
   pre code {
-    @apply border-none;
+    @apply p-0 border-none;
     /* No border for you! */
     line-height: 1.5;
     /* Breathe, code, breathe */
@@ -121,6 +143,11 @@
   a {
     @apply text-white underline decoration-neutral-500 underline-offset-2 decoration-[0.1em];
     /* Links that practically beg to be clicked, lmao */
+    transition: color 0.3s;
+
+    &:hover {
+      @apply text-neutral-400;
+    }
   }
 
   .anchor {

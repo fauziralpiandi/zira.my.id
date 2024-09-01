@@ -6,7 +6,7 @@ import { getPosts } from 'app/utils/provider'
 export interface PostType {
   slug: string // The magic string that leads to the hidden treasures.
   metadata: {
-    publishedAt: string // The glorious day this post entered the world.
+    date: string // The glorious day this post entered the world.
     title: string // The attention-grabbing headline that shouts, "Read me!"
     isFeatured?: boolean // Optional VIP pass for the cool kids' club.
   }
@@ -44,8 +44,8 @@ export async function MyPosts({ recent, featured = false }: PostsProps) {
     .filter((post) => !featured || post.metadata.isFeatured) // Only let the "chosen ones" through if featured is true.
     .sort(
       (a, b) =>
-        new Date(b.metadata.publishedAt).getTime() -
-        new Date(a.metadata.publishedAt).getTime(), // Freshness matters! New posts first, please.
+        new Date(b.metadata.date).getTime() -
+        new Date(a.metadata.date).getTime(), // Freshness matters! New posts first, please.
     )
     .slice(0, recent) // Just the right amount of posts—because less is more, right?
 
@@ -59,7 +59,7 @@ export async function MyPosts({ recent, featured = false }: PostsProps) {
         >
           <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
             <p className="text-neutral-400 tabular-nums">
-              {formatDate(post.metadata.publishedAt, 'absolute')}{' '}
+              {formatDate(post.metadata.date, 'absolute')}{' '}
               {/* Date when this gem was released into the wild. */}
             </p>
             <p className="font-medium text-neutral-200 leading-snug">

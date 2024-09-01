@@ -147,7 +147,7 @@ const PrivacyPolicy = () => {
           <p>
             If you have any questions or comments about this privacy
             policy, please reach me through the available{' '}
-            <Link href="/contact">contact</Link> form.
+            <Link href="/admin">contact</Link> form.
           </p>
           <p>Thank you.</p>
         </div>

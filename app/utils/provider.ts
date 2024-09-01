@@ -6,10 +6,10 @@ import matter from 'gray-matter' // Because why do things manually when you have
 // Because even a post needs a little bit of style!
 type PostMetadata = {
   title: string
-  summary?: string
   date: string
-  author: string
-  image?: string // Optional "?"
+  summary?: string
+  author?: string
+  image?: string
 }
 
 // Extract the frontmatter from the Markdown file content.
@@ -28,11 +28,7 @@ function parseFrontmatter(fileContent: string): {
 // Ensure all the required metadata fields are present.
 // Missing one? That's like going to a party without snacks!
 function validateMetadata(metadata: PostMetadata): void {
-  const requiredFields: (keyof PostMetadata)[] = [
-    'title',
-    'date',
-    'author',
-  ]
+  const requiredFields: (keyof PostMetadata)[] = ['title', 'date']
 
   requiredFields.forEach((field) => {
     if (!(field in metadata)) {

@@ -70,8 +70,6 @@
   body {
     background-color: var(--background-color);
     color: var(--text-color);
-    transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
-    /* Smooth as your skin */
   }
 
   ::selection {
@@ -150,7 +148,7 @@
   }
 
   a {
-    @apply text-white underline decoration-neutral-500 underline-offset-2 decoration-[0.1em];
+    @apply text-neutral-50 underline decoration-neutral-500 underline-offset-2 decoration-[0.1em];
     /* Links that practically beg to be clicked, lmao */
     transition: color 0.3s;
 

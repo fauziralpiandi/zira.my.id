@@ -3,6 +3,11 @@
 import { sql } from './postgres'
 import { unstable_noStore as noStore } from 'next/cache'
 
+interface ViewCount {
+  slug: string
+  count: number
+}
+
 export async function getBlogViews(): Promise<number> {
   if (!process.env.POSTGRES_URL) {
     throw new Error('Postgres URL is not defined')
@@ -11,8 +16,7 @@ export async function getBlogViews(): Promise<number> {
   noStore()
   try {
     const views: { count: number }[] = await sql`
-      SELECT count
-      FROM views
+      SELECT count FROM views
     `
 
     return views.reduce((acc, curr) => acc + curr.count, 0)
@@ -22,18 +26,15 @@ export async function getBlogViews(): Promise<number> {
   }
 }
 
-export async function getViewsCount(): Promise<
-  { slug: string; count: number }[]
-> {
+export async function getViewsCount(): Promise<ViewCount[]> {
   if (!process.env.POSTGRES_URL) {
     throw new Error('Postgres URL is not defined')
   }
 
   noStore()
   try {
-    const viewCounts: { slug: string; count: number }[] = await sql`
-      SELECT slug, count
-      FROM views
+    const viewCounts: ViewCount[] = await sql`
+      SELECT slug, count FROM views
     `
     return viewCounts
   } catch (error) {

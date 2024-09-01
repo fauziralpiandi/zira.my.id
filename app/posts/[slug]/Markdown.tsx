@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { highlight } from 'sugar-high'
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 
@@ -13,19 +12,23 @@ type TableProps = {
 
 function Table({ data }: TableProps) {
   const headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
+    <th key={index} className="table-header">
+      {header}
+    </th>
   ))
 
   const rows = data.rows.map((row, index) => (
     <tr key={index}>
       {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
+        <td key={cellIndex} className="table-cell">
+          {cell}
+        </td>
       ))}
     </tr>
   ))
 
   return (
-    <table>
+    <table aria-label="Data Table" className="table">
       <thead>
         <tr>{headers}</tr>
       </thead>
@@ -36,15 +39,19 @@ function Table({ data }: TableProps) {
 
 const CustomLink = React.forwardRef<
   HTMLAnchorElement,
-  { href: string; children: React.ReactNode }
+  {
+    href: string
+    children: React.ReactNode
+  } & React.AnchorHTMLAttributes<HTMLAnchorElement>
 >(({ href, children, ...rest }, ref) => {
   let isExternalLink = false
+
   try {
     isExternalLink =
       new URL(href, window.location.origin).origin !==
       window.location.origin
   } catch (error) {
-    isExternalLink = false
+    isExternalLink = true
   }
 
   const isInternalLink = href.startsWith('/')
@@ -52,9 +59,11 @@ const CustomLink = React.forwardRef<
   const isMailtoLink = href.startsWith('mailto:')
   const isTelLink = href.startsWith('tel:')
 
+  const commonProps = { ref, ...rest }
+
   if (isInternalLink) {
     return (
-      <Link href={href} ref={ref} {...rest}>
+      <Link href={href} {...commonProps}>
         {children}
       </Link>
     )
@@ -62,7 +71,7 @@ const CustomLink = React.forwardRef<
 
   if (isAnchorLink || isMailtoLink || isTelLink) {
     return (
-      <a href={href} ref={ref} {...rest}>
+      <a href={href} {...commonProps}>
         {children}
       </a>
     )
@@ -74,8 +83,7 @@ const CustomLink = React.forwardRef<
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        ref={ref}
-        {...rest}
+        {...commonProps}
       >
         {children}
       </a>
@@ -83,7 +91,7 @@ const CustomLink = React.forwardRef<
   }
 
   return (
-    <a href={href} ref={ref} {...rest} className="animate-pulse">
+    <a href={href} {...commonProps}>
       {children}
     </a>
   )
@@ -92,15 +100,6 @@ const CustomLink = React.forwardRef<
 CustomLink.displayName = 'CustomLink'
 
 export default CustomLink
-
-interface RoundedImageProps extends React.ComponentProps<typeof Image> {
-  alt: string
-  src: string
-}
-
-function RoundedImage({ alt, src, ...props }: RoundedImageProps) {
-  return <Image alt={alt} className="rounded-lg" src={src} {...props} />
-}
 
 interface CodeProps extends React.HTMLProps<HTMLElement> {
   children: string
@@ -115,27 +114,20 @@ function slugify(str: string) {
   return str
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')
-    .replace(/&/g, '-and-')
+    .replace(/[\s&]+/g, '-')
     .replace(/[^\w-]+/g, '')
     .replace(/--+/g, '-')
 }
 
 function createHeading(level: number) {
   const Heading = ({ children }: { children: React.ReactNode }) => {
-    let slug = children !== undefined ? slugify(String(children)) : ''
-    return React.createElement(
-      `h${level}`,
-      { id: slug },
-      [
-        React.createElement('a', {
-          href: `#${slug}`,
-          key: `link-${slug}`,
-          className: 'anchor',
-        }),
-      ],
+    const slug = children ? slugify(String(children)) : ''
+    return React.createElement(`h${level}`, { id: slug }, [
+      <a key={`link-${slug}`} href={`#${slug}`} className="anchor">
+        #
+      </a>,
       children,
-    )
+    ])
   }
 
   Heading.displayName = `Heading${level}`
@@ -143,26 +135,20 @@ function createHeading(level: number) {
   return Heading
 }
 
+function generateHeadingComponents() {
+  const components: ComponentsType = {}
+  for (let i = 1; i <= 6; i++) {
+    components[`h${i}`] = createHeading(i)
+  }
+  return components
+}
+
 type ComponentsType = {
   [key: string]: React.ComponentType<any>
 }
 
-function generateHeadingComponents() {
-  const components: Record<
-    string,
-    React.FC<{ children: React.ReactNode }>
-  > = {}
-
-  for (let i = 1; i <= 6; i++) {
-    components[`h${i}`] = createHeading(i)
-  }
-
-  return components
-}
-
 const components: ComponentsType = {
   ...generateHeadingComponents(),
-  Image: RoundedImage,
   a: CustomLink,
   code: Code,
   Table,

@@ -4,10 +4,14 @@ import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { AiOutlineCheck, AiOutlineInfoCircle } from 'react-icons/ai'
 
+type CookieTypes = {
+  acceptedCookies?: string
+}
+
 export const useCookieManager = () => {
   const [cookies, setCookie, removeCookie] = useCookies([
     'acceptedCookies',
-  ])
+  ] as const)
   const [showBanner, setShowBanner] = useState(false)
   const [bannerVisible, setBannerVisible] = useState(true)
   const [showMessage, setShowMessage] = useState(false)
@@ -104,6 +108,18 @@ export const useCookieManager = () => {
     setTimeout(() => setShowMessage(false), 5000)
   }
 
+  const readCookie = (name: keyof CookieTypes) => {
+    return cookies[name] || null
+  }
+
+  const hasAcceptedCookies = () => {
+    return cookies.acceptedCookies === 'true'
+  }
+
+  const hasRevokedCookies = () => {
+    return localStorage.getItem('revokedCookies') === 'true'
+  }
+
   return {
     showBanner,
     bannerVisible,
@@ -111,5 +127,8 @@ export const useCookieManager = () => {
     messageVisible,
     messageData,
     handleCookies,
+    readCookie,
+    hasAcceptedCookies,
+    hasRevokedCookies,
   }
 }

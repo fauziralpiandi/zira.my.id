@@ -121,13 +121,19 @@ function slugify(str: string) {
 
 function createHeading(level: number) {
   const Heading = ({ children }: { children: React.ReactNode }) => {
-    const slug = children ? slugify(String(children)) : ''
-    return React.createElement(`h${level}`, { id: slug }, [
-      <a key={`link-${slug}`} href={`#${slug}`} className="anchor">
-        #
-      </a>,
+    let slug = children !== undefined ? slugify(String(children)) : ''
+    return React.createElement(
+      `h${level}`,
+      { id: slug },
+      [
+        React.createElement('a', {
+          href: `#${slug}`,
+          key: `link-${slug}`,
+          className: 'anchor',
+        }),
+      ],
       children,
-    ])
+    )
   }
 
   Heading.displayName = `Heading${level}`

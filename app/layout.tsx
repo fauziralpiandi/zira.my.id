@@ -8,8 +8,6 @@ import { site } from 'app/utils/constant'
 
 import Cookie from 'app/cookie/Manager'
 
-// Dynamically import Navbar and Footer for a smooth user experience
-// Because who doesn't love a little suspense, right?
 const Navbar = dynamic(() => import('./components/Navigation'), {
   suspense: true,
 })
@@ -17,7 +15,6 @@ const Footer = dynamic(() => import('./components/Footer'), {
   suspense: true,
 })
 
-// Metadata configuration for the site
 export const metadata: Metadata = {
   metadataBase: new URL(site.baseUrl),
   title: {
@@ -52,7 +49,6 @@ export const metadata: Metadata = {
 // Helper function to combine class names like a pro
 const cx = (...classes: string[]) => classes.filter(Boolean).join(' ')
 
-// Root layout component, where the magic happens
 export default function RootLayout({
   children,
 }: {
@@ -69,12 +65,12 @@ export default function RootLayout({
     >
       <body className="relative width-full px-7 pt-8 md:pt-16 pb-10 md:pb-16 antialiased">
         <main className="relative max-w-2xl mx-auto">
-          {/* Suspense for Navbar - holding your breath until it loads! */}
+          {/* Holding your breath until it loads! */}
           <Suspense fallback={<div>Loading...</div>}>
             <Navbar />
           </Suspense>
           {children}
-          {/* Suspense for Footer - because we all need a solid ending */}
+          {/* Because we all need a solid ending */}
           <Suspense fallback={<div>Loading...</div>}>
             <Footer />
           </Suspense>

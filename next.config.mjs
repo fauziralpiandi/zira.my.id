@@ -45,6 +45,9 @@ const cspHeader = `
 `.replace(/\n/g, '')
 
 const nextConfig = {
+  experimental: {
+    cssChunking: 'loose',
+  },
   async headers() {
     return [
       {

@@ -6,7 +6,6 @@ import one from 'public/imgs/one.webp'
 import two from 'public/imgs/two.webp'
 import three from 'public/imgs/three.webp'
 
-// TextBlock component for rendering styled text paragraphs
 const TextBlock: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
@@ -15,14 +14,12 @@ const TextBlock: React.FC<{ children: React.ReactNode }> = ({
   </div>
 )
 
-// Props interface for ImageComponent
 interface ImageComponentProps {
   alt: string
   src: string | StaticImageData
   className?: string
 }
 
-// ImageComponent displays an image with a caption and hover effects
 const ImageComponent: React.FC<ImageComponentProps> = React.memo(
   ({ alt, src, className = '' }) => (
     <div
@@ -42,12 +39,10 @@ const ImageComponent: React.FC<ImageComponentProps> = React.memo(
 
 ImageComponent.displayName = 'ImageComponent'
 
-// KeyWord, rendering text with drop shadow effect
 const KeyWord: React.FC<{ text: string }> = ({ text }) => (
   <span style={{ filter: 'drop-shadow(0 0 5px white)' }}>{text}</span>
 )
 
-// Home component representing the main content of the page
 const Home: React.FC = () => {
   const images = [
     { alt: 'Moon', src: one.src },
@@ -65,7 +60,7 @@ const Home: React.FC = () => {
         <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
           hey, Zira here!{' '}
           <BsStars
-            className="inline animate-pulse"
+            className="inline"
             style={{ filter: 'drop-shadow(0 0 5px white)' }}
           />
         </h1>
@@ -78,14 +73,14 @@ const Home: React.FC = () => {
         </TextBlock>
 
         <div className="relative my-8">
-          {/* Moon icon */}
+          {/* Central moon icon with pulse animation */}
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <BiMoon
               className="text-white text-8xl animate-pulse"
               style={{ filter: 'drop-shadow(0 0 7.5px white)' }}
             />
           </div>
-          {/* Grid Images */}
+          {/* Grid of images in grayscale */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {images.map(({ alt, src, className }) => (
               <ImageComponent

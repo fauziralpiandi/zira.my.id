@@ -58,9 +58,9 @@ const Home: React.FC = () => {
     <section>
       <div className="animate-in mb-20">
         <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-          hey, Zira here!{' '}
+          <KeyWord text="hey, Zira here!" />{' '}
           <BsStars
-            className="inline"
+            className="inline animate-pulse"
             style={{ filter: 'drop-shadow(0 0 5px white)' }}
           />
         </h1>
@@ -73,14 +73,12 @@ const Home: React.FC = () => {
         </TextBlock>
 
         <div className="relative my-8">
-          {/* Central moon icon with pulse animation */}
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <BiMoon
               className="text-white text-8xl animate-pulse"
               style={{ filter: 'drop-shadow(0 0 7.5px white)' }}
             />
           </div>
-          {/* Grid of images in grayscale */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {images.map(({ alt, src, className }) => (
               <ImageComponent
@@ -102,13 +100,15 @@ const Home: React.FC = () => {
         </TextBlock>
 
         <TextBlock>
-          Hundreds of notes might be overkill to show just how quiet I can
-          be; here I am!{' '}
+          <KeyWord text="Hundreds" /> of notes might be overkill to show
+          just how quiet I can be; here I am!{' '}
           <KeyWord text="Beauty&mdash; lies in restraint." />
         </TextBlock>
 
         <div className="mt-8 font-medium">
-          <TextBlock>Yes! Embrace the laid–back vibe.</TextBlock>
+          <TextBlock>
+            Yes! <KeyWord text="Embrace the laid&ndash;back vibe" />.
+          </TextBlock>
         </div>
       </div>
     </section>

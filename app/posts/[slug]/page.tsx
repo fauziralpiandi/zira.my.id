@@ -75,7 +75,7 @@ export default async function PostPage({
   const { readTime } = meta.getMeta(post.content)
 
   return (
-    <section className="max-w-4xl mx-auto animate-in">
+    <section className="max-w-2xl mx-auto animate-in">
       <MetaTags
         title={post.metadata.title}
         description={post.metadata.summary || ''}

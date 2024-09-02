@@ -81,7 +81,7 @@
 
     pre,
     code {
-      @apply custom-bg custom-border rounded-lg;
+      @apply custom-bg custom-border rounded-md;
     }
 
     pre {
@@ -100,7 +100,7 @@
     }
 
     code {
-      @apply py-1 px-1.5;
+      @apply py-0.5 px-1;
 
       span {
         @apply font-medium;

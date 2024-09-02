@@ -10,7 +10,7 @@ type PostBodyProps = {
 
 const PostBody = ({ image, title, content }: PostBodyProps) => {
   return (
-    <article className="prose">
+    <div>
       {image && (
         <div className="my-8">
           <Image
@@ -18,13 +18,15 @@ const PostBody = ({ image, title, content }: PostBodyProps) => {
             alt={title}
             width={720}
             height={360}
-            className="w-full h-auto rounded-lg grayscale"
+            className="-ml-7 w-[calc(100%+56px)] max-w-none md:rounded-lg grayscale"
             priority
           />
         </div>
       )}
-      <Contents source={content} />
-    </article>
+      <article className="prose max-w-2xl">
+        <Contents source={content} />
+      </article>
+    </div>
   )
 }
 

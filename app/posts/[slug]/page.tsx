@@ -7,7 +7,7 @@ import Body from './components/Body'
 import Author from './components/Author'
 import Views from './components/Views'
 import { Suspense } from 'react'
-import { FaSpinner } from 'react-icons/fa'
+import { ImSpinner } from 'react-icons/im'
 
 type PostParams = {
   slug: string
@@ -75,7 +75,7 @@ export default async function PostPage({
   const { readTime } = meta.getMeta(post.content)
 
   return (
-    <section className="max-w-2xl mx-auto animate-in">
+    <section className="animate-in">
       <MetaTags
         title={post.metadata.title}
         description={post.metadata.summary || ''}
@@ -84,14 +84,11 @@ export default async function PostPage({
         slug={post.slug}
       />
 
-      <div className="flex items-center mb-4 gap-2">
-        <p className="font-medium text-sm text-neutral-300">
-          Member-only story
-        </p>
+      <div className="flex items-center mb-4">
         <Suspense
           fallback={
             <span className="text-sm text-neutral-500">
-              <FaSpinner className="inline animate-spin" />
+              <ImSpinner className="inline animate-spin" />
             </span>
           }
         >

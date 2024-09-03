@@ -64,7 +64,7 @@ export default function RootLayout({
       )}
     >
       <body className="relative width-full px-7 pt-8 md:pt-16 pb-10 md:pb-16 antialiased">
-        <main className="relative max-w-2xl mx-auto">
+        <main className="relative max-w-xl mx-auto">
           {/* Holding your breath until it loads! */}
           <Suspense fallback={<div>Loading...</div>}>
             <Navbar />

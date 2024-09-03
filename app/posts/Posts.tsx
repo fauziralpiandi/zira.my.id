@@ -16,10 +16,15 @@ export interface PostsProps {
   featured?: boolean
 }
 
-export async function MyPosts({ recent, featured = false }: PostsProps) {
+const DEFAULT_RECENT = 1
+
+export async function MyPosts({
+  recent = DEFAULT_RECENT,
+  featured = false,
+}: PostsProps) {
   let allPosts: PostType[] = []
   try {
-    // The digital equivalent of fishing.
+    // Fetch all posts
     allPosts = (await getPosts()).filter(Boolean) as PostType[]
   } catch (error) {
     console.error('Failed to fetch posts—', error)
@@ -36,9 +41,9 @@ export async function MyPosts({ recent, featured = false }: PostsProps) {
     )
   }
 
-  // Filtering, sorting, and slicing—because we love making decisions for our users.
+  // Filtering, sorting, and slicing
   const filteredPosts = allPosts
-    .filter((post) => !featured || post.metadata.isFeatured) // Only let the "chosen ones" through if featured is true.
+    .filter((post) => !featured || post.metadata.isFeatured) // Only let the "chosen ones"
     .sort(
       (a, b) =>
         new Date(b.metadata.date).getTime() -
@@ -53,13 +58,14 @@ export async function MyPosts({ recent, featured = false }: PostsProps) {
           key={post.slug}
           className="flex flex-col my-4 space-y-2"
           href={`/posts/${post.slug}`}
+          aria-label={`Read more about ${post.metadata.title}`} // Accessibility improvement
         >
-          <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
+          <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-4">
             <p className="text-neutral-400 tabular-nums">
-              {formatDate(post.metadata.date, 'absolute')}{' '}
+              {formatDate(post.metadata.date, 'absolute')}
             </p>
             <p className="font-medium text-neutral-200 leading-snug">
-              {post.metadata.title}{' '}
+              {post.metadata.title}
             </p>
           </div>
         </Link>

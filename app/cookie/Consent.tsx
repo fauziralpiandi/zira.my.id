@@ -8,10 +8,11 @@ type CookieTypes = {
   acceptedCookies?: string
 }
 
+const COOKIE_NAME = 'acceptedCookies'
+const REVOKED_COOKIE_NAME = 'revokedCookies'
+
 export const useCookieManager = () => {
-  const [cookies, setCookie, removeCookie] = useCookies([
-    'acceptedCookies',
-  ] as const)
+  const [cookies, setCookie, removeCookie] = useCookies([COOKIE_NAME])
   const [showBanner, setShowBanner] = useState(false)
   const [bannerVisible, setBannerVisible] = useState(true)
   const [showMessage, setShowMessage] = useState(false)
@@ -24,13 +25,13 @@ export const useCookieManager = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const cookieConsent = localStorage.getItem('acceptedCookies')
-      const cookieRevoked = localStorage.getItem('revokedCookies')
+      const cookieConsent = localStorage.getItem(COOKIE_NAME)
+      const cookieRevoked = localStorage.getItem(REVOKED_COOKIE_NAME)
 
-      if (!cookieConsent && !cookieRevoked && !cookies.acceptedCookies) {
+      if (!cookieConsent && !cookieRevoked && !cookies[COOKIE_NAME]) {
         setShowBanner(true)
-      } else if (cookies.acceptedCookies) {
-        localStorage.setItem('acceptedCookies', 'true')
+      } else if (cookies[COOKIE_NAME]) {
+        localStorage.setItem(COOKIE_NAME, 'true')
       } else if (cookieRevoked) {
         setShowBanner(false)
       }
@@ -58,36 +59,36 @@ export const useCookieManager = () => {
       ? {
           title: 'Cookies Accepted',
           message:
-            'Thank you! Cookies help enhance your experience by providing personalized content and ads.',
+            'Thank you! Cookies help enhance your experience by providing personalized contents.',
           icon: <AiOutlineCheck className="mr-2" />,
-          action: () => acceptCookies(),
+          action: acceptCookies,
         }
       : {
           title: 'Cookies Revoked',
           message:
-            'Your cookie preferences have been updated. We respect your choice.',
+            'Your cookie preferences have been updated. Respect your choice.',
           icon: <AiOutlineInfoCircle className="mr-2" />,
-          action: () => revokeCookies(),
+          action: revokeCookies,
         }
   }
 
   const acceptCookies = () => {
-    setCookie('acceptedCookies', 'true', {
+    setCookie(COOKIE_NAME, 'true', {
       path: '/',
-      maxAge: 2592000,
+      maxAge: 2592000, // 30 days
       sameSite: 'lax',
     })
     if (typeof window !== 'undefined') {
-      localStorage.setItem('acceptedCookies', 'true')
-      localStorage.removeItem('revokedCookies')
+      localStorage.setItem(COOKIE_NAME, 'true')
+      localStorage.removeItem(REVOKED_COOKIE_NAME)
     }
   }
 
   const revokeCookies = () => {
-    removeCookie('acceptedCookies', { path: '/' })
+    removeCookie(COOKIE_NAME, { path: '/' })
     if (typeof window !== 'undefined') {
-      localStorage.setItem('revokedCookies', 'true')
-      localStorage.removeItem('acceptedCookies')
+      localStorage.setItem(REVOKED_COOKIE_NAME, 'true')
+      localStorage.removeItem(COOKIE_NAME)
     }
   }
 
@@ -108,17 +109,12 @@ export const useCookieManager = () => {
     setTimeout(() => setShowMessage(false), 5000)
   }
 
-  const readCookie = (name: keyof CookieTypes) => {
-    return cookies[name] || null
-  }
+  const readCookie = (name: keyof CookieTypes) => cookies[name] || null
 
-  const hasAcceptedCookies = () => {
-    return cookies.acceptedCookies === 'true'
-  }
+  const hasAcceptedCookies = () => cookies[COOKIE_NAME] === 'true'
 
-  const hasRevokedCookies = () => {
-    return localStorage.getItem('revokedCookies') === 'true'
-  }
+  const hasRevokedCookies = () =>
+    localStorage.getItem(REVOKED_COOKIE_NAME) === 'true'
 
   return {
     showBanner,

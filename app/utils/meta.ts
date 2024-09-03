@@ -1,10 +1,11 @@
 import { site } from 'app/utils/constant'
 import markdownIt from 'markdown-it'
 
+const markdownParser = markdownIt()
+
 export const meta = {
   getMeta: (text: string) => {
-    const filter = markdownIt()
-    const textPlain = filter
+    const textPlain = markdownParser
       .render(text)
       .replace(/<[^>]*>/g, '')
       .trim()
@@ -14,6 +15,7 @@ export const meta = {
     const numberOfSentences = textPlain
       .split(/[.!?]+/)
       .filter(Boolean).length
+
     const wordsPerMin = 200
     const readTimeInMinutes = Math.ceil(numberOfWords / wordsPerMin)
     const readTime = `${readTimeInMinutes} ${readTimeInMinutes === 1 ? 'min' : 'mins'}`

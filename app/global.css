@@ -145,6 +145,10 @@
 
 /* Let's add some style because why not? */
 @layer utilities {
+  .glow {
+    filter: drop-shadow(0 0 5px white);
+  }
+
   .custom-border {
     @apply border border-neutral-800;
   }

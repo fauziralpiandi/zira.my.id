@@ -1,7 +1,7 @@
 import React from 'react'
 import Image, { StaticImageData } from 'next/image'
 import { BsStars } from 'react-icons/bs'
-import { BiMoon } from 'react-icons/bi'
+import { PiSignature } from 'react-icons/pi'
 import one from 'public/imgs/one.webp'
 import two from 'public/imgs/two.webp'
 import three from 'public/imgs/three.webp'
@@ -23,13 +23,13 @@ interface ImageComponentProps {
 const ImageComponent: React.FC<ImageComponentProps> = React.memo(
   ({ alt, src, className = '' }) => (
     <div
-      className={`relative h-30 md:h-60 overflow-hidden rounded-lg grayscale ${className}`}
+      className={`relative h-30 md:h-40 overflow-hidden rounded-lg md:rounded-xl grayscale ${className}`}
     >
       <Image
         fill
         alt={alt}
         src={src}
-        className="object-cover blur-sm opacity-75"
+        className="object-cover opacity-75"
         sizes="(max-width: 768px) 213px, 33vw"
         priority
       />
@@ -40,17 +40,13 @@ const ImageComponent: React.FC<ImageComponentProps> = React.memo(
 ImageComponent.displayName = 'ImageComponent'
 
 const KeyWord: React.FC<{ text: string }> = ({ text }) => (
-  <span style={{ filter: 'drop-shadow(0 0 5px white)' }}>{text}</span>
+  <span className="glow">{text}</span>
 )
 
 const Home: React.FC = () => {
   const images = [
-    { alt: 'Moon', src: one.src },
-    {
-      alt: 'Moon',
-      src: two.src,
-      className: 'row-span-2 h-60',
-    },
+    { alt: 'Moon', src: one.src, className: 'row-span-2 h-40' },
+    { alt: 'Moon', src: two.src },
     { alt: 'Moon', src: three.src },
   ]
 
@@ -58,11 +54,8 @@ const Home: React.FC = () => {
     <section>
       <div className="animate-in mb-20">
         <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-          <KeyWord text="hey, Zira here!" />{' '}
-          <BsStars
-            className="inline animate-pulse"
-            style={{ filter: 'drop-shadow(0 0 5px white)' }}
-          />
+          <KeyWord text="hey, Zira here!" />
+          <BsStars className="inline animate-pulse glow" />
         </h1>
 
         <TextBlock>
@@ -72,14 +65,11 @@ const Home: React.FC = () => {
           &mdash; keep it simple, stupid!
         </TextBlock>
 
-        <div className="relative my-8">
+        <div className="relative px-12 py-8">
           <div className="absolute inset-0 flex items-center justify-center z-10">
-            <BiMoon
-              className="text-white text-8xl animate-pulse"
-              style={{ filter: 'drop-shadow(0 0 7.5px white)' }}
-            />
+            <PiSignature className="text-white text-8xl glow" />
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1.5">
             {images.map(({ alt, src, className }) => (
               <ImageComponent
                 key={alt}

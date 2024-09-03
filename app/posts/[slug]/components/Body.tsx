@@ -1,4 +1,3 @@
-// app/posts/[slug]/components/PostBody.tsx
 import Image from 'next/image'
 import { Contents } from 'app/posts/[slug]/components/Content'
 
@@ -23,7 +22,7 @@ const PostBody = ({ image, title, content }: PostBodyProps) => {
           />
         </div>
       )}
-      <article className="prose max-w-2xl">
+      <article className="prose">
         <Contents source={content} />
       </article>
     </div>

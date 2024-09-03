@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { sql } from '@vercel/postgres'
 
 const REQUEST_LIMIT = parseInt(process.env.REQUEST_LIMIT || '2', 10)
-const TIME_WINDOW = parseInt(process.env.TIME_WINDOW || '86400000', 10) // 86400000 ms = 24 hours (Thanks, Google)
+const TIME_WINDOW = parseInt(process.env.TIME_WINDOW || '86400000', 10) // 86400000 ms = 24 hours
 
 const requestCounts = new Map<
   string,
@@ -33,7 +33,6 @@ const rateLimit = (ip: string): boolean => {
     firstRequestTime: currentTime,
   }
 
-  // If they’ve submitted before the TIME_WINDOW expires, increment the count. If not, reset. Simple, right?
   if (currentTime - requestData.firstRequestTime < TIME_WINDOW) {
     requestData.count += 1
   } else {
@@ -43,16 +42,17 @@ const rateLimit = (ip: string): boolean => {
 
   requestCounts.set(ip, requestData)
 
-  // If they've surpassed the REQUEST_LIMIT, we throw a fit.
+  // Throw a fit
   return requestData.count > REQUEST_LIMIT
 }
 
 export async function POST(request: Request) {
-  const ip =
-    request.headers.get('x-forwarded-for') ||
+  const ip = (
+    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
     request.headers.get('x-real-ip') ||
     request.headers.get('cf-connecting-ip') ||
-    'unknown' // Just in case we can't figure out who they are... Surprise!
+    'unknown'
+  ).toString() // Just in case we can't figure out who they are... Surprise!
 
   if (rateLimit(ip)) {
     return NextResponse.json(
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
       { status: 201 },
     )
   } catch (error) {
-    console.error('Server error:', error)
+    console.error('Server error:', (error as Error).message)
     return NextResponse.json(
       { message: 'An unexpected error occurred. Please try again later.' }, // Classic “Oops!” moment.
       { status: 500 },

@@ -73,12 +73,29 @@ async function getMarkdownData(
   const markdownFiles = await getMarkdownFiles(dir)
   return Promise.all(
     markdownFiles.map(async (file) => {
-      const { metadata, content } = await readMarkdownFile(
-        path.join(dir, file),
-      )
-      const slug = path.basename(file, path.extname(file))
-      return { metadata, slug, content }
+      try {
+        const { metadata, content } = await readMarkdownFile(
+          path.join(dir, file),
+        )
+        const slug = path.basename(file, path.extname(file))
+        return { metadata, slug, content }
+      } catch (error) {
+        console.error(
+          'Error processing file:',
+          file,
+          (error as Error).message,
+        )
+        // Optionally handle errors for specific files and continue processing others
+        return null
+      }
     }),
+  ).then(
+    (results) =>
+      results.filter((result) => result !== null) as Array<{
+        metadata: PostMetadata
+        slug: string
+        content: string
+      }>,
   )
 }
 

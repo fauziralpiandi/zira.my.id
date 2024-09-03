@@ -5,6 +5,15 @@ import Link from 'next/link'
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
 import { useCookieManager } from './Consent'
 
+const bannerBaseClasses =
+  'banner fixed bottom-4 left-1/2 transform -translate-x-1/2 p-6 w-11/12 max-w-xl text-neutral-50 bg-black bg-opacity-50 border border-gray-500 rounded-lg shadow-lg backdrop-filter backdrop-blur-md transition-all duration-500'
+const buttonBaseClasses =
+  'flex items-center px-4 py-2 font-medium text-sm rounded-full transition-colors duration-200'
+const buttonAcceptClasses =
+  'bg-neutral-100 border border-neutral-500 text-neutral-900 hover:bg-neutral-400'
+const buttonRevokeClasses =
+  'border border-neutral-500 text-white hover:bg-neutral-700'
+
 const CookieManager = () => {
   const {
     showBanner,
@@ -21,40 +30,36 @@ const CookieManager = () => {
         <div
           role="dialog"
           aria-label="Cookie Consent Banner"
-          className={clsx(
-            'banner fixed bottom-4 left-1/2 transform -translate-x-1/2 p-6 w-11/12 max-w-xl text-neutral-50 border border-gray-500 rounded-lg shadow-lg backdrop-filter backdrop-blur-md transition-all duration-500',
-            {
-              'translate-y-0 opacity-100': bannerVisible,
-              'translate-y-full opacity-0 banner-hide': !bannerVisible,
-            },
-          )}
+          className={clsx(bannerBaseClasses, {
+            'translate-y-0 opacity-100': bannerVisible,
+            'translate-y-full opacity-0 banner-hide': !bannerVisible,
+          })}
           style={{ animation: 'fadeIn 0.5s ease-in-out' }}
         >
           <div className="flex flex-col items-center">
-            <p className="text-sm font-medium text-center">
-              I use cookies to enhance your browsing experience. By
-              continuing to explore this site, you consent to our use of
-              cookies.
-            </p>
-            <p className="mt-2 text-sm cursor-pointer text-neutral-300 transition-colors duration-200">
+            <p className="text-sm font-medium text-center text-neutral-300">
+              This website uses cookies to enhance your browsing experience
+              and analyze site usage. Read my{' '}
               <Link
                 href="/privacy"
-                title="Learn more about my privacy policy"
+                title="Learn more about privacy policy"
+                className="text-neutral-50 hover:text-neutral-300 transition-colors duration-200"
               >
-                Learn More About Privacy Policy
-              </Link>
+                Privacy Policy
+              </Link>{' '}
+              for more information.
             </p>
-            <div className="mt-4 flex w-full justify-around">
+            <div className="mt-6 flex w-full justify-around">
               <button
                 onClick={() => handleCookies(true)}
-                className="flex items-center px-4 py-2 bg-neutral-50 border border-neutral-500 text-neutral-900 rounded-full hover:bg-neutral-400 transition-colors duration-200"
+                className={clsx(buttonBaseClasses, buttonAcceptClasses)}
                 tabIndex={0}
               >
                 <AiOutlineCheck className="mr-2" /> Accept
               </button>
               <button
                 onClick={() => handleCookies(false)}
-                className="flex items-center px-4 py-2 border border-neutral-500 text-white rounded-full hover:bg-neutral-700 transition-colors duration-200"
+                className={clsx(buttonBaseClasses, buttonRevokeClasses)}
                 tabIndex={0}
               >
                 <AiOutlineClose className="mr-2" /> Revoke
@@ -67,18 +72,17 @@ const CookieManager = () => {
       {showMessage && (
         <div
           role="alert"
-          className={clsx(
-            'banner fixed bottom-4 left-1/2 transform -translate-x-1/2 p-6 w-11/12 max-w-xl text-neutral-50 border border-gray-500 rounded-lg shadow-lg backdrop-filter backdrop-blur-md transition-all duration-500',
-            {
-              'translate-y-0 opacity-100': messageVisible,
-              'translate-y-full opacity-0': !messageVisible,
-            },
-          )}
+          className={clsx(bannerBaseClasses, {
+            'translate-y-0 opacity-100': messageVisible,
+            'translate-y-full opacity-0': !messageVisible,
+          })}
           style={{ animation: 'fadeIn 0.5s ease-in-out' }}
         >
           <div className="flex flex-col items-center">
-            <div className="text-2xl mb-2">{messageData.icon}</div>
-            <h3 className="flex items-center text-lg font-semibold text-center mb-1">
+            <div className="text-xl mb-2">
+              {messageData.icon}
+            </div>
+            <h3 className="flex items-center font-semibold text-center text-neutral-50 mb-1">
               {messageData.title}
             </h3>
             <p className="text-sm text-neutral-300 font-medium text-center">

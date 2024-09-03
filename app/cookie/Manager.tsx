@@ -37,7 +37,12 @@ const CookieManager = () => {
               cookies.
             </p>
             <p className="mt-2 text-sm cursor-pointer text-neutral-300 transition-colors duration-200">
-              <Link href="/privacy">Learn more</Link>
+              <Link
+                href="/privacy"
+                title="Learn more about my privacy policy"
+              >
+                Learn More About Privacy Policy
+              </Link>
             </p>
             <div className="mt-4 flex w-full justify-around">
               <button

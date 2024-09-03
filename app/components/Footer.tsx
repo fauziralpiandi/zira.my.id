@@ -18,18 +18,17 @@ const Footer: React.FC = React.memo(() => {
         aria-label="Footer Navigation"
       >
         <p>
-          Read My{' '}
           <Link
             href="/privacy"
-            className="hover:underline text-neutral-300"
+            className="text-neutral-300 hover:text-neutral-500 transition-colors duration-200"
             aria-label="Privacy Policy"
           >
             Privacy Policy
           </Link>
-          <span aria-hidden="true"> &amp; </span>
+          <span aria-hidden="true"> / </span>
           <Link
             href="/terms"
-            className="hover:underline text-neutral-300"
+            className="text-neutral-300 hover:text-neutral-500 transition-colors duration-200"
             aria-label="Terms of Use"
           >
             Terms of Use

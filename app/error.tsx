@@ -13,41 +13,34 @@ export default function Error({
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    // Log the error details for debugging—because ignoring problems never helps!
-    console.error('Error details:', error)
+    console.error('Error details:', error) // Log error details for debugging
   }, [error])
 
   const handleReset = () => {
-    setIsLoading(true) // Set loading state to true when retrying—like bracing for impact!
-    reset() // Trigger the reset function to try again
+    setIsLoading(true)
+    reset()
   }
 
   return (
     <div className="flex flex-col md:items-center md:p-4">
-      {/* Warning icon to indicate something went awry—like when you forget your coffee! */}
       <IoIosWarning size={50} className="mb-4 text-red-500" />
       <h1 className="mb-2 font-semibold text-2xl">
-        Something went wrong–{' '}
-        {/* A friendly reminder that tech can be moody! */}
+        Something went wrong–
       </h1>
-      <p
-        className="text-red-500 opacity-75"
-        aria-live="assertive" // Announce error message changes for screen readers
-      >
-        {error.message || // Display the specific error message if available
-          'An unexpected error has occurred, please try refreshing the page!'}{' '}
-        {/* Classic fallback message */}
+      <p className="text-red-500 opacity-75" aria-live="assertive">
+        {error.message ||
+          'An unexpected error has occurred, please try refreshing the page!'}
       </p>
       <button
         onClick={handleReset}
         className="mt-4 px-4 py-2 rounded-md border border-neutral-500 text-neutral-300 bg-transparent hover:bg-neutral-800 transition-all duration-300"
-        disabled={isLoading} // Disable button to prevent double-clicks—no one likes impatient users!
-        aria-label="Retry the operation" // Better accessibility for screen readers
+        disabled={isLoading}
+        aria-label="Retry the operation"
       >
         {isLoading ? (
-          <span className="loading-animation">Retrying...</span> // Show loading state with animation
+          <span className="loading-animation">Retrying...</span>
         ) : (
-          'Try Again' // Button text when not loading—because who doesn't love a second chance?
+          'Try Again'
         )}
       </button>
       <style jsx global>

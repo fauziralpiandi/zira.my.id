@@ -4,28 +4,19 @@ import markdownIt from 'markdown-it'
 export const meta = {
   getMeta: (text: string) => {
     const filter = markdownIt()
-    // Turning Markdown into plain text, like magic, but less exciting!
-    const textPlain = filter.render(text).replace(/<[^>]*>/g, '') // Because HTML tags are so last season
-
-    // Trim that text, no one likes extra spaces hanging around.
-    const textTrimmed = textPlain.trim()
-
-    // Splitting text into words, we can't just guess!
-    const wordsArray = textTrimmed.split(/\s+/)
+    const textPlain = filter
+      .render(text)
+      .replace(/<[^>]*>/g, '')
+      .trim()
+    const wordsArray = textPlain.split(/\s+/)
     const numberOfWords = wordsArray.length
-
-    // Counting characters, one by one, we're dedicated like that.
-    const numberOfCharacters = textTrimmed.replace(/\s+/g, '').length
-
-    // Counting sentences, periods deserve respect too!
-    const numberOfSentences = textTrimmed
+    const numberOfCharacters = textPlain.replace(/\s+/g, '').length
+    const numberOfSentences = textPlain
       .split(/[.!?]+/)
       .filter(Boolean).length
-
-    // Calculating reading time, because nobody has time to actually read!
     const wordsPerMin = 200
-    const minutes = Math.ceil(numberOfWords / wordsPerMin)
-    const readTime = `${minutes} ${minutes === 1 ? 'min' : 'mins'}`
+    const readTimeInMinutes = Math.ceil(numberOfWords / wordsPerMin)
+    const readTime = `${readTimeInMinutes} ${readTimeInMinutes === 1 ? 'min' : 'mins'}`
 
     return {
       readTime,
@@ -36,7 +27,6 @@ export const meta = {
   },
 }
 
-// Date formatting because time is precious!
 export const formatDate = (
   date: string,
   type: 'relative' | 'absolute' = 'relative',
@@ -44,12 +34,10 @@ export const formatDate = (
   const currentDate = new Date()
   const targetDate = new Date(date)
 
-  // No time travelers allowed here!
   if (isNaN(targetDate.getTime())) {
-    throw new Error('Invalid date format! Did you time travel?')
+    throw new Error('Invalid date format!')
   }
 
-  // Time difference calculations, like a math whiz!
   const timeDifference = currentDate.getTime() - targetDate.getTime()
   const minutesAgo = Math.floor(timeDifference / (1000 * 60))
   const hoursAgo = Math.floor(timeDifference / (1000 * 60 * 60))
@@ -58,7 +46,6 @@ export const formatDate = (
   const monthsAgo = Math.floor(daysAgo / 30)
   const yearsAgo = Math.floor(daysAgo / 365)
 
-  // Format the date nicely
   const timeString = targetDate.toLocaleTimeString(site.locale, {
     hour: '2-digit',
     minute: '2-digit',
@@ -80,11 +67,10 @@ export const formatDate = (
     })
   }
 
-  // Relative time, for that friendly vibe
   if (minutesAgo < 60) return 'Just now!'
   if (hoursAgo < 24)
     return `${hoursAgo} hour${hoursAgo === 1 ? '' : 's'} ago`
-  if (hoursAgo < 48) return `${timeString} (Yesterday, in case you forgot)`
+  if (hoursAgo < 48) return `${timeString} (Yesterday)`
   if (daysAgo < 7)
     return `${fullDate} (${daysAgo} day${daysAgo === 1 ? '' : 's'} ago)`
   if (weeksAgo < 4)

@@ -1,57 +1,21 @@
-/* Tailwind Directives — Like inviting your core team to the party first */
+/* Inviting Tailwind to the party */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes glow {
-  0% {
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
-  }
-
-  50% {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
-  }
-
-  100% {
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
-  }
-}
-
-.text-glow {
-  animation: glow 3s ease-in-out infinite;
-}
-
-/* Why not make things more stylish? */
-@layer utilities {
-  .custom-border {
-    @apply border border-neutral-800;
-    /* All about that edgy look */
-  }
-
-  .custom-bg {
-    @apply bg-neutral-900;
-    /* Darker than my coffee */
-  }
-}
-
-/* Setting the tone for the whole website, literally */
+/* Setting the vibe for the entire website */
 @layer base {
   :root {
-    /* Variables - The unsung heroes of CSS, saving us from repeating ourselves */
+    /* CSS variables: the real MVPs */
     --background-color: #111;
     --text-color: #eee;
     --selection-background: #eee;
     --selection-text: #111;
+
+    --custom-bg: #000000;
+    --custom-border: #333333;
+
+    /* Syntax Highlighting — because code needs some love too */
     --sh-class: #EEABFB;
     --sh-identifier: #BE69DE;
     --sh-sign: #EEEEEE;
@@ -78,148 +42,157 @@
   }
 }
 
-/* Make sure the content looks as good as it reads */
-.prose {
-  p {
-    @apply my-4 text-neutral-300;
-    /* Because paragraphs need space too */
-    margin-top: 1rem;
-  }
+/* Tailwind @apply magic for modular content styling */
+@layer components {
+  .prose {
+    @apply text-neutral-300;
 
-  h1,
-  h2,
-  h3 {
-    @apply font-semibold leading-tight tracking-tight text-neutral-200 mt-12;
-    /* Headlines with style and substance */
-  }
-
-  strong {
-    @apply font-medium text-neutral-100;
-    /* Emphasis on the "strong" */
-  }
-
-  li {
-    @apply my-4 text-neutral-300;
-  }
-
-  ul {
-    @apply list-disc pl-6;
-    /* Disciplined lists */
-  }
-
-  ol {
-    @apply list-decimal pl-6;
-    /* Counting matters */
-  }
-
-  > :first-child {
-    margin-top: 1.25em !important;
-    margin-bottom: 1.25em !important;
-    /* First impressions matter */
-  }
-
-  pre {
-    @apply custom-bg custom-border rounded-lg overflow-x-auto py-2.5 px-3.5;
-    /* Code blocks with style */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-      /* Scrollbars? We don't need no stinking scrollbars! */
-    }
-  }
-
-  code {
-    @apply custom-bg custom-border rounded-lg py-1 px-1.5;
-    /* Inline code gets special treatment */
-
-    span {
-      @apply font-medium;
-      /* Because spans deserve love too */
-    }
-  }
-
-  pre code {
-    @apply p-0 border-none;
-    /* No border for you! */
-    line-height: 1.5;
-    /* Breathe, code, breathe */
-  }
-
-  a {
-    @apply text-neutral-50 underline decoration-neutral-500 underline-offset-2 decoration-[0.1em];
-    /* Links that practically beg to be clicked, lmao */
-    transition: color 0.3s;
-
-    &:hover {
-      @apply text-neutral-400;
-    }
-  }
-
-  .anchor {
-    @apply absolute invisible no-underline;
-    margin-left: -1em;
-    padding-right: 0.5em;
-    width: 75%;
-    max-width: 768px;
-    cursor: pointer;
-
-    &:hover {
-      @apply visible;
-      /* Appearing like a ninja */
+    p,
+    li {
+      @apply my-4;
     }
 
-    &::after {
-      content: "#";
-      /* Old-school hashtagging */
+    h1,
+    h2,
+    h3 {
+      @apply font-semibold leading-tight tracking-tight text-neutral-200 mt-12 mb-0;
     }
-  }
 
-  *:hover>.anchor {
-    @apply visible;
-    /* Still lurking around */
-  }
+    strong {
+      @apply font-medium text-neutral-200;
+    }
 
-  img {
-    @apply my-12 mx-auto rounded-lg shadow-lg grayscale;
-    /* Images are the star of the show */
-  }
+    ul,
+    ol {
+      @apply pl-4;
+    }
 
-  blockquote {
-    @apply pl-6 border-l-4 border-neutral-700 my-8;
-    /* Because quotes need some gravitas */
-    margin-left: 0;
-    margin-right: 0;
-  }
+    ul {
+      @apply list-disc;
+    }
 
-  blockquote p {
-    @apply font-light text-neutral-400;
-    /* Soft-spoken quotes */
-  }
+    ol {
+      @apply list-decimal;
+    }
 
-  blockquote> :first-child {
-    margin: 0;
-    /* No extra space needed for this VIP */
-  }
+    > :first-child {
+      @apply mt-5 mb-5;
+    }
 
-  figcaption {
-    @apply text-sm text-neutral-400 text-center mt-2 italic;
-    /* Because captions are classy */
+    pre,
+    code {
+      @apply custom-bg custom-border rounded-md;
+    }
+
+    pre {
+      @apply overflow-x-auto py-2.5 px-3.5;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      code {
+        @apply p-0 border-none;
+        line-height: 1.5;
+      }
+    }
+
+    code {
+      @apply py-0.5 px-1;
+
+      span {
+        @apply font-medium;
+      }
+    }
+
+    a {
+      @apply text-neutral-50 underline decoration-neutral-500 underline-offset-2 decoration-[0.1em] transition-colors duration-300;
+
+      &:hover {
+        @apply text-neutral-400;
+      }
+    }
+
+    .anchor {
+      @apply absolute invisible no-underline cursor-pointer ml-[-1em] pr-2 w-[75%] max-w-[768px];
+
+      &::after {
+        content: "#";
+      }
+    }
+
+    *:hover>.anchor {
+      @apply visible opacity-0;
+    }
+
+    img {
+      @apply my-12 mx-auto rounded-lg shadow-lg grayscale;
+    }
+
+    blockquote {
+      @apply pl-6 border-l-4 border-neutral-700 my-8 text-neutral-400 font-light;
+      margin-left: 0;
+      margin-right: 0;
+
+      > :first-child {
+        margin: 0;
+      }
+    }
   }
 }
 
-/* A balanced approach to text wrapping and word-breaking */
+/* Let's add some style because why not? */
+@layer utilities {
+  .custom-border {
+    @apply border border-neutral-800;
+  }
+
+  .custom-bg {
+    @apply bg-neutral-900;
+  }
+
+  /* For those fancy animations */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .text-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
+}
+
+/* Text wrapping and word-breaking: keeping things in line */
 .title {
   text-wrap: balance;
   word-break: break-word;
 }
 
-/* Because tables aren't just for eating */
+/* Tables are more than just dining surfaces */
 table {
-  display: block;
-  max-width: fit-content;
-  overflow-x: auto;
-  white-space: nowrap;
-  /* No breaking here, thanks */
+  @apply block max-w-fit overflow-x-auto whitespace-nowrap;
+}
+
+/* Keyframes for those snazzy animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
+  }
+
+  50% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+  }
 }

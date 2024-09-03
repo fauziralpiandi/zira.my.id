@@ -8,9 +8,9 @@ export async function increment(slug: string): Promise<void> {
   try {
     await sql`
       INSERT INTO views (slug, count)
-      VALUES (${slug}, 1)
+      VALUES (${slug}, 0)
       ON CONFLICT (slug)
-      DO UPDATE SET count = views.count + 1
+      DO UPDATE SET count = views.count + 0
     `
   } catch (error) {
     console.error('Error incrementing views count:', error)

@@ -1,9 +1,15 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, Fragment } from 'react'
 import Link from 'next/link'
-import { site } from 'app/utils/constant'
+import { site } from 'app/lib/constant'
 
-const Footer: React.FC = React.memo(() => {
+export default function Footer() {
   const currentYear = useMemo(() => new Date().getFullYear(), [])
+
+  const footerLinks = [
+    { href: '/privacy-policy', label: 'Privacy Policy' },
+    { href: '/terms-of-use', label: 'Terms of Use' },
+    { href: '/contact', label: 'Contact', isButton: true },
+  ]
 
   return (
     <footer
@@ -18,36 +24,31 @@ const Footer: React.FC = React.memo(() => {
         aria-label="Footer Navigation"
       >
         <p>
-          <Link
-            href="/privacy"
-            className="text-neutral-300 hover:text-neutral-500 transition-colors duration-200"
-            aria-label="Privacy Policy"
-          >
-            Privacy Policy
-          </Link>
-          <span aria-hidden="true"> / </span>
-          <Link
-            href="/terms"
-            className="text-neutral-300 hover:text-neutral-500 transition-colors duration-200"
-            aria-label="Terms of Use"
-          >
-            Terms of Use
-          </Link>
+          {footerLinks.slice(0, 2).map((link, index) => (
+            <Fragment key={link.href}>
+              <Link
+                href={link.href}
+                className="text-neutral-300 hover:text-neutral-500 transition-colors duration-200"
+                aria-label={link.label}
+                tabIndex={0}
+              >
+                {link.label}
+              </Link>
+              {index < 1 && <span aria-hidden="true"> / </span>}
+            </Fragment>
+          ))}
         </p>
         <p className="mt-8">
           <Link
-            href="/admin"
+            href={footerLinks[2].href}
             className="px-2 py-1 text-neutral-300 hover:text-neutral-500 border-b border-neutral-300 hover:border-neutral-500 rounded-lg transition-all duration-200"
-            aria-label="Contact"
+            aria-label={footerLinks[2].label}
+            tabIndex={0}
           >
-            Contact
+            {footerLinks[2].label}
           </Link>
         </p>
       </nav>
     </footer>
   )
-})
-
-Footer.displayName = 'Footer'
-
-export default Footer
+}

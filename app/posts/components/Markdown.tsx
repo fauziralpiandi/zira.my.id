@@ -48,8 +48,7 @@ const CustomLink = React.forwardRef<
 
   try {
     isExternalLink =
-      new URL(href, window.location.origin).origin !==
-      window.location.origin
+      new URL(href, window.location.origin).origin !== window.location.origin
   } catch (error) {
     isExternalLink = true
   }
@@ -79,12 +78,7 @@ const CustomLink = React.forwardRef<
 
   if (isExternalLink) {
     return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        {...commonProps}
-      >
+      <a href={href} target="_blank" rel="noopener noreferrer" {...commonProps}>
         {children}
       </a>
     )
@@ -162,9 +156,6 @@ const components: ComponentsType = {
 
 export function Contents(props: MDXRemoteProps) {
   return (
-    <MDXRemote
-      {...props}
-      components={{ ...components, ...props.components }}
-    />
+    <MDXRemote {...props} components={{ ...components, ...props.components }} />
   )
 }

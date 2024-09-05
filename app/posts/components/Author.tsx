@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import formatDate from 'app/utils/meta'
+import formatDate from 'app/lib/format'
 type AuthorInfoProps = {
   author: string
   readTime: string

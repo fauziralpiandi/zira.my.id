@@ -1,18 +1,16 @@
-import { getPosts } from 'app/utils/provider'
-import { MyPosts, PostType } from 'app/posts/Posts'
-
-/* Let's keep it concise but intriguing */
-const desc = 'featuring posts \u0026 some thoughts\u2014'
+import { getPosts } from 'app/lib/provider'
+import { MyPosts, PostType } from 'app/posts/components/List'
+import Subscription from 'app/components/SubscriptionForm'
 
 export const metadata = {
   title: 'Posts',
-  description: desc,
+  description: 'featuring posts \u0026 some thoughts\u2014',
 }
 
-const PostPage = async () => {
+export default async function PostPage() {
   const Posts = await getPosts()
 
-  /* Only the good stuff survives */
+  /* Only the good stuff can survives */
   const allPosts: PostType[] = Posts.filter(Boolean) as PostType[]
 
   return (
@@ -24,9 +22,8 @@ const PostPage = async () => {
           </p>
         </div>
         <MyPosts /> {/* Rendering all posts like a pro */}
+        <Subscription />
       </div>
     </section>
   )
 }
-
-export default PostPage

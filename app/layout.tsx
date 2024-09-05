@@ -2,18 +2,11 @@ import './global.css'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
-import dynamic from 'next/dynamic'
-import { site } from 'app/utils/constant'
+import { site } from 'app/lib/constant'
 
-import Cookie from 'app/cookie/Manager'
-
-const Navbar = dynamic(() => import('./components/Navigation'), {
-  suspense: true,
-})
-const Footer = dynamic(() => import('./components/Footer'), {
-  suspense: true,
-})
+import Nav from 'app/components/Nav'
+import Footer from 'app/components/Footer'
+import Cookie from 'app/components/Cookie'
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.baseUrl),
@@ -64,16 +57,10 @@ export default function RootLayout({
       )}
     >
       <body className="relative width-full px-7 pt-8 md:pt-16 pb-10 md:pb-16 antialiased">
-        <main className="relative max-w-xl mx-auto">
-          {/* Holding your breath until it loads! */}
-          <Suspense fallback={<div>Loading...</div>}>
-            <Navbar />
-          </Suspense>
+        <main className="relative max-w-2xl mx-auto">
+          <Nav />
           {children}
-          {/* Because we all need a solid ending */}
-          <Suspense fallback={<div>Loading...</div>}>
-            <Footer />
-          </Suspense>
+          <Footer />
           <Cookie />
         </main>
       </body>

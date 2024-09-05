@@ -1,35 +1,6 @@
-import { site } from 'app/utils/constant'
-import markdownIt from 'markdown-it'
+import { site } from 'app/lib/constant'
 
-const markdownParser = markdownIt()
-
-export const meta = {
-  getMeta: (text: string) => {
-    const textPlain = markdownParser
-      .render(text)
-      .replace(/<[^>]*>/g, '')
-      .trim()
-    const wordsArray = textPlain.split(/\s+/)
-    const numberOfWords = wordsArray.length
-    const numberOfCharacters = textPlain.replace(/\s+/g, '').length
-    const numberOfSentences = textPlain
-      .split(/[.!?]+/)
-      .filter(Boolean).length
-
-    const wordsPerMin = 200
-    const readTimeInMinutes = Math.ceil(numberOfWords / wordsPerMin)
-    const readTime = `${readTimeInMinutes} ${readTimeInMinutes === 1 ? 'min' : 'mins'}`
-
-    return {
-      readTime,
-      characters: numberOfCharacters,
-      words: numberOfWords,
-      sentences: numberOfSentences,
-    }
-  },
-}
-
-export const formatDate = (
+const formatDate = (
   date: string,
   type: 'relative' | 'absolute' = 'relative',
 ): string => {
@@ -70,8 +41,7 @@ export const formatDate = (
   }
 
   if (minutesAgo < 60) return 'Just now!'
-  if (hoursAgo < 24)
-    return `${hoursAgo} hour${hoursAgo === 1 ? '' : 's'} ago`
+  if (hoursAgo < 24) return `${hoursAgo} hour${hoursAgo === 1 ? '' : 's'} ago`
   if (hoursAgo < 48) return `${timeString} (Yesterday)`
   if (daysAgo < 7)
     return `${fullDate} (${daysAgo} day${daysAgo === 1 ? '' : 's'} ago)`

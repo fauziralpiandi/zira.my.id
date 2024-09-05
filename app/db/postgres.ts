@@ -1,10 +1,16 @@
-import postgres from 'postgres'
+import postgres, { Sql } from 'postgres'
 
-const postgresUrl = process.env.POSTGRES_URL
+const postgresUrl: string = process.env.POSTGRES_URL || ''
+
 if (!postgresUrl) {
   throw new Error('POSTGRES_URL is not defined')
 }
 
-export const sql = postgres(postgresUrl, {
-  ssl: { rejectUnauthorized: true },
+const sqlInstance: Sql<any> = postgres(postgresUrl, {
+  ssl:
+    process.env.NODE_ENV === 'production'
+      ? { rejectUnauthorized: true }
+      : false,
 })
+
+export const sql = sqlInstance

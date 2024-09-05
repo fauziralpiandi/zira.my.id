@@ -19,15 +19,15 @@ const Popup = ({
     >
       <div className="border border-neutral-500 bg-neutral-800 rounded-lg shadow-lg p-4">
         <p className="text-center text-neutral-50">
-          Thanks a ton! I’ve got your feedback locked in. I really
-          appreciate your text and will hit you up soon.
+          Thanks a ton! I’ve got your feedback locked in. I really appreciate
+          your text and will hit you up soon.
         </p>
       </div>
     </div>
   )
 }
 
-const useFeedbackForm = () => {
+const useContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -53,7 +53,7 @@ const useFeedbackForm = () => {
     setLoading(true)
 
     try {
-      const response = await fetch('/api/feedback', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ const useFeedbackForm = () => {
   }
 }
 
-const Contact = () => {
+const ContactForm = () => {
   const {
     formData,
     loading,
@@ -106,7 +106,7 @@ const Contact = () => {
     handleChange,
     handleSubmit,
     setShowPopup,
-  } = useFeedbackForm()
+  } = useContactForm()
 
   return (
     <div className="mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 shadow-lg rounded-xl">
@@ -114,9 +114,8 @@ const Contact = () => {
         Feel Free
       </h2>
       <p className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
-        Hi there! what&rsquo;s good? I&rsquo;m all ears for your feedback!
-        Slide in with your thoughts and suggestions&mdash; let&rsquo;s make
-        this epic!
+        Hi there! what&rsquo;s good? I&rsquo;m all ears for your feedback! Slide
+        in with your thoughts and suggestions&mdash; let&rsquo;s make this epic!
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col space-y-3">
         <input
@@ -172,4 +171,4 @@ const Contact = () => {
   )
 }
 
-export default Contact
+export default ContactForm

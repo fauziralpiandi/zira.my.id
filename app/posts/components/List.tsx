@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { formatDate } from 'app/utils/meta'
-import { getPosts } from 'app/utils/provider'
+import formatDate from 'app/lib/format'
+import { getPosts } from 'app/lib/provider'
 
 export interface PostType {
   slug: string
@@ -17,10 +17,10 @@ export interface PostsProps {
 }
 
 const DEFAULT_RECENT = 1
-
+const DEFAULT_FEATURED = false
 export async function MyPosts({
   recent = DEFAULT_RECENT,
-  featured = false,
+  featured = DEFAULT_FEATURED,
 }: PostsProps) {
   let allPosts: PostType[] = []
   try {
@@ -37,7 +37,9 @@ export async function MyPosts({
 
   if (!allPosts.length) {
     return (
-      <div className="text-yellow-500">Check back soon for updates!</div>
+      <div className="text-sm text-yellow-500">
+        Check back soon for updates!
+      </div>
     )
   }
 

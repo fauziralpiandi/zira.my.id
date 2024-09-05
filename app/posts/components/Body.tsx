@@ -1,13 +1,13 @@
 import Image from 'next/image'
-import { Contents } from 'app/posts/[slug]/components/Content'
+import { Contents } from 'app/posts/components/Markdown'
 
 type PostBodyProps = {
-  image: string | null
   title: string
+  image: string | null
   content: string
 }
 
-const PostBody = ({ image, title, content }: PostBodyProps) => {
+const PostBody = ({ title, image, content }: PostBodyProps) => {
   return (
     <div>
       {image && (
@@ -22,7 +22,7 @@ const PostBody = ({ image, title, content }: PostBodyProps) => {
           />
         </div>
       )}
-      <article className="prose">
+      <article className="prose max-w-2xl">
         <Contents source={content} />
       </article>
     </div>

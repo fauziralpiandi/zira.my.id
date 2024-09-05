@@ -1,5 +1,5 @@
-import { site } from 'app/utils/constant'
-import { getPosts } from 'app/utils/provider'
+import { site } from 'app/lib/constant'
+import { getPosts } from 'app/lib/provider'
 
 export async function GET() {
   let allBlogs

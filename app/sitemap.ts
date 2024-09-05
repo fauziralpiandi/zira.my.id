@@ -1,4 +1,4 @@
-import { site } from 'app/utils/constant'
+import { site } from 'app/lib/constant'
 
 // Think of it as our website's treasure map for search engines!
 export default async function sitemap() {

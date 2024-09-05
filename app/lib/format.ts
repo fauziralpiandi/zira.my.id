@@ -41,8 +41,7 @@ const formatDate = (
   }
 
   if (minutesAgo < 60) return 'Just now!'
-  if (hoursAgo < 24)
-    return `${hoursAgo} hour${hoursAgo === 1 ? '' : 's'} ago`
+  if (hoursAgo < 24) return `${hoursAgo} hour${hoursAgo === 1 ? '' : 's'} ago`
   if (hoursAgo < 48) return `${timeString} (Yesterday)`
   if (daysAgo < 7)
     return `${fullDate} (${daysAgo} day${daysAgo === 1 ? '' : 's'} ago)`

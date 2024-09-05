@@ -1,5 +1,6 @@
 import { getPosts } from 'app/lib/provider'
 import { MyPosts, PostType } from 'app/posts/components/List'
+import Subscription from 'app/components/SubscriptionForm'
 
 export const metadata = {
   title: 'Posts',
@@ -21,6 +22,7 @@ export default async function PostPage() {
           </p>
         </div>
         <MyPosts /> {/* Rendering all posts like a pro */}
+        <Subscription />
       </div>
     </section>
   )

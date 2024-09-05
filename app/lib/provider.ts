@@ -36,9 +36,7 @@ function validateMetadata(metadata: PostMetadata): void {
 async function getMarkdownFiles(dir: string): Promise<string[]> {
   try {
     const files = await fs.readdir(dir)
-    return files.filter((file) =>
-      ['.md', '.mdx'].includes(path.extname(file)),
-    )
+    return files.filter((file) => ['.md', '.mdx'].includes(path.extname(file)))
   } catch (error) {
     console.warn(
       `Warning: Unable to read directory '${dir}': ${(error as Error).message}`,
@@ -55,11 +53,7 @@ async function readMarkdownFile(
     const rawContent = await fs.readFile(filePath, 'utf-8')
     return parseFrontmatter(rawContent)
   } catch (error) {
-    console.error(
-      'Error reading file:',
-      filePath,
-      (error as Error).message,
-    )
+    console.error('Error reading file:', filePath, (error as Error).message)
     throw error
   }
 }
@@ -67,9 +61,7 @@ async function readMarkdownFile(
 // Process Markdown and MDX files into posts.
 async function getMarkdownData(
   dir: string,
-): Promise<
-  Array<{ metadata: PostMetadata; slug: string; content: string }>
-> {
+): Promise<Array<{ metadata: PostMetadata; slug: string; content: string }>> {
   const markdownFiles = await getMarkdownFiles(dir)
   return Promise.all(
     markdownFiles.map(async (file) => {
@@ -80,11 +72,7 @@ async function getMarkdownData(
         const slug = path.basename(file, path.extname(file))
         return { metadata, slug, content }
       } catch (error) {
-        console.error(
-          'Error processing file:',
-          file,
-          (error as Error).message,
-        )
+        console.error('Error processing file:', file, (error as Error).message)
         // Optionally handle errors for specific files and continue processing others
         return null
       }

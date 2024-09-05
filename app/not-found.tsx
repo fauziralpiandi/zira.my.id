@@ -23,8 +23,8 @@ export default function NotFound() {
         </a>
       </p>
       <p className="mt-4 text-neutral-400">
-        Or you can try checking the URL for mistakes! Even the best of us
-        trip over the keyboard sometimes.
+        Or you can try checking the URL for mistakes! Even the best of us trip
+        over the keyboard sometimes.
       </p>
       <a
         href="/"

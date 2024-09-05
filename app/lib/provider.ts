@@ -5,8 +5,8 @@ import matter from 'gray-matter'
 // Define the structure for post metadata.
 type PostMetadata = {
   title: string
+  summary: string
   date: string
-  summary?: string
   author?: string
   image?: string
 }
@@ -24,7 +24,7 @@ function parseFrontmatter(fileContent: string): {
 
 // Validate required metadata fields.
 function validateMetadata(metadata: PostMetadata): void {
-  const requiredFields: (keyof PostMetadata)[] = ['title', 'date']
+  const requiredFields: (keyof PostMetadata)[] = ['title', 'summary', 'date']
   requiredFields.forEach((field) => {
     if (!(field in metadata)) {
       throw new Error(`Missing required field: "${field}"`)

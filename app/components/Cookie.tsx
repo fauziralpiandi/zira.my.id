@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
-import { useCookieManager } from './Consent'
+import { useCookieManager } from './CookieConsent'
 
 const bannerBaseClasses =
   'banner fixed bottom-4 left-1/2 transform -translate-x-1/2 p-6 w-11/12 max-w-xl text-neutral-50 bg-black bg-opacity-50 border border-gray-500 rounded-lg shadow-lg backdrop-filter backdrop-blur-md transition-all duration-500'
@@ -14,7 +14,7 @@ const buttonAcceptClasses =
 const buttonRevokeClasses =
   'border border-neutral-500 text-white hover:bg-neutral-700'
 
-const CookieManager = () => {
+export default function CookieManager() {
   const {
     showBanner,
     bannerVisible,
@@ -38,10 +38,10 @@ const CookieManager = () => {
         >
           <div className="flex flex-col items-center">
             <p className="text-sm font-medium text-center text-neutral-300">
-              This website uses cookies to enhance your browsing experience
-              and analyze site usage. Read my{' '}
+              This website uses cookies to enhance your browsing experience and
+              analyze site usage. Read my{' '}
               <Link
-                href="/privacy"
+                href="/privacy-policy"
                 title="Learn more about privacy policy"
                 className="text-neutral-50 hover:text-neutral-300 transition-colors duration-200"
               >
@@ -79,9 +79,7 @@ const CookieManager = () => {
           style={{ animation: 'fadeIn 0.5s ease-in-out' }}
         >
           <div className="flex flex-col items-center">
-            <div className="text-xl mb-2">
-              {messageData.icon}
-            </div>
+            <div className="text-xl mb-2">{messageData.icon}</div>
             <h3 className="flex items-center font-semibold text-center text-neutral-50 mb-1">
               {messageData.title}
             </h3>
@@ -94,5 +92,3 @@ const CookieManager = () => {
     </div>
   )
 }
-
-export default CookieManager

@@ -1,11 +1,13 @@
 import { notFound } from 'next/navigation'
-import { meta } from 'app/utils/meta'
-import { site } from 'app/utils/constant'
-import { getPosts } from 'app/utils/provider'
-import MetaTags from './components/Meta'
-import Body from './components/Body'
-import Author from './components/Author'
-import Views from './components/Views'
+import literalMeta from 'app/lib/literal'
+import { site } from 'app/lib/constant'
+import { getPosts } from 'app/lib/provider'
+
+import Author from 'app/posts/components/Author'
+import Metags from 'app/posts/components/Meta'
+import Body from 'app/posts/components/Body'
+import Views from 'app/posts/components/Views'
+
 import { Suspense } from 'react'
 import { ImSpinner } from 'react-icons/im'
 
@@ -13,11 +15,7 @@ type PostParams = {
   slug: string
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: PostParams
-}) {
+export async function generateMetadata({ params }: { params: PostParams }) {
   let posts = await getPosts()
   let post = posts.find((post) => post.slug === params.slug)
 
@@ -43,9 +41,7 @@ export async function generateMetadata({
       url: `${site.baseUrl}/posts/${post.slug}`,
       images: [
         {
-          url:
-            image ||
-            `${site.baseUrl}/og?title=${encodeURIComponent(title)}`,
+          url: image || `${site.baseUrl}/og?title=${encodeURIComponent(title)}`,
         },
       ],
     },
@@ -60,11 +56,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: PostParams
-}) {
+export default async function PostPage({ params }: { params: PostParams }) {
   let posts = await getPosts()
   let post = posts.find((post) => post.slug === params.slug)
 
@@ -72,11 +64,11 @@ export default async function PostPage({
     notFound()
   }
 
-  const { readTime } = meta.getMeta(post.content)
+  const { readTime } = literalMeta.getCounts(post.content)
 
   return (
     <section className="animate-in">
-      <MetaTags
+      <Metags
         title={post.metadata.title}
         description={post.metadata.summary || ''}
         publishedTime={post.metadata.date}
@@ -99,9 +91,7 @@ export default async function PostPage({
       <h1 className="text-3xl font-extrabold leading-tight tracking-tight mb-2">
         {post.metadata.title}
       </h1>
-      <p className="text-lg text-neutral-400 mb-6">
-        {post.metadata.summary}
-      </p>
+      <p className="text-lg text-neutral-400 mb-6">{post.metadata.summary}</p>
 
       <Author
         author={post.metadata.author || ''}

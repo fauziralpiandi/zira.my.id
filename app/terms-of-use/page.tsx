@@ -1,12 +1,13 @@
+import React from 'react'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Terms of Use',
   description:
-    'As a visitor, you are expected to read and understand the following terms before using this site',
+    'As a visitor, you are expected to read and understand the following terms before using this site.',
 }
 
-const TermsOfUse = () => {
+export default function TermsOfUsePage(): React.ReactElement {
   return (
     <section>
       <div className="animate-in">
@@ -128,7 +129,7 @@ const TermsOfUse = () => {
           <p>
             If you have any questions or comments regarding these terms of
             use, please reach me through the{' '}
-            <Link href="/admin">contact</Link> form provided.
+            <Link href="/contact">contact</Link> form provided.
           </p>
 
           <p>Thank you.</p>
@@ -137,5 +138,3 @@ const TermsOfUse = () => {
     </section>
   )
 }
-
-export default TermsOfUse

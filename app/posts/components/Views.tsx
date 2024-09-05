@@ -1,5 +1,4 @@
-import { increment } from 'app/db/actions'
-import { getViewsCount } from 'app/db/query'
+import { increment, getViewsCount } from 'app/db/actions'
 
 type ViewCount = {
   slug: string
@@ -14,9 +13,7 @@ interface ViewCounterProps {
 export async function ViewCounter({ slug, allViews }: ViewCounterProps) {
   if (!Array.isArray(allViews)) {
     console.error('Invalid allViews data')
-    return (
-      <span className="text-sm text-red-500">Error loading views</span>
-    )
+    return <span className="text-sm text-red-500">Error loading views</span>
   }
 
   const number = allViews.find((view) => view.slug === slug)?.count || 0

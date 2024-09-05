@@ -1,4 +1,4 @@
-import { site } from 'app/utils/constant'
+import { site } from 'app/lib/constant'
 
 type MetaTagsProps = {
   title: string

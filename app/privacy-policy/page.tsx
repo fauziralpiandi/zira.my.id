@@ -1,12 +1,13 @@
+import React from 'react'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Privacy Policy',
   description:
-    'This privacy policy outlines the types of information I collect from you, how that information is used, and the measures I take to safeguard and protect that information.',
+    'As the owner and operator of this website, I am committed to protecting and respecting your privacy as a user.',
 }
 
-const PrivacyPolicy = () => {
+export default function PrivacyPolicyPage(): React.ReactElement {
   return (
     <section>
       <div className="animate-in">
@@ -147,7 +148,7 @@ const PrivacyPolicy = () => {
           <p>
             If you have any questions or comments about this privacy
             policy, please reach me through the available{' '}
-            <Link href="/admin">contact</Link> form.
+            <Link href="/contact">contact</Link> form.
           </p>
           <p>Thank you.</p>
         </div>
@@ -155,5 +156,3 @@ const PrivacyPolicy = () => {
     </section>
   )
 }
-
-export default PrivacyPolicy

@@ -15,9 +15,9 @@ export async function increment(slug: string): Promise<ViewsCountProps> {
   try {
     const [updatedViewRow] = await sql`
       INSERT INTO views (slug, count)
-      VALUES (${slug}, 0)
+      VALUES (${slug}, 1)
       ON CONFLICT (slug)
-      DO UPDATE SET count = views.count + 0
+      DO UPDATE SET count = views.count + 1
       RETURNING slug, count
     `
     const updatedView: ViewsCountProps = {

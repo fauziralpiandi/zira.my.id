@@ -1,7 +1,6 @@
-const requestCounts = new Map<
-  string,
-  { count: number; firstRequestTime: number }
->()
+import { RequestDataProps } from 'app/lib/types'
+
+const requestCounts = new Map<string, RequestDataProps>()
 
 export function rateLimit(
   ip: string,

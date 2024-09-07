@@ -3,10 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { AiOutlineCheck, AiOutlineInfoCircle } from 'react-icons/ai'
-
-type CookieTypes = {
-  acceptedCookies?: string
-}
+import { CookieProps } from 'app/lib/types'
 
 const COOKIE_NAME = 'acceptedCookies'
 const REVOKED_COOKIE_NAME = 'revokedCookies'
@@ -109,7 +106,7 @@ export const useCookieManager = () => {
     setTimeout(() => setShowMessage(false), 5000)
   }
 
-  const readCookie = (name: keyof CookieTypes) => cookies[name] || null
+  const readCookie = (name: keyof CookieProps) => cookies[name] || null
 
   const hasAcceptedCookies = () => cookies[COOKIE_NAME] === 'true'
 

@@ -13,7 +13,7 @@ const literalMeta = {
     const characterCount = textPlain.replace(/\s+/g, '').length
     const sentenceCount = textPlain.split(/[.!?]+/).filter(Boolean).length
 
-    const wordPerMin = 200
+    const wordPerMin = 100
     const readTimeInMinutes = Math.ceil(wordCount / wordPerMin)
     const readTime = `${readTimeInMinutes} ${readTimeInMinutes === 1 ? 'min' : 'mins'}`
 

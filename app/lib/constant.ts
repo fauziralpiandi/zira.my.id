@@ -1,17 +1,7 @@
-// Interface for the site's data structure
-interface Site {
-  domain: string
-  baseUrl: string
-  author: string
-  title: string
-  desc: string
-  locale: string
-  timeZone: string
-  verify: string
-}
+import { SiteProps } from 'app/lib/types'
 
 // Constant site information
-export const site: Site = {
+export const site: SiteProps = {
   domain: 'zira.my.id',
   baseUrl: 'https://zira.my.id',
   author: 'Fauzira Alpiandi',

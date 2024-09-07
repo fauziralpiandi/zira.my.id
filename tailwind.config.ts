@@ -48,8 +48,8 @@ export default {
               fontSize: '1.15rem',
             },
             'p': {
-              fontSize: '1rem',
-              lineHeight: '1.75',
+              fontSize: 'inherit',
+              lineHeight: '1.8',
             },
             'code': {
               color: 'inherit',

@@ -1,4 +1,5 @@
 {
+  "name": "zira.my.id",
   "author": "fauziralpiandi",
   "license": "MIT",
   "private": true,
@@ -13,7 +14,7 @@
     "@types/node": "22.5.4",
     "@types/react": "18.3.5",
     "@types/react-dom": "18.3.0",
-    "@vercel/postgres": "^0.9.0",
+    "@vercel/postgres": "^0.10.0",
     "autoprefixer": "^10.4.20",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",

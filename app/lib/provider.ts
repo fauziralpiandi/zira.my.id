@@ -1,30 +1,27 @@
 import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'
-
-// Define the structure for post metadata.
-type PostMetadata = {
-  title: string
-  summary: string
-  date: string
-  author?: string
-  image?: string
-}
+import {
+  PostMetadataProps,
+  ParsedFrontmatterProps,
+  PostDataProps,
+} from 'app/lib/types'
 
 // Extract frontmatter and content from the Markdown file.
-function parseFrontmatter(fileContent: string): {
-  metadata: PostMetadata
-  content: string
-} {
+export function parseFrontmatter(fileContent: string): ParsedFrontmatterProps {
   const { data, content } = matter(fileContent)
-  const metadata = data as PostMetadata
+  const metadata = data as PostMetadataProps
   validateMetadata(metadata)
   return { metadata, content }
 }
 
 // Validate required metadata fields.
-function validateMetadata(metadata: PostMetadata): void {
-  const requiredFields: (keyof PostMetadata)[] = ['title', 'summary', 'date']
+function validateMetadata(metadata: PostMetadataProps): void {
+  const requiredFields: (keyof PostMetadataProps)[] = [
+    'title',
+    'summary',
+    'date',
+  ]
   requiredFields.forEach((field) => {
     if (!(field in metadata)) {
       throw new Error(`Missing required field: "${field}"`)
@@ -48,7 +45,7 @@ async function getMarkdownFiles(dir: string): Promise<string[]> {
 // Read and parse a Markdown or MDX file.
 async function readMarkdownFile(
   filePath: string,
-): Promise<{ metadata: PostMetadata; content: string }> {
+): Promise<ParsedFrontmatterProps> {
   try {
     const rawContent = await fs.readFile(filePath, 'utf-8')
     return parseFrontmatter(rawContent)
@@ -59,9 +56,7 @@ async function readMarkdownFile(
 }
 
 // Process Markdown and MDX files into posts.
-async function getMarkdownData(
-  dir: string,
-): Promise<Array<{ metadata: PostMetadata; slug: string; content: string }>> {
+export async function getMarkdownData(dir: string): Promise<PostDataProps[]> {
   const markdownFiles = await getMarkdownFiles(dir)
   return Promise.all(
     markdownFiles.map(async (file) => {
@@ -73,24 +68,16 @@ async function getMarkdownData(
         return { metadata, slug, content }
       } catch (error) {
         console.error('Error processing file:', file, (error as Error).message)
-        // Optionally handle errors for specific files and continue processing others
         return null
       }
     }),
-  ).then(
-    (results) =>
-      results.filter((result) => result !== null) as Array<{
-        metadata: PostMetadata
-        slug: string
-        content: string
-      }>,
+  ).then((results) =>
+    results.filter((result): result is PostDataProps => result !== null),
   )
 }
 
 // Retrieve all the posts from the posts directory.
-export async function getPosts(): Promise<
-  Array<{ metadata: PostMetadata; slug: string; content: string }>
-> {
+export async function getPosts(): Promise<PostDataProps[]> {
   const postsDir = path.join(process.cwd(), 'posted')
   return getMarkdownData(postsDir)
 }

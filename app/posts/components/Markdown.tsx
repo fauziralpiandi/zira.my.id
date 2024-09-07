@@ -2,13 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 import { highlight } from 'sugar-high'
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
-
-type TableProps = {
-  data: {
-    headers: string[]
-    rows: (string | number)[][]
-  }
-}
+import {
+  TableProps,
+  HyperLinkProps,
+  CodeProps,
+  ComponentsProps,
+} from 'app/lib/types'
 
 function Table({ data }: TableProps) {
   const headers = data.headers.map((header, index) => (
@@ -37,67 +36,64 @@ function Table({ data }: TableProps) {
   )
 }
 
-const CustomLink = React.forwardRef<
-  HTMLAnchorElement,
-  {
-    href: string
-    children: React.ReactNode
-  } & React.AnchorHTMLAttributes<HTMLAnchorElement>
->(({ href, children, ...rest }, ref) => {
-  let isExternalLink = false
+const HyperLink = React.forwardRef<HTMLAnchorElement, HyperLinkProps>(
+  ({ href, children, ...rest }, ref) => {
+    let isExternalLink = false
 
-  try {
-    isExternalLink =
-      new URL(href, window.location.origin).origin !== window.location.origin
-  } catch (error) {
-    isExternalLink = true
-  }
+    try {
+      isExternalLink =
+        new URL(href, window.location.origin).origin !== window.location.origin
+    } catch (error) {
+      isExternalLink = true
+    }
 
-  const isInternalLink = href.startsWith('/')
-  const isAnchorLink = href.startsWith('#')
-  const isMailtoLink = href.startsWith('mailto:')
-  const isTelLink = href.startsWith('tel:')
+    const isInternalLink = href.startsWith('/')
+    const isAnchorLink = href.startsWith('#')
+    const isMailtoLink = href.startsWith('mailto:')
+    const isTelLink = href.startsWith('tel:')
 
-  const commonProps = { ref, ...rest }
+    const commonProps = { ref, ...rest }
 
-  if (isInternalLink) {
-    return (
-      <Link href={href} {...commonProps}>
-        {children}
-      </Link>
-    )
-  }
+    if (isInternalLink) {
+      return (
+        <Link href={href} {...commonProps}>
+          {children}
+        </Link>
+      )
+    }
 
-  if (isAnchorLink || isMailtoLink || isTelLink) {
+    if (isAnchorLink || isMailtoLink || isTelLink) {
+      return (
+        <a href={href} {...commonProps}>
+          {children}
+        </a>
+      )
+    }
+
+    if (isExternalLink) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          {...commonProps}
+        >
+          {children}
+        </a>
+      )
+    }
+
     return (
       <a href={href} {...commonProps}>
         {children}
       </a>
     )
-  }
+  },
+)
 
-  if (isExternalLink) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" {...commonProps}>
-        {children}
-      </a>
-    )
-  }
+HyperLink.displayName = 'HyperLink'
 
-  return (
-    <a href={href} {...commonProps}>
-      {children}
-    </a>
-  )
-})
-
-CustomLink.displayName = 'CustomLink'
-
-export default CustomLink
-
-interface CodeProps extends React.HTMLProps<HTMLElement> {
-  children: string
-}
+export default HyperLink
 
 function Code({ children, ...props }: CodeProps) {
   const codeHTML = highlight(children)
@@ -136,20 +132,16 @@ function createHeading(level: number) {
 }
 
 function generateHeadingComponents() {
-  const components: ComponentsType = {}
+  const components: ComponentsProps = {}
   for (let i = 1; i <= 6; i++) {
     components[`h${i}`] = createHeading(i)
   }
   return components
 }
 
-type ComponentsType = {
-  [key: string]: React.ComponentType<any>
-}
-
-const components: ComponentsType = {
+const components: ComponentsProps = {
   ...generateHeadingComponents(),
-  a: CustomLink,
+  a: HyperLink,
   code: Code,
   Table,
 }

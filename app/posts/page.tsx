@@ -1,5 +1,6 @@
 import { getPosts } from 'app/lib/provider'
-import { MyPosts, PostType } from 'app/posts/components/List'
+import { PostProps } from 'app/lib/types'
+import { MyPosts } from 'app/posts/components/List'
 import Subscription from 'app/components/SubscriptionForm'
 
 export const metadata = {
@@ -11,7 +12,7 @@ export default async function PostPage() {
   const Posts = await getPosts()
 
   /* Only the good stuff can survives */
-  const allPosts: PostType[] = Posts.filter(Boolean) as PostType[]
+  const allPosts: PostProps[] = Posts.filter(Boolean) as PostProps[]
 
   return (
     <section>

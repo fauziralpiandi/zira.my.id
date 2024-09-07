@@ -1,10 +1,11 @@
 import React from 'react'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
+import { GridImageProps } from 'app/lib/types'
 
 export const TextBlock: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
-  <div className="my-4 text-neutral-300">
+  <div className="my-4 prose">
     <p>{children}</p>
   </div>
 )
@@ -13,13 +14,7 @@ export const TextGlow: React.FC<{ text: string }> = ({ text }) => (
   <span className="glow">{text}</span>
 )
 
-interface ImageComponentProps {
-  alt: string
-  src: string | StaticImageData
-  className?: string
-}
-
-export const GridImage: React.FC<ImageComponentProps> = React.memo(
+export const GridImage: React.FC<GridImageProps> = React.memo(
   ({ alt, src, className = '' }) => (
     <div
       className={`relative h-30 md:h-40 overflow-hidden rounded-lg md:rounded-xl grayscale ${className}`}

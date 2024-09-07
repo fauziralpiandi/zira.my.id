@@ -2,11 +2,7 @@
 
 import { sql } from './postgres'
 import { unstable_noStore as noStore } from 'next/cache'
-
-interface ViewCount {
-  slug: string
-  count: number
-}
+import { ViewsCountProps } from 'app/lib/types'
 
 const POSTGRES_URL = process.env.POSTGRES_URL
 
@@ -14,17 +10,17 @@ if (!POSTGRES_URL) {
   throw new Error('Postgres URL is not defined')
 }
 
-export async function increment(slug: string): Promise<ViewCount> {
+export async function increment(slug: string): Promise<ViewsCountProps> {
   noStore()
   try {
     const [updatedViewRow] = await sql`
       INSERT INTO views (slug, count)
-      VALUES (${slug}, 1)
+      VALUES (${slug}, 0)
       ON CONFLICT (slug)
-      DO UPDATE SET count = views.count + 1
+      DO UPDATE SET count = views.count + 0
       RETURNING slug, count
     `
-    const updatedView: ViewCount = {
+    const updatedView: ViewsCountProps = {
       slug: updatedViewRow.slug,
       count: updatedViewRow.count,
     }
@@ -35,7 +31,7 @@ export async function increment(slug: string): Promise<ViewCount> {
   }
 }
 
-export async function getBlogViews(): Promise<number> {
+export async function getPostsViews(): Promise<number> {
   noStore()
   try {
     const [totalView] = await sql`
@@ -48,10 +44,10 @@ export async function getBlogViews(): Promise<number> {
   }
 }
 
-export async function getViewsCount(): Promise<ViewCount[]> {
+export async function getViewsCount(): Promise<ViewsCountProps[]> {
   noStore()
   try {
-    const viewCounts: ViewCount[] = await sql`
+    const viewCounts: ViewsCountProps[] = await sql`
       SELECT slug, count FROM views
     `
     return viewCounts

@@ -1,11 +1,6 @@
 import Image from 'next/image'
 import { Contents } from 'app/posts/components/Markdown'
-
-type PostBodyProps = {
-  title: string
-  image: string | null
-  content: string
-}
+import { PostBodyProps } from 'app/lib/types'
 
 const PostBody = ({ title, image, content }: PostBodyProps) => {
   return (

@@ -15,11 +15,11 @@ const AuthorInfo = ({ author, readTime, date }: AuthorInfoProps) => {
       />
       <div className="ml-4">
         <p>{author}</p>
-        <div className="text-neutral-400">
+        <div className="text-sm text-neutral-400">
           <span className="flex items-center gap-1">
             <p>{readTime}</p>
             <p className="mx-0.5">·</p>
-            <p>{formatDate(date, 'absolute')}</p>
+            <p>{formatDate(date, 'relative')}</p>
           </span>
         </div>
       </div>

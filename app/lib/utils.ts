@@ -1,24 +1,16 @@
-import { PostProps } from 'app/lib/types'
+import { PostProps } from './types'
 
-export const DEFAULT_RECENT = 1
-export const DEFAULT_FEATURED = false
-
-export function getRecentPosts(
+export function getFilteredPosts(
   posts: PostProps[],
-  recent: number,
-): PostProps[] {
-  return posts.slice(0, recent)
-}
-
-export function getFeaturedPosts(
-  posts: PostProps[],
-  featured: boolean,
+  featured: boolean | undefined,
+  recent: number | undefined,
 ): PostProps[] {
   return posts
-    .filter((post) => !featured || post.metadata.isFeatured)
+    .filter((post) => !featured || post.metadata.featured)
     .sort(
       (a, b) =>
         new Date(b.metadata.date).getTime() -
         new Date(a.metadata.date).getTime(),
     )
+    .slice(0, recent)
 }

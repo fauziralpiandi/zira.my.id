@@ -2,17 +2,9 @@ import Link from 'next/link'
 import formatDate from 'app/lib/format'
 import { getPosts } from 'app/lib/provider'
 import { PostProps, FilteredPostsProps } from 'app/lib/types'
-import {
-  DEFAULT_RECENT,
-  DEFAULT_FEATURED,
-  getFeaturedPosts,
-  getRecentPosts,
-} from 'app/lib/utils'
+import { getFilteredPosts } from 'app/lib/utils'
 
-export async function MyPosts({
-  recent = DEFAULT_RECENT,
-  featured = DEFAULT_FEATURED,
-}: FilteredPostsProps) {
+export async function MyPosts({ featured, recent }: FilteredPostsProps) {
   let allPosts: PostProps[] = []
 
   try {
@@ -34,23 +26,23 @@ export async function MyPosts({
     )
   }
 
-  const featuredPosts = getFeaturedPosts(allPosts, featured)
-  const recentPosts = getRecentPosts(featuredPosts, recent)
+  const filteredPosts = getFilteredPosts(allPosts, featured, recent)
 
   return (
     <div>
-      {recentPosts.map((post) => (
+      {filteredPosts.map((post) => (
         <Link
           key={post.slug}
           className="flex flex-col my-4 space-y-2"
           href={`/posts/${post.slug}`}
           aria-label={`Read more about ${post.metadata.title}`}
         >
-          <div className="w-full flex flex-col md:flex-row md:space-x-4">
-            <p className="text-neutral-400 tabular-nums">
+          <div className="flex flex-col md:flex-row md:justify-between w-full">
+            {/* Tanggal di atas judul pada mobile */}
+            <p className="text-neutral-400 tabular-nums md:order-2">
               {formatDate(post.metadata.date, 'absolute')}
             </p>
-            <p className="font-medium text-neutral-200 leading-snug">
+            <p className="font-medium text-neutral-200 leading-snug md:order-1">
               {post.metadata.title}
             </p>
           </div>

@@ -10,7 +10,7 @@ const sqlInstance: Sql<any> = postgres(postgresUrl, {
   ssl:
     process.env.NODE_ENV === 'production'
       ? { rejectUnauthorized: true }
-      : true,
+      : false,
 })
 
 export const sql = sqlInstance

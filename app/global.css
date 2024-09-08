@@ -52,11 +52,11 @@ body {
   h1,
   h2,
   h3 {
-    @apply font-semibold leading-tight tracking-tight text-neutral-200 mt-12 mb-0;
+    @apply mt-16 font-semibold text-neutral-100 leading-tight tracking-tight;
   }
 
   strong {
-    @apply font-medium text-neutral-200;
+    @apply font-medium text-neutral-50 bg-neutral-800 bg-opacity-70;
   }
 
   ul,
@@ -143,7 +143,7 @@ body {
   }
 
   blockquote {
-    @apply pl-6 border-l-4 border-neutral-700 my-8 text-neutral-400 font-light;
+    @apply my-12 pl-6 font-light text-lg text-neutral-400 border-l-4 border-neutral-700;
     margin-left: 0;
     margin-right: 0;
 
@@ -176,11 +176,6 @@ body {
   /* Fade-in animation */
 }
 
-.text-glow {
-  animation: glow 3s ease-in-out infinite;
-  /* Glowing text animation */
-}
-
 /* Text wrapping and word-breaking: keeping things in line */
 .title {
   text-wrap: balance;
@@ -203,17 +198,5 @@ table {
 
   to {
     opacity: 1;
-  }
-}
-
-@keyframes glow {
-
-  0%,
-  100% {
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
-  }
-
-  50% {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
   }
 }

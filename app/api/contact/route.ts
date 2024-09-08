@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         message:
-          'Too many feedback submissions, please try again after 24 hours.',
+          'Too many submission attempts, please try again after 24 hours.',
       },
       { status: 429 },
     )
@@ -43,13 +43,13 @@ export async function POST(request: Request) {
     `
 
     return NextResponse.json(
-      { message: 'Feedback submitted successfully!' },
+      { message: 'Submitted successfully!' },
       { status: 201 },
     )
   } catch (error) {
     console.error('Server error:', (error as Error).message)
     return NextResponse.json(
-      { message: 'An unexpected error occurred. Please try again later.' },
+      { message: 'An unexpected error occurred, please try again later.' },
       { status: 500 },
     )
   }

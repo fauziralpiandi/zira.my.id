@@ -20,7 +20,7 @@ export interface PostProps {
   metadata: {
     date: string
     title: string
-    isFeatured?: boolean
+    featured?: boolean
   }
 }
 

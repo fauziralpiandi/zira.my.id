@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     if (!validateEmail(email)) {
       return NextResponse.json(
-        { message: 'Invalid email address.' },
+        { message: 'Invalid email address' },
         { status: 400 },
       )
     }
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
 
     if (existingSubscription.rows.length > 0) {
       return NextResponse.json(
-        { message: 'This email is already subscribed.' },
+        { message: 'This email is already subscribed' },
         { status: 409 },
       )
     }
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Server error:', (error as Error).message)
     return NextResponse.json(
-      { message: 'An unexpected error occurred. Please try again later.' },
+      { message: 'An unexpected error occurred, please try again later.' },
       { status: 500 },
     )
   }

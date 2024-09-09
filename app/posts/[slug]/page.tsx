@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import literalMeta from 'app/lib/literal'
 import { site } from 'app/lib/constant'
 import { getPosts } from 'app/lib/provider'
+import { PostParamsProps } from 'app/lib/types'
 
 import Author from 'app/posts/components/Author'
 import Metags from 'app/posts/components/Meta'
@@ -11,11 +12,11 @@ import Views from 'app/posts/components/Views'
 import { Suspense } from 'react'
 import { ImSpinner } from 'react-icons/im'
 
-type PostParams = {
-  slug: string
-}
-
-export async function generateMetadata({ params }: { params: PostParams }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: PostParamsProps
+}) {
   let posts = await getPosts()
   let post = posts.find((post) => post.slug === params.slug)
 
@@ -56,7 +57,11 @@ export async function generateMetadata({ params }: { params: PostParams }) {
   }
 }
 
-export default async function PostPage({ params }: { params: PostParams }) {
+export default async function PostPage({
+  params,
+}: {
+  params: PostParamsProps
+}) {
   let posts = await getPosts()
   let post = posts.find((post) => post.slug === params.slug)
 
@@ -88,10 +93,10 @@ export default async function PostPage({ params }: { params: PostParams }) {
         </Suspense>
       </div>
 
-      <h1 className="text-3xl font-extrabold leading-tight tracking-tight mb-2">
+      <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight">
         {post.metadata.title}
       </h1>
-      <p className="text-lg text-neutral-400 mb-6">{post.metadata.summary}</p>
+      <p className="mb-6 text-neutral-400">{post.metadata.summary}</p>
 
       <Author
         author={post.metadata.author || ''}

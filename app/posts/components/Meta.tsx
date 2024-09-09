@@ -1,12 +1,5 @@
 import { site } from 'app/lib/constant'
-
-type MetaTagsProps = {
-  title: string
-  description: string
-  publishedTime: string
-  image?: string
-  slug: string
-}
+import { MetaTagsProps } from 'app/lib/types'
 
 const MetaTags = ({
   title,

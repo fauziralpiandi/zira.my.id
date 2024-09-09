@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { ImSpinner } from 'react-icons/im'
+import { FaSpinner } from 'react-icons/fa'
+import { handleSubscribe } from 'app/lib/form'
 
 const SubscriptionForm = (): React.ReactElement => {
   const [email, setEmail] = useState('')
@@ -10,65 +11,54 @@ const SubscriptionForm = (): React.ReactElement => {
 
   const showPopup = (message: string) => {
     setPopupMessage(message)
-    setTimeout(() => setPopupMessage(''), 3000)
+    setTimeout(() => setPopupMessage(''), 5000)
   }
 
-  const handleSubscribe = async () => {
-    if (!email) {
-      return showPopup('Please enter your email address.')
-    }
-
-    setIsLoading(true)
-
-    try {
-      const response = await fetch('/api/subscription', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      })
-
-      if (!response.ok) {
-        const errorResponse = await response.json()
-        throw new Error(errorResponse.message || 'Failed to subscribe.')
-      }
-
-      showPopup('Subscribed successfully!')
-      setEmail('')
-    } catch (error) {
-      showPopup((error as Error).message || 'Something went wrong.')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  const resetEmail = () => setEmail('')
 
   return (
-    <div className="relative flex flex-col justify-center items-center w-full my-16">
-      <div className="flex gap-1 text-sm">
+    <div className="relative my-24 mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 rounded-xl">
+      <h2 className="mb-3 text-2xl font-bold text-center text-neutral-100 leading-tight tracking-tight">
+        Subscribe
+      </h2>
+      <p className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
+        Don&rsquo;t miss out! Sign up using the form below to be the first to
+        know!
+      </p>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubscribe(email, setIsLoading, showPopup, resetEmail)
+        }}
+        className="flex flex-col space-y-3"
+      >
         <input
           type="email"
+          name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Type your email for updates"
-          className="p-2 bg-transparent text-neutral-300 border border-neutral-500 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-neutral-400"
+          placeholder="Email Address"
+          required
+          className="p-3 text-center bg-transparent border border-neutral-500 rounded focus:outline-none focus:ring-2 focus:ring-white transition"
         />
         <button
-          onClick={handleSubscribe}
+          type="submit"
           disabled={isLoading}
-          className={`px-4 py-2 font-medium border border-neutral-500 rounded-r-lg hover:scale-95 transform transition duration-200 
-            ${isLoading ? 'bg-neutral-600 text-neutral-400 cursor-not-allowed' : 'bg-neutral-800 text-neutral-200 hover:bg-neutral-700'}`}
+          className="p-3 font-medium bg-black border border-neutral-500 rounded-md hover:bg-neutral-800 hover:scale-95 transition duration-200"
         >
           {isLoading ? (
-            <ImSpinner className="animate-spin text-neutral-400" />
+            <div className="flex items-center justify-center animate-pulse">
+              <FaSpinner className="mr-2 h-5 w-5 animate-spin" />
+              <span>Subscribing...</span>
+            </div>
           ) : (
             'Subscribe'
           )}
         </button>
-      </div>
+      </form>
 
       {popupMessage && (
-        <div className="absolute top-0 mt-20 font-medium text-center text-neutral-200 animate-in">
+        <div className="relative mt-8 font-medium text-center text-neutral-200">
           {popupMessage}
         </div>
       )}

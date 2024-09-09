@@ -8,7 +8,7 @@ const formatDate = (
   const targetDate = new Date(date)
 
   if (isNaN(targetDate.getTime())) {
-    throw new Error('Invalid date format!')
+    throw new Error('Invalid date format')
   }
 
   const timeDifference = currentDate.getTime() - targetDate.getTime()

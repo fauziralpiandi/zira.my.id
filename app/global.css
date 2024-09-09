@@ -6,10 +6,10 @@
 /* Setting the vibe for the entire website */
 :root {
   /* CSS variables: the real MVPs */
-  --background-color: #111;
-  --text-color: #eee;
-  --selection-background: #eee;
-  --selection-text: #111;
+  --background-color: #111111;
+  --text-color: #EEEEEE;
+  --selection-background: #EEEEEE;
+  --selection-text: #111111;
 
   --custom-bg: #000000;
   --custom-border: #333333;

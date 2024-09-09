@@ -23,12 +23,13 @@ const ContactForm = (): React.ReactElement => {
   }
 
   return (
-    <div className="relative mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 shadow-lg rounded-xl">
+    <div className="relative mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 rounded-xl">
       <h2 className="mb-3 text-2xl font-bold text-center text-neutral-100 leading-tight tracking-tight">
         Contact
       </h2>
       <p className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
-        I&rsquo;d love to hear from you. Fill out the form below to get in touch!
+        I&rsquo;d love to hear from you. Fill out the form below to get in
+        touch!
       </p>
       <form
         onSubmit={(e) => {
@@ -74,10 +75,10 @@ const ContactForm = (): React.ReactElement => {
         <button
           type="submit"
           disabled={isLoading}
-          className="p-3 font-medium border border-neutral-500 rounded-md"
+          className="p-3 font-medium bg-black border border-neutral-500 rounded-md hover:bg-neutral-800 hover:scale-95 transition duration-200"
         >
           {isLoading ? (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center animate-pulse">
               <FaSpinner className="mr-2 h-5 w-5 animate-spin" />
               <span>Submitting...</span>
             </div>

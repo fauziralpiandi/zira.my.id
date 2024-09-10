@@ -11,7 +11,7 @@ export const handleContact = async (
   setIsLoading(true)
 
   try {
-    const response = await fetch('/api/contact', {
+    const response = await fetch('/api/submission', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
-import { handleSubscribe } from 'app/lib/form'
+import { handleSubscribe } from 'app/lib/forms'
 
 const SubscriptionForm = (): React.ReactElement => {
   const [email, setEmail] = useState('')

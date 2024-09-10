@@ -74,9 +74,9 @@ export default async function PostPage({
   return (
     <section className="animate-in">
       <Metags
-        title={post.metadata.title}
-        description={post.metadata.summary || ''}
-        publishedTime={post.metadata.date}
+        title={post.metadata.title || 'Untitled'}
+        description={post.metadata.summary}
+        publishedTime={post.metadata.date || new Date().toISOString()}
         image={post.metadata.image}
         slug={post.slug}
       />
@@ -94,14 +94,14 @@ export default async function PostPage({
       </div>
 
       <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight">
-        {post.metadata.title}
+        {post.metadata.title || 'Untitled'}
       </h1>
       <p className="mb-6 text-neutral-400">{post.metadata.summary}</p>
 
       <Author
-        author={post.metadata.author || ''}
+        author={post.metadata.author || 'Fauzira Alpiandi'}
         readTime={readTime}
-        date={post.metadata.date}
+        date={post.metadata.date || new Date().toISOString()}
       />
 
       <hr className="my-8 border border-dashed border-neutral-800" />

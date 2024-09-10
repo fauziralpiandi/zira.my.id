@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { sql } from '@vercel/postgres'
 import { rateLimit } from 'app/lib/limiter'
-import { validateFeedback } from 'app/lib/validation'
+import { validateSubmission } from 'app/lib/validation'
 import validator from 'validator'
 
 const REQUEST_LIMIT = parseInt(process.env.REQUEST_LIMIT || '2', 10)
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   try {
     const { name, email, message } = await request.json()
 
-    const validationError = validateFeedback(name, email, message)
+    const validationError = validateSubmission(name, email, message)
     if (validationError) {
       return NextResponse.json({ message: validationError }, { status: 400 })
     }

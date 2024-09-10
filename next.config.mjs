@@ -1,8 +1,12 @@
-import postgres from 'postgres';
+import postgres from 'postgres'
+
+if (!process.env.POSTGRES_URL) {
+  throw new Error('POSTGRES_URL is not defined')
+}
 
 export const sql = postgres(process.env.POSTGRES_URL, {
-  ssl: 'allow',
-});
+  ssl: process.env.NODE_ENV === 'production' ? 'require' : 'allow',
+})
 
 const securityHeaders = [
   {
@@ -31,9 +35,10 @@ const securityHeaders = [
   },
 ]
 
-const cspHeader = `
+const cspHeader = (nonce) =>
+  `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline';
+    script-src 'self' 'nonce-${nonce}';
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data:;
     font-src 'self';
@@ -42,21 +47,32 @@ const cspHeader = `
     form-action 'self';
     frame-ancestors 'none';
     upgrade-insecure-requests;
-`.replace(/\n/g, '')
+  `.replace(/\n/g, '')
 
 const nextConfig = {
-  experimental: {
-    cssChunking: 'loose',
-  },
   async headers() {
+    if (process.env.NODE_ENV === 'production') {
+      const nonce = Buffer.from(`${Date.now()}`).toString('base64')
+      return [
+        {
+          source: '/(.*)',
+          headers: [
+            ...securityHeaders,
+            {
+              key: 'Content-Security-Policy',
+              value: cspHeader(nonce),
+            },
+          ],
+        },
+      ]
+    }
     return [
       {
         source: '/(.*)',
         headers: [
-          ...securityHeaders,
           {
-            key: 'Content-Security-Policy',
-            value: cspHeader,
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
           },
         ],
       },

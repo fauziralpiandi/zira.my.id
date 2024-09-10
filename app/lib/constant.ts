@@ -1,6 +1,5 @@
 import { SiteProps } from 'app/lib/types'
 
-// Constant site information
 export const site: SiteProps = {
   domain: 'zira.my.id',
   baseUrl: 'https://zira.my.id',

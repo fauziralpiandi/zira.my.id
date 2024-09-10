@@ -38,7 +38,6 @@ export async function MyPosts({ featured, recent }: FilteredPostsProps) {
           aria-label={`Read more about ${post.metadata.title}`}
         >
           <div className="flex flex-col md:flex-row md:justify-between w-full">
-            {/* Tanggal di atas judul pada mobile */}
             <p className="text-neutral-400 tabular-nums md:order-2">
               {formatDate(post.metadata.date, 'absolute')}
             </p>

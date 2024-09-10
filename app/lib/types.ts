@@ -1,5 +1,6 @@
 import { StaticImageData } from 'next/image'
 
+// Site Configuration
 export interface SiteProps {
   domain: string
   baseUrl: string
@@ -11,6 +12,7 @@ export interface SiteProps {
   verify: string
 }
 
+// Post Related Interfaces
 export interface PostParamsProps {
   slug: string
 }
@@ -49,6 +51,26 @@ export interface MetaTagsProps {
   slug: string
 }
 
+export interface PostMetadataProps {
+  title: string
+  summary: string
+  date: string
+  author?: string
+  image?: string
+}
+
+export interface ParsedFrontmatterProps {
+  metadata: PostMetadataProps
+  content: string
+}
+
+export interface PostDataProps {
+  metadata: PostMetadataProps
+  slug: string
+  content: string
+}
+
+// UI Components
 export interface TableProps {
   data: {
     headers: string[]
@@ -70,6 +92,13 @@ export interface ComponentsProps {
   [key: string]: React.ComponentType<any>
 }
 
+export interface GridImageProps {
+  alt: string
+  src: string | StaticImageData
+  className?: string
+}
+
+// Analytics
 export interface ViewsCountProps {
   slug: string
   count: number
@@ -80,42 +109,13 @@ export interface ViewsCounterProps {
   allViews: ViewsCountProps[] | undefined
 }
 
-export interface GridImageProps {
-  alt: string
-  src: string | StaticImageData
-  className?: string
-}
-
+// Cookies
 export interface CookieProps {
   acceptedCookies?: string
 }
 
-export interface PostMetadataProps {
-  title: string
-  summary: string
-  date: string
-  author?: string
-  image?: string
-}
-
-export interface ParsedFrontmatterProps {
-  metadata: PostMetadataProps
-  content: string
-}
-
-export interface PostDataProps {
-  metadata: PostMetadataProps
-  slug: string
-  content: string
-}
-
+// Request Data
 export interface RequestDataProps {
   count: number
   firstRequestTime: number
-}
-
-export interface Feedback {
-  name: string
-  email: string
-  message: string
 }

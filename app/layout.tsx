@@ -1,9 +1,8 @@
 import './global.css'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { site } from 'app/lib/constant'
-
+import { font } from 'app/lib/fonts'
 import Nav from 'app/components/Nav'
 import Footer from 'app/components/Footer'
 import Cookie from 'app/components/Cookie'
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.baseUrl),
   title: {
     default: site.title,
-    template: `%s | ${site.title}`,
+    template: `%s \u007C ${site.title}`,
   },
   description: site.desc,
   openGraph: {
@@ -39,9 +38,6 @@ export const metadata: Metadata = {
   },
 }
 
-// Helper function to combine class names like a pro
-const cx = (...classes: string[]) => classes.filter(Boolean).join(' ')
-
 export default function RootLayout({
   children,
 }: {
@@ -50,10 +46,10 @@ export default function RootLayout({
   return (
     <html
       lang={site.locale}
-      className={cx(
+      className={clsx(
         'text-main-text bg-main-background',
-        GeistSans.variable,
-        GeistMono.variable,
+        font.sans,
+        font.mono,
       )}
     >
       <body className="relative width-full px-8 pt-8 md:pt-16 pb-8 md:pb-16 antialiased">

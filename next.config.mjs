@@ -35,10 +35,9 @@ const securityHeaders = [
   },
 ]
 
-const cspHeader = (nonce) =>
-  `
+const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}';
+    script-src 'self' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data:;
     font-src 'self';
@@ -47,12 +46,11 @@ const cspHeader = (nonce) =>
     form-action 'self';
     frame-ancestors 'none';
     upgrade-insecure-requests;
-  `.replace(/\n/g, '')
+`.replace(/\n/g, '')
 
 const nextConfig = {
   async headers() {
     if (process.env.NODE_ENV === 'production') {
-      const nonce = Buffer.from(`${Date.now()}`).toString('base64')
       return [
         {
           source: '/(.*)',
@@ -60,7 +58,7 @@ const nextConfig = {
             ...securityHeaders,
             {
               key: 'Content-Security-Policy',
-              value: cspHeader(nonce),
+              value: cspHeader,
             },
           ],
         },

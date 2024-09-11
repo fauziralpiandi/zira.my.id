@@ -15,10 +15,6 @@ export interface SiteProps {
 // Post Related Interfaces
 export interface PostParamsProps {
   slug: string
-}
-
-export interface PostProps {
-  slug: string
   metadata: {
     date: string
     title: string
@@ -31,23 +27,26 @@ export interface FilteredPostsProps {
   featured?: boolean
 }
 
-export interface AuthorInfoProps {
-  author: string
+export interface HeadPostProps {
+  title: string
+  summary: string
+  author?: string
   readTime: string
   date: string
+  slug: string
 }
 
-export interface PostBodyProps {
+export interface BodyPostProps {
   title: string
-  image: string | null
+  image?: string
   content: string
 }
 
-export interface MetaTagsProps {
+export interface MetaPostProps {
   title: string
   description: string
   publishedTime: string
-  image?: string | null
+  image?: string
   slug: string
 }
 

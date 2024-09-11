@@ -18,7 +18,7 @@ export async function ViewCounter({ slug, allViews }: ViewsCounterProps) {
   )
 }
 
-const Views = async ({ slug }: { slug: string }) => {
+const ViewPost = async ({ slug }: { slug: string }) => {
   try {
     await increment(slug)
     const allViews = await getViewsCount()
@@ -33,4 +33,4 @@ const Views = async ({ slug }: { slug: string }) => {
   }
 }
 
-export default Views
+export default ViewPost

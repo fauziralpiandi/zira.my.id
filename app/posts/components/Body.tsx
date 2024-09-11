@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { Contents } from 'app/posts/components/Markdown'
-import { PostBodyProps } from 'app/lib/types'
+import { Contents } from 'app/posts/components/Content'
+import { BodyPostProps } from 'app/lib/types'
 
-const PostBody = ({ title, image, content }: PostBodyProps) => {
+const BodyPost = ({ title, image, content }: BodyPostProps) => {
   return (
     <div>
       {image && (
@@ -24,4 +24,4 @@ const PostBody = ({ title, image, content }: PostBodyProps) => {
   )
 }
 
-export default PostBody
+export default BodyPost

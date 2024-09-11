@@ -1,16 +1,13 @@
 import { notFound } from 'next/navigation'
-import literalMeta from 'app/lib/literal'
+
 import { site } from 'app/lib/constant'
 import { getPosts } from 'app/lib/provider'
 import { PostParamsProps } from 'app/lib/types'
+import literalMeta from 'app/lib/literal'
 
-import Author from 'app/posts/components/Author'
-import Metags from 'app/posts/components/Meta'
-import Body from 'app/posts/components/Body'
-import Views from 'app/posts/components/Views'
-
-import { Suspense } from 'react'
-import { ImSpinner } from 'react-icons/im'
+import MetaPost from 'app/posts/components/Meta'
+import HeadPost from 'app/posts/components/Head'
+import BodyPost from 'app/posts/components/Body'
 
 export async function generateMetadata({
   params,
@@ -73,42 +70,26 @@ export default async function PostPage({
 
   return (
     <section className="animate-in">
-      <Metags
-        title={post.metadata.title || 'Untitled'}
+      <MetaPost
+        title={post.metadata.title}
         description={post.metadata.summary}
-        publishedTime={post.metadata.date || new Date().toISOString()}
+        publishedTime={post.metadata.date}
         image={post.metadata.image}
         slug={post.slug}
       />
 
-      <div className="flex items-center mb-4">
-        <Suspense
-          fallback={
-            <span className="text-sm text-neutral-500">
-              <ImSpinner className="inline animate-spin" />
-            </span>
-          }
-        >
-          <Views slug={post.slug} />
-        </Suspense>
-      </div>
-
-      <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight">
-        {post.metadata.title || 'Untitled'}
-      </h1>
-      <p className="mb-6 text-neutral-400">{post.metadata.summary}</p>
-
-      <Author
-        author={post.metadata.author || 'Fauzira Alpiandi'}
+      <HeadPost
+        title={post.metadata.title}
+        summary={post.metadata.summary}
+        date={post.metadata.date}
+        author={post.metadata.author}
+        slug={post.slug}
         readTime={readTime}
-        date={post.metadata.date || new Date().toISOString()}
       />
 
-      <hr className="my-8 border border-dashed border-neutral-800" />
-
-      <Body
-        image={post.metadata.image || ''}
+      <BodyPost
         title={post.metadata.title}
+        image={post.metadata.image}
         content={post.content}
       />
     </section>

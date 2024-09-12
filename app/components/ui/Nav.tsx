@@ -1,10 +1,12 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import Link from 'next/link'
-import { site } from 'app/lib/constant'
 import React, { useMemo } from 'react'
-import Logo from 'app/components/Logo'
+import Link from 'next/link'
+
+import Logo from 'app/components/ui/Logo'
+
+import { site } from 'app/lib/constant'
 
 const Nav = React.memo(() => {
   const pathname = usePathname()

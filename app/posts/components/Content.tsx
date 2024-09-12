@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { highlight } from 'sugar-high'
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
+
 import {
   TableProps,
   HyperLinkProps,

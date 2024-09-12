@@ -170,6 +170,10 @@ body {
   /* Custom background styling */
 }
 
+.animate-in {
+  animation-delay: calc(var(--index) * 150ms);
+}
+
 /* For those fancy animations */
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;

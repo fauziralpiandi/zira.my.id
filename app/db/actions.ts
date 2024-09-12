@@ -2,6 +2,7 @@
 
 import { sql } from './postgres'
 import { unstable_noStore as noStore } from 'next/cache'
+
 import { ViewsCountProps } from 'app/lib/types'
 
 const POSTGRES_URL = process.env.POSTGRES_URL

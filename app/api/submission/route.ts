@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server'
 import { sql } from '@vercel/postgres'
+import validator from 'validator'
+
 import { rateLimit } from 'app/lib/limiter'
 import { validateSubmission } from 'app/lib/validation'
-import validator from 'validator'
 
 const REQUEST_LIMIT = parseInt(process.env.REQUEST_LIMIT || '2', 10)
 const TIME_WINDOW = parseInt(process.env.TIME_WINDOW || '86400000', 10)

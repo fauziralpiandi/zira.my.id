@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
+
 import { useCookieManager } from './CookieConsent'
 
 const bannerBaseClasses =
@@ -43,7 +44,7 @@ export default function CookieManager() {
               <Link
                 href="/privacy-policy"
                 title="Learn more about privacy policy"
-                className="text-white hover:text-neutral-300 underline transition-colors duration-200"
+                className="text-neutral-50 hover:text-neutral-300 transition-colors duration-200"
               >
                 Privacy Policy
               </Link>{' '}

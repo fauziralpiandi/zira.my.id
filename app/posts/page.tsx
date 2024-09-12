@@ -1,7 +1,9 @@
 import { getPosts } from 'app/lib/provider'
-import { PostProps } from 'app/lib/types'
+import { PostParamsProps } from 'app/lib/types'
+
 import { MyPosts } from 'app/posts/components/List'
-import Subscription from 'app/components/SubscriptionForm'
+
+import Subscription from 'app/components/forms/Subscription'
 
 export const metadata = {
   title: 'Posts',
@@ -12,7 +14,7 @@ export default async function PostPage() {
   const Posts = await getPosts()
 
   /* Only the good stuff can survives */
-  const allPosts: PostProps[] = Posts.filter(Boolean) as PostProps[]
+  const allPosts: PostParamsProps[] = Posts.filter(Boolean) as PostParamsProps[]
 
   return (
     <section>
@@ -22,7 +24,7 @@ export default async function PostPage() {
             {allPosts.length} post &mdash; Stay tuned for more!
           </p>
         </div>
-        <MyPosts /> {/* Rendering all posts like a pro */}
+        <MyPosts />
         <Subscription />
       </div>
     </section>

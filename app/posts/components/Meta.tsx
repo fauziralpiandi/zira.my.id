@@ -1,13 +1,13 @@
 import { site } from 'app/lib/constant'
-import { MetaTagsProps } from 'app/lib/types'
+import { MetaPostProps } from 'app/lib/types'
 
-const MetaTags = ({
+const PostMeta = ({
   title,
   description,
   publishedTime,
   image,
   slug,
-}: MetaTagsProps) => {
+}: MetaPostProps) => {
   const ogImage = image
     ? image
     : `${site.baseUrl}/og?title=${encodeURIComponent(title)}`
@@ -37,4 +37,4 @@ const MetaTags = ({
   )
 }
 
-export default MetaTags
+export default PostMeta

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { IoIosWarning } from 'react-icons/io'
 
 export default function NotFound() {
@@ -26,13 +27,13 @@ export default function NotFound() {
         Or you can try checking the URL for mistakes! Even the best of us trip
         over the keyboard sometimes.
       </p>
-      <a
+      <Link
         href="/"
         className="mt-8 text-neutral-50 opacity-100 hover:opacity-50 transition-all duration-300"
         tabIndex={0}
       >
         Go back to Home
-      </a>
+      </Link>
     </main>
   )
 }

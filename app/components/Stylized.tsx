@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+
 import { GridImageProps } from 'app/lib/types'
 
 export const TextBlock: React.FC<{ children: React.ReactNode }> = ({

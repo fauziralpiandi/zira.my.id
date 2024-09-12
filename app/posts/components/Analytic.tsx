@@ -1,6 +1,8 @@
-import { increment, getViewsCount } from 'app/db/actions'
 import { FaEye } from 'react-icons/fa'
+
 import { ViewsCounterProps } from 'app/lib/types'
+
+import { increment, getViewsCount } from 'app/db/actions'
 
 export async function ViewCounter({ slug, allViews }: ViewsCounterProps) {
   if (!Array.isArray(allViews)) {
@@ -18,7 +20,7 @@ export async function ViewCounter({ slug, allViews }: ViewsCounterProps) {
   )
 }
 
-const ViewPost = async ({ slug }: { slug: string }) => {
+const PostAnalytic = async ({ slug }: { slug: string }) => {
   try {
     await increment(slug)
     const allViews = await getViewsCount()
@@ -33,4 +35,4 @@ const ViewPost = async ({ slug }: { slug: string }) => {
   }
 }
 
-export default ViewPost
+export default PostAnalytic

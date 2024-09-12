@@ -1,8 +1,9 @@
 import Link from 'next/link'
+
 import formatDate from 'app/lib/format'
 import { getPosts } from 'app/lib/provider'
-import { PostParamsProps, FilteredPostsProps } from 'app/lib/types'
 import { getFilteredPosts } from 'app/lib/utils'
+import { PostParamsProps, FilteredPostsProps } from 'app/lib/types'
 
 export async function MyPosts({ featured, recent }: FilteredPostsProps) {
   let allPosts: PostParamsProps[] = []

@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
+import { useEffect, useState } from 'react'
 import { AiOutlineCheck, AiOutlineInfoCircle } from 'react-icons/ai'
+
 import { CookieProps } from 'app/lib/types'
 
 const COOKIE_NAME = 'acceptedCookies'

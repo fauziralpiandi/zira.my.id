@@ -39,6 +39,7 @@ export interface HeadPostProps {
 export interface BodyPostProps {
   title: string
   image?: string
+  credit?: string
   content: string
 }
 
@@ -56,6 +57,7 @@ export interface PostMetadataProps {
   date: string
   author?: string
   image?: string
+  credit?: string
 }
 
 export interface ParsedFrontmatterProps {

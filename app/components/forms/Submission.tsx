@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
+
 import { handleContact } from 'app/lib/forms'
 
 const ContactForm = (): React.ReactElement => {

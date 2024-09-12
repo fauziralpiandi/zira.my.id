@@ -5,9 +5,9 @@ import { getPosts } from 'app/lib/provider'
 import { PostParamsProps } from 'app/lib/types'
 import literalMeta from 'app/lib/literal'
 
-import MetaPost from 'app/posts/components/Meta'
-import HeadPost from 'app/posts/components/Head'
-import BodyPost from 'app/posts/components/Body'
+import Meta from 'app/posts/components/Meta'
+import Head from 'app/posts/components/Head'
+import Body from 'app/posts/components/Body'
 
 export async function generateMetadata({
   params,
@@ -69,8 +69,8 @@ export default async function PostPage({
   const { readTime } = literalMeta.getCounts(post.content)
 
   return (
-    <section className="animate-in">
-      <MetaPost
+    <section>
+      <Meta
         title={post.metadata.title}
         description={post.metadata.summary}
         publishedTime={post.metadata.date}
@@ -78,20 +78,31 @@ export default async function PostPage({
         slug={post.slug}
       />
 
-      <HeadPost
-        title={post.metadata.title}
-        summary={post.metadata.summary}
-        date={post.metadata.date}
-        author={post.metadata.author}
-        slug={post.slug}
-        readTime={readTime}
-      />
+      <div
+        className="animate-in"
+        style={{ '--index': 1 } as React.CSSProperties}
+      >
+        <Head
+          title={post.metadata.title}
+          summary={post.metadata.summary}
+          date={post.metadata.date}
+          author={post.metadata.author}
+          slug={post.slug}
+          readTime={readTime}
+        />
+      </div>
 
-      <BodyPost
-        title={post.metadata.title}
-        image={post.metadata.image}
-        content={post.content}
-      />
+      <div
+        className="animate-in"
+        style={{ '--index': 2 } as React.CSSProperties}
+      >
+        <Body
+          title={post.metadata.title}
+          image={post.metadata.image}
+          credit={post.metadata.credit}
+          content={post.content}
+        />
+      </div>
     </section>
   )
 }

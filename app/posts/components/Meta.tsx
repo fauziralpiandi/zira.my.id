@@ -1,7 +1,7 @@
 import { site } from 'app/lib/constant'
 import { MetaPostProps } from 'app/lib/types'
 
-const MetaPost = ({
+const PostMeta = ({
   title,
   description,
   publishedTime,
@@ -37,4 +37,4 @@ const MetaPost = ({
   )
 }
 
-export default MetaPost
+export default PostMeta

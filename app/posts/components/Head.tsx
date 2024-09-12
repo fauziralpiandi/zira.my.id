@@ -1,12 +1,13 @@
 import Image from 'next/image'
+import { Suspense } from 'react'
+import { ImSpinner } from 'react-icons/im'
+
 import formatDate from 'app/lib/format'
 import { HeadPostProps } from 'app/lib/types'
 
-import { Suspense } from 'react'
-import { ImSpinner } from 'react-icons/im'
 import Analytic from 'app/posts/components/Analytic'
 
-const HeadPost = ({
+const PostHead = ({
   title,
   summary,
   date,
@@ -55,4 +56,4 @@ const HeadPost = ({
   )
 }
 
-export default HeadPost
+export default PostHead

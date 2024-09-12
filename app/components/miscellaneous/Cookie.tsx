@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
+
 import { useCookieManager } from './CookieConsent'
 
 const bannerBaseClasses =

@@ -1,10 +1,10 @@
-import { PostProps } from './types'
+import { PostParamsProps } from './types'
 
 export function getFilteredPosts(
-  posts: PostProps[],
+  posts: PostParamsProps[],
   featured: boolean | undefined,
   recent: number | undefined,
-): PostProps[] {
+): PostParamsProps[] {
   return posts
     .filter((post) => !featured || post.metadata.featured)
     .sort(

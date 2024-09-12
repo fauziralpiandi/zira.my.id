@@ -1,12 +1,17 @@
 import Image from 'next/image'
-import { Contents } from 'app/posts/components/Content'
+
 import { BodyPostProps } from 'app/lib/types'
 
-const BodyPost = ({ title, image, content }: BodyPostProps) => {
+import { Contents } from 'app/posts/components/Content'
+
+const PostBody = ({ title, image, credit, content }: BodyPostProps) => {
   return (
     <div>
+      {!image && (
+        <hr className="my-8 border border-dashed border-neutral-800" />
+      )}
       {image && (
-        <div className="my-8">
+        <figure className="my-8">
           <Image
             src={image}
             alt={title}
@@ -15,7 +20,10 @@ const BodyPost = ({ title, image, content }: BodyPostProps) => {
             className="-ml-7 w-[calc(100%+56px)] max-w-none md:rounded-lg grayscale"
             priority
           />
-        </div>
+          <figcaption className="my-3 italic text-center text-xs text-neutral-500">
+            Image by <span className="font-medium">{credit}</span>
+          </figcaption>
+        </figure>
       )}
       <article className="prose max-w-2xl">
         <Contents source={content} />
@@ -24,4 +32,4 @@ const BodyPost = ({ title, image, content }: BodyPostProps) => {
   )
 }
 
-export default BodyPost
+export default PostBody

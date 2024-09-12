@@ -1,9 +1,11 @@
 import React from 'react'
 import { BsStars } from 'react-icons/bs'
 import { PiSignature } from 'react-icons/pi'
+
 import uno from 'public/imgs/primera.webp'
 import dos from 'public/imgs/segunda.webp'
 import tres from 'public/imgs/tercera.webp'
+
 import { TextBlock, TextGlow, GridImage } from 'app/components/Stylized'
 
 export default function HomePage(): React.ReactElement {

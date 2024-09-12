@@ -1,11 +1,15 @@
-import './global.css'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
+
 import { site } from 'app/lib/constant'
 import { font } from 'app/lib/fonts'
-import Nav from 'app/components/Nav'
-import Footer from 'app/components/Footer'
-import Cookie from 'app/components/Cookie'
+
+import Nav from 'app/components/ui/Nav'
+import Footer from 'app/components/ui/Footer'
+
+import Cookie from 'app/components/miscellaneous/Cookie'
+
+import './global.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.baseUrl),
@@ -52,7 +56,7 @@ export default function RootLayout({
         font.mono,
       )}
     >
-      <body className="relative width-full px-8 pt-8 md:pt-16 pb-8 md:pb-16 antialiased">
+      <body className="relative width-full px-7 pt-8 md:pt-16 pb-8 md:pb-16 antialiased">
         <main className="relative max-w-[640px] mx-auto">
           <Nav />
           {children}

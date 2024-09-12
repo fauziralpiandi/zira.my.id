@@ -20,7 +20,7 @@ const PostHead = ({
       <div className="flex items-center mb-4">
         <Suspense
           fallback={
-            <span className="text-sm text-neutral-500">
+            <span className="text-sm text-neutral-500 animate-pulse">
               <ImSpinner className="inline animate-spin" />
             </span>
           }
@@ -34,15 +34,15 @@ const PostHead = ({
       <p className="mb-6 text-neutral-400">{summary}</p>
       <div className="mb-6 flex items-center">
         <Image
-          className="w-12 h-12 object-cover border border-neutral-500 rounded-full grayscale"
-          src="/imgs/segunda.webp"
+          className="w-12 h-12 object-cover border border-neutral-600 rounded-full grayscale"
+          src="/zira.webp"
           alt={author || 'Author'}
           width={48}
           height={48}
-          loading="lazy"
+          priority
         />
         <div className="ml-4">
-          <p>{author}</p>
+          <p className="font-medium leading-tight tracking-tight">{author}</p>
           <div className="text-sm text-neutral-400">
             <span className="flex items-center gap-1">
               <p>{readTime}</p>

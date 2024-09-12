@@ -69,7 +69,7 @@ export default async function PostPage({
   const { readTime } = literalMeta.getCounts(post.content)
 
   return (
-    <section>
+    <section className="animate-in">
       <Meta
         title={post.metadata.title}
         description={post.metadata.summary}
@@ -78,31 +78,21 @@ export default async function PostPage({
         slug={post.slug}
       />
 
-      <div
-        className="animate-in"
-        style={{ '--index': 1 } as React.CSSProperties}
-      >
-        <Head
-          title={post.metadata.title}
-          summary={post.metadata.summary}
-          date={post.metadata.date}
-          author={post.metadata.author}
-          slug={post.slug}
-          readTime={readTime}
-        />
-      </div>
+      <Head
+        title={post.metadata.title}
+        summary={post.metadata.summary}
+        date={post.metadata.date}
+        author={post.metadata.author}
+        slug={post.slug}
+        readTime={readTime}
+      />
 
-      <div
-        className="animate-in"
-        style={{ '--index': 2 } as React.CSSProperties}
-      >
-        <Body
-          title={post.metadata.title}
-          image={post.metadata.image}
-          credit={post.metadata.credit}
-          content={post.content}
-        />
-      </div>
+      <Body
+        title={post.metadata.title}
+        image={post.metadata.image}
+        credit={post.metadata.credit}
+        content={post.content}
+      />
     </section>
   )
 }

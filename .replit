@@ -1,4 +1,4 @@
-modules = ["web", "nodejs-22"]
+modules = ["web", "nodejs-22", "bash"]
 run = "npm run dev"
 
 [[ports]]

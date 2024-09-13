@@ -56,8 +56,8 @@ export default function RootLayout({
         font.mono,
       )}
     >
-      <body className="relative width-full px-7 pt-8 md:pt-16 pb-8 md:pb-16 antialiased">
-        <main className="relative max-w-[640px] mx-auto">
+      <body className="relative w-full p-6 antialiased">
+        <main className="relative max-w-2xl mx-auto">
           <Nav />
           {children}
           <Footer />

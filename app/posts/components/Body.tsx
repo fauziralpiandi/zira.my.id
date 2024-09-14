@@ -4,7 +4,7 @@ import { BodyPostProps } from 'app/lib/types'
 
 import { Contents } from 'app/posts/components/Content'
 
-const PostBody = ({ title, image, credit, content }: BodyPostProps) => {
+const PostBody = ({ title, image, content }: BodyPostProps) => {
   return (
     <div>
       {!image && (
@@ -15,14 +15,11 @@ const PostBody = ({ title, image, credit, content }: BodyPostProps) => {
           <Image
             src={image}
             alt={title}
-            width={720}
-            height={360}
+            width={1920}
+            height={1080}
             className="w-full h-auto md:rounded-xl grayscale"
             priority
           />
-          <figcaption className="my-3 italic text-center text-xs text-neutral-400">
-            Image by <span className="font-medium">{credit}</span>
-          </figcaption>
         </figure>
       )}
       <article className="max-w-2xl prose prose-neutral">

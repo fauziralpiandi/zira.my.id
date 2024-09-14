@@ -35,7 +35,7 @@ const PostHead = ({
       <div className="mb-6 flex items-center">
         <Image
           className="w-12 h-12 object-cover border border-neutral-600 rounded-full grayscale"
-          src="/zira.webp"
+          src="/author.webp"
           alt={author || 'Author'}
           width={48}
           height={48}

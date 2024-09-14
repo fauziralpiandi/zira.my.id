@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage(): React.ReactElement {
         <p className="text-sm text-neutral-400">
           September 1, 2024 &mdash; 08:22 UTC
         </p>
-        <div className="prose">
+        <div className="prose prose-neutral">
           <p>
             As the owner and operator of this website, I am committed to
             protecting and respecting your privacy as a user. This privacy

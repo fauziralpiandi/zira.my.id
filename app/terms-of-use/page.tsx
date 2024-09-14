@@ -15,7 +15,7 @@ export default function TermsOfUsePage(): React.ReactElement {
         <p className="text-sm text-neutral-400">
           September 1, 2024 &mdash; 08:22 UTC
         </p>
-        <div className="prose">
+        <div className="prose prose-neutral">
           <p>
             This website is designed as a platform for sharing personal
             writings, opinions, and creative works. As a visitor, you are

@@ -6,7 +6,7 @@ import { GridImageProps } from 'app/lib/types'
 export const TextBlock: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
-  <div className="my-4 prose">
+  <div className="my-4 prose prose-neutral">
     <p>{children}</p>
   </div>
 )

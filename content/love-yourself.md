@@ -3,8 +3,6 @@ title: 'Treat Yourself Right Before Others'
 summary: 'Make sure your cup`s full before you start pouring for others.'
 date: '2020-01-23'
 author: 'Fauzira Alpiandi'
-image: '/posted/love-yourself.webp'
-credit: 'Jamez Picard'
 ---
 
 Kita sering terperangkap dalam labirin dilema moral dan emosional. Dalam ruang hampa yang diciptakan oleh kebencian terhadap diri sendiri, muncul pertanyaan mendalam:

@@ -13,7 +13,6 @@ import Logo from 'app/components/ui/Logo'
 import { FaRss } from 'react-icons/fa'
 
 const links = [
-  { label: 'About', href: '/about' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
   { label: 'Legal', href: '/legal' },

@@ -3,9 +3,9 @@
 import { useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
 
-import { handleContact } from 'app/lib/forms'
+import { handleSubmission } from 'app/lib/forms'
 
-const ContactForm = (): React.ReactElement => {
+const SubmissionForm = (): React.ReactElement => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
@@ -35,7 +35,7 @@ const ContactForm = (): React.ReactElement => {
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          handleContact(
+          handleSubmission(
             name,
             email,
             message,
@@ -98,4 +98,4 @@ const ContactForm = (): React.ReactElement => {
   )
 }
 
-export default ContactForm
+export default SubmissionForm

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+
 import { site } from 'app/lib/constant'
 
 // Every site needs an identity crisis.

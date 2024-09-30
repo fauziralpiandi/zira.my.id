@@ -79,6 +79,6 @@ export async function getMarkdownData(dir: string): Promise<PostDataProps[]> {
 
 // Retrieve all the posts from the posts directory.
 export async function getPosts(): Promise<PostDataProps[]> {
-  const postsDir = path.join(process.cwd(), 'posted')
+  const postsDir = path.join(process.cwd(), 'content')
   return getMarkdownData(postsDir)
 }

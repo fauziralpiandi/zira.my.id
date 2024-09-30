@@ -1,4 +1,4 @@
-export const handleContact = async (
+export const handleSubmission = async (
   name: string,
   email: string,
   message: string,
@@ -33,7 +33,7 @@ export const handleContact = async (
   }
 }
 
-export const handleSubscribe = async (
+export const handleSubscription = async (
   email: string,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   showPopup: (message: string) => void,

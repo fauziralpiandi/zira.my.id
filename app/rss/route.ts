@@ -23,7 +23,7 @@ export async function GET() {
           <title>${post.metadata.title}</title>
           <link>${site.baseUrl}/posts/${post.slug}</link>
           <description>${post.metadata.summary || ''}</description>
-          <pubDate>${new Date(post.metadata.date).toUTCString()}</pubDate>
+          <pubDate>${new Date(post.metadata.date)}</pubDate>
         </item>`,
     )
     .join('')
@@ -31,10 +31,9 @@ export async function GET() {
   const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
   <rss version="2.0">
     <channel>
-        <title>${site.title}</title>
-        <link>${site.baseUrl}</link>
-        <description>RSS Feed</description>
-        ${itemsXml}
+      <title>${site.title}</title>
+      <description>Feed</description>
+      ${itemsXml}
     </channel>
   </rss>`
 

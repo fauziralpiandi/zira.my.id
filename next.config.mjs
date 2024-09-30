@@ -1,12 +1,13 @@
 import postgres from 'postgres'
-
-if (!process.env.POSTGRES_URL) {
-  throw new Error('POSTGRES_URL is not defined')
-}
+import createMDX from '@next/mdx'
 
 export const sql = postgres(process.env.POSTGRES_URL, {
   ssl: process.env.NODE_ENV === 'production' ? 'require' : 'allow',
 })
+
+if (!process.env.POSTGRES_URL) {
+  throw new Error('POSTGRES_URL is not defined')
+}
 
 const securityHeaders = [
   {
@@ -48,7 +49,7 @@ const cspHeader = `
     upgrade-insecure-requests;
 `.replace(/\n/g, '')
 
-const nextConfig = {
+const baseNextConfig = {
   async headers() {
     if (process.env.NODE_ENV === 'production') {
       return [
@@ -76,6 +77,9 @@ const nextConfig = {
       },
     ]
   },
+  pageExtensions: ['md', 'mdx', 'js', 'jsx', 'ts', 'tsx'],
 }
 
-export default nextConfig
+const withMDX = createMDX({})
+
+export default withMDX(baseNextConfig)

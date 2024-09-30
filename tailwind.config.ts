@@ -2,16 +2,12 @@ import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 
 export default {
-  content: ['./app/**/*.{ts,tsx}', './posted/**/*.{md,mdx}'],
+  content: ['./app/**/*.{md,mdx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
         'main-text': 'var(--text-color)',
         'main-background': 'var(--background-color)',
-      },
-      fontFamily: {
-        sans: ['var(--font-geist-sans)'],
-        mono: ['var(--font-geist-mono)'],
       },
       typography: {
         DEFAULT: {
@@ -43,10 +39,19 @@ export default {
           '0%': { opacity: '1', transform: 'translateY(0)' },
           '100%': { opacity: '0', transform: 'translateY(-5px)' },
         },
+        'meteor': {
+          '0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
+          '70%': { opacity: '1' },
+          '100%': {
+            transform: 'rotate(215deg) translateX(-500px)',
+            opacity: '0',
+          },
+        },
       },
       animation: {
         'in': 'in 300ms both',
         'in-reverse': 'in-reverse 300ms both',
+        'meteor': 'meteor 5s linear infinite',
       },
     },
   },

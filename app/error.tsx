@@ -24,7 +24,7 @@ export default function Error({
   return (
     <div className="flex flex-col md:items-center md:p-4">
       <IoIosWarning size={50} className="mb-4 text-red-500" />
-      <h1 className="mb-2 font-semibold text-2xl">Something went wrong–</h1>
+      <h1 className="mb-2 font-semibold text-2xl">Something went wrong</h1>
       <p className="text-red-500 opacity-75" aria-live="assertive">
         {error.message ||
           'An unexpected error has occurred, please try refreshing the page!'}

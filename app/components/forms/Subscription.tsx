@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
 
-import { handleSubscribe } from 'app/lib/forms'
+import { handleSubscription } from 'app/lib/forms'
 
 const SubscriptionForm = (): React.ReactElement => {
   const [email, setEmail] = useState('')
@@ -29,7 +29,7 @@ const SubscriptionForm = (): React.ReactElement => {
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          handleSubscribe(email, setIsLoading, showPopup, resetEmail)
+          handleSubscription(email, setIsLoading, showPopup, resetEmail)
         }}
         className="flex flex-col space-y-3"
       >

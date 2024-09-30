@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",
@@ -39,7 +38,6 @@
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@types/validator": "^13.12.2",
-    "eslint-config-next": "14.2.13",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"

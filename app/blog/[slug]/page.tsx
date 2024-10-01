@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { site } from 'app/lib/constant'
@@ -98,9 +97,6 @@ export default async function PostPage({
         }}
       />
       <div>
-        <div className="flex items-center mb-4">
-          {/* <Link href="/blog"><span className="text-neutral-500">Back</span></Link> */}
-        </div>
         <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight">
           {post.metadata.title}
         </h1>

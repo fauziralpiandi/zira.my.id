@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #EEEEEE;
+  --foreground: #1111111;
+  --sh-class: #EEABFB;
+  --sh-identifier: #BE69DE;
+  --sh-sign: #EEEEEE;
+  --sh-string: #F8810B;
+  --sh-keyword: #0080FF;
+  --sh-comment: #808080;
+  --sh-jsxliterals: #6266d1;
+  --sh-property: #B2D9FF;
+  --sh-entity: #CDFF84;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111111;
+    --foreground: #EEEEEE;
+    --sh-class: #EEABFB;
+    --sh-identifier: #BE69DE;
+    --sh-sign: #EEEEEE;
+    --sh-string: #F8810B;
+    --sh-keyword: #0080FF;
+    --sh-comment: #808080;
+    --sh-jsxliterals: #6266d1;
+    --sh-property: #B2D9FF;
+    --sh-entity: #CDFF84;
+  }
+}
+
+/* Pastikan CSS ini ada di file global */
+html,
+body {
+  margin: 0;
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  color: var(--foreground);
+  background: var(--background);
+  text-rendering: optimizeLegibility;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Tailwind @apply magic for modular content styling */
+.prose {
+  @apply text-neutral-300;
+
+  p {
+    @apply my-4;
+    /* Margin on Y-axis for paragraphs */
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply mt-12 text-neutral-100 leading-tight tracking-tight;
+  }
+
+  h1 {
+    @apply font-bold text-3xl;
+  }
+
+  h2 {
+    @apply font-semibold text-2xl;
+  }
+
+  h3 {
+    @apply font-semibold text-xl;
+  }
+
+  h4 {
+    @apply font-medium text-lg;
+  }
+
+  hr {
+    @apply my-8 border border-dashed border-neutral-700;
+  }
+
+  strong {
+    @apply font-medium text-neutral-50 bg-neutral-800 bg-opacity-70;
+  }
+
+  ul,
+  ol {
+    @apply pl-4;
+    /* Padding for lists */
+  }
+
+  ul {
+    @apply list-disc;
+    /* Bullet points for unordered lists */
+  }
+
+  ol {
+    @apply list-decimal;
+    /* Numbering for ordered lists */
+  }
+
+  > :first-child {
+    @apply mt-5 mb-5;
+    /* Margin for first child elements */
+  }
+
+  pre,
+  code {
+    @apply font-mono custom-bg custom-border rounded-md;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  pre {
+    @apply overflow-x-auto py-2.5 px-3.5;
+    -ms-overflow-style: none;
+    /* Hide scrollbar for IE */
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
+      /* Hide scrollbar for Chrome/Safari */
+    }
+
+    code {
+      @apply p-0 border-none;
+      line-height: 1.5;
+      /* Consistent line height */
+    }
+  }
+
+  code {
+    @apply py-0.5 px-1;
+    /* Padding for inline code */
+
+    span {
+      @apply font-medium;
+      /* Emphasize inline code spans */
+    }
+  }
+
+  a {
+    @apply text-white underline decoration-neutral-500 underline-offset-2 decoration-[0.1em] transition-colors duration-300;
+
+    &:hover {
+      @apply text-neutral-400;
+      /* Hover effect for links */
+    }
+  }
+
+  .anchor {
+    @apply absolute invisible no-underline cursor-pointer ml-[-1em] pr-2 w-[75%] max-w-[768px];
+
+    &::after {
+      content: "#";
+      /* Anchor icon */
+    }
+  }
+
+  *:hover>.anchor {
+    @apply visible opacity-0;
+    /* Show anchor on hover */
+  }
+
+  img {
+    @apply my-12 mx-auto rounded-lg shadow-lg grayscale;
+    /* Styling for images */
+  }
+
+  blockquote {
+    @apply my-12 pl-6 font-light text-lg text-neutral-400 border-l-4 border-neutral-700;
+    margin-left: 0;
+    margin-right: 0;
+
+    > :first-child {
+      margin: 0;
+      /* Remove margin for first child */
+    }
+  }
+}
+
+.custom-border {
+  @apply border border-neutral-800;
+  /* Custom border styling */
+}
+
+.custom-bg {
+  @apply bg-neutral-900;
+  /* Custom background styling */
+}
+
+.glow {
+  filter: drop-shadow(0 0 5px white);
+  /* Glow effect */
+}
+
+.white-glow {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.4)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+}
+
+.animate-in {
+  animation-delay: calc(var(--index) * 150ms);
+}
+
+/* Tables are more than just dining surfaces */
+table {
+  @apply block max-w-fit overflow-x-auto whitespace-nowrap;
+  /* Responsive table styling */
+}
+
+/* Keyframes for those snazzy animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

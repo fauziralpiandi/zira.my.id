@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     const sanitizedMessage = validator.escape(message.trim().substring(0, 500))
 
     await sql`
-      INSERT INTO feedbacks (name, email, message) 
+      INSERT INTO submissions (name, email, message) 
       VALUES (${sanitizedName}, ${sanitizedEmail}, ${sanitizedMessage})
     `
 

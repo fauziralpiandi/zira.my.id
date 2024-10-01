@@ -10,7 +10,7 @@ export default function PageLayout({
   children: React.ReactNode
 }) {
   return (
-    <section className="animate-in">
+    <section className="prose animate-in">
       <BlurFade>{children}</BlurFade>
     </section>
   )

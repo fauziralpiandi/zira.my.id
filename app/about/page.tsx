@@ -9,7 +9,7 @@ export default function Home() {
         <span>Inspire</span>
       </div>
       <span className="my-12 pl-16 font-light text-lg">
-        Creating with purpose, develop with passion &mdash; stories that
+        Creating with passion, develop with purpose &mdash; stories that
         resonate, tales that inspire ✨
       </span>
 
@@ -22,8 +22,7 @@ export default function Home() {
             <br />
             <br />
             Today, I channel my creativity as a{' '}
-            <span className="font-bold">Software Developer</span> at Kreospora
-            Islamic Science School and focused on{' '}
+            <span className="font-bold">Frontend Engineer</span> and focused on{' '}
             <span className="font-bold">React TypeScript</span>, while also
             sharing insights and stories as Author.
           </p>

@@ -3,7 +3,7 @@ import { sql } from '@vercel/postgres'
 import validator from 'validator'
 
 import { rateLimit } from 'app/lib/limiter'
-import { validateSubmission } from 'app/lib/validation'
+import { validateMessage } from 'app/lib/validation'
 
 const REQUEST_LIMIT = parseInt(process.env.REQUEST_LIMIT || '2', 10)
 const TIME_WINDOW = parseInt(process.env.TIME_WINDOW || '86400000', 10)
@@ -19,8 +19,7 @@ export async function POST(request: Request) {
   if (rateLimit(ip, REQUEST_LIMIT, TIME_WINDOW)) {
     return NextResponse.json(
       {
-        message:
-          'Too many submission attempts, please try again after 24 hours.',
+        message: 'Too many attempts, please try again after 24 hours.',
       },
       { status: 429 },
     )
@@ -29,7 +28,7 @@ export async function POST(request: Request) {
   try {
     const { name, email, message } = await request.json()
 
-    const validationError = validateSubmission(name, email, message)
+    const validationError = validateMessage(name, email, message)
     if (validationError) {
       return NextResponse.json({ message: validationError }, { status: 400 })
     }

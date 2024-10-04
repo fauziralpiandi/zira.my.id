@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 
-import './globals.css'
+import 'app/globals.css'
 
-import { site } from 'app/lib/constant'
+import { site } from 'app/lib/metadata'
 
-import Header from 'app/components/ui/Header'
-import Footer from 'app/components/ui/Footer'
-
+import Header from 'app/components/Header'
+import Footer from 'app/components/Footer'
 import Cookie from 'app/components/Cookie'
 
 const font = localFont({
@@ -18,6 +17,9 @@ const font = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.baseUrl),
+  alternates: {
+    canonical: site.baseUrl,
+  },
   title: {
     default: site.title,
     template: `%s \u2014 ${site.title}`,
@@ -31,20 +33,6 @@ export const metadata: Metadata = {
     locale: site.locale,
     type: 'website',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      'index': true,
-      'follow': true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: site.verify,
-  },
 }
 
 export default function RootLayout({
@@ -53,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${font.className}`}>
+    <html lang={site.locale} className={`${font.className}`}>
       <body>
         <svg
           className="w-full h-full pointer-events-none fixed isolate z-50 mix-blend-soft-light opacity-75"

@@ -36,30 +36,6 @@ const components: MDXComponents = {
     const codeHTML = highlight(children as string)
     return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
   },
-  Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
-    <table className="min-w-full border-collapse">
-      <thead>
-        <tr>
-          {data.headers.map((header, index) => (
-            <th key={index} className="border p-2 text-left">
-              {header}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.rows.map((row, index) => (
-          <tr key={index}>
-            {row.map((cell, cellIndex) => (
-              <td key={cellIndex} className="border p-2">
-                {cell}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  ),
 }
 
 export function useMDXComponents(): MDXComponents {

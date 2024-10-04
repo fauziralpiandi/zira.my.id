@@ -25,13 +25,13 @@ const SubmissionForm = (): React.ReactElement => {
 
   return (
     <div className="relative mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 rounded-xl">
-      <h2 className="mb-3 text-2xl font-bold text-center text-neutral-100 leading-tight tracking-tight">
+      <h1 className="mb-3 text-2xl font-bold text-center text-neutral-100 leading-tight tracking-tight">
         Contact
-      </h2>
-      <p className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
+      </h1>
+      <span className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
         I&rsquo;d love to hear from you. Fill out the form below to get in
         touch!
-      </p>
+      </span>
       <form
         onSubmit={(e) => {
           e.preventDefault()

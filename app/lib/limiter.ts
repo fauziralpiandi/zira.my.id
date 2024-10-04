@@ -1,4 +1,7 @@
-import { RequestDataProps } from 'app/lib/types'
+interface RequestDataProps {
+  count: number
+  firstRequestTime: number
+}
 
 const requestCounts = new Map<string, RequestDataProps>()
 

@@ -11,7 +11,7 @@ import {
 
 type MarginType = UseInViewOptions['margin']
 
-interface BlurFadeProps {
+interface BlurProps {
   children: React.ReactNode
   className?: string
   variant?: {
@@ -30,13 +30,13 @@ export function BlurFade({
   children,
   className,
   variant,
-  duration = 0.4,
+  duration = 0.5,
   delay = 0,
-  yOffset = 6,
+  yOffset = 0,
   inView = false,
   inViewMargin = '-50px',
-  blur = '6px',
-}: BlurFadeProps) {
+  blur = '10px',
+}: BlurProps) {
   const ref = useRef(null)
   const inViewResult = useInView(ref, { once: true, margin: inViewMargin })
   const isInView = !inView || inViewResult
@@ -54,7 +54,7 @@ export function BlurFade({
         exit="hidden"
         variants={combinedVariants}
         transition={{
-          delay: 0.04 + delay,
+          delay: 0.05 + delay,
           duration,
           ease: 'easeOut',
         }}

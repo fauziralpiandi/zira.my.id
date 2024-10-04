@@ -19,8 +19,7 @@ export async function POST(request: Request) {
   if (rateLimit(ip, REQUEST_LIMIT, TIME_WINDOW)) {
     return NextResponse.json(
       {
-        message:
-          'Too many subscription attempts, please try again after 24 hours.',
+        message: 'Too many attempts, please try again after 24 hours.',
       },
       { status: 429 },
     )

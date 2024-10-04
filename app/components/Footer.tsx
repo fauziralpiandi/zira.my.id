@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react'
 
+import { site } from 'app/lib/metadata'
+
 export default function Footer() {
   const currentYear = useMemo(() => new Date().getFullYear(), [])
 
@@ -8,9 +10,9 @@ export default function Footer() {
       className="flex-shrink-0 flex flex-col items-center mt-24 text-sm font-medium text-neutral-400 opacity-80"
       aria-label="Footer"
     >
-      <p className="text-center">
-        Copyright &copy; {currentYear} Fauzira Alpiandi
-      </p>
+      <span className="text-center">
+        Copyright &copy; {currentYear} {site.author}
+      </span>
     </footer>
   )
 }

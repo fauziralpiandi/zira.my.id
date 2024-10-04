@@ -1,31 +1,35 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-import { site } from 'app/lib/constant'
-import { getPosts } from 'app/lib/provider'
-import { PostParamsProps } from 'app/lib/types'
+import { site } from 'app/lib/metadata'
+import { getMyBlog } from 'app/lib/provider'
 import literalMeta from 'app/lib/literal'
 import formatDate from 'app/lib/format'
 
 import { Contents } from './Helper'
 
-export const revalidate = 60
+interface BlogParamsProps {
+  slug: string
+  metadata: {
+    date: string
+    title: string
+    featured?: boolean
+  }
+}
+
+export const revalidate = 3600
 export const dynamicParams = true
 
 export async function generateStaticParams() {
-  let posts = await getPosts()
-  return posts.map((post) => ({ slug: post.slug }))
+  let myBlog = await getMyBlog()
+  return myBlog.map((blog) => ({ slug: blog.slug }))
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: PostParamsProps
-}) {
-  let posts = await getPosts()
-  let post = posts.find((post) => post.slug === params.slug)
+export async function generateMetadata({ params }: { params: BlogParamsProps }) {
+  let myBlog = await getMyBlog()
+  let blog = myBlog.find((blog) => blog.slug === params.slug)
 
-  if (!post) {
+  if (!blog) {
     return notFound()
   }
 
@@ -34,7 +38,7 @@ export async function generateMetadata({
     date: publishedTime,
     summary: description,
     image,
-  } = post.metadata
+  } = blog.metadata
 
   return {
     title,
@@ -44,7 +48,7 @@ export async function generateMetadata({
       description,
       type: 'article',
       publishedTime,
-      url: `${site.baseUrl}/blog/${post.slug}`,
+      url: `${site.baseUrl}/blog/${blog.slug}`,
       images: [
         {
           url: image || `${site.baseUrl}/og?title=${encodeURIComponent(title)}`,
@@ -62,19 +66,15 @@ export async function generateMetadata({
   }
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: PostParamsProps
-}) {
-  let posts = await getPosts()
-  let post = posts.find((post) => post.slug === params.slug)
+export default async function Slug({ params }: { params: BlogParamsProps }) {
+  let myBlog = await getMyBlog()
+  let blog = myBlog.find((blog) => blog.slug === params.slug)
 
-  if (!post) {
+  if (!blog) {
     notFound()
   }
 
-  const { readTime } = literalMeta.getCounts(post.content)
+  const { readTime } = literalMeta.getCounts(blog.content)
 
   return (
     <div>
@@ -86,39 +86,39 @@ export default async function PostPage({
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
             'author': { '@type': 'Person', 'name': site.author },
-            'headline': post.metadata.title,
-            'datePublished': post.metadata.date,
-            'description': post.metadata.summary,
+            'headline': blog.metadata.title,
+            'datePublished': blog.metadata.date,
+            'description': blog.metadata.summary,
             'image':
-              post.metadata.image ||
-              `${site.baseUrl}/og?title=${encodeURIComponent(post.metadata.title)}`,
-            'url': `${site.baseUrl}/blog/${post.slug}`,
+              blog.metadata.image ||
+              `${site.baseUrl}/og?title=${encodeURIComponent(blog.metadata.title)}`,
+            'url': `${site.baseUrl}/blog/${blog.slug}`,
           }),
         }}
       />
       <div>
         <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight">
-          {post.metadata.title}
+          {blog.metadata.title}
         </h1>
-        <p className="mb-6 text-neutral-400">{post.metadata.summary}</p>
+        <p className="mb-6 text-neutral-400">{blog.metadata.summary}</p>
         <div className="mb-6 flex items-center">
           <Image
-            className="hidden w-12 h-12 object-cover border border-neutral-600 rounded-full grayscale"
-            src="/author.webp"
-            alt={post.metadata.author || 'Author'}
+            className="w-12 h-12 object-cover border border-neutral-800 rounded-full grayscale"
+            src="/icon.svg"
+            alt={blog.metadata.author || 'Author'}
             width={48}
             height={48}
             priority
           />
-          <div className="ml-0">
+          <div className="ml-4">
             <p className="font-medium leading-tight tracking-tight">
-              {post.metadata.author}
+              {blog.metadata.author}
             </p>
             <div className="text-sm text-neutral-400">
               <span className="flex items-center gap-1">
-                <p>{readTime}</p>
-                <p className="mx-0.5">·</p>
-                <p>{formatDate(post.metadata.date, 'relative')}</p>
+                <span>{readTime}</span>
+                <span className="mx-0.5">·</span>
+                <span>{formatDate(blog.metadata.date, 'absolute')}</span>
               </span>
             </div>
           </div>
@@ -126,14 +126,12 @@ export default async function PostPage({
       </div>
 
       <div>
-        {!post.metadata.image && (
-          <hr className="my-8 border border-dashed border-neutral-800" />
-        )}
-        {post.metadata.image && (
+        {!blog.metadata.image && <hr className="my-4 border-none" />}
+        {blog.metadata.image && (
           <figure className="relative my-8 w-screen md:max-w-3xl left-[50%] right-[50%] translate-x-[-50%]">
             <Image
-              src={post.metadata.image}
-              alt={post.metadata.title}
+              src={blog.metadata.image}
+              alt={blog.metadata.title}
               width={1920}
               height={1080}
               className="w-full h-auto md:rounded-xl grayscale"
@@ -142,7 +140,7 @@ export default async function PostPage({
           </figure>
         )}
         <article className="max-w-2xl prose">
-          <Contents source={post.content} />
+          <Contents source={blog.content} />
         </article>
       </div>
     </div>

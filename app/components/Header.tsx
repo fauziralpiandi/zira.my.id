@@ -6,21 +6,20 @@ import { Fragment } from 'react'
 import { usePathname } from 'next/navigation'
 import { Popover, Transition } from '@headlessui/react'
 import { RiMenu3Fill } from 'react-icons/ri'
-
-import NavLink from 'app/components/ui/NavLink'
-import Logo from 'app/components/ui/Logo'
-
 import { FaRss } from 'react-icons/fa'
 
+import NavLink from 'app/components/NavLink'
+import Logo from 'app/components/Logo'
+
 const links = [
-  { label: 'About', href: '/about'},
+  { label: 'About', href: '/about' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
   { label: 'Legal', href: '/legal' },
 ]
 
 export default function Navigation() {
-  const pathname = `/${usePathname().split('/')[1]}` // active paths on dynamic sub-pages
+  const pathname = `/${usePathname().split('/')[1]}`
 
   return (
     <header className="mb-16 md:mt-6">

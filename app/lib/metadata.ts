@@ -1,4 +1,13 @@
-import { SiteProps } from 'app/lib/types'
+interface SiteProps {
+  domain: string
+  baseUrl: string
+  author: string
+  title: string
+  desc: string
+  locale: string
+  timeZone: string
+  verify: string
+}
 
 export const site: SiteProps = {
   domain: 'zira.my.id',

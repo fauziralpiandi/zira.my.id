@@ -37,7 +37,7 @@ export default function CookieManager() {
               <Link
                 href="/legal#PrivacyPolicy"
                 title="Learn more about privacy policy"
-                className="text-neutral-50 hover:text-neutral-300 transition-colors duration-200"
+                className="text-neutral-50 hover:text-neutral-300 transition-colors duration-200 animate-pulse"
               >
                 Privacy Policy
               </Link>{' '}

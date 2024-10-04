@@ -19,13 +19,13 @@ const SubscriptionForm = (): React.ReactElement => {
 
   return (
     <div className="relative my-24 mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 rounded-xl">
-      <h2 className="mb-3 text-2xl font-bold text-center text-neutral-100 leading-tight tracking-tight">
+      <h1 className="mb-3 text-2xl font-bold text-center text-neutral-100 leading-tight tracking-tight">
         Subscribe
-      </h2>
-      <p className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
+      </h1>
+      <span className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
         Don&rsquo;t miss out! Sign up using the form below to be the first to
         know!
-      </p>
+      </span>
       <form
         onSubmit={(e) => {
           e.preventDefault()

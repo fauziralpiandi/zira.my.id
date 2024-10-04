@@ -1,17 +1,28 @@
 import Link from 'next/link'
-
 import formatDate from 'app/lib/format'
-import { getPosts } from 'app/lib/provider'
-import { getFilteredPosts } from 'app/lib/utils'
-import { PostParamsProps, FilteredPostsProps } from 'app/lib/types'
+import { getMyBlog } from 'app/lib/provider'
 
-export async function MyPosts({ featured, recent }: FilteredPostsProps) {
-  let allPosts: PostParamsProps[] = []
+interface BlogParamsProps {
+  slug: string
+  metadata: {
+    date: string
+    title: string
+    featured?: boolean
+  }
+}
+
+interface FilteredBlogProps {
+  recent?: number
+  featured?: boolean
+}
+
+export async function MyBlog({ featured, recent }: FilteredBlogProps) {
+  let allBlog: BlogParamsProps[] = []
 
   try {
-    allPosts = (await getPosts()).filter(Boolean) as PostParamsProps[]
+    allBlog = (await getMyBlog()).filter(Boolean) as BlogParamsProps[]
   } catch (error) {
-    console.error('Failed to fetch posts—', error)
+    console.error('Failed to fetch blog—', error)
     return (
       <span className="font-medium text-sm text-red-500">
         Unable to load posts
@@ -19,7 +30,7 @@ export async function MyPosts({ featured, recent }: FilteredPostsProps) {
     )
   }
 
-  if (!allPosts.length) {
+  if (!allBlog.length) {
     return (
       <span className="font-medium text-sm text-yellow-500">
         Check back soon for updates!
@@ -27,27 +38,42 @@ export async function MyPosts({ featured, recent }: FilteredPostsProps) {
     )
   }
 
-  const filteredPosts = getFilteredPosts(allPosts, featured, recent)
+  const filteredBlog = getFilteredBlog(allBlog, featured, recent)
 
   return (
     <div>
-      {filteredPosts.map((post) => (
+      {filteredBlog.map((blog) => (
         <Link
-          key={post.slug}
+          key={blog.slug}
           className="flex flex-col my-4 space-y-2"
-          href={`/blog/${post.slug}`}
-          aria-label={`Get inspired from ${post.metadata.title}`}
+          href={`/blog/${blog.slug}`}
+          aria-label={`Get inspired from ${blog.metadata.title}`}
         >
           <div className="flex flex-col md:flex-row md:justify-between w-full">
-            <p className="text-neutral-400 tabular-nums md:order-2">
-              {formatDate(post.metadata.date, 'absolute')}
-            </p>
-            <p className="font-medium text-neutral-200 leading-snug md:order-1">
-              {post.metadata.title}
-            </p>
+            <span className="text-neutral-400 tabular-nums md:order-2">
+              {formatDate(blog.metadata.date, 'absolute')}
+            </span>
+            <span className="font-medium text-neutral-200 leading-snug md:order-1">
+              {blog.metadata.title}
+            </span>
           </div>
         </Link>
       ))}
     </div>
   )
+}
+
+export function getFilteredBlog(
+  myBlog: BlogParamsProps[],
+  featured: boolean | undefined,
+  recent: number | undefined,
+): BlogParamsProps[] {
+  return myBlog
+    .filter((blog) => !featured || blog.metadata.featured)
+    .sort(
+      (a, b) =>
+        new Date(b.metadata.date).getTime() -
+        new Date(a.metadata.date).getTime(),
+    )
+    .slice(0, recent)
 }

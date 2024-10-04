@@ -4,7 +4,7 @@ export function validateEmail(email: string): boolean {
   return validator.isEmail(email)
 }
 
-export function validateSubmission(
+export function validateMessage(
   name: string,
   email: string,
   message: string,

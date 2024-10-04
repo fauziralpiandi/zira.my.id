@@ -1,8 +1,7 @@
 import type { MetadataRoute } from 'next'
 
-import { site } from 'app/lib/constant'
+import { site } from 'app/lib/metadata'
 
-// Every site needs an identity crisis.
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: site.title,

@@ -1,4 +1,4 @@
-export default function Home() {
+export default function About() {
   return (
     <div className="flex flex-col">
       <div className="text-5xl font-extrabold tracking-tight">
@@ -22,7 +22,7 @@ export default function Home() {
             <br />
             <br />
             Today, I channel my creativity as a{' '}
-            <span className="font-bold">Frontend Engineer</span> and focused on{' '}
+            <span className="font-bold">Frontend Developer</span> and focused on{' '}
             <span className="font-bold">React TypeScript</span>, while also
             sharing insights and stories as Author.
           </p>

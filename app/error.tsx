@@ -13,7 +13,7 @@ export default function Error({
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    console.error('Error details:', error) // Log error details for debugging
+    console.error('Error details:', error)
   }, [error])
 
   const handleReset = () => {

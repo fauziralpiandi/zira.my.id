@@ -1,4 +1,4 @@
-import { site } from 'app/lib/constant'
+import { site } from 'app/lib/metadata'
 
 const formatDate = (
   date: string,

@@ -1,29 +1,29 @@
-import { site } from 'app/lib/constant'
-import { getPosts } from 'app/lib/provider'
+import { site } from 'app/lib/metadata'
+import { getMyBlog } from 'app/lib/provider'
 
 export async function GET() {
-  let allBlogs
+  let myBlog
 
   try {
-    allBlogs = await getPosts()
+    myBlog = await getMyBlog()
   } catch (error) {
-    console.error('Failed to fetch posts:', error)
-    return new Response('Failed to fetch posts', { status: 500 })
+    console.error('Failed to fetch blog:', error)
+    return new Response('Failed to fetch blog', { status: 500 })
   }
 
-  const itemsXml = allBlogs
+  const itemsXml = myBlog
     .sort(
       (a, b) =>
         new Date(b.metadata.date).getTime() -
         new Date(a.metadata.date).getTime(),
     )
     .map(
-      (post) => `
+      (blog) => `
         <item>
-          <title>${post.metadata.title}</title>
-          <link>${site.baseUrl}/posts/${post.slug}</link>
-          <description>${post.metadata.summary || ''}</description>
-          <pubDate>${new Date(post.metadata.date)}</pubDate>
+          <title>${blog.metadata.title}</title>
+          <link>${site.baseUrl}/blog/${blog.slug}</link>
+          <description>${blog.metadata.summary || ''}</description>
+          <pubDate>${new Date(blog.metadata.date)}</pubDate>
         </item>`,
     )
     .join('')

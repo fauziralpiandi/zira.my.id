@@ -1,12 +1,26 @@
-import fs from 'fs/promises'
 import path from 'path'
+import fs from 'fs/promises'
 import matter from 'gray-matter'
 
-import {
-  PostMetadataProps,
-  ParsedFrontmatterProps,
-  PostDataProps,
-} from 'app/lib/types'
+export interface PostMetadataProps {
+  title: string
+  summary: string
+  date: string
+  author?: string
+  image?: string
+  credit?: string
+}
+
+export interface ParsedFrontmatterProps {
+  metadata: PostMetadataProps
+  content: string
+}
+
+export interface PostDataProps {
+  metadata: PostMetadataProps
+  slug: string
+  content: string
+}
 
 // Extract frontmatter and content from the Markdown file.
 export function parseFrontmatter(fileContent: string): ParsedFrontmatterProps {
@@ -78,7 +92,7 @@ export async function getMarkdownData(dir: string): Promise<PostDataProps[]> {
 }
 
 // Retrieve all the posts from the posts directory.
-export async function getPosts(): Promise<PostDataProps[]> {
-  const postsDir = path.join(process.cwd(), 'content')
-  return getMarkdownData(postsDir)
+export async function getMyBlog(): Promise<PostDataProps[]> {
+  const contentDir = path.join(process.cwd(), 'content')
+  return getMarkdownData(contentDir)
 }

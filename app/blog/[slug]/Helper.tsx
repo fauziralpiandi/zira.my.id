@@ -3,42 +3,22 @@ import Link from 'next/link'
 import { highlight } from 'sugar-high'
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 
-import {
-  TableProps,
-  HyperLinkProps,
-  CodeProps,
-  ComponentsProps,
-} from 'app/lib/types'
-
-function Table({ data }: TableProps) {
-  const headers = data.headers.map((header, index) => (
-    <th key={index} className="table-header">
-      {header}
-    </th>
-  ))
-
-  const rows = data.rows.map((row, index) => (
-    <tr key={index}>
-      {row.map((cell, cellIndex) => (
-        <td key={cellIndex} className="table-cell">
-          {cell}
-        </td>
-      ))}
-    </tr>
-  ))
-
-  return (
-    <table aria-label="Data Table" className="table">
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
-  )
+interface Types {
+  HyperLink: {
+    href: string
+    children: React.ReactNode
+    key?: string
+  }
+  Code: {
+    children: React.ReactNode
+  }
+  Components: {
+    [key: string]: React.ElementType
+  }
 }
 
-const HyperLink = React.forwardRef<HTMLAnchorElement, HyperLinkProps>(
-  ({ href, children, ...rest }, ref) => {
+const HyperLink = React.forwardRef<HTMLAnchorElement, Types['HyperLink']>(
+  ({ href, children, key, ...rest }, ref) => {
     let isExternalLink = false
 
     try {
@@ -94,10 +74,8 @@ const HyperLink = React.forwardRef<HTMLAnchorElement, HyperLinkProps>(
 
 HyperLink.displayName = 'HyperLink'
 
-export default HyperLink
-
-function Code({ children, ...props }: CodeProps) {
-  const codeHTML = highlight(children)
+function Code({ children, ...props }: Types['Code']) {
+  const codeHTML = highlight(String(children))
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
 
@@ -133,18 +111,17 @@ function createHeading(level: number) {
 }
 
 function generateHeadingComponents() {
-  const components: ComponentsProps = {}
+  const components: Types['Components'] = {}
   for (let i = 1; i <= 6; i++) {
     components[`h${i}`] = createHeading(i)
   }
   return components
 }
 
-const components: ComponentsProps = {
+const components: Types['Components'] = {
   ...generateHeadingComponents(),
   a: HyperLink,
   code: Code,
-  Table,
 }
 
 export function Contents(props: MDXRemoteProps) {

@@ -154,10 +154,6 @@ body {
     margin-left: 0;
     margin-right: 0;
 
-    > :first-child {
-      margin: 0;
-    }
-
     p {
       @apply font-light text-lg text-neutral-400;
     }

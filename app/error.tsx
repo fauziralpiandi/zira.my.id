@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { IoIosWarning } from 'react-icons/io'
 
 export default function Error({
   error,
@@ -22,40 +21,23 @@ export default function Error({
   }
 
   return (
-    <div className="flex flex-col md:items-center md:p-4">
-      <IoIosWarning size={50} className="mb-4 text-red-500" />
-      <h1 className="mb-2 font-semibold text-2xl">Something went wrong</h1>
-      <p className="text-red-500 opacity-75" aria-live="assertive">
+    <main className="flex flex-col items-start justify-start md:items-center md:justify-center md:p-8">
+      <h1 className="text-6xl font-bold mb-2 md:text-center">500</h1>
+      <h2 className="text-xl font-medium leading-snug tracking-tight mb-6 md:text-center">
+        Something went wrong&mdash;
+      </h2>
+      <p className="text-red-500 animate-pulse" aria-live="assertive">
         {error.message ||
-          'An unexpected error has occurred, please try refreshing the page!'}
+          'An unexpected error has occurred, please try again later.'}
       </p>
       <button
         onClick={handleReset}
-        className="mt-4 px-4 py-2 rounded-md border border-neutral-500 text-neutral-300 bg-transparent hover:bg-neutral-800 transition-all duration-300"
         disabled={isLoading}
+        className="mt-4 px-4 py-2 rounded-md border border-neutral-500 text-neutral-300 bg-transparent hover:bg-neutral-800 transition-all duration-300"
         aria-label="Retry the operation"
       >
-        {isLoading ? (
-          <span className="loading-animation">Retrying...</span>
-        ) : (
-          'Try Again'
-        )}
+        Maybe refresh?
       </button>
-      <style jsx global>
-        {`
-          .loading-animation {
-            animation: fadeIn 0.5s;
-          }
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-        `}
-      </style>
-    </div>
+    </main>
   )
 }

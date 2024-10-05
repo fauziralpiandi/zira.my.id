@@ -3,6 +3,7 @@ title: 'Permainan Ilusi'
 summary: 'Mengadu nasib pada kilatan petir.'
 date: '2024-07-14'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 ***Max Win!***

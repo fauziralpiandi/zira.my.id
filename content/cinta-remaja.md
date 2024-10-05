@@ -3,6 +3,7 @@ title: 'Cinta Remaja'
 summary: 'Pemikiran yang dibangun oleh harapan yang salah.'
 date: '2019-12-30'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Dunia yang bergetar dengan kebisingan mimpi remaja, terhampar sebuah panggung penuh ilusi—

@@ -3,6 +3,7 @@ title: 'Kecantikan dan Perspektif Masyarakat'
 summary: 'Bagaimana kecantikan membutakan mata masyarakat?'
 date: '2021-02-27'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Di panggung dunia yang berkilauan, di mana cahaya menciptakan ilusi dan bayangan menari di tepi kesadaran, kecantikan berdiri sebagai dewa yang memikat. Namun, di balik senyuman memesona dan kulit yang bercahaya, tersembunyi sebuah jurang—jurang yang memisahkan apa yang tampak dan apa yang sesungguhnya.

@@ -3,6 +3,7 @@ title: 'Ruang dan Waktu: Pertanyaan yang Tidak Terjawab'
 summary: 'Mungkin kita tidak pernah bisa menjawab pertanyaan ini.'
 date: '2021-05-20'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Seperti pertanyaan kuno tentang ayam dan telur, ini adalah teka-teki yang terus menghantui batas pemikiran manusia. Di dalam alam semesta yang tak terhingga, segala sesuatu bergulir dalam ritme yang tak kita pahami sepenuhnya.

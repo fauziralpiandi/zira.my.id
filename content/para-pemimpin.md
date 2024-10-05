@@ -3,6 +3,7 @@ title: 'Para Pemimpin'
 summary: 'Bait-bait indah, kepalsuan?'
 date: '2023-08-17'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Di tengah pemandangan kota, berdiri sebuah patung raksasa, mengawasi langkah-langkah kecil yang berlari ke sana kemari, terjebak dalam kesibukan dan ambisi yang tiada akhir. Patung, dengan wajah yang terukir dalam kekakuan, melambangkan janji yang terucap dalam bait-bait indah dan penuh kepalsuan. Ia adalah simbol dari harapan yang terpendam, menggambarkan segala sesuatu yang seharusnya menjaga keadilan, tetapi pada akhirnya,

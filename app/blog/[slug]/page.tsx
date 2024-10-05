@@ -13,6 +13,7 @@ interface BlogParamsProps {
   metadata: {
     date: string
     title: string
+    category?: string
     featured?: boolean
   }
 }
@@ -25,7 +26,11 @@ export async function generateStaticParams() {
   return myBlog.map((blog) => ({ slug: blog.slug }))
 }
 
-export async function generateMetadata({ params }: { params: BlogParamsProps }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: BlogParamsProps
+}) {
   let myBlog = await getMyBlog()
   let blog = myBlog.find((blog) => blog.slug === params.slug)
 
@@ -75,6 +80,7 @@ export default async function Slug({ params }: { params: BlogParamsProps }) {
   }
 
   const { readTime } = literalMeta.getCounts(blog.content)
+  const isNotes = blog.metadata.category === 'notes'
 
   return (
     <div>
@@ -101,28 +107,31 @@ export default async function Slug({ params }: { params: BlogParamsProps }) {
           {blog.metadata.title}
         </h1>
         <p className="mb-6 text-neutral-400">{blog.metadata.summary}</p>
-        <div className="mb-6 flex items-center">
-          <Image
-            className="w-12 h-12 object-cover border border-neutral-800 rounded-full grayscale"
-            src="/icon.svg"
-            alt={blog.metadata.author || 'Author'}
-            width={48}
-            height={48}
-            priority
-          />
-          <div className="ml-4">
-            <p className="font-medium leading-tight tracking-tight">
-              {blog.metadata.author}
-            </p>
-            <div className="text-sm text-neutral-400">
-              <span className="flex items-center gap-1">
-                <span>{readTime}</span>
-                <span className="mx-0.5">·</span>
-                <span>{formatDate(blog.metadata.date, 'absolute')}</span>
-              </span>
+
+        {isNotes && (
+          <div className="mb-6 flex items-center">
+            <Image
+              className="w-12 h-12 object-cover border border-neutral-800 rounded-full grayscale"
+              src="/icon.svg"
+              alt={blog.metadata.author || 'Author'}
+              width={48}
+              height={48}
+              priority
+            />
+            <div className="ml-4">
+              <p className="font-medium leading-tight tracking-tight">
+                {blog.metadata.author}
+              </p>
+              <div className="text-sm text-neutral-400">
+                <span className="flex items-center gap-1">
+                  <span>{readTime}</span>
+                  <span className="mx-0.5">·</span>
+                  <span>{formatDate(blog.metadata.date, 'relative')}</span>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div>

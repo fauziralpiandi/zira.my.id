@@ -3,6 +3,7 @@ title: 'The Butterfly Effect'
 summary: 'Satu kepakan sayap yang menghancurkan.'
 date: '2023-05-21'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Ada satu misteri besar yang membayangi setiap partikel di alam semesta ini bahwa sekecil apa pun tindakan yang kita ambil, sekilas sepele dan tak berarti, ia mengembuskan napas panjang kepada alam yang luas dan rumit. Bahkan untuk sebuah kepakan sayap kupu-kupu, yang tak kita perhatikan di tengah hutan belantara, dapat menggoyangkan udara, membuatnya bergelombang, hingga akhirnya mengubah jalur angin yang perlahan tapi pasti menciptakan badai di belahan dunia lain.

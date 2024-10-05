@@ -3,6 +3,7 @@ title: 'Nyanyian di Taman Kehidupan'
 summary: 'Sebuah kehidupan yang layak mendapatkan haknya.'
 date: '2020-09-15'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Sebuah dunia yang pernah merayakan harmoni antara alam dan makhluk yang menghuninya, kini hanya tersisa sebuah bisikan sunyi dari mereka yang tak bersuara—hewan dan tumbuhan, sesama penghuni yang kita lupakan, terpinggirkan dalam desakan ego manusia. Mereka, yang seharusnya hidup berdampingan dengan kita, justru menjadi korban kekejaman yang diam-diam kita sahkan dengan tindakan dan diam kita.

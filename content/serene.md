@@ -3,6 +3,7 @@ title: 'I Have Forgotten?'
 summary: 'Yes, Impossible.'
 date: '2024-09-30'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Ada satu tempat yang selalu jadi tujuan saat aku ingin mengingat satu hal dengan segala detailnya. Tempat yang bukanlah sebuah destinasi mewah tapi memiliki nilai yang lebih dari sekadar pemandangan atau suasana–

@@ -2,10 +2,12 @@ import path from 'path'
 import fs from 'fs/promises'
 import matter from 'gray-matter'
 
+// Definiting
 export interface PostMetadataProps {
   title: string
   summary: string
   date: string
+  category: string
   author?: string
   image?: string
   credit?: string
@@ -22,7 +24,7 @@ export interface PostDataProps {
   content: string
 }
 
-// Extract frontmatter and content from the Markdown file.
+// Extracting
 export function parseFrontmatter(fileContent: string): ParsedFrontmatterProps {
   const { data, content } = matter(fileContent)
   const metadata = data as PostMetadataProps
@@ -30,12 +32,13 @@ export function parseFrontmatter(fileContent: string): ParsedFrontmatterProps {
   return { metadata, content }
 }
 
-// Validate required metadata fields.
+// Validating
 function validateMetadata(metadata: PostMetadataProps): void {
   const requiredFields: (keyof PostMetadataProps)[] = [
     'title',
     'summary',
     'date',
+    'category',
   ]
   requiredFields.forEach((field) => {
     if (!(field in metadata)) {
@@ -44,7 +47,7 @@ function validateMetadata(metadata: PostMetadataProps): void {
   })
 }
 
-// Get a list of all Markdown and MDX files in the directory.
+// Getting
 async function getMarkdownFiles(dir: string): Promise<string[]> {
   try {
     const files = await fs.readdir(dir)
@@ -57,7 +60,7 @@ async function getMarkdownFiles(dir: string): Promise<string[]> {
   }
 }
 
-// Read and parse a Markdown or MDX file.
+// Reading and parsing
 async function readMarkdownFile(
   filePath: string,
 ): Promise<ParsedFrontmatterProps> {
@@ -70,7 +73,7 @@ async function readMarkdownFile(
   }
 }
 
-// Process Markdown and MDX files into posts.
+// Processing
 export async function getMarkdownData(dir: string): Promise<PostDataProps[]> {
   const markdownFiles = await getMarkdownFiles(dir)
   return Promise.all(
@@ -91,7 +94,7 @@ export async function getMarkdownData(dir: string): Promise<PostDataProps[]> {
   )
 }
 
-// Retrieve all the posts from the posts directory.
+// Retrieving
 export async function getMyBlog(): Promise<PostDataProps[]> {
   const contentDir = path.join(process.cwd(), 'content')
   return getMarkdownData(contentDir)

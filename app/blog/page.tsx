@@ -22,10 +22,11 @@ export default async function Blog() {
     <div>
       <div className="mb-8">
         <span className="text-neutral-400">
-          {allBlog.length} post &mdash; Stay tuned for more!
+          {allBlog.length} &mdash; Stay tuned for more!
         </span>
       </div>
       <MyBlog />
+      <hr className="my-12 border border-dashed border-neutral-700" />
       <Subscription />
     </div>
   )

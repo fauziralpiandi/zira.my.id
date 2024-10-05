@@ -3,6 +3,7 @@ title: 'Menerima Pengkhianatan'
 summary: 'Kau pernah?'
 date: '2019-10-04'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Laku hina ini lahir dari kedalaman jurang keinginan, sebuah pemberontakan diam-diam terhadap kebosanan eksistensial. Janji-janji yang dulu diukir dengan kesakralan di atas batu ternyata hanyalah bayang-bayang rapuh di atas pasir, siap terkikis oleh arus halus hasrat yang tak terpuaskan. Ia tidak datang dengan gemuruh yang memekakkan; melainkan merayap dengan bisikan, bersembunyi dalam sudut gelap pikiran yang tak pernah kau sadari ada. Kau kira itu adalah lubang yang akan mengisi kekosongan, tetapi sebenarnya hanya menambah derita di dalam jiwa.

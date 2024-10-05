@@ -3,6 +3,7 @@ title: 'Genosida: Suara yang Terabaikan'
 summary: 'All eyes on palestine.'
 date: '2024-04-25'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Dalam deru mesin waktu yang tak henti berputar, kita terjebak dalam lapisan-lapisan sejarah yang tak terucap, di mana **darah yang tumpah** sering kali terabaikan oleh desakan kepentingan dan kebisuan moral.

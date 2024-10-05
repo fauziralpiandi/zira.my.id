@@ -3,6 +3,7 @@ title: 'Penyerahan dan Kehilangan'
 summary: 'Perlahan mengikis jiwa hingga sirna.'
 date: '2022-10-14'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 *Penyerahan dan Kehilangan*

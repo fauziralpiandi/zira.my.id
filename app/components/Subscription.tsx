@@ -18,11 +18,11 @@ const SubscriptionForm = (): React.ReactElement => {
   const resetEmail = () => setEmail('')
 
   return (
-    <div className="relative my-24 mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 rounded-xl">
+    <div className="relative mx-auto max-w-2xl my-4 px-8">
       <h1 className="mb-3 text-2xl font-bold text-center text-neutral-100 leading-tight tracking-tight">
         Subscribe
       </h1>
-      <span className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
+      <span className="mb-6 flex items-center font-medium text-center text-sm text-neutral-400 leading-snug">
         Don&rsquo;t miss out! Sign up using the form below to be the first to
         know!
       </span>
@@ -40,12 +40,12 @@ const SubscriptionForm = (): React.ReactElement => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email Address"
           required
-          className="p-3 text-center bg-transparent border border-neutral-500 rounded focus:outline-none focus:ring-2 focus:ring-white transition"
+          className="p-3 text-center bg-transparent border border-neutral-700 rounded focus:outline-none focus:ring-2 focus:ring-white transition"
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="p-3 font-medium bg-black border border-neutral-500 rounded-md hover:bg-neutral-800 hover:scale-95 transition duration-200"
+          className="p-3 font-medium bg-black border border-neutral-700 rounded-md hover:bg-neutral-900 hover:scale-95 transition duration-200"
         >
           {isLoading ? (
             <div className="flex items-center justify-center animate-pulse">
@@ -59,7 +59,7 @@ const SubscriptionForm = (): React.ReactElement => {
       </form>
 
       {popupMessage && (
-        <div className="relative mt-8 font-medium text-center text-neutral-200">
+        <div className="relative mt-8 font-medium text-center">
           {popupMessage}
         </div>
       )}

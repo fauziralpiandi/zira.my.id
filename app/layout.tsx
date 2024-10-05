@@ -44,7 +44,7 @@ export default function RootLayout({
     <html lang={site.locale} className={`${font.className}`}>
       <body>
         <svg
-          className="w-full h-full pointer-events-none fixed isolate z-50 mix-blend-soft-light opacity-75"
+          className="w-full h-full pointer-events-none fixed isolate z-50 mix-blend-soft-light opacity-80"
           style={{
             position: 'fixed',
             top: 0,
@@ -56,7 +56,7 @@ export default function RootLayout({
           <filter id="noise">
             <feTurbulence
               type="fractalNoise"
-              baseFrequency="0.9"
+              baseFrequency="1"
               numOctaves="5"
               stitchTiles="stitch"
             />

@@ -7,6 +7,7 @@ interface BlogParamsProps {
   metadata: {
     date: string
     title: string
+    category?: string
     featured?: boolean
   }
 }
@@ -14,9 +15,14 @@ interface BlogParamsProps {
 interface FilteredBlogProps {
   recent?: number
   featured?: boolean
+  category?: string
 }
 
-export async function MyBlog({ featured, recent }: FilteredBlogProps) {
+export async function MyBlog({
+  featured,
+  recent,
+  category,
+}: FilteredBlogProps) {
   let allBlog: BlogParamsProps[] = []
 
   try {
@@ -38,7 +44,7 @@ export async function MyBlog({ featured, recent }: FilteredBlogProps) {
     )
   }
 
-  const filteredBlog = getFilteredBlog(allBlog, featured, recent)
+  const filteredBlog = getFilteredBlog(allBlog, featured, recent, category)
 
   return (
     <div>
@@ -67,9 +73,11 @@ export function getFilteredBlog(
   myBlog: BlogParamsProps[],
   featured: boolean | undefined,
   recent: number | undefined,
+  category: string | undefined,
 ): BlogParamsProps[] {
   return myBlog
     .filter((blog) => !featured || blog.metadata.featured)
+    .filter((blog) => !category || blog.metadata.category === category)
     .sort(
       (a, b) =>
         new Date(b.metadata.date).getTime() -

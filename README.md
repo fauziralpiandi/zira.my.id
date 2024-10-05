@@ -1,4 +1,4 @@
-# ✨️ zira.my.id
+## ✨️ zira.my.id
 
 The website project serves as a personal portfolio, blog, and platform to showcase my work as a developer and author. It is designed with a focus on performance, accessibility, and clean UI/UX with Monochromatic.
 

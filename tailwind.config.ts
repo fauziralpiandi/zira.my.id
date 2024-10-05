@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 
 export default {
-  content: ['./app/**/*'],
+  content: ['./app/**/*', './content/**/*'],
   theme: {
     extend: {
       typography: {

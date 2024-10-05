@@ -24,11 +24,11 @@ const SubmissionForm = (): React.ReactElement => {
   }
 
   return (
-    <div className="relative mx-auto max-w-2xl p-8 bg-neutral-900 border border-dashed border-neutral-500 rounded-xl">
+    <div className="relative mx-auto max-w-2xl px-8">
       <h1 className="mb-3 text-2xl font-bold text-center text-neutral-100 leading-tight tracking-tight">
         Contact
       </h1>
-      <span className="mb-6 font-medium text-center text-sm text-neutral-400 leading-snug">
+      <span className="flex items-center mb-6 text-center font-medium text-sm text-neutral-400 leading-snug">
         I&rsquo;d love to hear from you. Fill out the form below to get in
         touch!
       </span>
@@ -53,7 +53,7 @@ const SubmissionForm = (): React.ReactElement => {
           onChange={(e) => setName(e.target.value)}
           placeholder="Your Name"
           required
-          className="p-3 text-center bg-transparent border border-neutral-500 rounded focus:outline-none focus:ring-2 focus:ring-white transition"
+          className="p-3 text-center bg-transparent border border-neutral-700 rounded focus:outline-none focus:ring-2 focus:ring-white transition"
         />
         <input
           type="email"
@@ -62,7 +62,7 @@ const SubmissionForm = (): React.ReactElement => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email Address"
           required
-          className="p-3 text-center bg-transparent border border-neutral-500 rounded focus:outline-none focus:ring-2 focus:ring-white transition"
+          className="p-3 text-center bg-transparent border border-neutral-700 rounded focus:outline-none focus:ring-2 focus:ring-white transition"
         />
         <textarea
           name="message"
@@ -70,13 +70,13 @@ const SubmissionForm = (): React.ReactElement => {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Message"
           required
-          className="p-3 text-center bg-transparent border border-neutral-500 rounded focus:outline-none focus:ring-2 focus:ring-white transition resize-none"
-          rows={5}
+          className="p-3 text-center bg-transparent border border-neutral-700 rounded focus:outline-none focus:ring-2 focus:ring-white transition resize-none"
+          rows={4}
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="p-3 font-medium bg-black border border-neutral-500 rounded-md hover:bg-neutral-800 hover:scale-95 transition duration-200"
+          className="p-3 font-medium bg-black border border-neutral-700 rounded-md hover:bg-neutral-900 hover:scale-95 transition duration-200"
         >
           {isLoading ? (
             <div className="flex items-center justify-center animate-pulse">

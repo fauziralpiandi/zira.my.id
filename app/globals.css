@@ -49,7 +49,7 @@ body {
 .prose {
 
   p {
-    @apply my-4 text-neutral-300;
+    @apply my-8 text-neutral-300;
   }
 
   span {
@@ -150,7 +150,7 @@ body {
   }
 
   blockquote {
-    @apply my-10 pl-6 border-l-4 border-neutral-800;
+    @apply my-12 pl-6 border-l-4 border-neutral-800;
     margin-left: 0;
     margin-right: 0;
 
@@ -159,7 +159,7 @@ body {
     }
 
     p {
-      @apply font-light text-lg text-neutral-400;
+      @apply font-light text-sm text-neutral-400;
     }
   }
 }
@@ -175,7 +175,7 @@ body {
 
 /* --- Animation Styles --- */
 .animate-in {
-  animation-delay: calc(var(--index) * 150ms);
+  animation-delay: calc(var(--index) * 250ms);
 }
 
 /* --- Keyframes --- */

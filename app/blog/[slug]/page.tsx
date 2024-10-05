@@ -25,7 +25,11 @@ export async function generateStaticParams() {
   return myBlog.map((blog) => ({ slug: blog.slug }))
 }
 
-export async function generateMetadata({ params }: { params: BlogParamsProps }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: BlogParamsProps
+}) {
   let myBlog = await getMyBlog()
   let blog = myBlog.find((blog) => blog.slug === params.slug)
 
@@ -98,7 +102,7 @@ export default async function Slug({ params }: { params: BlogParamsProps }) {
       />
       <div>
         <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight">
-          {blog.metadata.title}
+          {blog.metadata.title}&mdash;
         </h1>
         <p className="mb-6 text-neutral-400">{blog.metadata.summary}</p>
         <div className="mb-6 flex items-center">

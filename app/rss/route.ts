@@ -1,3 +1,5 @@
+import RSS from 'rss'
+
 import { site } from 'app/lib/metadata'
 import { getMyBlog } from 'app/lib/provider'
 
@@ -11,35 +13,36 @@ export async function GET() {
     return new Response('Failed to fetch blog', { status: 500 })
   }
 
-  const itemsXml = myBlog
-    .sort(
-      (a, b) =>
-        new Date(b.metadata.date).getTime() -
-        new Date(a.metadata.date).getTime(),
-    )
-    .map(
-      (blog) => `
-        <item>
-          <title>${blog.metadata.title}</title>
-          <link>${site.baseUrl}/blog/${blog.slug}</link>
-          <description>${blog.metadata.summary || ''}</description>
-          <pubDate>${new Date(blog.metadata.date)}</pubDate>
-        </item>`,
-    )
-    .join('')
+  const feed = new RSS({
+    title: site.title,
+    description: 'Blog Feed',
+    feed_url: `${site.baseUrl}/rss`,
+    site_url: site.baseUrl,
+    language: site.locale,
+    pubDate: new Date(),
+  })
 
-  const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
-  <rss version="2.0">
-    <channel>
-      <title>${site.title}</title>
-      <description>Feed</description>
-      ${itemsXml}
-    </channel>
-  </rss>`
+  myBlog
+    ?.sort(
+      (a, b) =>
+        new Date(b.metadata?.date ?? 0).getTime() -
+        new Date(a.metadata?.date ?? 0).getTime(),
+    )
+    .forEach((blog) => {
+      feed.item({
+        title: blog.metadata?.title ?? 'Untitled',
+        description: blog.metadata?.summary ?? 'Unsummaryed',
+        url: `${site.baseUrl}/blog/${blog.slug ?? 'Unslugged'}`,
+        date: new Date(blog.metadata?.date ?? Date.now()),
+      })
+    })
+
+  const rssFeed = feed.xml({ indent: true })
 
   return new Response(rssFeed, {
     headers: {
-      'Content-Type': 'text/xml',
+      'Content-Type': 'application/xml',
+      'Cache-Control': 'max-age=86400, s-maxage=86400',
     },
   })
 }

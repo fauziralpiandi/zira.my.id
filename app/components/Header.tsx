@@ -24,7 +24,7 @@ export default function Navigation() {
   return (
     <header className="mb-16 md:mt-6">
       <nav className="flex items-center justify-between gap-4">
-        <Link href="/" className="shrink-0">
+        <Link href="/" className="shrink-0" aria-label="Home">
           <Logo />
         </Link>
         <ul className="hidden items-center gap-1 md:flex">
@@ -36,9 +36,9 @@ export default function Navigation() {
         </ul>
 
         <div className="ml-auto flex h-8 w-8 items-center justify-center md:ml-0">
-          <Link href="/rss">
+          <a href="/rss" target="_blank" aria-label="RSS Feed">
             <FaRss size={20} />
-          </Link>
+          </a>
         </div>
 
         <Popover className="relative md:hidden">

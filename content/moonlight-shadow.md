@@ -3,6 +3,7 @@ title: 'Moonlight Shadow'
 summary: 'Beautiful, isn’t?'
 date: '2023-10-14'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 **Langit dipenuhi gemerlap bintang dan bulan yang bersinar terang.** Berdiri di sisi danau, aku menatap keelokan sebuah objek terang yang mengambang di langit malam. Pesonanya mulai merayu pria bisu sepertiku dengan setiap tatapannya yang mampu menyentuh kalbu, membuai perasaan dengan keajaiban yang tidak terucapkan. Melihatnya, aku merasa diundang untuk merenung, bermimpi, dan merenungi hati sekaligus menjadi penyejuk di tengah hiruk-pikuk masa lalu.

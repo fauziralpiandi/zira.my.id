@@ -3,6 +3,7 @@ title: 'Keheningan yang Menyakitkan'
 summary: 'Jiwa-jiwa yang terjebak dalam keputusasaan.'
 date: '2021-01-06'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Di tengah gemuruh kehidupan yang tampaknya tak berujung, tersembunyi di balik senyuman palsu yang terlukis di wajah banyak orang, ada sebuah pertanyaan yang menggigit:

@@ -3,6 +3,7 @@ title: 'Viralisme: Altar Baru Manusia'
 summary: 'Yang penting FYP.'
 date: '2022-10-02'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Di era ketika nilai ditentukan oleh jumlah "like" dan "share," manusia telah menemukan sebuah altar baru untuk menyembah,

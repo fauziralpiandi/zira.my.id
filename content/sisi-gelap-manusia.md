@@ -3,6 +3,7 @@ title: 'Sisi Gelap Manusia'
 summary: 'Diselimuti kabut kelam yang memanggil.'
 date: '2020-12-21'
 author: 'Fauzira Alpiandi'
+category: 'notes'
 ---
 
 Di dalam labirin jiwa yang berkelok-kelok, terhampar dua jalan yang saling bersilangan—satu berkilau dengan cahaya yang mengaburkan pandangan, dan yang lain, diselimuti kabut kelam yang memanggil.

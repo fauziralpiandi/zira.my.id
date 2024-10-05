@@ -126,7 +126,7 @@ export default async function Slug({ params }: { params: BlogParamsProps }) {
                 <span className="flex items-center gap-1">
                   <span>{readTime}</span>
                   <span className="mx-0.5">·</span>
-                  <span>{formatDate(blog.metadata.date, 'absolute')}</span>
+                  <span>{formatDate(blog.metadata.date, 'relative')}</span>
                 </span>
               </div>
             </div>

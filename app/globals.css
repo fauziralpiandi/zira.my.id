@@ -159,7 +159,7 @@ body {
     }
 
     p {
-      @apply font-light text-sm text-neutral-400;
+      @apply font-light text-lg text-neutral-400;
     }
   }
 }

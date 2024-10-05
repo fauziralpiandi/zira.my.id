@@ -150,7 +150,7 @@ body {
   }
 
   blockquote {
-    @apply my-14 pl-6 border-l-4 border-neutral-800;
+    @apply my-12 pl-6 border-l-4 border-neutral-800;
     margin-left: 0;
     margin-right: 0;
 

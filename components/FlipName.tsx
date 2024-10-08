@@ -9,7 +9,7 @@ export function FlipName() {
           {site.author.split('').map((letter, index) => (
             <span
               key={index}
-              className="inline-block"
+              className="inline-block text-yellow-700 dark:text-yellow-500"
               style={{ transitionDelay: `${index * 25}ms` }}
             >
               {letter === ' ' ? '\u00A0' : letter}
@@ -20,7 +20,7 @@ export function FlipName() {
           {site.alias.split('').map((letter, index) => (
             <span
               key={index}
-              className="inline-block"
+              className="inline-block text-yellow-700 dark:text-yellow-500"
               style={{ transitionDelay: `${index * 25}ms` }}
             >
               {letter}

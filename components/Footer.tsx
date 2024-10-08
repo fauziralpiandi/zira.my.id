@@ -28,8 +28,12 @@ function Footer() {
       className="flex-shrink-0 flex justify-between items-center mt-16"
       aria-label="Footer"
     >
-      <Link href="/" className="text-[0.95rem] tracking-tight no-underline">
-        &copy; {new Date().getFullYear()} {site.author}
+      <Link
+        href="/legal"
+        className="font-medium text-[0.95rem] tracking-tight no-underline"
+        aria-label="Terms of Use and Privacy Policy"
+      >
+        &copy; {new Date().getFullYear()} {site.author} &mdash; Legal
       </Link>
       <div className="flex items-center space-x-3">
         {links.map((link) => (

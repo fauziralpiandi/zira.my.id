@@ -29,7 +29,7 @@ const ThemeSwitcher = () => {
   return (
     <button
       onClick={toggleTheme}
-      aria-label="Toggle Theme"
+      aria-label="Theme Switcher"
       aria-pressed={theme === 'dark'}
       className="flex items-center justify-center"
     >

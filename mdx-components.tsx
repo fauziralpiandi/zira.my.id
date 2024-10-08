@@ -1,13 +1,15 @@
 import React from 'react'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { highlight } from 'sugar-high'
 import type { MDXComponents } from 'mdx/types'
 
-const isValidUrl = (url: string) => {
-  return url.startsWith('https')
-}
+const isValidUrl = (url: string) => url.startsWith('https')
 
 const components: MDXComponents = {
+  code: ({ children, ...props }) => {
+    const codeHTML = highlight(children as string)
+    return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+  },
   a: ({ href, children, ...props }) => {
     const isInternalLink = href?.startsWith('/')
     const isExternalLink = isValidUrl(href || '')
@@ -31,10 +33,6 @@ const components: MDXComponents = {
         {children}
       </a>
     )
-  },
-  code: ({ children, ...props }) => {
-    const codeHTML = highlight(children as string)
-    return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
   },
 }
 

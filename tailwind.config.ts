@@ -2,7 +2,8 @@ import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 
 export default {
-  content: ['./app/**/*', './content/**/*'],
+  darkMode: 'class',
+  content: ['./app/**/*', './components/**/*'],
   theme: {
     extend: {
       typography: {
@@ -23,28 +24,28 @@ export default {
           },
         },
       },
-      keyframes: {
-        'in': {
-          '0%': {
-            opacity: '0',
-          },
-          '100%': {
-            opacity: '1',
-          },
+    },
+    keyframes: {
+      'in': {
+        '0%': {
+          opacity: '0',
         },
-        'in-reverse': {
-          '0%': {
-            opacity: '1',
-          },
-          '100%': {
-            opacity: '0',
-          },
+        '100%': {
+          opacity: '1',
         },
       },
-      animation: {
-        'in': 'in 0.5s both',
-        'in-reverse': 'in-reverse 0.5s both',
+      'in-reverse': {
+        '0%': {
+          opacity: '1',
+        },
+        '100%': {
+          opacity: '0',
+        },
       },
+    },
+    animation: {
+      'in': 'in 0.5s both',
+      'in-reverse': 'in-reverse 0.5s both',
     },
   },
   plugins: [typography],

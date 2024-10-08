@@ -20,6 +20,14 @@ export const metadata: Metadata = {
     template: `%s \u2014 ${site.title}`,
   },
   description: site.description,
+  openGraph: {
+    title: site.title,
+    description: site.description,
+    url: site.baseUrl,
+    siteName: site.title,
+    locale: 'en',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
@@ -29,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className={font.className}>
+      <html lang="en" className={`${font.className} animate-in`}>
         <body>
           <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50 mix-blend-soft-light">
             <svg
@@ -55,7 +63,7 @@ export default function RootLayout({
           </div>
           <div className="min-h-screen px-8 py-12 antialiased flex flex-col">
             <div className="flex-grow flex flex-col max-w-xl mx-auto w-full">
-              <main className="flex-grow animate-in">{children}</main>
+              <main className="flex-grow">{children}</main>
               <Footer />
             </div>
           </div>

@@ -1,48 +1,32 @@
-## ✨️ zira.my.id
+## Getting Started
 
-The website project serves as a personal portfolio, blog, and platform to showcase my work as a developer and author. It is designed with a focus on performance, accessibility, and clean UI/UX with Monochromatic.
+First, run the development server:
 
-## 🚀 Tech Stack
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- [**Next.js** (App Router)](https://nextjs.org/docs/app) - Framework for building server-rendered React applications with built-in routing.
-- [**TypeScript** (Language)](https://www.typescriptlang.org/) - A strongly-typed language that builds on JavaScript, enhancing code quality and developer experience.
-- [**React** (Library)](https://react.dev/) - A JavaScript library for building user interfaces with component-based architecture.
-- [**Tailwind CSS** (Styling)](https://tailwindcss.com/) - A utility-first CSS framework for designing responsive and modern user interfaces.
-- [**PostgreSQL** (Backend)](https://www.postgresql.org/) - A powerful, open-source relational database system.
-- [**Markdown/MDX** (Content management)](https://mdxjs.com/) - A way to manage and display content with embedded React components.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 🛠️ Installation
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-To set up this project locally, follow these steps:
+## Learn More
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/fauziralpiandi/zira.my.id.git
-   cd zira.my.id
-   ```
+To learn more about Next.js, take a look at the following resources:
 
-2. Install dependencies:
-   ```bash
-   pnpm install
-   ```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-3. Run the development server:
-   ```bash
-   pnpm dev
-   ```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-4. Open http://localhost:3000 in your browser to view the website.
+## Deploy on Vercel
 
-5. (Optional) Create an `.env.local` file similar to [`.env.example`](https://github.com/fauziralpiandi/zira.my.id/blob/main/.env.example) file with necessary environment variables.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to fork the repository, create a feature branch, and submit a pull request.
-
-## 📜 License
-
-This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for more details.
-
-- **Attribution** is required.
-- **Changes**: If you modify the code, you must note the changes.
-- **Patents**: The license grants a patent license to the code's users.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

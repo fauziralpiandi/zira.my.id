@@ -69,7 +69,20 @@ p {
 }
 
 a {
-  @apply text-yellow-700 dark:text-yellow-500 underline underline-offset-2 decoration-yellow-500 dark:decoration-yellow-300 hover:decoration-yellow-700 dark:hover:decoration-yellow-500;
+  @apply text-yellow-700 dark:text-yellow-500 underline underline-offset-2;
+  text-decoration-color: rgba(234, 179, 8, 0.25);
+
+  &:hover {
+    text-decoration-color: rgba(234, 179, 8, 1);
+  }
+
+  .dark & {
+    text-decoration-color: rgba(253, 224, 71, 0.25);
+  }
+
+  .dark &:hover {
+    text-decoration-color: rgba(253, 224, 71, 1);
+  }
 }
 
 ol,

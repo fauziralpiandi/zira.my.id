@@ -3,13 +3,13 @@ interface Site {
   baseUrl: string
   title: string
   description: string
-  locales: string[]
+  locale: string
 }
 
 interface My {
+  headLine: string
   fullName: string
-  alias: string
-  role: string
+  nickName: string
 }
 
 export const site: Site = {
@@ -18,11 +18,11 @@ export const site: Site = {
   title: 'Fauzira Alpiandi',
   description:
     'Hey there! I\u2019m a frontendless exploring the exciting world of React!',
-  locales: ['en', 'id'],
+  locale: 'en',
 }
 
 export const my: My = {
+  headLine: 'frontendless',
   fullName: 'Fauzira Alpiandi',
-  alias: 'Zira',
-  role: 'Frontendless',
+  nickName: 'Zira',
 }

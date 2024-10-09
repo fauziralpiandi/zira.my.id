@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'next-view-transitions'
-import { highlight } from 'sugar-high'
 import type { MDXComponents } from 'mdx/types'
+import { highlight } from 'sugar-high'
 
 const isValidUrl = (url: string) => url.startsWith('https')
 

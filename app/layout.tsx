@@ -2,13 +2,12 @@ import type { Metadata } from 'next'
 import { Radio_Canada } from 'next/font/google'
 import { ViewTransitions } from 'next-view-transitions'
 
-import 'app/globals.css'
-import { site } from 'app/meta'
-import Footer from 'components/Footer'
+import '@/globals.css'
+import { site } from '@/constant'
+import { Footer } from '@/Interface'
 
-const font = Radio_Canada({
-  subsets: ['latin'],
-})
+export const revalidate = 3600
+export const dynamicParams = true
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${site.baseUrl}`),
@@ -25,7 +24,7 @@ export const metadata: Metadata = {
     description: site.description,
     url: site.baseUrl,
     siteName: site.title,
-    locale: site.locales,
+    locale: site.locale,
     type: 'website',
   },
 }
@@ -37,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className={`${font.className} animate-in`}>
+      <html lang={site.locale} className={`${font.className} animate-in`}>
         <body>
           <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50 mix-blend-soft-light">
             <svg
@@ -72,3 +71,7 @@ export default function RootLayout({
     </ViewTransitions>
   )
 }
+
+const font = Radio_Canada({
+  subsets: ['latin'],
+})

@@ -1,14 +1,10 @@
-import type { MetadataRoute } from 'next'
+import { site } from '@/constant'
 
-import { site } from 'app/meta'
+export default async function sitemap() {
+  const routes = [''].map((route) => ({
+    url: `${site.baseUrl}${route}`,
+    lastModified: new Date().toISOString(),
+  }))
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: site.baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
-    },
-  ]
+  return routes
 }

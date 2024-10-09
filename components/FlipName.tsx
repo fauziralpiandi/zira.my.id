@@ -1,12 +1,12 @@
-import { site } from 'app/site'
+import { my } from 'app/meta'
 
 export function FlipName() {
   return (
     <h1 className="mb-8">
-      <span className="sr-only">{site.author}</span>
+      <span className="sr-only">{my.fullName}</span>
       <span aria-hidden="true" className="block overflow-hidden group relative">
         <span className="inline-block transition-all duration-300 ease-in-out group-hover:-translate-y-full">
-          {site.author.split('').map((letter, index) => (
+          {my.fullName.split('').map((letter, index) => (
             <span
               key={index}
               className="inline-block text-yellow-700 dark:text-yellow-500"
@@ -17,7 +17,7 @@ export function FlipName() {
           ))}
         </span>
         <span className="inline-block absolute left-0 top-0 transition-all duration-300 ease-in-out translate-y-full group-hover:translate-y-0">
-          {site.alias.split('').map((letter, index) => (
+          {my.role.split('').map((letter, index) => (
             <span
               key={index}
               className="inline-block text-yellow-700 dark:text-yellow-500"

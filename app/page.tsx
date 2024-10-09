@@ -9,9 +9,9 @@ export default function Home() {
       <section>
         <h2 className="sr-only">About Me</h2>
         <p>
-          I&rsquo;m a fresh entry-level developer, diving headfirst into the
-          awesome world of building cool stuff in React. It&rsquo;s the most
-          thrilling challenge I&rsquo;ve ever faced&mdash;
+          I&rsquo;m a frontendless developer, diving headfirst into the awesome
+          world of building cool stuff in React. It&rsquo;s the most thrilling
+          challenge I&rsquo;ve ever faced&mdash;
         </p>
 
         <p>Growth&mdash;lies in persistence.</p>
@@ -24,11 +24,7 @@ export default function Home() {
           user experiences.
         </p>
 
-        <p>
-          Every line of code tells its own story. With every hurdle I clear,
-          I&rsquo;m reminded that each step I take is part of my growth as a
-          developer.
-        </p>
+        <p>Every line of code tells its own story.</p>
       </section>
     </>
   )

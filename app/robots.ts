@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-import { site } from 'app/site'
+import { site } from 'app/meta'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -10,5 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: '/private/',
     },
     sitemap: `${site.baseUrl}/sitemap.xml`,
+    host: site.host,
   }
 }

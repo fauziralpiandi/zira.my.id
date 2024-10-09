@@ -1,6 +1,6 @@
 import { Link } from 'next-view-transitions'
 
-import { site } from 'app/site'
+import { my } from 'app/meta'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 
 function Footer() {
@@ -14,7 +14,7 @@ function Footer() {
         className="font-medium text-[0.95rem] text-yellow-700 dark:text-yellow-500 tracking-tight"
         aria-label="Attribution"
       >
-        &copy; {new Date().getFullYear()} {site.author} &mdash;{' '}
+        &copy; {new Date().getFullYear()} {my.fullName} &mdash;{' '}
         <Link href="/legal" aria-label="Legal">
           Legal
         </Link>

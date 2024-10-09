@@ -3,7 +3,7 @@ import { Radio_Canada } from 'next/font/google'
 import { ViewTransitions } from 'next-view-transitions'
 
 import 'app/globals.css'
-import { site } from 'app/site'
+import { site } from 'app/meta'
 import Footer from 'components/Footer'
 
 const font = Radio_Canada({
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: site.description,
     url: site.baseUrl,
     siteName: site.title,
-    locale: 'en',
+    locale: site.locales,
     type: 'website',
   },
 }
@@ -61,7 +61,7 @@ export default function RootLayout({
               <rect width="100vw" height="100vh" filter="url(#noise)" />
             </svg>
           </div>
-          <div className="min-h-screen p-8 antialiased flex flex-col md:py-16">
+          <div className="min-h-screen px-8 py-12 antialiased flex flex-col md:py-16">
             <div className="flex-grow flex flex-col max-w-xl mx-auto w-full">
               <main className="flex-grow">{children}</main>
               <Footer />

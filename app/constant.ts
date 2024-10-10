@@ -3,6 +3,7 @@ interface Site {
   baseUrl: string
   title: string
   description: string
+  keywords: string[]
   locale: string
 }
 
@@ -18,6 +19,7 @@ export const site: Site = {
   title: 'Fauzira Alpiandi',
   description:
     'Hey there! I\u2019m a frontendless exploring the exciting world of React!',
+  keywords: ['zira', 'fauzira', 'alpiandi', 'frontendless'],
   locale: 'en',
 }
 

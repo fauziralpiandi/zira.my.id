@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     template: `%s \u2014 ${site.title}`,
   },
   description: site.description,
+  keywords: site.keywords,
   openGraph: {
     title: site.title,
     description: site.description,
@@ -36,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang={site.locale} className={`${font.className} animate-in`}>
+      <html lang={site.locale} className={`${font.className} dark animate-in`}>
         <body>
           <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50 mix-blend-soft-light">
             <svg

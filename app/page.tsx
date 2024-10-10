@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'next-view-transitions'
 
 import { FlipName } from '@/Animation'
 
@@ -9,9 +10,9 @@ export default function Home() {
       <section>
         <h2 className="sr-only">Insight</h2>
         <p>
-          I&rsquo;m a frontendless, diving into the awesome world of building
-          cool stuff in React. It&rsquo;s the most thrilling challenge
-          I&rsquo;ve ever faced&mdash;
+          I&rsquo;m a <Link href="/">frontendless</Link>, diving into the
+          awesome world of building cool stuff in React. It&rsquo;s the most
+          thrilling challenge I&rsquo;ve ever faced&mdash;
         </p>
 
         <p>Growth&mdash;lies in persistence.</p>

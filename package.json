@@ -1,31 +1,31 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^14.2.15",
+    "@next/mdx": "^15.0.0-canary.182",
     "@tailwindcss/typography": "^0.5.15",
     "@types/mdx": "^2.0.13",
     "mdx": "^0.3.1",
-    "next": "14.2.15",
+    "next": "^15.0.0-canary.182",
     "next-view-transitions": "^0.3.2",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "19.0.0-rc.0",
+    "react-dom": "19.0.0-rc.0",
     "react-icons": "^5.3.0",
     "sugar-high": "^0.7.1"
   },
   "devDependencies": {
-    "@types/node": "^22",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
-    "typescript": "^5"
+    "typescript": "^5.6.3"
   },
   "prettier": {
     "bracketSpacing": true,

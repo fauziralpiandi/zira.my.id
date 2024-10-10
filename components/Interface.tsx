@@ -20,7 +20,7 @@ export function Footer() {
       aria-label="Footer"
     >
       <span
-        className="font-medium text-[0.9rem] text-yellow-700 dark:text-yellow-500 tracking-tight"
+        className="font-medium text-sm text-yellow-800 dark:text-yellow-500 tracking-tight"
         aria-label="Attribution"
       >
         &copy; {new Date().getFullYear()} {my.fullName}
@@ -52,10 +52,7 @@ export function ThemeSwitcher() {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark'
-    const userPrefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)',
-    ).matches
-    const initialTheme = savedTheme || (userPrefersDark ? 'dark' : 'light')
+    const initialTheme = savedTheme || 'dark'
 
     document.documentElement.classList.add(initialTheme)
     setTheme(initialTheme)

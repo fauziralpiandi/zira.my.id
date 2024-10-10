@@ -1,5 +1,5 @@
 import { Link } from 'next-view-transitions'
-import { BsStars } from 'react-icons/bs'
+import { MdFormatQuote } from 'react-icons/md'
 
 import { my } from '@/constant'
 
@@ -7,10 +7,10 @@ export function AnimatedName() {
   return (
     <Link
       href="/"
-      className="flex items-center mt-1 mb-8 font-medium text-lg text-neutral-400 dark:text-neutral-500 no-underline fade-in"
+      className="flex items-center mt-1 mb-8 font-medium text-neutral-500 dark:text-neutral-500 no-underline fade-in"
     >
-      {my.fullName}
-      <BsStars className="inline-flex ml-1 text-xl align-middle" />
+      &mdash; {my.tagLine}
+      <MdFormatQuote className="hidden inline-flex ml-1 text-lg" />
     </Link>
   )
 }
@@ -24,7 +24,7 @@ export function FlipName() {
           {my.fullName.split('').map((letter, index) => (
             <span
               key={index}
-              className="inline-block text-yellow-700 dark:text-yellow-500"
+              className="inline-block"
               style={{ transitionDelay: `${index * 25}ms` }}
             >
               {letter === ' ' ? '\u00A0' : letter}
@@ -35,7 +35,7 @@ export function FlipName() {
           {my.headLine.split('').map((letter, index) => (
             <span
               key={index}
-              className="inline-block text-yellow-700 dark:text-yellow-500"
+              className="inline-block"
               style={{ transitionDelay: `${index * 25}ms` }}
             >
               {letter}

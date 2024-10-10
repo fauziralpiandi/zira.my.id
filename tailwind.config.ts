@@ -44,8 +44,8 @@ export default {
       },
     },
     animation: {
-      'in': 'in 1s both',
-      'in-reverse': 'in-reverse 1s both',
+      'in': 'in 300ms both',
+      'in-reverse': 'in-reverse 300ms both',
     },
   },
   plugins: [typography],

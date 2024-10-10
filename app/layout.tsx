@@ -6,9 +6,6 @@ import '@/globals.css'
 import { site } from '@/constant'
 import { Footer } from '@/Interface'
 
-export const revalidate = 3600
-export const dynamicParams = true
-
 export const metadata: Metadata = {
   metadataBase: new URL(`${site.baseUrl}`),
   alternates: {

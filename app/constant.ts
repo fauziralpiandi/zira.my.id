@@ -8,6 +8,7 @@ interface Site {
 }
 
 interface My {
+  tagLine: string
   headLine: string
   fullName: string
   nickName: string
@@ -24,6 +25,7 @@ export const site: Site = {
 }
 
 export const my: My = {
+  tagLine: 'fauziralpiandi',
   headLine: 'frontendless',
   fullName: 'Fauzira Alpiandi',
   nickName: 'Zira',

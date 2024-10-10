@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+.light {
   --background: #EEEEEE;
   --foreground: #111111;
   --sh-class: #9B5A8C;
@@ -42,7 +42,8 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  text-rendering: optimizeLegibility;
+  text-rendering: geometricPrecision;
+  overflow-wrap: break-word;
 }
 
 ::selection {
@@ -50,21 +51,37 @@ body {
   color: var(--background);
 }
 
+h1,
+h2,
+h3,
+h4 {
+  @apply tracking-tight leading-snug;
+}
+
+h2,
+h3,
+h4 {
+  @apply font-medium text-neutral-900 dark:text-neutral-50;
+}
+
 h1 {
-  @apply font-bold text-xl text-yellow-600 dark:text-yellow-500 tracking-tight leading-tight;
+  @apply font-semibold text-xl text-yellow-800 dark:text-yellow-500;
 }
 
 h2 {
-  @apply font-semibold text-[1.225rem] text-neutral-800 dark:text-neutral-200 tracking-tight;
+  @apply text-[1.3rem];
 }
 
-h3,
+h3 {
+  @apply text-[1.2rem];
+}
+
 h4 {
-  @apply font-medium text-[1.125rem] text-neutral-800 dark:text-neutral-200;
+  @apply text-[1.1rem];
 }
 
 p {
-  @apply my-4 text-neutral-700 dark:text-neutral-300;
+  @apply my-4 text-neutral-800 dark:text-neutral-300;
 
   strong {
     @apply font-medium text-black dark:text-white;
@@ -72,7 +89,7 @@ p {
 }
 
 a {
-  @apply text-yellow-700 dark:text-yellow-500 underline underline-offset-2;
+  @apply text-yellow-800 dark:text-yellow-500 underline underline-offset-2;
   text-decoration-color: rgba(234, 179, 8, 0.25);
 
   &:hover {
@@ -88,18 +105,18 @@ a {
   }
 }
 
-ol,
 ul,
+ol,
 li {
-  @apply mt-4 text-neutral-500 dark:text-neutral-500;
-}
-
-ol {
-  @apply list-decimal pl-0 space-y-2;
+  @apply mt-4 text-neutral-700 dark:text-neutral-400;
 }
 
 ul {
   @apply list-disc pl-4 space-y-2;
+}
+
+ol {
+  @apply list-decimal pl-0 space-y-2;
 }
 
 li {
@@ -107,7 +124,7 @@ li {
 }
 
 hr {
-  @apply my-8 border border-dashed border-neutral-300 dark:border-neutral-700;
+  @apply my-8 border border-dashed border-neutral-400 dark:border-neutral-700;
 }
 
 pre,
@@ -127,8 +144,7 @@ pre {
   }
 
   code {
-    @apply p-0 border-none;
-    line-height: 1.5;
+    @apply p-0 border-none leading-snug;
   }
 }
 
@@ -152,10 +168,6 @@ blockquote {
       @apply font-light text-black dark:text-white;
     }
   }
-}
-
-img {
-  @apply block mt-6 mb-10 grayscale rounded-lg;
 }
 
 @keyframes fade-in {

@@ -1,6 +1,6 @@
 'use client'
 
-// import { Link } from 'next-view-transitions'
+import { Link } from 'next-view-transitions'
 import { useState, useEffect, useCallback } from 'react'
 import { FiMoon, FiSun } from 'react-icons/fi'
 
@@ -23,7 +23,8 @@ export function Footer() {
         className="font-medium text-sm text-yellow-800 dark:text-yellow-500 tracking-tight"
         aria-label="Attribution"
       >
-        &copy; {new Date().getFullYear()} {my.fullName}
+        &copy; {new Date().getFullYear()} {my.fullName} &mdash;{' '}
+        <Link href="/legal">Legal</Link>
       </span>
 
       <div className="flex items-center space-x-3">

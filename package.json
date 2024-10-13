@@ -1,18 +1,19 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^15.0.0-canary.182",
+    "@next/mdx": "^15.0.0-canary.187",
     "@tailwindcss/typography": "^0.5.15",
     "@types/mdx": "^2.0.13",
     "mdx": "^0.3.1",
-    "next": "^15.0.0-canary.182",
+    "next": "^15.0.0-canary.187",
     "next-view-transitions": "^0.3.2",
     "react": "19.0.0-rc.0",
     "react-dom": "19.0.0-rc.0",
@@ -22,19 +23,11 @@
   "devDependencies": {
     "@types/node": "^22.7.5",
     "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
+    "@types/react-dom": "^18.3.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.3"
-  },
-  "prettier": {
-    "bracketSpacing": true,
-    "endOfLine": "auto",
-    "htmlWhitespaceSensitivity": "strict",
-    "printWidth": 80,
-    "semi": false,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "quoteProps": "consistent"
   }
 }

@@ -7,7 +7,7 @@ export function AnimatedName() {
   return (
     <Link
       href="/"
-      className="flex items-center mt-1 mb-8 font-medium text-neutral-500 dark:text-neutral-500 no-underline fade-in"
+      className="flex items-center mb-8 font-medium text-mono-500 bg-transparent hover:no-underline fade-in"
     >
       &mdash; {my.tagLine}
       <MdFormatQuote className="hidden inline-flex ml-1 text-lg" />

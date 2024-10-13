@@ -36,28 +36,6 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang={site.locale} className={`${font.className} dark animate-in`}>
         <body>
-          <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50 mix-blend-soft-light">
-            <svg
-              className="w-full h-full"
-              style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100vw',
-                height: '100vh',
-              }}
-            >
-              <filter id="noise">
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency="1"
-                  numOctaves="5"
-                  stitchTiles="stitch"
-                />
-              </filter>
-              <rect width="100vw" height="100vh" filter="url(#noise)" />
-            </svg>
-          </div>
           <div className="min-h-screen px-8 py-12 antialiased flex flex-col md:py-16">
             <div className="flex-grow flex flex-col max-w-xl mx-auto w-full">
               <main className="flex-grow">{children}</main>

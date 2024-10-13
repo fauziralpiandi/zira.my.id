@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 .light {
-  --background: #EEEEEE;
-  --foreground: #111111;
   --sh-class: #9B5A8C;
   --sh-identifier: #6F228C;
   --sh-sign: #454545;
@@ -17,8 +15,6 @@
 }
 
 .dark {
-  --background: #111111;
-  --foreground: #EEEEEE;
   --sh-class: #EEABFB;
   --sh-identifier: #BE69DE;
   --sh-sign: #EEEEEE;
@@ -35,11 +31,10 @@ body {
   margin: 0;
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
-  background-color: var(--background);
-  color: var(--foreground);
 }
 
 body {
+  @apply text-mono-950 dark:text-mono-50 bg-mono-50 dark:bg-mono-950;
   display: flex;
   flex-direction: column;
   text-rendering: geometricPrecision;
@@ -47,8 +42,7 @@ body {
 }
 
 ::selection {
-  background-color: var(--foreground);
-  color: var(--background);
+  @apply text-mono-50 dark:text-mono-950 bg-mono-950 dark:bg-mono-50;
 }
 
 h1,
@@ -61,11 +55,11 @@ h4 {
 h2,
 h3,
 h4 {
-  @apply font-medium text-neutral-900 dark:text-neutral-50;
+  @apply font-medium text-mono-950 dark:text-mono-50;
 }
 
 h1 {
-  @apply font-semibold text-xl text-yellow-800 dark:text-yellow-500;
+  @apply font-semibold text-xl text-mono-950 dark:text-mono-50;
 }
 
 h2 {
@@ -81,34 +75,21 @@ h4 {
 }
 
 p {
-  @apply my-4 text-neutral-800 dark:text-neutral-300;
+  @apply my-4 text-mono-800 dark:text-mono-200;
 
   strong {
-    @apply font-medium text-black dark:text-white;
+    @apply font-medium text-mono-950 dark:text-mono-50;
   }
 }
 
 a {
-  @apply text-yellow-800 dark:text-yellow-500 underline underline-offset-2;
-  text-decoration-color: rgba(234, 179, 8, 0.25);
-
-  &:hover {
-    text-decoration-color: rgba(234, 179, 8, 0.75);
-  }
-
-  .dark & {
-    text-decoration-color: rgba(253, 224, 71, 0.25);
-  }
-
-  .dark &:hover {
-    text-decoration-color: rgba(253, 224, 71, 0.75);
-  }
+  @apply text-mono-950 dark:text-mono-50 bg-mono-200 dark:bg-mono-800 hover:underline decoration-mono-500 underline-offset-2;
 }
 
 ul,
 ol,
 li {
-  @apply mt-4 text-neutral-700 dark:text-neutral-400;
+  @apply mt-4 text-mono-700 dark:text-mono-300;
 }
 
 ul {
@@ -124,12 +105,12 @@ li {
 }
 
 hr {
-  @apply my-8 border border-dashed border-neutral-400 dark:border-neutral-700;
+  @apply my-8 border border-dashed border-mono-400 dark:border-mono-700;
 }
 
 pre,
 code {
-  @apply mt-6 mb-3 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-md;
+  @apply mt-6 mb-8 bg-mono-100 dark:bg-mono-900 border border-mono-200 dark:border-mono-800 rounded-md;
   font-family: 'JetBrains Mono', monospace;
 }
 
@@ -157,15 +138,15 @@ code {
 }
 
 blockquote {
-  @apply px-4 pl-5 mt-5 mb-10 border-l-2 border-dashed border-neutral-200 dark:border-neutral-800;
+  @apply px-4 pl-5 mt-5 mb-10 border-l-2 border-dashed border-mono-200 dark:border-mono-800;
   margin-left: 0;
   margin-right: 0;
 
   p {
-    @apply italic font-light text-[1.085rem] text-neutral-500 dark:text-neutral-500 leading-relaxed;
+    @apply italic font-light text-[1.085rem] text-mono-700 dark:text-mono-300 leading-relaxed;
 
     strong {
-      @apply font-light text-black dark:text-white;
+      @apply font-light text-mono-950 dark:text-mono-50;
     }
   }
 }

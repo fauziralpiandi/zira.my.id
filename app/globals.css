@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Light Scheme Variables */
 .light {
   --sh-class: #9B5A8C;
   --sh-identifier: #6F228C;
@@ -14,6 +15,7 @@
   --sh-entity: #5E9F3B;
 }
 
+/* Dark Scheme Variables */
 .dark {
   --sh-class: #EEABFB;
   --sh-identifier: #BE69DE;
@@ -26,150 +28,165 @@
   --sh-entity: #CDFF84;
 }
 
-html,
-body {
-  margin: 0;
-  scrollbar-gutter: stable;
-  scroll-behavior: smooth;
-}
+/* Base Styles */
+@layer base {
 
-body {
-  @apply text-mono-950 dark:text-mono-50 bg-mono-50 dark:bg-mono-950;
-  display: flex;
-  flex-direction: column;
-  text-rendering: geometricPrecision;
-  overflow-wrap: break-word;
-}
-
-::selection {
-  @apply text-mono-50 dark:text-mono-950 bg-mono-950 dark:bg-mono-50;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  @apply tracking-tight leading-snug;
-}
-
-h2,
-h3,
-h4 {
-  @apply font-medium text-mono-950 dark:text-mono-50;
-}
-
-h1 {
-  @apply font-semibold text-xl text-mono-950 dark:text-mono-50;
-}
-
-h2 {
-  @apply text-[1.3rem];
-}
-
-h3 {
-  @apply text-[1.2rem];
-}
-
-h4 {
-  @apply text-[1.1rem];
-}
-
-p {
-  @apply my-4 text-mono-800 dark:text-mono-200;
-
-  strong {
-    @apply font-medium text-mono-950 dark:text-mono-50;
+  html,
+  body {
+    @apply m-0;
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
   }
-}
 
-a {
-  @apply text-mono-950 dark:text-mono-50 bg-mono-200 dark:bg-mono-800 hover:underline decoration-mono-500 underline-offset-2;
-}
+  body {
+    @apply flex flex-col bg-mono-50 dark:bg-mono-950 text-primary ease;
+    text-rendering: geometricPrecision;
+    overflow-wrap: break-word;
+  }
 
-ul,
-ol,
-li {
-  @apply mt-4 text-mono-700 dark:text-mono-300;
-}
+  ::selection {
+    @apply bg-mono-950 dark:bg-mono-50 text-mono-50 dark:text-mono-950;
+  }
 
-ul {
-  @apply list-disc pl-4 space-y-2;
-}
+  /* Headings */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply mb-2 text-primary tracking-tight leading-snug ease;
+  }
 
-ol {
-  @apply list-decimal pl-0 space-y-2;
-}
+  h1 {
+    @apply mb-0 font-semibold text-xl;
+  }
 
-li {
-  @apply pl-1;
-}
+  h2 {
+    @apply font-medium text-[1.25rem];
+  }
 
-hr {
-  @apply my-8 border border-dashed border-mono-400 dark:border-mono-700;
-}
+  h3 {
+    @apply font-medium text-[1.15rem];
+  }
 
-pre,
-code {
-  @apply mt-6 mb-8 bg-mono-100 dark:bg-mono-900 border border-mono-200 dark:border-mono-800 rounded-md;
-  font-family: 'JetBrains Mono', monospace;
-}
+  h4 {
+    @apply font-medium text-[1.05rem];
+  }
 
-pre {
-  @apply overflow-x-auto py-2.5 px-3.5;
-  font-size: 0.8rem;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  /* Paragraphs */
+  p {
+    @apply my-4 text-secondary ease;
 
-  ::-webkit-scrollbar {
-    display: none;
+    strong {
+      @apply font-medium text-primary ease;
+    }
+  }
+
+  /* Links */
+  a {
+    @apply bg-mono-200 dark:bg-mono-800 text-primary hover:underline decoration-mono-500 underline-offset-2 ease;
+  }
+
+  /* Lists */
+  ul,
+  ol,
+  li {
+    @apply pl-4 text-tertiary leading-relaxed ease;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    @apply mt-5 mb-10 border-l-2 border-dashed border-mono-200 dark:border-mono-800 px-4 pl-5 ease;
+
+    p {
+      @apply leading-relaxed font-light italic text-[1.1rem] text-tertiary;
+
+      strong {
+        @apply font-light text-primary;
+      }
+    }
+  }
+
+  /* Preformatted */
+  pre,
+  code {
+    @apply mt-6 mb-8 rounded-md border border-mono-200 dark:border-mono-800 bg-mono-100 dark:bg-mono-900 font-mono ease;
+  }
+
+  pre {
+    @apply py-2.5 px-3.5 leading-tight overflow-x-auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    code {
+      @apply p-0 border-none leading-snug;
+    }
   }
 
   code {
-    @apply p-0 border-none leading-snug;
-  }
-}
+    @apply py-0.5 px-1 text-[0.9rem] ease;
 
-code {
-  @apply py-0.5 px-1;
-
-  span {
-    @apply font-medium;
-  }
-}
-
-blockquote {
-  @apply px-4 pl-5 mt-5 mb-10 border-l-2 border-dashed border-mono-200 dark:border-mono-800;
-  margin-left: 0;
-  margin-right: 0;
-
-  p {
-    @apply italic font-light text-[1.085rem] text-mono-700 dark:text-mono-300 leading-relaxed;
-
-    strong {
-      @apply font-light text-mono-950 dark:text-mono-50;
+    span {
+      @apply ease;
     }
   }
+
+  /* Horizontal Rule */
+  hr {
+    @apply my-8 border border-dashed border-mono-400 dark:border-mono-600 ease;
+  }
 }
 
+/* Customs */
+@layer utilities {
+  .text-primary {
+    @apply text-mono-950 dark:text-mono-50;
+  }
+
+  .text-secondary {
+    @apply text-mono-800 dark:text-mono-200;
+  }
+
+  .text-tertiary {
+    @apply text-mono-700 dark:text-mono-300;
+  }
+
+  .ease {
+    @apply transition duration-300 ease-in-out;
+  }
+}
+
+/* Keyframes */
 @keyframes fade-in {
   0% {
     opacity: 0;
   }
 
   20% {
-    opacity: 0.20;
+    opacity: 0.1;
   }
 
   40% {
-    opacity: 0.40;
+    opacity: 0.3;
   }
 
   60% {
-    opacity: 0.60;
+    opacity: 0.6;
   }
 
   80% {
-    opacity: 0.80;
+    opacity: 0.8;
   }
 
   100% {

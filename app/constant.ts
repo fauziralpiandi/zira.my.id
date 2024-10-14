@@ -1,17 +1,32 @@
+interface My {
+  greetings: string
+  tagLine: string
+  headLine: string
+  fullName: string
+  nickName: string
+}
+
 interface Site {
   host: string
   baseUrl: string
   title: string
   description: string
-  keywords: string[]
+  keywords?: string[]
   locale: string
 }
 
-interface My {
-  tagLine: string
-  headLine: string
-  fullName: string
-  nickName: string
+interface Verify {
+  google?: string
+  yandex?: string
+  bing?: string
+}
+
+export const my: My = {
+  greetings: '^-',
+  tagLine: 'fauziralpiandi',
+  headLine: 'frontendless',
+  fullName: 'Fauzira Alpiandi',
+  nickName: 'Zira',
 }
 
 export const site: Site = {
@@ -24,9 +39,6 @@ export const site: Site = {
   locale: 'en',
 }
 
-export const my: My = {
-  tagLine: 'fauziralpiandi',
-  headLine: 'frontendless',
-  fullName: 'Fauzira Alpiandi',
-  nickName: 'Zira',
+export const verify: Verify = {
+  google: 'xuMdCxKom7IZ2YwCTzVJli3Sp_bvt-nofj8Q1iBjPf0',
 }

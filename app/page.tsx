@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'next-view-transitions'
 
-import { FlipName } from '@/Animation'
+import { FlipName } from '~/Components'
 
 export default function Home() {
   return (

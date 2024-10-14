@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { Radio_Canada } from 'next/font/google'
 import { ViewTransitions } from 'next-view-transitions'
 
-import '@/globals.css'
-import { site } from '@/constant'
-import { Footer } from '@/Interface'
+import '~/globals.css'
+import { my, site, verify } from '~/constant'
+import { Footer } from '~/Components'
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${site.baseUrl}`),
@@ -24,6 +24,24 @@ export const metadata: Metadata = {
     siteName: site.title,
     locale: site.locale,
     type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      'index': true,
+      'follow': true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  twitter: {
+    title: my.fullName,
+    card: 'summary_large_image',
+  },
+  verification: {
+    google: verify.google,
   },
 }
 

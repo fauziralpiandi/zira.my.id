@@ -9,11 +9,11 @@
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^15.0.0-canary.187",
+    "@next/mdx": "15.0.0-rc.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/mdx": "^2.0.13",
     "mdx": "^0.3.1",
-    "next": "^15.0.0-canary.187",
+    "next": "15.0.0-rc.0",
     "next-view-transitions": "^0.3.2",
     "react": "19.0.0-rc.0",
     "react-dom": "19.0.0-rc.0",

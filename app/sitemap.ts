@@ -1,8 +1,6 @@
-import type { MetadataRoute } from 'next'
-
 import { site } from '~/constant'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap() {
   return [
     {
       url: site.baseUrl,

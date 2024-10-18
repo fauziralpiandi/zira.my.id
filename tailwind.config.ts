@@ -1,9 +1,8 @@
 import type { Config } from 'tailwindcss'
-import typography from '@tailwindcss/typography'
 
 export default {
   darkMode: 'selector',
-  content: ['./app/**/*.{md,mdx,ts,tsx}'],
+  content: ['./app/**/*'],
   theme: {
     extend: {
       colors: {
@@ -21,29 +20,21 @@ export default {
           950: '#111111',
         },
       },
-    },
-    keyframes: {
-      'in': {
-        '0%': {
-          opacity: '0',
+      keyframes: {
+        'in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        '100%': {
-          opacity: '1',
-        },
-      },
-      'in-reverse': {
-        '0%': {
-          opacity: '1',
-        },
-        '100%': {
-          opacity: '0',
+        'in-reverse': {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
         },
       },
-    },
-    animation: {
-      'in': 'in 150ms both',
-      'in-reverse': 'in-reverse 150ms both',
+      animation: {
+        'in': 'in 1000ms both',
+        'in-reverse': 'in-reverse 1000ms both',
+      },
     },
   },
-  plugins: [typography],
+  plugins: [],
 } satisfies Config

@@ -3,8 +3,8 @@ import { Radio_Canada } from 'next/font/google'
 import { ViewTransitions } from 'next-view-transitions'
 
 import '~/globals.css'
+import { Footer } from '~/components'
 import { my, site, verify } from '~/constant'
-import { Footer } from '~/Components'
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${site.baseUrl}`),
@@ -52,10 +52,13 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang={site.locale} className={`${font.className} dark animate-in`}>
+      <html
+        lang={site.locale}
+        className={`${font.className} antialiased animate-in`}
+      >
         <body>
-          <div className="min-h-screen px-8 py-12 antialiased flex flex-col md:py-16">
-            <div className="flex-grow flex flex-col max-w-xl mx-auto w-full">
+          <div className="min-h-screen px-7 py-12 flex flex-col">
+            <div className="flex-grow flex flex-col w-full mx-auto max-w-3xl">
               <main className="flex-grow">{children}</main>
               <Footer />
             </div>

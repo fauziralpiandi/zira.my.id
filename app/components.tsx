@@ -62,11 +62,11 @@ export function Footer() {
 
   return (
     <footer
-      className="flex-shrink-0 flex justify-between items-center mt-16"
+      className="flex-shrink-0 flex justify-between items-center mt-24"
       aria-label="Footer"
     >
-      <div className="font-medium text-sm tracking-tight">
-        &copy; {new Date().getFullYear()} {my.fullName}
+      <div className="font-medium text-sm text-mono-800 dark:text-mono-200 tracking-tight ease">
+        &copy; 2022 &mdash; {new Date().getFullYear()} {my.fullName}
       </div>
 
       <div className="flex items-center space-x-3">

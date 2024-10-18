@@ -2,95 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light Scheme Variables */
-.light {
-  --sh-class: #9B5A8C;
-  --sh-identifier: #6F228C;
-  --sh-sign: #454545;
-  --sh-string: #9E4D0A;
-  --sh-keyword: #004499;
-  --sh-comment: #3C3C3C;
-  --sh-jsxliterals: #323B7A;
-  --sh-property: #66A2B3;
-  --sh-entity: #5E9F3B;
-}
-
-/* Dark Scheme Variables */
-.dark {
-  --sh-class: #EEABFB;
-  --sh-identifier: #BE69DE;
-  --sh-sign: #EEEEEE;
-  --sh-string: #F8810B;
-  --sh-keyword: #0080FF;
-  --sh-comment: #808080;
-  --sh-jsxliterals: #6266d1;
-  --sh-property: #B2D9FF;
-  --sh-entity: #CDFF84;
-}
-
-/* Base Styles */
 @layer base {
+
+  .light {
+    --sh-class: #9B5A8C;
+    --sh-identifier: #6F228C;
+    --sh-sign: #454545;
+    --sh-string: #9E4D0A;
+    --sh-keyword: #004499;
+    --sh-comment: #3C3C3C;
+    --sh-jsxliterals: #323B7A;
+    --sh-property: #66A2B3;
+    --sh-entity: #5E9F3B;
+  }
+
+  .dark {
+    --sh-class: #EEABFB;
+    --sh-identifier: #BE69DE;
+    --sh-sign: #EEEEEE;
+    --sh-string: #F8810B;
+    --sh-keyword: #0080FF;
+    --sh-comment: #808080;
+    --sh-jsxliterals: #6266d1;
+    --sh-property: #B2D9FF;
+    --sh-entity: #CDFF84;
+  }
 
   html,
   body {
-    @apply m-0;
+    @apply m-0 p-0;
     scrollbar-gutter: stable;
     scroll-behavior: smooth;
   }
 
   body {
-    @apply flex flex-col bg-mono-50 dark:bg-mono-950 text-primary ease;
-    text-rendering: geometricPrecision;
+    @apply flex flex-col bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 ease;
     overflow-wrap: break-word;
+    text-rendering: geometricPrecision;
   }
 
   ::selection {
-    @apply bg-mono-950 dark:bg-mono-50 text-mono-50 dark:text-mono-950;
+    @apply bg-mono-950 dark:bg-mono-50 text-mono-50 dark:text-mono-950 ease;
   }
 
-  /* Headings */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   h1,
   h2,
   h3,
   h4 {
-    @apply mb-2 text-primary tracking-tight leading-snug ease;
+    @apply text-mono-950 dark:text-mono-50 tracking-tight ease;
   }
 
   h1 {
-    @apply mb-0 font-semibold text-xl;
+    @apply text-xl font-semibold;
   }
 
   h2 {
-    @apply font-medium text-[1.25rem];
+    @apply mt-10 mb-4 text-[1.25rem] font-medium;
   }
 
   h3 {
-    @apply font-medium text-[1.15rem];
+    @apply mt-10 mb-4 text-[1.15rem] font-medium;
   }
 
   h4 {
-    @apply font-medium text-[1.05rem];
+    @apply mt-10 mb-4 text-[1.05rem] font-medium;
   }
 
-  /* Paragraphs */
   p {
-    @apply my-4 text-secondary ease;
-
-    strong {
-      @apply font-medium text-primary ease;
-    }
+    @apply my-4 text-mono-800 dark:text-mono-200 ease;
   }
 
-  /* Links */
+  p strong {
+    @apply text-mono-950 dark:text-mono-50 ease;
+  }
+
   a {
-    @apply bg-mono-200 dark:bg-mono-800 text-primary hover:underline decoration-mono-500 underline-offset-2 ease;
+    @apply bg-mono-200 dark:bg-mono-800 text-mono-950 dark:text-mono-50 hover:underline decoration-mono-500 underline-offset-2 ease;
   }
 
-  /* Lists */
   ul,
-  ol,
-  li {
-    @apply pl-4 text-tertiary leading-relaxed ease;
+  ol {
+    @apply ml-4 my-2;
   }
 
   ul {
@@ -101,84 +97,71 @@
     @apply list-decimal;
   }
 
-  /* Blockquotes */
-  blockquote {
-    @apply mt-5 mb-10 border-l-2 border-dashed border-mono-200 dark:border-mono-800 px-4 pl-5 ease;
-
-    p {
-      @apply leading-relaxed font-light italic text-[1.1rem] text-tertiary;
-
-      strong {
-        @apply font-light text-primary;
-      }
-    }
+  li {
+    @apply pl-2 text-mono-800 dark:text-mono-200 ease;
   }
 
-  /* Preformatted */
+  blockquote {
+    @apply px-4 pl-5 mt-6 mb-10 border-l-2 border-dashed border-mono-200 dark:border-mono-800 ease;
+  }
+
+  blockquote p {
+    @apply italic font-light text-[1.1rem] text-mono-700 dark:text-mono-300 leading-relaxed;
+  }
+
+  blockquote p strong {
+    @apply font-light text-mono-950 dark:text-mono-50;
+  }
+
   pre,
   code {
-    @apply mt-6 mb-8 rounded-md border border-mono-200 dark:border-mono-800 bg-mono-100 dark:bg-mono-900 font-mono ease;
+    @apply mt-6 mb-8 rounded-md border border-mono-200 dark:border-mono-800 bg-mono-100 dark:bg-mono-900 ease;
   }
 
   pre {
-    @apply py-2.5 px-3.5 leading-tight overflow-x-auto;
+    @apply py-2.5 px-3.5 overflow-x-auto leading-tight;
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
 
-    ::-webkit-scrollbar {
-      display: none;
-    }
+  pre::-webkit-scrollbar {
+    display: none;
+  }
 
-    code {
-      @apply p-0 border-none leading-snug;
-    }
+  pre code {
+    @apply p-0 border-none leading-snug;
   }
 
   code {
     @apply py-0.5 px-1 text-[0.9rem] ease;
-
-    span {
-      @apply ease;
-    }
   }
 
-  /* Horizontal Rule */
+  code span {
+    @apply ease;
+  }
+
   hr {
-    @apply my-8 border border-dashed border-mono-400 dark:border-mono-600 ease;
+    @apply my-12 border border-dashed border-mono-300 dark:border-mono-700 ease;
   }
 }
 
-/* Customs */
 @layer utilities {
-  .text-primary {
-    @apply text-mono-950 dark:text-mono-50;
-  }
-
-  .text-secondary {
-    @apply text-mono-800 dark:text-mono-200;
-  }
-
-  .text-tertiary {
-    @apply text-mono-700 dark:text-mono-300;
-  }
-
   .ease {
     @apply transition duration-300 ease-in-out;
   }
 }
 
-/* Keyframes */
 @keyframes fade-in {
   0% {
     opacity: 0;
   }
 
   20% {
-    opacity: 0.1;
+    opacity: 0.2;
   }
 
   40% {
-    opacity: 0.3;
+    opacity: 0.4;
   }
 
   60% {

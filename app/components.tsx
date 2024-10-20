@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { FiMoon, FiSun, FiInstagram } from 'react-icons/fi'
 import { MdFormatQuote } from 'react-icons/md'
 
-import { my } from '~/constant'
+import { my } from '~/head'
 
 export function Name() {
   return (

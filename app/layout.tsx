@@ -4,7 +4,11 @@ import { ViewTransitions } from 'next-view-transitions'
 
 import '~/globals.css'
 import { Footer } from '~/components'
-import { my, site, verify } from '~/constant'
+import { my, site, verify } from '~/head'
+
+const font = Radio_Canada({
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${site.baseUrl}`),
@@ -68,7 +72,3 @@ export default function RootLayout({
     </ViewTransitions>
   )
 }
-
-const font = Radio_Canada({
-  subsets: ['latin'],
-})

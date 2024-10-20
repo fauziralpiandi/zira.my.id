@@ -1,4 +1,4 @@
-import { site } from '~/constant'
+import { site } from '~/head'
 
 export default async function sitemap() {
   return [

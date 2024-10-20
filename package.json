@@ -7,8 +7,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.0.1",
-    "@mdx-js/react": "^3.0.1",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.0.0-rc",
     "@types/mdx": "^2.0.13",
     "mdx": "^0.3.1",
@@ -20,7 +20,7 @@
     "sugar-high": "^0.7.1"
   },
   "devDependencies": {
-    "@types/node": "^22.7.6",
+    "@types/node": "^22.7.7",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "postcss": "^8.4.47",

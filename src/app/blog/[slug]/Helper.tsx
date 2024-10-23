@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'next-view-transitions'
 import { highlight } from 'sugar-high'
-import type { MDXComponents } from 'mdx/types'
+import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 
 type Types = {
   HyperLink: {
@@ -91,8 +91,8 @@ const components: Types['Components'] = {
   code: highlightCode,
 }
 
-export function useMDXComponents(): MDXComponents {
-  return {
-    ...components,
-  }
+export default function Contents(props: MDXRemoteProps) {
+  return (
+    <MDXRemote {...props} components={{ ...components, ...props.components }} />
+  )
 }

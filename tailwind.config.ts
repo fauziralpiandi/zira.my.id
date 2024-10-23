@@ -1,8 +1,10 @@
 import type { Config } from 'tailwindcss'
 
 export default {
-  darkMode: 'selector',
-  content: ['./app/**/*'],
+  content: [
+    './src/app/**/*.{ts,tsx,md,mdx}',
+    './src/components/**/*.{ts,tsx,md,mdx}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -25,14 +27,14 @@ export default {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        'in-reverse': {
-          '0%': { opacity: '1' },
-          '100%': { opacity: '0' },
+        'fade': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
       },
       animation: {
-        'in': 'in 1000ms both',
-        'in-reverse': 'in-reverse 1000ms both',
+        'in': 'in 750ms both',
+        'fade': 'in-reverse 3000ms both',
       },
     },
   },

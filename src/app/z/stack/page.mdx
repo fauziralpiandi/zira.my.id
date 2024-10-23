@@ -1,0 +1,57 @@
+import { Name } from '~/Signature'
+
+export const metadata = {
+  title: 'The Perfect Stack',
+  alternates: {
+    canonical: '/z/stack',
+  },
+}
+
+# The Perfect Stack
+
+<Name />
+
+Diskusi memilih tools dan library untuk pengembangan aplikasi bukan sekadar masalah selera pribadi—ini soal kelangsungan hidup. Para developer sering berdiskusi dan berdebat panas tentang stack terbaik. Ada yang keukeuh di framework kesayangannya, ada yang setia dengan database pilihannya, seperti sedang membela agama. Tapi, pada akhirnya, satu hal yang pasti: your stack defines your workflow, apakah akan lancar, efisien, atau justru jadi penyebab insomnia berlarut-larut.
+
+> Atau setidaknya tidak membuat saya gila di tengah jalan.
+
+## Next.js — The Framework You Didn't Know You Needed
+
+Next.js adalah salah satu framework yang awalnya tampak seperti solusi biasa di tengah lautan library JavaScript. Tapi semakin kamu menggali, semakin sadar bahwa framework ini menawarkan segalanya—mulai dari server-side rendering (SSR) hingga static site generation (SSG)—yang membuat hidup sedikit lebih mudah (dan lebih cepat di sisi SEO). Namun, jangan tertipu dengan kesederhanaannya di permukaan. Sebelum kamu sadar, kamu sudah terjebak di dalam labirin *caching, dynamic routing,* atau state yang tidak sinkron. Kadang, rasanya seperti Next.js hanya menawarkan masalah yang lebih canggih. Tapi semua itu tetap worth it, karena framework ini berhasil menggabungkan frontend dan backend dalam satu atap yang (lumayan) rapi. The API routes? It's a lifesaver—sampai kamu harus debugging masalah aneh yang bahkan Stack Overflow pun tidak punya jawabannya. Dokumentasinya yang minimalis kadang membuat pengembang menghabiskan waktu lebih lama dari yang diperlukan untuk hal-hal kecil. Tidak jarang, ketika mencoba sesuatu yang "simple", kamu akan menemukan diri sedang membaca forum di sudut internet yang tak terjangkau, mencari solusi yang akhirnya tidak membantu. That’s the trade-off for power and flexibility.
+
+## Typescript — Safety with Touch of Pain
+
+TypeScript adalah contoh klasik dari alat yang pada awalnya membuat frustrasi, tetapi seiring waktu, manfaatnya akan mulai terasa. Static typing mungkin terdengar seperti konsep yang memberatkan bagi mereka yang terbiasa dengan fleksibilitas JavaScript, tetapi pada proyek besar dan skala tim, static typing justru menjadi penyelamat di saat-saat genting. Kesalahan yang biasanya baru terungkap saat runtime bisa dicegah sejak awal kompilasi. Error yang terdeteksi di awal bukan sekadar gangguan, melainkan investasi untuk mengurangi risiko bug di kemudian hari. Intellisense juga mempercepat proses pengembangan dengan memberikan saran tipe data secara otomatis, yang tentu saja memperkaya pengalaman coding. Ketika semua fungsi dan properti memiliki tipe yang jelas, maintenance dan refactoring kode menjadi jauh lebih aman dan terstruktur. Walau terkadang, pengembang akan terjebak dalam *bureaucracy of types*, di mana mereka lebih sibuk memperbaiki masalah tipe daripada menyelesaikan logika sebenarnya. Terutama ketika menghadapi *unknown, never, atau error excessive stack depth*. Di sinilah sisi "penderitaan" dari TypeScript terasa—keindahan pengetikan statis datang dengan harga berupa mental gymnastics dalam memahami kapan dan bagaimana menggunakan tipe-tipe yang lebih kompleks. Namun, dalam jangka panjang, trade-off ini hampir selalu berujung positif.
+
+## React — The King of UI Libraries
+
+Lalu React, sang raja UI library. Popularitasnya memang tidak diragukan, tapi ada trade-off di sini. React hanya peduli pada UI, jadi jangan kaget kalau tiba-tiba kamu harus menyatukan puluhan external library untuk mengurus *state management, routing,* hingga *side effects*. Kesan "simplicity" yang dijanjikan di awal, pelan-pelan memudar saat kamu harus menghadapi *Redux, React Router* dan entah apa lagi yang kamu butuhkan. Dan jangan lupa, fenomena *over-engineering* yang sering terjadi. Developer yang baru kenal React biasanya terlalu bersemangat membagi-bagi semuanya jadi komponen, sampai-sampai aplikasi sederhana pun jadi serumit sistem operasional NASA. Meskipun React memberikan kebebasan yang luar biasa, kebebasan tersebut bisa berujung pada kompleksitas jika tidak dikelola dengan baik.
+
+> If everything is a component, nothing is.
+
+## Tailwind — Utility-First Styling
+
+Pendekatan yang berbeda dalam menata antarmuka. Daripada menulis CSS konvensional dengan class-class khusus untuk setiap elemen, Tailwind menggunakan utility-first CSS, class kecil yang berfokus pada fungsi. Cara yang lebih atomic—tanpa perlu bolak-balik file CSS dan tidak ada lagi masalah dengan penumpukan selector atau keharusan membuat nama kelas yang unik.
+
+Tapi ya, sisi buruknya, HTML kamu bisa terlihat seperti essay jika terlalu banyak class utility di satu elemen (Am I styling or writing an essay?)
+Untungnya, mode Just-in-Time memastikan CSS yang tidak digunakan tidak ikut dimuat, jadi setidaknya performanya tetap optimal. Meski begitu, kamu tetap harus menjaga kode HTML tetap readable, karena pada akhirnya, kamu tetap harus kembali men-debug di masa depan (kamu tahu kan siapa yang akan disalahkan nanti?).
+
+## PostgreSQL — The Database You Can Trust, Reliable Old Friend
+
+Veteran di dunia relasional ini sudah terbukti mampu menghadapi berbagai tantangan aplikasi modern dan dunia yang didominasi oleh NoSQL yang mengedepankan skalabilitas tanpa skema, PostgreSQL tetap menunjukkan bahwa skema relasional yang ketat dan transaksi *ACID* masih sangat relevan, sangat bisa diandalkan, tidak hanya terbatas pada fitur standar *RDBMS*, terutama jika kamu mengutamakan data *integrity* dan *relational consistency*. Satu hal yang mungkin dirasakan oleh pengguna PostgreSQL adalah konfigurasi awalnya yang sedikit menantang bagi mereka yang belum terbiasa. Membuat cluster, mengelola koneksi, optimisasi query bisa membuat kamu merasa seperti sedang berurusan dengan sistem birokrasi, terlebih jika kamu datang dari background NoSQL. But once you get the hang of it, PostgreSQL becomes your reliable old friend.
+
+## PNPM — The Fast PackMan
+
+Salah satu package manager yang sangat efisien, terutama di lingkungan proyek-proyek yang melibatkan banyak dependensi. Dibandingkan dengan pendahulunya seperti NPM dan Yarn, PNPM memiliki pendekatan unik dalam menangani node_modules. Alih-alih menginstal setiap dependensi dalam direktori proyek secara langsung, PNPM menggunakan symlinks untuk berbagi dependensi antar proyek, yang menghasilkan penghematan ruang disk yang signifikan. Faster installs, less storage space, semua ini terdengar seperti mimpi bagi pengembang. Tetapi di baliknya, ada sedikit kurva pembelajaran untuk memahami cara kerja symlink dan mengelola konflik dependensi yang mungkin muncul.
+
+Tidak semua tim langsung beralih ke PNPM. Ada sedikit resistensi dari mereka yang sudah nyaman dengan NPM atau Yarn, terutama ketika masalah kompatibilitas muncul. But once your team has transitioned, the efficiency gains are hard to ignore.
+
+## Vercel — Develop, Preview, Ship
+
+Platform hosting yang satu ini benar-benar memahami developer modern dalam membangun dan mengelola aplikasi berbasi serverless dan jamstack. Integrasi tanpa hambatan dengan Next.js (tidak mengejutkan, mengingat pembuat Next.js juga adalah pendiri Vercel), deployment yang cepat dan mudah, dari tahap pengembangan hingga produksi. Prosesnya bisa diringkas menjadi satu frasa: *develop, preview, ship.*
+
+> There’s no such thing as a free lunch.
+
+Namun, jangan terlalu nyaman—ada biaya untuk segala kenyamanan ini. Ketika traffic mulai naik, biayanya bisa membuat dompet kamu menjerit, skala serverless bisa menjadi lebih mahal daripada solusi tradisional. Walaupun begitu, fitur automatic previews untuk setiap pull request, yang memudahkan tim untuk melihat dan menguji perubahan sebelum mereka di-merge. Ini jauh lebih kolaboratif dan efisien. Terlepas dari itu, Vercel adalah salah satu platform yang memberikan *simplicity without compromise*.
+
+> "Choosing the right tools is not just about convenience, but about creating a sustainable development process." — **Author**

@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sh-class: #EEABFB;
+  --sh-identifier: #BE69DE;
+  --sh-sign: #EEEEEE;
+  --sh-string: #F8810B;
+  --sh-keyword: #0080FF;
+  --sh-comment: #808080;
+  --sh-jsxliterals: #6266d1;
+  --sh-property: #B2D9FF;
+  --sh-entity: #CDFF84;
+}
+
+html,
+body {
+  @apply m-0 p-0;
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply flex flex-col bg-mono-950 text-mono-50;
+  text-rendering: geometricPrecision;
+  overflow-wrap: break-word;
+}
+
+::selection {
+  @apply bg-mono-50 text-mono-950;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.anchor {
+  @apply absolute invisible no-underline cursor-pointer ml-[-1em] pr-2 w-[75%] max-w-[768px];
+
+  &::after {
+    content: "#";
+  }
+}
+
+*:hover>.anchor {
+  @apply visible opacity-0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply text-mono-50 tracking-tight leading-tight;
+}
+
+h1 {
+  @apply text-[1.35rem] font-semibold;
+}
+
+h2 {
+  @apply mt-10 mb-4 text-[1.25rem] font-medium;
+}
+
+h3 {
+  @apply mt-10 mb-4 text-[1.15rem] font-medium;
+}
+
+h4 {
+  @apply mt-10 mb-4 text-[1.05rem] font-medium;
+}
+
+p {
+  @apply my-4 text-mono-200;
+}
+
+p strong {
+  @apply text-mono-50;
+  font-weight: 500;
+}
+
+a {
+  @apply text-yellow-500 hover:underline decoration-mono-500 underline-offset-2;
+}
+
+ul,
+ol {
+  @apply ml-4 my-2;
+}
+
+ul {
+  @apply list-disc;
+}
+
+ol {
+  @apply list-decimal;
+}
+
+li {
+  @apply pl-2 text-mono-200;
+}
+
+blockquote {
+  @apply px-4 pl-5 mt-6 mb-10 border-l-2 border-dashed border-mono-800;
+}
+
+blockquote p {
+  @apply italic font-light text-[1.1rem] text-mono-300 leading-relaxed;
+}
+
+blockquote p strong {
+  @apply font-light text-mono-50;
+}
+
+pre,
+code {
+  @apply w-screen mt-6 mb-8 rounded-md border border-mono-800 bg-mono-900;
+}
+
+pre {
+  @apply py-2.5 px-3.5 overflow-x-auto leading-tight;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+pre::-webkit-scrollbar {
+  display: none;
+}
+
+pre code {
+  @apply p-0 border-none leading-snug;
+}
+
+code {
+  @apply py-0.5 px-1 text-[0.85rem];
+}
+
+hr {
+  @apply my-12 border border-dashed border-mono-700;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.2;
+  }
+
+  40% {
+    opacity: 0.4;
+  }
+
+  60% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

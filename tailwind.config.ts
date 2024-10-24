@@ -4,7 +4,7 @@ export default {
   content: [
     './src/app/**/*.{ts,tsx,md,mdx}',
     './src/components/**/*.{ts,tsx,md,mdx}',
-    './mdx-components.tsx',
+    './src/content/**/*.{md,mdx}',
   ],
   theme: {
     extend: {

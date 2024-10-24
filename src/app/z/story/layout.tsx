@@ -5,7 +5,7 @@ export default function PageLayout({
 }) {
   return (
     <section className="animate-in">
-      <div>{children}</div>
+      <article className="typography">{children}</article>
     </section>
   )
 }

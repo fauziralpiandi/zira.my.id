@@ -1,10 +1,11 @@
 import { Link } from 'next-view-transitions'
 
 import { FlipName } from '~/Signature'
+import { MyBlog } from '~/blog/Helper'
 
 export default function Home() {
   return (
-    <div className="animate-in">
+    <div className="typography animate-in">
       <FlipName />
       <section>
         <h2 className="sr-only">Insight</h2>
@@ -26,6 +27,12 @@ export default function Home() {
         <p>
           Every line of code weaves my <Link href="/z/story">story</Link> ^-
         </p>
+        <details className="my-8">
+          <summary className="text-mono-500 animate-pulse">
+            Newest notes
+          </summary>
+          <MyBlog recent={1} category="notes" />
+        </details>
       </section>
     </div>
   )

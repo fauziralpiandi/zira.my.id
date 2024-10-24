@@ -5,7 +5,7 @@ import { my, site } from '~/siteConfig'
 import { getMyBlog } from '~/blogParser'
 import { literalCount, formatDate } from '~/blogMeta'
 
-import Contents from './Helper'
+import Blog from './Helper'
 
 type Params = {
   slug: string
@@ -105,25 +105,25 @@ export default async function Slug(props: { params: Promise<Params> }) {
         }}
       />
       <div>
-        <h1 className="mb-2 text-3xl font-semibold tracking-tight">
+        <h1 className="text-3xl font-bold tracking-tight leading-tighter">
           {blog.metadata.title}
         </h1>
-        <p className="mt-0 mb-6 text-neutral-400">{blog.metadata.summary}</p>
+        <p className="mt-3 mb-6 text-mono-400">{blog.metadata.summary}</p>
 
         <div className="flex items-center">
           <Image
-            className="w-12 h-12 object-cover border border-neutral-800 rounded-full grayscale"
+            className="w-12 h-12 object-cover border border-mono-800 rounded-full grayscale"
             src="/icon.svg"
-            alt={my.fullName || 'Author'}
+            alt={my.fullName}
             width={48}
             height={48}
             priority
           />
           <div className="ml-4">
-            <p className="my-0 font-medium leading-tight tracking-tight">
+            <p className="font-medium leading-tight tracking-tight">
               {my.fullName}
             </p>
-            <div className="text-sm text-neutral-400">
+            <div className="text-sm text-mono-400">
               <span className="flex items-center gap-1">
                 <span>{readTime}</span>
                 <span className="mx-0.5">·</span>
@@ -148,8 +148,8 @@ export default async function Slug(props: { params: Promise<Params> }) {
             />
           </figure>
         )}
-        <article className="w-full mx-auto max-w-2xl">
-          <Contents source={blog.content} />
+        <article className="w-full mx-auto max-w-2xl typography">
+          <Blog source={blog.content} />
         </article>
       </div>
     </div>

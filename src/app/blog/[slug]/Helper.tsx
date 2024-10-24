@@ -91,7 +91,7 @@ const components: Types['Components'] = {
   code: highlightCode,
 }
 
-export default function Contents(props: MDXRemoteProps) {
+export default function Blog(props: MDXRemoteProps) {
   return (
     <MDXRemote {...props} components={{ ...components, ...props.components }} />
   )

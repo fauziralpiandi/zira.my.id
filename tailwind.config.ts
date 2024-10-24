@@ -4,6 +4,7 @@ export default {
   content: [
     './src/app/**/*.{ts,tsx,md,mdx}',
     './src/components/**/*.{ts,tsx,md,mdx}',
+    './mdx-components.tsx',
   ],
   theme: {
     extend: {
@@ -23,18 +24,18 @@ export default {
         },
       },
       keyframes: {
-        'in': {
+        in: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        'fade': {
+        fade: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
       },
       animation: {
-        'in': 'in 750ms both',
-        'fade': 'in-reverse 3000ms both',
+        in: 'in 750ms both',
+        fade: 'in-reverse 3000ms both',
       },
     },
   },

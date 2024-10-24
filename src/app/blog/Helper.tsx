@@ -65,7 +65,7 @@ export async function MyBlog({ featured, recent, category }: FilteredBlog) {
       {filteredBlog.map((blog) => (
         <Link
           key={blog.slug}
-          className="flex flex-col my-4 space-y-2 hover:no-underline hover:animate-pulse fade-in"
+          className="flex flex-col my-4 space-y-2 hover:animate-pulse fade-in"
           href={`/blog/${blog.slug}`}
           aria-label={`Get inspired from ${blog.metadata.title}`}
         >

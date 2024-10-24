@@ -7,7 +7,7 @@ export function Name() {
   return (
     <Link
       href="/"
-      className="flex items-center mb-8 font-medium text-mono-500 bg-transparent hover:no-underline fade-in"
+      className="flex items-center mb-8 font-medium text-mono-500 fade-in"
     >
       &mdash; {my.tagLine}
       <MdFormatQuote className="minline-flex ml-1 text-lg" />

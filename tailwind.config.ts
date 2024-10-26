@@ -2,9 +2,7 @@ import type { Config } from 'tailwindcss'
 
 export default {
   content: [
-    './src/app/**/*.{ts,tsx,md,mdx}',
-    './src/components/**/*.{ts,tsx,md,mdx}',
-    './src/content/**/*.{md,mdx}',
+    './src/**/*.{ts,tsx,md,mdx}',
   ],
   theme: {
     extend: {

@@ -1,52 +1,35 @@
 import type { Metadata } from 'next'
 import { Radio_Canada } from 'next/font/google'
 import { ViewTransitions } from 'next-view-transitions'
+import '~/styles/globals.css'
 
-import '~/globals.css'
-import Header from '~/Header'
-import Footer from '~/Footer'
-import { my, site, verify } from '~/siteConfig'
-
-const font = Radio_Canada({
-  subsets: ['latin'],
-})
+const font = Radio_Canada({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`${site.baseUrl}`),
+  metadataBase: new URL('https://zira.my.id'),
   alternates: {
-    canonical: site.baseUrl,
+    canonical: 'https://zira.my.id',
   },
   title: {
-    default: site.title,
-    template: `%s \u2014 ${site.title}`,
+    default: 'Fauzira Alpiandi',
+    template: '%s \u2014 Fauzira Alpiandi',
   },
-  description: site.description,
-  keywords: site.keywords,
-  openGraph: {
-    title: site.title,
-    description: site.description,
-    url: site.baseUrl,
-    siteName: site.title,
-    locale: site.locale,
-    type: 'website',
-  },
+  description:
+    'Hey there! I\u2019m a frontendless exploring the exciting world of React!',
+  keywords: ['fauzira', 'alpiandi', 'zira'],
   robots: {
     index: true,
     follow: true,
     googleBot: {
-      'index': true,
-      'follow': true,
+      index: true,
+      follow: true,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
   },
-  twitter: {
-    title: my.fullName,
-    card: 'summary_large_image',
-  },
   verification: {
-    google: verify.google,
+    google: 'xuMdCxKom7IZ2YwCTzVJli3Sp_bvt-nofj8Q1iBjPf0',
   },
 }
 
@@ -57,14 +40,12 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang={site.locale}>
-        <body className={`${font.className} antialiased animate-fade`}>
-          <div className="min-h-screen p-6 md:py-12 flex flex-col">
-            <div className="flex-grow flex flex-col w-full mx-auto max-w-2xl">
-              <Header />
-              <main className="flex-grow">{children}</main>
-              <Footer />
-            </div>
+      <html lang="en" className={`${font.className} dark`}>
+        <body className="tracking-tight antialiased">
+          <div className="flex min-h-screen flex-col justify-between">
+            <main className="flex-shrink-0 space-y-4 px-8 py-10">
+              {children}
+            </main>
           </div>
         </body>
       </html>

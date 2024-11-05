@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sh-class: #EEABFB;
+  --sh-identifier: #BE69DE;
+  --sh-sign: #EEEEEE;
+  --sh-string: #F8810B;
+  --sh-keyword: #0080FF;
+  --sh-comment: #808080;
+  --sh-jsxliterals: #6266d1;
+  --sh-property: #B2D9FF;
+  --sh-entity: #CDFF84;
+}
+
+html,
+body {
+  @apply m-0 p-0;
+  scrollbar-gutter: stable;
+}
+
+body {
+  @apply flex flex-col bg-mono-50 text-mono-950 dark:bg-mono-950 dark:text-mono-50 scroll-smooth break-words;
+  text-rendering: geometricPrecision;
+}
+
+p {
+  @apply my-4 text-mono-800 dark:text-mono-200;
+}
+
+.anchor {
+  @apply absolute invisible no-underline cursor-pointer ml-[-1em] pr-2 w-[75%] max-w-[768px];
+
+  &::after {
+    content: "#";
+  }
+}
+
+*:hover>.anchor {
+  @apply visible opacity-0;
+}
+
+::selection {
+  @apply bg-mono-950 text-mono-50 dark:bg-mono-50 dark:text-mono-950;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+pre,
+code {
+  @apply mt-6 mb-8 border-t border-b border-mono-200 dark:border-mono-800 bg-mono-100 dark:bg-mono-900;
+}
+
+pre {
+  @apply w-screen relative left-1/2 -translate-x-1/2 py-4 px-8 overflow-x-auto leading-tight;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+pre::-webkit-scrollbar {
+  display: none;
+}
+
+pre code {
+  @apply p-0 border-none leading-tight text-xs;
+}
+
+code {
+  @apply py-0.5 px-1 text-[0.85rem] border rounded-md;
+}
+
+.transition-element {
+  view-transition-name: zira;
+}
+
+::view-transition-old(zira) {
+  animation: fade-out 1000ms ease-in-out;
+}
+
+::view-transition-new(zira) {
+  animation: fade-in-up 500ms ease-in-out;
+}
+
+@keyframes fade-out {
+  0% {
+    transform: translateY(0) translateX(0px);
+    opacity: 1;
+    font-weight: 500;
+  }
+
+  20% {
+    transform: translateY(25px) translateX(0px);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: translateY(25px) translateX(0px);
+    opacity: 0.3;
+  }
+
+  60% {
+    transform: translateY(25px) translateX(0px);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: translateY(25px) translateX(0px);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  75% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    transform: translateY(25px) translateX(0px);
+    opacity: 0;
+  }
+
+  20% {
+    transform: translateY(25px) translateX(0px);
+    opacity: 0.5;
+  }
+
+  80% {
+    transform: translateY(0) translateX(0px);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateY(0) translateX(0px);
+    opacity: 1;
+  }
+}
+
+@supports (view-transition-name: none) {
+  .fade-in {
+    animation: fade-in 750ms ease-in-out forwards;
+    opacity: 0;
+  }
+}

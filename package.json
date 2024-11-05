@@ -1,5 +1,4 @@
 {
-  "name": "zira",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -10,24 +9,20 @@
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "^15.0.1",
+    "@next/mdx": "^15.0.2",
     "@types/mdx": "^2.0.13",
-    "@vercel/postgres": "^0.10.0",
     "mdx": "^0.3.1",
-    "next": "^15.0.1",
-    "next-mdx-remote": "^5.0.0",
+    "next": "canary",
     "next-view-transitions": "^0.3.2",
     "react": "^19.0.0-rc",
     "react-dom": "^19.0.0-rc",
     "react-icons": "^5.3.0",
-    "sugar-high": "^0.7.1"
+    "sugar-high": "^0.7.5"
   },
   "devDependencies": {
-    "@types/node": "^22.7.9",
+    "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "eslint": "^9",
-    "eslint-config-next": "^15.0.1",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3"

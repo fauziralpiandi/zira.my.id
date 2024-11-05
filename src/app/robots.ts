@@ -1,13 +1,11 @@
-import { site } from '~/siteConfig'
-
-export default function robots() {
+export default async function robots() {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: `${site.baseUrl}/sitemap.xml`,
-    host: site.host,
+    sitemap: `https://zira.my.id/sitemap.xml`,
+    host: 'zira.my.id',
   }
 }

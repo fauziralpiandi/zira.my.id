@@ -1,9 +1,7 @@
-import { site } from '~/siteConfig'
-
 export default async function sitemap() {
   return [
     {
-      url: site.baseUrl,
+      url: 'https://zira.my.id',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,

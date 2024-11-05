@@ -1,9 +1,8 @@
 import type { Config } from 'tailwindcss'
 
-export default {
-  content: [
-    './src/**/*.{ts,tsx,md,mdx}',
-  ],
+const config: Config = {
+  darkMode: 'class',
+  content: ['./src/**/*.{ts,tsx,md,mdx}', './mdx-components.tsx'],
   theme: {
     extend: {
       colors: {
@@ -21,21 +20,8 @@ export default {
           950: '#111111',
         },
       },
-      keyframes: {
-        in: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        fade: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-      },
-      animation: {
-        in: 'in 750ms both',
-        fade: 'in-reverse 3000ms both',
-      },
     },
   },
   plugins: [],
-} satisfies Config
+}
+export default config

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'next-view-transitions'
 import { highlight } from 'sugar-high'
 import type { MDXComponents } from 'mdx/types'
+import { PiArrowUpRightLight } from 'react-icons/pi'
 
 type Types = {
   HyperLink: {
@@ -28,11 +29,12 @@ const slugify = (str: string) => {
 
 const hyperLink = ({ href = '', children, ...props }: Types['HyperLink']) => {
   const isInternalLink = href.startsWith('/')
-  const isExternalLink = href.startsWith('https')
+  const linkClass =
+    'text-blue-700 dark:text-yellow-500 hover:underline underline-offset-2 decoration-mono-500'
 
   if (isInternalLink) {
     return (
-      <Link href={href} {...props}>
+      <Link href={href} {...props} className={linkClass}>
         {children}
       </Link>
     )
@@ -41,12 +43,14 @@ const hyperLink = ({ href = '', children, ...props }: Types['HyperLink']) => {
   return (
     <a
       href={href}
-      target={isExternalLink ? '_blank' : undefined}
-      rel={isExternalLink ? 'noopener noreferrer' : undefined}
-      aria-label={isExternalLink ? `Visit external link: ${href}` : undefined}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Visit external link: ${href}`}
       {...props}
+      className={linkClass}
     >
       {children}
+      <PiArrowUpRightLight size={15} className="inline-block opacity-50" />
     </a>
   )
 }
@@ -77,7 +81,7 @@ const createHeading = (level: number) => {
   return Heading
 }
 
-const generateHeadingComponents = () => {
+const generateHeadings = () => {
   const components: Types['Components'] = {}
   for (let i = 1; i <= 6; i++) {
     components[`h${i}`] = createHeading(i)
@@ -86,7 +90,23 @@ const generateHeadingComponents = () => {
 }
 
 const components: Types['Components'] = {
-  ...generateHeadingComponents(),
+  ...generateHeadings(),
+  h1: (props) => <h1 className="fade-in mb-0 font-semibold" {...props} />,
+  h2: (props) => <h2 className="mb-3 mt-8 font-medium" {...props} />,
+  h3: (props) => <h3 className="mb-3 mt-8 font-medium" {...props} />,
+  h4: (props) => <h4 className="font-medium" {...props} />,
+  p: (props) => <p className="leading-snug" {...props} />,
+  ol: (props) => <ol className="list-decimal space-y-2 pl-5" {...props} />,
+  ul: (props) => <ul className="list-disc space-y-1 pl-5" {...props} />,
+  li: (props) => <li className="pl-1" {...props} />,
+  em: (props) => <em className="font-medium" {...props} />,
+  strong: (props) => <strong className="font-medium" {...props} />,
+  blockquote: (props) => (
+    <blockquote
+      className="border-l-3 ml-[0.075em] border-mono-700 pl-4 text-mono-300"
+      {...props}
+    />
+  ),
   a: hyperLink,
   code: highlightCode,
 }

@@ -15,12 +15,12 @@ export const metadata: Metadata = {
     template: '%s \u2014 Fauzira Alpiandi',
   },
   description:
-    'Hey there! I’m a frontendless exploring the exciting world of React!',
+    'Hey there! I\u2019m a frontendless exploring the exciting world of React!',
   keywords: ['fauzira', 'alpiandi', 'zira'],
   openGraph: {
     title: 'Fauzira Alpiandi',
     description:
-      'Hey there! I’m a frontendless exploring the exciting world of React!',
+      'Hey there! I\u2019m a frontendless exploring the exciting world of React!',
     url: 'https://zira.my.id',
     siteName: 'Fauzira Alpiandi',
     type: 'website',

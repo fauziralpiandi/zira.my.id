@@ -9,15 +9,17 @@ type Types = {
     href: string
     children: React.ReactNode
     key?: string
+    className?: string
   }
   Code: {
-    children: React.ReactNode
+    children: string
   }
   Components: {
     [key: string]: React.ElementType
   }
 }
 
+// Slugify text for headings
 const slugify = (str: string) => {
   return str
     .toLowerCase()
@@ -27,14 +29,18 @@ const slugify = (str: string) => {
     .replace(/--+/g, '-')
 }
 
-const hyperLink = ({ href = '', children, ...props }: Types['HyperLink']) => {
+// Handle both internal and external links
+const MDXHyperLink = ({
+  href = '',
+  children,
+  className = '',
+  ...props
+}: Types['HyperLink']) => {
   const isInternalLink = href.startsWith('/')
-  const linkClass =
-    'text-blue-700 dark:text-yellow-500 hover:underline underline-offset-2 decoration-mono-500'
 
   if (isInternalLink) {
     return (
-      <Link href={href} {...props} className={linkClass}>
+      <Link href={href} {...props}>
         {children}
       </Link>
     )
@@ -47,7 +53,6 @@ const hyperLink = ({ href = '', children, ...props }: Types['HyperLink']) => {
       rel="noopener noreferrer"
       aria-label={`Visit external link: ${href}`}
       {...props}
-      className={linkClass}
     >
       {children}
       <PiArrowUpRightLight size={15} className="inline-block opacity-50" />
@@ -55,11 +60,13 @@ const hyperLink = ({ href = '', children, ...props }: Types['HyperLink']) => {
   )
 }
 
-const highlightCode = ({ children, ...props }: Types['Code']) => {
+// Code highlighting
+const MDXHighlightCode = ({ children, ...props }: Types['Code']) => {
   const codeHTML = highlight(String(children))
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
 
+// Generate heading dynamically (h1 - h6)
 const createHeading = (level: number) => {
   const Heading = ({ children }: { children?: React.ReactNode }) => {
     const slug = children ? slugify(String(children)) : ''
@@ -81,7 +88,8 @@ const createHeading = (level: number) => {
   return Heading
 }
 
-const generateHeadings = () => {
+// Generate all heading (h1 - h6)
+const generateHeadingComponents = () => {
   const components: Types['Components'] = {}
   for (let i = 1; i <= 6; i++) {
     components[`h${i}`] = createHeading(i)
@@ -90,25 +98,9 @@ const generateHeadings = () => {
 }
 
 const components: Types['Components'] = {
-  ...generateHeadings(),
-  h1: (props) => <h1 className="fade-in mb-0 font-semibold" {...props} />,
-  h2: (props) => <h2 className="mb-3 mt-8 font-medium" {...props} />,
-  h3: (props) => <h3 className="mb-3 mt-8 font-medium" {...props} />,
-  h4: (props) => <h4 className="font-medium" {...props} />,
-  p: (props) => <p className="leading-snug" {...props} />,
-  ol: (props) => <ol className="list-decimal space-y-2 pl-5" {...props} />,
-  ul: (props) => <ul className="list-disc space-y-1 pl-5" {...props} />,
-  li: (props) => <li className="pl-1" {...props} />,
-  em: (props) => <em className="font-medium" {...props} />,
-  strong: (props) => <strong className="font-medium" {...props} />,
-  blockquote: (props) => (
-    <blockquote
-      className="border-l-3 ml-[0.075em] border-mono-700 pl-4 text-mono-300"
-      {...props}
-    />
-  ),
-  a: hyperLink,
-  code: highlightCode,
+  ...generateHeadingComponents(),
+  a: MDXHyperLink,
+  code: MDXHighlightCode,
 }
 
 export function useMDXComponents(): MDXComponents {

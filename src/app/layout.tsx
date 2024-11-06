@@ -15,8 +15,20 @@ export const metadata: Metadata = {
     template: '%s \u2014 Fauzira Alpiandi',
   },
   description:
-    'Hey there! I\u2019m a frontendless exploring the exciting world of React!',
+    'Hey there! I’m a frontendless exploring the exciting world of React!',
   keywords: ['fauzira', 'alpiandi', 'zira'],
+  openGraph: {
+    title: 'Fauzira Alpiandi',
+    description:
+      'Hey there! I’m a frontendless exploring the exciting world of React!',
+    url: 'https://zira.my.id',
+    siteName: 'Fauzira Alpiandi',
+    type: 'website',
+  },
+  twitter: {
+    title: 'Fauzira Alpiandi',
+    card: 'summary_large_image',
+  },
   robots: {
     index: true,
     follow: true,
@@ -40,10 +52,10 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className={`${font.className} dark`}>
-        <body className="tracking-tight antialiased">
-          <div className="flex min-h-screen flex-col justify-between">
-            <main className="flex-shrink-0 space-y-4 px-8 py-10">
+      <html lang="en" className="dark">
+        <body className={`${font.className} select-none antialiased`}>
+          <div className="flex min-h-screen flex-col justify-between px-8 py-12">
+            <main className="mx-auto w-full max-w-[60ch] space-y-4 text-pretty">
               {children}
             </main>
           </div>

@@ -11,7 +11,6 @@
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.0.2",
     "@types/mdx": "^2.0.13",
-    "mdx": "^0.3.1",
     "next": "canary",
     "next-view-transitions": "^0.3.2",
     "react": "^19.0.0-rc",

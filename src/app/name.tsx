@@ -1,16 +1,21 @@
 import { Link } from 'next-view-transitions'
+import { MdFormatQuote } from 'react-icons/md'
 
 export function FlexName() {
   return (
-    <Link href="/" className="fade-in mb-8 flex-1 font-medium text-mono-500">
-      Fauzira Alpiandi
+    <Link
+      href="/"
+      className="fade-in flex-0 mb-8 font-medium tracking-tight text-mono-500 hover:no-underline dark:text-mono-500"
+    >
+      &mdash;&nbsp;fauziralpiandi
+      <MdFormatQuote className="ml-0.5 inline-flex text-lg" />
     </Link>
   )
 }
 
 export function FlipName() {
   return (
-    <h1 className="transition-element font-medium">
+    <h1 className="transition-element mb-6">
       <span className="sr-only">Fauzira Alpiandi</span>
       <span aria-hidden="true" className="group relative block overflow-hidden">
         <span className="inline-block transition-all duration-300 ease-in-out group-hover:-translate-y-full">

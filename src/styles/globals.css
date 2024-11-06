@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Syntax highlighting */
 :root {
   --sh-class: #EEABFB;
   --sh-identifier: #BE69DE;
@@ -14,48 +15,109 @@
   --sh-entity: #CDFF84;
 }
 
+/* General */
 html,
 body {
   @apply m-0 p-0;
   scrollbar-gutter: stable;
-}
-
-body {
-  @apply flex flex-col bg-mono-50 text-mono-950 dark:bg-mono-950 dark:text-mono-50 scroll-smooth break-words;
   text-rendering: geometricPrecision;
 }
 
-p {
-  @apply my-4 text-mono-800 dark:text-mono-200;
+body {
+  @apply flex flex-col scroll-smooth break-words bg-mono-50 text-mono-950 dark:bg-mono-950 dark:text-mono-50;
 }
 
-.anchor {
-  @apply absolute invisible no-underline cursor-pointer ml-[-1em] pr-2 w-[75%] max-w-[768px];
+/* Selection */
+::selection {
+  @apply bg-mono-950 text-mono-50 dark:bg-mono-50 dark:text-mono-950;
+}
 
-  &::after {
-    content: "#";
-  }
+/* Scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Anchor */
+.anchor {
+  @apply invisible absolute ml-[-1em] w-[75%] max-w-[768px] cursor-pointer pr-2 no-underline;
 }
 
 *:hover>.anchor {
   @apply visible opacity-0;
 }
 
-::selection {
-  @apply bg-mono-950 text-mono-50 dark:bg-mono-50 dark:text-mono-950;
+.anchor::after {
+  content: "#";
 }
 
-::-webkit-scrollbar {
-  display: none;
+/* Heading */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply tracking-tight leading-snug;
 }
 
+h1 {
+  @apply text-[1.2rem] font-semibold;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply mb-0 pt-6 text-[1.1rem] font-medium underline decoration-mono-100 decoration-2 underline-offset-2 dark:decoration-mono-900;
+}
+
+/* Paragraph */
+p {
+  @apply tracking-tight text-mono-800 dark:text-mono-200;
+}
+
+p strong {
+  @apply text-mono-950 dark:text-mono-50;
+  font-weight: 500;
+}
+
+/* Link */
+a {
+  @apply text-blue-700 decoration-mono-500 decoration-1 underline-offset-2 hover:underline dark:text-yellow-500;
+}
+
+/* List */
+ul,
+ol {
+  @apply my-2 list-inside list-disc;
+}
+
+li {
+  @apply text-mono-800 dark:text-mono-200;
+}
+
+/* Blockquote */
+blockquote {
+  @apply mb-10 mt-6 border-l-2 border-mono-200 px-4 pl-5 italic dark:border-mono-800;
+}
+
+blockquote p {
+  @apply text-lg font-light leading-7 tracking-normal text-mono-700 dark:text-mono-300;
+}
+
+blockquote p strong {
+  @apply font-light;
+}
+
+/* Pre and code block */
 pre,
 code {
-  @apply mt-6 mb-8 border-t border-b border-mono-200 dark:border-mono-800 bg-mono-100 dark:bg-mono-900;
+  @apply mb-8 mt-6 border-b border-t border-mono-200 bg-mono-100 dark:border-mono-800 dark:bg-mono-900;
 }
 
 pre {
-  @apply w-screen relative left-1/2 -translate-x-1/2 py-4 px-8 overflow-x-auto leading-tight;
+  @apply relative left-1/2 w-screen -translate-x-1/2 overflow-x-auto px-8 py-4 leading-tight;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -65,13 +127,14 @@ pre::-webkit-scrollbar {
 }
 
 pre code {
-  @apply p-0 border-none leading-tight text-xs;
+  @apply border-none p-0 text-xs leading-tight;
 }
 
 code {
-  @apply py-0.5 px-1 text-[0.85rem] border rounded-md;
+  @apply rounded-md border px-1 py-0.5 text-[0.85rem];
 }
 
+/* Transition element */
 .transition-element {
   view-transition-name: zira;
 }
@@ -84,26 +147,26 @@ code {
   animation: fade-in-up 500ms ease-in-out;
 }
 
+/* Keyframes */
 @keyframes fade-out {
   0% {
     transform: translateY(0) translateX(0px);
-    opacity: 1;
-    font-weight: 500;
+    opacity: 0.8;
   }
 
-  20% {
-    transform: translateY(25px) translateX(0px);
-    opacity: 0.5;
-  }
-
-  40% {
-    transform: translateY(25px) translateX(0px);
-    opacity: 0.3;
-  }
-
-  60% {
+  25% {
     transform: translateY(25px) translateX(0px);
     opacity: 0.2;
+  }
+
+  50% {
+    transform: translateY(25px) translateX(0px);
+    opacity: 0;
+  }
+
+  75% {
+    transform: translateY(25px) translateX(0px);
+    opacity: 0;
   }
 
   100% {
@@ -140,14 +203,14 @@ code {
     opacity: 0;
   }
 
-  20% {
+  25% {
     transform: translateY(25px) translateX(0px);
-    opacity: 0.5;
+    opacity: 0.25;
   }
 
-  80% {
+  75% {
     transform: translateY(0) translateX(0px);
-    opacity: 0.7;
+    opacity: 0.75;
   }
 
   100% {
@@ -156,6 +219,7 @@ code {
   }
 }
 
+/* Unsupported browsers */
 @supports (view-transition-name: none) {
   .fade-in {
     animation: fade-in 750ms ease-in-out forwards;

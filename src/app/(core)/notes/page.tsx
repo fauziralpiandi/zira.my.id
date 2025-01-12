@@ -58,7 +58,9 @@ export const metadata = {
 const Notes = () => {
   return (
     <section>
-      <mark className="mb-12 text-sm text-amber-100">{desc}</mark>
+      <p className="mb-12 text-sm text-amber-100">
+        <mark>{desc}</mark>
+      </p>
       <ul className="grid grid-cols-1 gap-6">
         {sorted.map((post) => (
           <li key={post.slug}>

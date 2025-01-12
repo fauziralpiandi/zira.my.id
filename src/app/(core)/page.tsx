@@ -1,15 +1,30 @@
+import Image from 'next/image';
 import { SiReact } from 'react-icons/si';
 
 import { constant } from '~/lib/constant';
-import { Logo } from '~/components/ui';
 
 const { description, authorName } = constant;
 
 const Home = () => {
   return (
-    <section className="flex h-96 place-items-center md:h-72">
+    <section className="grid h-96 place-items-center md:h-80">
       <div className="flex flex-col items-center gap-2 md:flex-row md:gap-8">
-        <Logo width={144} height={144} />
+        <figure className="group relative flex h-36 w-36 items-center rounded-full bg-stone-900">
+          <Image
+            src="https://github.com/fauziralpiandi.png"
+            alt={authorName}
+            fill
+            priority
+            className="animate absolute scale-90 rounded-full object-cover blur-3xl grayscale-0 group-hover:scale-110 group-hover:grayscale"
+          />
+          <Image
+            src="https://github.com/fauziralpiandi.png"
+            alt={authorName}
+            fill
+            priority
+            className="animate z-10 rounded-full object-cover grayscale group-hover:grayscale-0"
+          />
+        </figure>
         <div className="z-10 flex flex-col text-center md:text-left">
           <h1 className="font-display text-xl font-bold leading-8 tracking-tight text-amber-100 md:text-2xl">
             {authorName}

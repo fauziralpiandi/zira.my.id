@@ -47,15 +47,17 @@ export const metadata = {
 const Misc = () => {
   return (
     <section>
-      <mark className="text-sm text-amber-100">{desc}</mark>
+      <p className="text-sm text-amber-100">
+        <mark>{desc}</mark>
+      </p>
       <div className="mt-12 space-y-6">
         <SpotifyTopTracks />
         <SpotifyTopArtists />
         <p className="text-xs text-stone-300">
           Whatever, wherever, and whenever, I escape into music with
-          Spotify—Gracie Abrams and AXMO on repeat—big-room, indie, hyperpop,
-          and synthwave setting the vibe. If it’s not worth the replay? Nah, not
-          my jam.
+          Spotify&mdash;Gracie Abrams and AXMO stay on repeat&mdash;big-room,
+          future-bass, indie, and dream setting the vibe. If it&rsquo;s not
+          worth the replay? Nah, not my jam.
         </p>
       </div>
     </section>

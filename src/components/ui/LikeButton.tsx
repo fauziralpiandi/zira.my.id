@@ -14,6 +14,7 @@ export const LikeButton = ({ slug }: { slug: string }) => {
   const [count, setCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [hasLiked, setHasLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchLike = async () => {
@@ -28,6 +29,8 @@ export const LikeButton = ({ slug }: { slug: string }) => {
         } else {
           setError('An unknown error occurred');
         }
+      } finally {
+        setIsLoading(false);
       }
     };
     const likedCookie = getCookie(`liked-${slug}`);
@@ -78,8 +81,30 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="fixed bottom-8 right-8 z-10 flex items-center rounded-lg backdrop-blur backdrop-grayscale md:right-12">
+        <div className="flex items-center gap-1 rounded-lg border border-amber-100/10 px-2 py-1.5">
+          <PiHeart className="h-5 w-5 animate-pulse fill-amber-100" />
+          <span className="translate-y-[0.5px] animate-pulse font-display text-sm text-amber-100">
+            ~
+          </span>
+        </div>
+      </div>
+    );
+  }
+
   if (error) {
-    return null;
+    return (
+      <div className="fixed bottom-8 right-8 z-10 flex items-center rounded-lg backdrop-blur backdrop-grayscale md:right-12">
+        <div className="flex items-center gap-1 rounded-lg border border-red-500/50 px-2 py-1.5">
+          <PiHeartFill className="h-5 w-5 fill-red-500" />
+          <span className="translate-y-[0.5px] font-display text-sm text-red-500">
+            Error
+          </span>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -91,7 +116,7 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       )}
       disabled={hasLiked}
     >
-      <div className="act flex items-center gap-1 rounded-lg border border-amber-100/10 px-2 py-1.5">
+      <div className="flex items-center gap-1 rounded-lg border border-amber-100/10 px-2 py-1.5">
         {hasLiked ? (
           <PiHeartFill className="h-5 w-5 fill-amber-100" />
         ) : (

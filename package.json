@@ -10,7 +10,7 @@
     "generate": "contentlayer2 build",
     "lint": "tsc --noEmit && next lint",
     "preview": "next build && next start",
-    "start": "next start"
+    "start": "next start -p 3000"
   },
   "dependencies": {
     "@vercel/analytics": "1.4.1",

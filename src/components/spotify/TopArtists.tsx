@@ -85,12 +85,19 @@ export const SpotifyTopArtists = () => {
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >
-                <figure className="group relative aspect-square overflow-hidden rounded">
+                <figure className="group relative aspect-square rounded">
                   <Image
                     src={image}
                     alt={name}
                     fill
-                    className="animate bg-stone-900 object-cover grayscale group-hover:grayscale-0"
+                    className="animate absolute left-0 top-0 scale-90 rounded-full object-cover opacity-0 blur-none group-hover:scale-110 group-hover:opacity-100 group-hover:blur-2xl"
+                    sizes="(max-width: 768px) 100px, (max-width: 1200px) 150px, 200px"
+                  />
+                  <Image
+                    src={image}
+                    alt={name}
+                    fill
+                    className="animate relative z-10 rounded bg-stone-900 object-cover grayscale group-hover:grayscale-0"
                     sizes="(max-width: 768px) 100px, (max-width: 1200px) 150px, 200px"
                   />
                 </figure>

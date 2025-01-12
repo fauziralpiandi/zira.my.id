@@ -7,29 +7,32 @@ type ReadingStats = {
 const inverseWPM = (words: number, wpm: number) => {
   const minutes = words / wpm;
   const time = Math.round(minutes * 60 * 1000);
-  return { time, minutes: Math.ceil(parseFloat(minutes.toFixed(2))) };
+  return {
+    time,
+    minutes: Math.ceil(parseFloat(minutes.toFixed(2))),
+  };
 };
 
 const wordBounds = new Set([9, 10, 13, 32]);
 
 const intoWords = async (text: string): Promise<number> => {
   const encoder = new TextEncoder();
-  const blocks = `${text}\n`
+  const blocks = text
     .split('\n\n')
     .filter((block) => !block.startsWith('```') && !block.endsWith('```'));
 
   let count = 0;
 
-  const workLoad = blocks.map(async (words) => {
-    const codes = encoder.encode(words);
-    codes.forEach((code) => {
-      if (wordBounds.has(code)) {
-        count = count + 1;
-      }
-    });
-  });
+  await Promise.all(
+    blocks.map(async (words) => {
+      encoder.encode(words).forEach((code) => {
+        if (wordBounds.has(code)) {
+          count++;
+        }
+      });
+    })
+  );
 
-  await Promise.all(workLoad);
   return count;
 };
 

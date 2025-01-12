@@ -1,7 +1,7 @@
-import { constant } from '~/lib/constant';
 import { allStories } from 'collections';
-import { StoryItem } from '~/components';
+import { constant } from '~/lib/constant';
 import { pluralize } from '~/lib/utils';
+import { StoryItem } from '~/components';
 
 const { baseUrl, title } = constant;
 
@@ -58,7 +58,7 @@ export const metadata = {
 const Stories = () => {
   return (
     <section>
-      <p className="mb-12 text-sm text-amber-100">{desc}</p>
+      <mark className="mb-12 text-sm text-amber-100">{desc}</mark>
       <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {sorted.map((post) => (
           <li key={post.slug}>

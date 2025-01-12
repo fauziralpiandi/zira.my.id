@@ -1,4 +1,5 @@
 import { Link } from 'next-view-transitions';
+
 import { type Notes } from 'collections';
 import { formattedDate } from '~/lib/utils';
 

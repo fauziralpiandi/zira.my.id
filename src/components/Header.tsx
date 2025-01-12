@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { LuMenu, LuX } from 'react-icons/lu';
+
 import { FlipName, Logo } from './ui';
-import { MobileNav } from './MobileNav';
-import { DesktopNav } from './DesktopNav';
+import { DesktopNav, MobileNav } from '~/components';
 
 const navItems = {
   '/stories': { name: 'stories' },

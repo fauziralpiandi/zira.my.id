@@ -22,7 +22,8 @@ export const MdxLink = ({
       <a
         href={href}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener noreferrer nofollow"
+        title={`Visit external link: ${href}`}
         aria-label={`Visit external link: ${href}`}
         className={className}
         {...props}

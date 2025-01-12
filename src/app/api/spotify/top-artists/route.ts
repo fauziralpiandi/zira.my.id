@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import { getAccessToken, fetchSpotifyData } from '~/lib/services';
 
 type TopArtist = {

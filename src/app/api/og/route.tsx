@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+
 import { constant } from '~/lib/constant';
 
 export const runtime = 'edge';

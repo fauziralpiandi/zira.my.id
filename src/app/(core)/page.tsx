@@ -1,4 +1,5 @@
 import { SiReact } from 'react-icons/si';
+
 import { constant } from '~/lib/constant';
 import { Logo } from '~/components/ui';
 
@@ -6,7 +7,7 @@ const { description, authorName } = constant;
 
 const Home = () => {
   return (
-    <section className="flex h-96 place-items-center md:h-80">
+    <section className="flex h-96 place-items-center md:h-72">
       <div className="flex flex-col items-center gap-2 md:flex-row md:gap-8">
         <Logo width={144} height={144} />
         <div className="z-10 flex flex-col text-center md:text-left">
@@ -14,9 +15,7 @@ const Home = () => {
             {authorName}
           </h1>
           <p className="max-w-md text-xs text-stone-300 md:text-sm">
-            <mark>
-              {description}
-            </mark>
+            <mark>{description}</mark>
           </p>
           <div className="mt-4 flex justify-center md:justify-start">
             <a

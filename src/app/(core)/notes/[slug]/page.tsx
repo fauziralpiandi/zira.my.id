@@ -1,9 +1,11 @@
-import { constant } from '~/lib/constant';
-import { allNotes } from 'collections';
 import { notFound } from 'next/navigation';
-import { MdxContent } from '~/components/mdx';
+
+import { allNotes } from 'collections';
+import { constant } from '~/lib/constant';
 import { formattedDate } from '~/lib/utils';
+
 import { BreadCrumb } from '~/components/ui';
+import { MdxContent } from '~/components/mdx';
 
 export const dynamicParams = true;
 export const revalidate = 3600;

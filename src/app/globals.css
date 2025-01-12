@@ -30,6 +30,7 @@
 
 @layer components {
   .prose {
+
     h1,
     h2,
     h3,
@@ -46,7 +47,7 @@
     blockquote {
       @apply border-l-2 border-amber-100/10;
 
-      > p {
+      >p {
         @apply text-lg font-light leading-8 text-stone-400 before:content-none after:content-none;
       }
     }
@@ -56,7 +57,7 @@
       @apply font-code before:content-none after:content-none;
     }
 
-    :not(pre) > code {
+    :not(pre)>code {
       @apply relative rounded-md border border-amber-100/10 bg-stone-800/50 px-[4px] py-[1px] text-[0.875rem] font-medium;
     }
 
@@ -64,23 +65,23 @@
       @apply relative overflow-auto p-0;
       @apply border border-amber-100/10 bg-stone-900/40;
 
-      > code {
+      >code {
         @apply overflow-x-scroll py-2 text-[0.85rem];
         counter-reset: line;
 
         &[data-line-numbers] {
-          > [data-line]::before {
+          >[data-line]::before {
             counter-increment: line;
             content: counter(line);
             @apply mr-4 inline-block w-4 text-right text-xs text-stone-500;
           }
         }
 
-        > [data-line] {
+        >[data-line] {
           @apply border-l-2 border-l-transparent px-3;
         }
 
-        > [data-highlighted-line] {
+        >[data-highlighted-line] {
           @apply border-l-amber-200/15 bg-amber-200/5;
         }
 
@@ -95,7 +96,7 @@
       @apply rounded-md rounded-b-none border-x border-t border-amber-200/10;
       @apply max-w-full overflow-x-auto whitespace-nowrap px-3 py-2;
 
-      + pre {
+      +pre {
         @apply mt-0 rounded-t-none;
       }
     }

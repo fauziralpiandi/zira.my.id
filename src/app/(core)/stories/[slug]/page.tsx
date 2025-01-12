@@ -1,10 +1,12 @@
 import Image from 'next/image';
-import { constant } from '~/lib/constant';
-import { allStories } from 'collections';
 import { notFound } from 'next/navigation';
-import { MdxContent } from '~/components/mdx';
+
+import { allStories } from 'collections';
+import { constant } from '~/lib/constant';
 import { formattedDate } from '~/lib/utils';
+
 import { BreadCrumb, LikeButton } from '~/components/ui';
+import { MdxContent } from '~/components/mdx';
 
 export const generateMetadata = async (props: {
   params: Promise<{ slug: string }>;
@@ -85,7 +87,7 @@ const Stories = async (props: { params: Promise<{ slug: string }> }) => {
         />
         <hr className="mx-3 flex-grow border-amber-100/10" />
       </div>
-      <figure className="relative left-[50%] right-[50%] my-8 block aspect-[1200/600] w-screen translate-x-[-50%] bg-stone-900 md:max-w-2xl md:rounded-lg">
+      <figure className="relative left-[50%] right-[50%] my-8 aspect-[1200/600] w-screen translate-x-[-50%] bg-stone-900 md:max-w-2xl md:rounded-lg">
         <Image
           src={image}
           alt={title}

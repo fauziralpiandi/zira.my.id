@@ -1,6 +1,7 @@
 import { type NextConfig } from 'next';
 import { withContentlayer } from 'next-contentlayer2';
 import withBundleAnalyzer from '@next/bundle-analyzer';
+
 import { securityHeader } from '~/lib/services';
 
 const bundleAnalyzer = withBundleAnalyzer({
@@ -9,8 +10,7 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 const nextConfig: NextConfig = {
   env: {
-    NEXT_PUBLIC_BASE_URL:
-      'https://f15ee32c-67bc-4d82-a8cc-d1723530eafd-00-ssx75znq6k9z.pike.replit.dev',
+    NEXT_PUBLIC_BASE_URL: 'https://zira.my.id',
   },
   images: {
     remotePatterns: [

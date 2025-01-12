@@ -47,7 +47,7 @@ export const metadata = {
 const Misc = () => {
   return (
     <section>
-      <p className="text-sm text-amber-100">{desc}</p>
+      <mark className="text-sm text-amber-100">{desc}</mark>
       <div className="mt-12 space-y-6">
         <SpotifyTopTracks />
         <SpotifyTopArtists />

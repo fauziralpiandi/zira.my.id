@@ -2,10 +2,12 @@ import { type Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ViewTransitions } from 'next-view-transitions';
+
 import { constant } from '~/lib/constant';
-import { fontBody, fontDisplay, fontCode } from '~/lib/fonts';
-import { Header, Footer } from '~/components';
 import { cx } from '~/lib/utils';
+import { fontBody, fontCode, fontDisplay } from '~/lib/fonts';
+import { Header, Footer } from '~/components';
+
 import '~/app/globals.css';
 
 const { baseUrl, title, description, locale } = constant;
@@ -20,10 +22,6 @@ export const metadata: Metadata = {
     template: `%s \u2014 ${title}`,
   },
   description: description,
-  robots: {
-    index: true,
-    follow: true,
-  },
   openGraph: {
     title: title,
     description: description,
@@ -54,9 +52,23 @@ export const metadata: Metadata = {
       },
     ],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'xuMdCxKom7IZ2YwCTzVJli3Sp_bvt-nofj8Q1iBjPf0',
+  },
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <ViewTransitions>

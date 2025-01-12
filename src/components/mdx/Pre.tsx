@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { LuCopy, LuCheck } from 'react-icons/lu';
+
 import { cx } from '~/lib/utils';
 
 export const MdxPreCode = ({
@@ -44,7 +45,7 @@ export const MdxPreCode = ({
             copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
           )}
         >
-          <LuCheck className="text-xl text-amber-200" />
+          <LuCheck className="text-xl text-amber-100" />
         </span>
       </button>
       {children}

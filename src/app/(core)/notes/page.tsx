@@ -1,7 +1,7 @@
-import { constant } from '~/lib/constant';
 import { allNotes } from 'collections';
-import { NoteItem } from '~/components';
+import { constant } from '~/lib/constant';
 import { pluralize } from '~/lib/utils';
+import { NoteItem } from '~/components';
 
 const { baseUrl, title } = constant;
 
@@ -58,7 +58,7 @@ export const metadata = {
 const Notes = () => {
   return (
     <section>
-      <p className="mb-12 text-sm text-amber-100">{desc}</p>
+      <mark className="mb-12 text-sm text-amber-100">{desc}</mark>
       <ul className="grid grid-cols-1 gap-6">
         {sorted.map((post) => (
           <li key={post.slug}>

@@ -1,7 +1,8 @@
 import { makeSource } from 'contentlayer2/source-files';
-import { Notes, Stories } from '~/lib/schemas';
-import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
+import remarkGfm from 'remark-gfm';
+
+import { Notes, Stories } from '~/lib/schemas';
 
 export default makeSource({
   contentDirPath: 'content',

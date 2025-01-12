@@ -2,6 +2,8 @@ import { SiReact } from 'react-icons/si';
 import { constant } from '~/lib/constant';
 import { Logo } from '~/components/ui';
 
+const { description, authorName } = constant;
+
 const Home = () => {
   return (
     <section className="flex h-96 place-items-center md:h-80">
@@ -9,13 +11,11 @@ const Home = () => {
         <Logo width={144} height={144} />
         <div className="z-10 flex flex-col text-center md:text-left">
           <h1 className="font-display text-xl font-bold leading-8 tracking-tight text-amber-100 md:text-2xl">
-            {constant.authorName}
+            {authorName}
           </h1>
           <p className="max-w-md text-xs text-stone-300 md:text-sm">
             <mark>
-              An enthusiastic frontend developer with a passionate storyteller
-              who&rsquo;s all in&mdash; slapping semicolons &amp; sprinkling
-              quotations with ease.
+              {description}
             </mark>
           </p>
           <div className="mt-4 flex justify-center md:justify-start">

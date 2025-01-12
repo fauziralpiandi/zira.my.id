@@ -1,66 +1,104 @@
-import type { Metadata } from 'next'
-import { Radio_Canada } from 'next/font/google'
-import { ViewTransitions } from 'next-view-transitions'
-import '~/styles/globals.css'
+import { type Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ViewTransitions } from 'next-view-transitions';
+import { constant } from '~/lib/constant';
+import { fontBody, fontDisplay, fontCode } from '~/lib/fonts';
+import { Header, Footer } from '~/components';
+import { cx } from '~/lib/utils';
+import '~/app/globals.css';
 
-const font = Radio_Canada({ subsets: ['latin'] })
+const { baseUrl, title, description, locale } = constant;
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://zira.my.id'),
+  metadataBase: new URL(`${baseUrl}`),
   alternates: {
-    canonical: 'https://zira.my.id',
+    canonical: baseUrl,
   },
   title: {
-    default: 'Fauzira Alpiandi',
-    template: '%s \u2014 Fauzira Alpiandi',
+    default: title,
+    template: `%s \u2014 ${title}`,
   },
-  description:
-    'Hey there! I\u2019m a frontendless exploring the exciting world of React!',
-  keywords: ['fauzira', 'alpiandi', 'zira'],
-  openGraph: {
-    title: 'Fauzira Alpiandi',
-    description:
-      'Hey there! I\u2019m a frontendless exploring the exciting world of React!',
-    url: 'https://zira.my.id',
-    siteName: 'Fauzira Alpiandi',
-    type: 'website',
-  },
-  twitter: {
-    title: 'Fauzira Alpiandi',
-    card: 'summary_large_image',
-  },
+  description: description,
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
-  verification: {
-    google: 'xuMdCxKom7IZ2YwCTzVJli3Sp_bvt-nofj8Q1iBjPf0',
+  openGraph: {
+    title: title,
+    description: description,
+    url: baseUrl,
+    siteName: title,
+    type: 'website',
+    images: [
+      {
+        url: `${baseUrl}/api/og?title=${encodeURIComponent(title)}`,
+        type: 'image/png',
+        width: 1200,
+        height: 630,
+        alt: `OpenGraph`,
+      },
+    ],
   },
-}
+  twitter: {
+    title: title,
+    description: description,
+    card: 'summary_large_image',
+    images: [
+      {
+        url: `${baseUrl}/api/og?title=${encodeURIComponent(title)}`,
+        type: 'image/png',
+        width: 1200,
+        height: 630,
+        alt: `OpenGraph`,
+      },
+    ],
+  },
+};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ViewTransitions>
-      <html lang="en" className="dark">
-        <body className={`${font.className} select-none antialiased`}>
-          <div className="flex min-h-screen flex-col justify-between px-8 py-12">
-            <main className="mx-auto w-full max-w-[60ch] space-y-4 text-pretty">
-              {children}
-            </main>
+    <html lang={locale} suppressHydrationWarning={true}>
+      <ViewTransitions>
+        <body
+          className={cx(
+            fontBody.variable,
+            fontDisplay.variable,
+            fontCode.variable,
+            'font-body antialiased',
+            'bg-stone-950 text-amber-50'
+          )}
+        >
+          <svg
+            className="pointer-events-none fixed isolate z-50 mix-blend-soft-light"
+            width="100%"
+            height="100%"
+          >
+            <filter id="noise">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="1"
+                numOctaves="5"
+                stitchTiles="stitch"
+              />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noise)" />
+          </svg>
+          <div className="flex min-h-screen flex-col p-8">
+            <Header />
+            <div className="mx-auto flex w-full max-w-2xl flex-grow flex-col">
+              <main className="my-24 flex-grow text-pretty break-words md:my-36">
+                {children}
+              </main>
+            </div>
+            <Footer />
+            <Analytics />
+            <SpeedInsights />
           </div>
         </body>
-      </html>
-    </ViewTransitions>
-  )
-}
+      </ViewTransitions>
+    </html>
+  );
+};
+
+export default RootLayout;

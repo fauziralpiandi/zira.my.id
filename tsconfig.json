@@ -24,13 +24,16 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "collections": ["./.contentlayer/generated"]
     }
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts", "**/*.tsx",
-    ".next/types/**/*.ts"
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".contentlayer/generated"
   ],
   "exclude": ["node_modules"]
 }

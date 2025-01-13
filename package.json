@@ -2,7 +2,7 @@
   "name": "zira.my.id",
   "private": true,
   "scripts": {
-    "build": "ANALYZE=true next build",
+    "build": "next build",
     "clean": "rm -rf .next .contentlayer",
     "dev": "next dev --turbopack",
     "format": "prettier --write .",
@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@next/bundle-analyzer": "15.1.4",
     "@tailwindcss/typography": "0.5.16",
     "@types/node": "^22",
     "@types/react": "^19",

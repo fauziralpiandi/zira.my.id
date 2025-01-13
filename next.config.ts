@@ -1,17 +1,9 @@
 import { type NextConfig } from 'next';
 import { withContentlayer } from 'next-contentlayer2';
-import withBundleAnalyzer from '@next/bundle-analyzer';
 
 import { securityHeader } from '~/lib/services';
 
-const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
-
 const nextConfig: NextConfig = {
-  devIndicators: {
-    appIsrStatus: false,
-  },
   env: {
     NEXT_PUBLIC_BASE_URL:
       process.env.NODE_ENV === 'production'
@@ -45,4 +37,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withContentlayer(bundleAnalyzer(nextConfig));
+export default withContentlayer(nextConfig);

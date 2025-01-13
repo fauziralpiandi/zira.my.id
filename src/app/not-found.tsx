@@ -1,19 +1,23 @@
-import { Link } from 'next-view-transitions'
+import { Link } from 'next-view-transitions';
 
-export default function NotFound() {
+const notFound = () => {
   return (
-    <main className="flex flex-col items-start justify-center space-y-4 md:items-center md:justify-center">
-      <h1 className="text-center text-6xl font-bold">404</h1>
-      <h2 className="text-xl font-medium leading-snug tracking-tight md:text-center">
-        Oh no! This page doesn&rsquo;t exist&mdash;
-      </h2>
-      <p className="font-light md:text-center">
-        You can try checking the URL for mistakes &mdash; Even the best of us
-        trip over the keyboard sometimes... lmao
-      </p>
-      <Link href="/" className="text-center" tabIndex={0}>
-        Go back?
-      </Link>
-    </main>
-  )
-}
+    <div className="grid min-h-96 place-items-center">
+      <div className="flex flex-col items-center gap-1 text-center">
+        <h1 className="font-display text-4xl font-bold tracking-tight">404</h1>
+        <mark className="text-sm font-medium tracking-tight text-amber-100">
+          Ouch! Looks like this page took a detour&mdash;
+        </mark>
+        <p className="mt-3 max-w-md text-xs text-stone-300">
+          No worries, you&rsquo;re not the only one! Double-check the URL or{' '}
+          <Link href="/" className="text-amber-100">
+            head back to the homepage
+          </Link>
+          . Maybe you&rsquo;ll find something cooler.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default notFound;

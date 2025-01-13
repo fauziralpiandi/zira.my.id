@@ -1,0 +1,10 @@
+.cache
+.config
+.contentlayer/
+.local
+.next/
+.upm
+globals.css
+node_modules/
+pnpm-lock.yaml
+tsconfig.json

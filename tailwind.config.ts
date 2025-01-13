@@ -1,28 +1,42 @@
-import type { Config } from 'tailwindcss'
+import { type Config as TwConfig } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
 
-const config: Config = {
-  darkMode: 'class',
-  content: ['./src/**/*.{ts,tsx,md,mdx}', './mdx-components.tsx'],
+export default {
+  content: ['./src/**/*.{ts,tsx}', './content/**/*.{md,mdx}'],
   theme: {
     extend: {
-      colors: {
-        mono: {
-          50: '#eeeeee',
-          100: '#e6e6e6',
-          200: '#cccccc',
-          300: '#b3b3b3',
-          400: '#999999',
-          500: '#808080',
-          600: '#666666',
-          700: '#4d4d4d',
-          800: '#333333',
-          900: '#1c1c1c',
-          950: '#111111',
+      fontFamily: {
+        body: ['var(--font-body)'],
+        display: ['var(--font-display)'],
+        code: ['var(--font-code)'],
+      },
+      animation: {
+        pulse: 'pulse 1500ms cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        wave: 'wave 1500ms infinite ease-in-out',
+      },
+      keyframes: {
+        ping: {
+          '75%, 100%': {
+            transform: 'scale(2)',
+            opacity: '0',
+          },
+        },
+        wave: {
+          '0%': {
+            transform: 'scaleY(1)',
+            transformOrigin: '50% 50%',
+          },
+          '50%': {
+            transform: 'scaleY(0.75)',
+            transformOrigin: '50% 50%',
+          },
+          '100%': {
+            transform: 'scaleY(1)',
+            transformOrigin: '50% 50%',
+          },
         },
       },
     },
   },
-  plugins: [],
-}
-
-export default config
+  plugins: [typography],
+} satisfies TwConfig;

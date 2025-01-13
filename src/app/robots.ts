@@ -1,11 +1,13 @@
-export default async function robots() {
+import { type MetadataRoute } from 'next';
+
+import { constant } from '~/lib/constant';
+
+export default function Robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/',
     },
-    sitemap: `https://zira.my.id/sitemap.xml`,
-    host: 'zira.my.id',
-  }
+    sitemap: `${constant.baseUrl}/sitemap.xml`,
+  };
 }

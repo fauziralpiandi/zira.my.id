@@ -7,7 +7,7 @@ const { description, authorName } = constant;
 
 const Home = () => {
   return (
-    <section className="grid h-96 place-items-center md:h-80">
+    <section className="grid min-h-96 place-items-center">
       <div className="flex flex-col items-center gap-2 md:flex-row md:gap-8">
         <figure className="group relative flex h-36 w-36 items-center rounded-full bg-stone-900">
           <Image

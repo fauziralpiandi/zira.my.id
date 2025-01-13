@@ -14,7 +14,7 @@ const Error = ({
   }, [error]);
 
   return (
-    <div className="grid h-96 place-items-center md:h-80">
+    <div className="grid min-h-96 place-items-center">
       <div className="flex flex-col items-center gap-1 text-center">
         <h1 className="font-display text-4xl font-bold tracking-tight">
           Oops!

@@ -13,7 +13,10 @@ const nextConfig: NextConfig = {
     appIsrStatus: false,
   },
   env: {
-    NEXT_PUBLIC_BASE_URL: 'https://zira.my.id',
+    NEXT_PUBLIC_BASE_URL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://zira.my.id'
+        : 'http://localhost:3000',
   },
   images: {
     remotePatterns: [

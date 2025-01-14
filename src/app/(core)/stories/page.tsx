@@ -59,7 +59,12 @@ const Stories = () => {
   return (
     <section>
       <p className="mb-12 text-sm text-amber-100">
-        <mark>{desc}</mark>
+        <mark>
+          This is {StoriesReadTime} of my brain dumps, explorations, and
+          insights. I touch on different topics, from existential crises to the
+          best way to make a cup of coffee, and everything in between.{' '}
+          {allStories.length} stories so far&mdash;stay tuned for more!
+        </mark>
       </p>
       <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {sorted.map((post) => (

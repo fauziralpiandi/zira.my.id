@@ -1,6 +1,6 @@
 import { type Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from '@vercel/speed-insights';
 import { ViewTransitions } from 'next-view-transitions';
 
 import { constant } from '~/lib/constant';

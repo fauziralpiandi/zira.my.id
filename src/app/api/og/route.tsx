@@ -9,7 +9,7 @@ export const GET = async (request: Request) => {
     const { baseUrl, authorName } = constant;
     const { searchParams } = new URL(request.url);
     const hasTitle = searchParams.has('title');
-    const title = hasTitle ? searchParams.get('title')?.slice(0, 100) : '~';
+    const title = hasTitle ? searchParams.get('title') : '~';
 
     const extraBold = await fetch(
       new URL('public/fonts/Recursive-ExtraBold.ttf', import.meta.url)
@@ -71,7 +71,7 @@ export const GET = async (request: Request) => {
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  marginLeft: '1.5rem',
+                  marginLeft: '1.75rem',
                 }}
               >
                 <span

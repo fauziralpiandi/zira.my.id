@@ -17,11 +17,6 @@ const nextConfig: NextConfig = {
         hostname: 'i.scdn.co',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'github.com',
-        pathname: '/**',
-      },
     ],
   },
   headers() {

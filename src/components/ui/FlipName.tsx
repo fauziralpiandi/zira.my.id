@@ -5,8 +5,11 @@ import { constant } from '~/lib/constant';
 export const FlipName = () => {
   return (
     <h1 className="font-display font-medium tracking-tight text-amber-100">
-      <span aria-hidden="true" className="group relative block overflow-hidden">
-        <span className="animate inline-block whitespace-nowrap group-hover:-translate-y-full">
+      <span className="group relative block overflow-hidden">
+        <span
+          aria-hidden="true"
+          className="animate inline-block whitespace-nowrap group-hover:-translate-y-full"
+        >
           {constant.title.split('').map((letter, index) => (
             <span
               key={letter + index}
@@ -17,8 +20,8 @@ export const FlipName = () => {
             </span>
           ))}
         </span>
-        <Link href="/" title="Go to Home" aria-label="Go to Home">
-          <span className="animate absolute left-0 top-0 inline-block translate-y-full group-hover:translate-y-0">
+        <span className="animate absolute left-0 top-0 inline-block translate-y-full group-hover:translate-y-0">
+          <Link href="/" title="Go to Home" aria-label="Go to Home">
             {'home'.split('').map((letter, index) => (
               <span
                 key={letter + index}
@@ -28,8 +31,8 @@ export const FlipName = () => {
                 {letter}
               </span>
             ))}
-          </span>
-        </Link>
+          </Link>
+        </span>
       </span>
     </h1>
   );

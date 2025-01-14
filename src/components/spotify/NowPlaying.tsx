@@ -92,7 +92,7 @@ export const SpotifyNowPlaying = () => {
               {title}
             </a>
           </h1>
-          <p className="line-clamp-1 text-xs text-stone-500">{artist}</p>
+          <p className="line-clamp-1 text-xs text-stone-400">{artist}</p>
         </div>
       </div>
     </div>

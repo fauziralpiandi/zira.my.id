@@ -59,7 +59,14 @@ const Notes = () => {
   return (
     <section>
       <p className="mb-12 text-sm text-amber-100">
-        <mark>{desc}</mark>
+        <mark>
+          Off-desk, I write and tell stories, spinning fresh metaphors and
+          thought-provoking ideas, weaving together the intangible and the real.
+          I dive into the depths of curiosity, unraveling complexities and
+          finding simplicity in chaos. I&rsquo;ve written {NotesWordCount} in
+          {allNotes.length} notes&mdash;each one a brainwave, hopefully not a
+          brain freeze.
+        </mark>
       </p>
       <ul className="grid grid-cols-1 gap-6">
         {sorted.map((post) => (

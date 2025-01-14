@@ -7,11 +7,6 @@ type Spotify = {
 
 const getEnvVar = (key: string): string => {
   const value = process.env[key];
-  if (!value) {
-    console.warn(
-      `Environment variable ${key} is not defined. Using default empty string.`
-    );
-  }
   return value || '';
 };
 

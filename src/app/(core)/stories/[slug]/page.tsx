@@ -87,14 +87,12 @@ const Stories = async (props: { params: Promise<{ slug: string }> }) => {
         />
         <hr className="mx-3 flex-grow border-amber-100/10" />
       </div>
-      <figure className="relative left-[50%] right-[50%] my-8 aspect-[1200/600] w-screen translate-x-[-50%] bg-stone-900 md:max-w-2xl md:rounded-lg">
+      <figure className="relative left-[50%] right-[50%] my-8 aspect-[18/9] w-screen translate-x-[-50%] bg-stone-900 md:max-w-2xl md:rounded-lg">
         <Image
           src={image}
           alt={title}
           fill
           priority
-          placeholder="blur"
-          blurDataURL="data:image/webp;base64,UklGRjQDAABXRUJQVlA4WAoAAAAgAAAASAEAzQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggRgEAANAWAJ0BKkkBzgA+kUihTSWkIyIgKACwEglpbuEgPBGWBqZu/gAnsA99snIe+7ezShocflIq9GyZ8AsJkjpyj5w+0y71Y8Q6aKXrvVMvDrJtsBVdUvRhWO3jRSm6G7zKpLA8sZ1kY45h3tJRH9d05FYQ+BdGGAz/zLuiNUnFd5mkeJgkV4Sk+CLip+8zyp93aip+pqpUnUqtlTZqGQVZNtgI+mJPy2TAt1Tva97hUS3En5Xau/XbBA4uWd9xADEAAP7qj3eLIo/nowiuXBVae46+LIjytZ1B072VJMBbkYdxmQEWHdP3XfRjmIg9WDo4xFEuw/UNV2YBL/taCDZ59pOBMEIjNoy6qHedlcP8tzb2fQL5krr3rcFqpwheGYRJ1eiev2sOp/NWNjAmJqLmnsufNUg85jx0WFbg68VGvaK+Q3kwAAAA"
           className="w-full object-cover md:rounded-lg"
         />
       </figure>

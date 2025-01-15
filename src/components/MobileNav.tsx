@@ -31,7 +31,7 @@ export const MobileNav = ({
           onClick={closeNav}
           className={cx(
             'py-3 font-display text-4xl font-medium capitalize tracking-tight text-amber-100',
-            pathname === path ? 'opacity-25' : ''
+            pathname === path ? 'opacity-50' : ''
           )}
           aria-current={pathname === path ? 'page' : undefined}
         >

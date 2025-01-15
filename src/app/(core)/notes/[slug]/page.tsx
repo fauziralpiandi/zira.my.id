@@ -27,17 +27,15 @@ export const generateMetadata = async (props: {
   }
 
   const { baseUrl } = constant;
-  const { slug, title, summary } = post;
+  const { slug, title } = post;
 
   return {
     alternates: {
       canonical: `${baseUrl}/notes/${slug}`,
     },
     title: title,
-    description: summary,
     openGraph: {
       title: title,
-      description: summary,
       url: `${baseUrl}/notes/${slug}`,
       siteName: constant.title,
       type: 'article',
@@ -53,7 +51,6 @@ export const generateMetadata = async (props: {
     },
     twitter: {
       title: title,
-      description: summary,
       card: 'summary_large_image',
       images: [
         {
@@ -83,12 +80,12 @@ const Notes = async (props: { params: Promise<{ slug: string }> }) => {
       <BreadCrumb />
       <div className="mt-6" />
       <MdxContent code={body.code} />
-      <div className="mt-12 flex flex-col items-start">
-        <mark className="font-display text-sm font-medium tracking-tight text-stone-400">
-          {title}
+      <div className="mt-12 flex flex-col items-start border-l-2 border-stone-500">
+        <mark className="ml-3 font-display text-sm font-medium tracking-tight">
+          {title} &#126;
         </mark>
         <time
-          className="relative text-xs text-amber-200 before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
+          className="relative ml-3 mt-0.5 font-display text-xs text-amber-100 before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
           dateTime={formattedDate(published, 'absolute')}
           data-absolute={formattedDate(published, 'absolute')}
           data-relative={formattedDate(published, 'relative')}

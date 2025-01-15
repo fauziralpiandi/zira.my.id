@@ -1,6 +1,5 @@
 ---
 title: Lorem Ipsum
-summary: Dolor sit amet, consectetur adipiscing elit.
 published: 2025-01-12
 ---
 

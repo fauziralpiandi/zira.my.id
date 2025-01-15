@@ -47,12 +47,13 @@ export const metadata = {
 const Misc = () => {
   return (
     <section>
-      <p className="text-sm text-amber-100">
-        <mark>
-          A little corner of chaos&mdash;where music isn&rsquo;t just heard,
-          it&rsquo;s felt. It&rsquo;s all here, raw and real. Beats that make me
-          move, and questionable decisions to match.
-        </mark>
+      <h1 className="font-display text-2xl font-bold tracking-tight">
+        Misc &#126;
+      </h1>
+      <p className="mt-4 text-sm text-amber-100">
+        A little corner of chaos&mdash;where music isn&rsquo;t just heard,
+        it&rsquo;s felt. It&rsquo;s all here, raw and real. Beats that make me
+        move, and questionable decisions to match.
       </p>
       <div className="mt-12 space-y-6">
         <SpotifyTopTracks />

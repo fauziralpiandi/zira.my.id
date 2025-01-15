@@ -58,23 +58,24 @@ export const metadata = {
 const Notes = () => {
   return (
     <section>
-      <p className="mb-12 text-sm text-amber-100">
-        <mark>
-          Off-desk, I write and tell stories, spinning fresh metaphors and
-          thought-provoking ideas, weaving together the intangible and the real.
-          I dive into the depths of curiosity, unraveling complexities and
-          finding simplicity in chaos. I&rsquo;ve written {NotesWordCount} in
-          {allNotes.length} notes&mdash;each one a brainwave, hopefully not a
-          brain freeze.
-        </mark>
+      <h1 className="font-display text-2xl font-bold tracking-tight">
+        Notes &#126;
+      </h1>
+      <p className="mb-12 mt-4 text-sm text-amber-100">
+        Off-desk, I write and tell stories, spinning fresh metaphors and
+        thought-provoking ideas, weaving together the intangible and the real. I
+        dive into the depths of curiosity, unraveling complexities and finding
+        simplicity in chaos. I&rsquo;ve written {NotesWordCount} in
+        {allNotes.length} notes&mdash;each one a brainwave, hopefully not a
+        brain freeze.
       </p>
-      <ul className="grid grid-cols-1 gap-6">
+      <div className="flex flex-wrap gap-1.5">
         {sorted.map((post) => (
-          <li key={post.slug}>
+          <div key={post.slug}>
             <NoteItem post={post} />
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 };

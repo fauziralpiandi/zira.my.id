@@ -86,11 +86,13 @@ export const SpotifyTopTracks = () => {
               rel="noopener noreferrer nofollow"
             >
               <figure className="group relative aspect-square rounded-sm">
-                <div className="animate absolute inset-0 rounded-sm bg-amber-100 opacity-0 blur-xl group-hover:opacity-100" />
+                <div className="animate absolute inset-0 rounded-sm shadow-none group-hover:shadow-[0_0_50px_#fef3c7]" />
                 <Image
                   src={cover}
                   alt={`${title} \u2014 ${artist}`}
                   fill
+                  loading="lazy"
+                  sizes="48px"
                   className="animate relative z-10 rounded-sm bg-stone-900 object-cover grayscale group-hover:grayscale-0"
                 />
               </figure>

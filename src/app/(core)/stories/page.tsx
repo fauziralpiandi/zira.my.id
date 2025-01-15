@@ -58,13 +58,14 @@ export const metadata = {
 const Stories = () => {
   return (
     <section>
-      <p className="mb-12 text-sm text-amber-100">
-        <mark>
-          This is {StoriesReadTime} of my brain dumps, explorations, and
-          insights. I touch on different topics, from existential crises to the
-          best way to make a cup of coffee, and everything in between.{' '}
-          {allStories.length} stories so far&mdash;stay tuned for more!
-        </mark>
+      <h1 className="font-display text-2xl font-bold tracking-tight">
+        Stories &#126;
+      </h1>
+      <p className="mb-12 mt-4 text-sm text-amber-100">
+        This is {StoriesReadTime} of my brain dumps, explorations, and insights.
+        I touch on different topics, from existential crises to the best way to
+        make a cup of coffee, and everything in between. {allStories.length}{' '}
+        stories so far&mdash;stay tuned for more!
       </p>
       <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {sorted.map((post) => (

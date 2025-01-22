@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PiHeart, PiHeartFill } from 'react-icons/pi';
+import { PiHeart, PiHeartFill, PiSpinner } from 'react-icons/pi';
 
 import { cx } from '~/lib/utils';
 
@@ -83,12 +83,9 @@ export const LikeButton = ({ slug }: { slug: string }) => {
 
   if (isLoading) {
     return (
-      <div className="fixed bottom-8 right-8 z-10 flex items-center rounded-lg backdrop-blur backdrop-grayscale md:right-12">
-        <div className="flex items-center gap-1 rounded-lg border border-amber-100/10 px-2 py-1.5">
-          <PiHeart className="h-5 w-5 animate-pulse fill-amber-100" />
-          <span className="translate-y-[0.5px] animate-pulse font-display text-sm text-amber-100">
-            ~
-          </span>
+      <div className="flex items-center rounded-lg border-accent/25 bg-neutral-950/50 backdrop-blur-xl backdrop-grayscale">
+        <div className="flex animate-pulse items-center gap-1 rounded-lg px-2 py-1.5">
+          <PiSpinner className="h-5 w-5 animate-spin fill-accent" />
         </div>
       </div>
     );
@@ -96,11 +93,11 @@ export const LikeButton = ({ slug }: { slug: string }) => {
 
   if (error) {
     return (
-      <div className="fixed bottom-8 right-8 z-10 flex items-center rounded-lg backdrop-blur backdrop-grayscale md:right-12">
-        <div className="flex items-center gap-1 rounded-lg border border-red-500/50 px-2 py-1.5">
+      <div className="border-red/50 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-xl backdrop-grayscale">
+        <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
           <PiHeartFill className="h-5 w-5 fill-red-500" />
-          <span className="translate-y-[0.5px] font-display text-sm text-red-500">
-            Error
+          <span className="translate-y-[1px] font-display text-sm text-red-500">
+            ERR
           </span>
         </div>
       </div>
@@ -111,18 +108,18 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     <button
       onClick={addLike}
       className={cx(
-        'fixed bottom-8 right-8 z-10 flex items-center rounded-lg backdrop-blur backdrop-grayscale md:right-12',
+        'flex items-center rounded-lg border border-accent/25 bg-neutral-950/50 backdrop-blur-xl backdrop-grayscale',
         hasLiked ? 'cursor-not-allowed' : ''
       )}
       disabled={hasLiked}
     >
-      <div className="flex items-center gap-1 rounded-lg border border-amber-100/10 px-2 py-1.5">
+      <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
         {hasLiked ? (
-          <PiHeartFill className="h-5 w-5 fill-amber-100" />
+          <PiHeartFill className="h-5 w-5 fill-accent" />
         ) : (
-          <PiHeart className="h-5 w-5 fill-amber-100" />
+          <PiHeart className="h-5 w-5 fill-accent" />
         )}
-        <span className="translate-y-[0.5px] font-display text-sm text-amber-100">
+        <span className="translate-y-[1px] font-display text-accent">
           {count !== null ? count : 0}
         </span>
       </div>

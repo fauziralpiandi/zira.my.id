@@ -1,7 +1,7 @@
 import { allStories } from 'collections';
 import { constant } from '~/lib/constant';
 import { pluralize } from '~/lib/utils';
-import { StoryItem } from '~/components';
+import { StoryCard } from '~/components';
 
 const { baseUrl, title } = constant;
 
@@ -15,7 +15,7 @@ const sorted = allStories.sort(
   (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
 );
 
-const desc = `This is ${StoriesReadTime} of my brain dumps, explorations, and insights. I touch on different topics, from existential crises to the best way to make a cup of coffee, and everything in between. ${allStories.length} stories so far\u2014stay tuned for more!`;
+const desc = `${allStories.length} stories, ${StoriesReadTime} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`;
 
 export const metadata = {
   alternates: {
@@ -58,19 +58,21 @@ export const metadata = {
 const Stories = () => {
   return (
     <section>
-      <h1 className="font-display text-2xl font-bold tracking-tight">
-        Stories &#126;
-      </h1>
-      <p className="mb-12 mt-4 text-sm text-amber-100">
-        This is {StoriesReadTime} of my brain dumps, explorations, and insights.
-        I touch on different topics, from existential crises to the best way to
-        make a cup of coffee, and everything in between. {allStories.length}{' '}
-        stories so far&mdash;stay tuned for more!
+      <p className="mb-12 font-medium text-amber-50">
+        This is{' '}
+        <span className="text-accent">
+          {StoriesReadTime} of my brain dumps, explorations, and insights.
+        </span>{' '}
+        I touch on different topics, from existential crises to making
+        people&rsquo;s live simple , and everything in between.{' '}
+        <span className="text-accent">
+          {allStories.length} stories so far&mdash;stay tuned for more!
+        </span>
       </p>
-      <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {sorted.map((post) => (
           <li key={post.slug}>
-            <StoryItem post={post} />
+            <StoryCard post={post} />
           </li>
         ))}
       </ul>

@@ -49,7 +49,7 @@ export const SpotifyTopArtists = () => {
             key={index}
             className="group relative aspect-square overflow-hidden rounded"
           >
-            <div className="h-full w-full bg-stone-900" />
+            <div className="h-full w-full bg-neutral-900" />
           </div>
         ))}
       </div>
@@ -64,7 +64,7 @@ export const SpotifyTopArtists = () => {
             key={index}
             className="group relative aspect-square overflow-hidden rounded"
           >
-            <div className="h-full w-full bg-amber-200/5" />
+            <div className="h-full w-full bg-neutral-900" />
           </div>
         ))}
       </div>
@@ -86,14 +86,15 @@ export const SpotifyTopArtists = () => {
                 rel="noopener noreferrer nofollow"
               >
                 <figure className="group relative aspect-square rounded">
-                  <div className="animate absolute inset-0 rounded shadow-none group-hover:shadow-[0_0_50px_#fef3c7]" />
+                  <div className="animate absolute inset-0 rounded shadow-none group-hover:shadow-[0_0_50px_hsl(50,95%,88%)]" />
+                  <span className="sr-only">{name}</span>
                   <Image
                     src={image}
                     alt={name}
                     fill
                     loading="lazy"
                     sizes="96px"
-                    className="animate relative z-10 rounded bg-stone-900 object-cover grayscale group-hover:grayscale-0"
+                    className="animate relative z-10 rounded bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                   />
                 </figure>
               </a>
@@ -105,7 +106,7 @@ export const SpotifyTopArtists = () => {
               key={index}
               className="group relative aspect-square overflow-hidden rounded"
             >
-              <div className="h-full w-full bg-amber-200/5" />
+              <div className="h-full w-full bg-neutral-900" />
             </div>
           );
         }

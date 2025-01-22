@@ -3,9 +3,10 @@ import { cx } from '~/lib/utils';
 export const AudioWave = ({ isPlaying }: { isPlaying: boolean }) => {
   return (
     <svg
-      className={cx('h-7 w-7', isPlaying ? 'fill-amber-100' : 'fill-stone-500')}
       xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 26 38.05"
+      className={cx('h-7 w-7', isPlaying ? 'fill-accent' : 'fill-neutral-500')}
     >
       <path
         d="M0.91,15L0.78,15A1,1,0,0,0,0,16v6a1,1,0,1,0,2,0s0,0,0,0V16a1,1,0,0,0-1-1H0.91Z"

@@ -10,15 +10,39 @@ export default {
         display: ['var(--font-display)'],
         code: ['var(--font-code)'],
       },
+      colors: {
+        accent: 'hsl(50, 95%, 88%)',
+      },
       animation: {
+        hover: 'hover 3000ms ease-in-out infinite',
+        jam: 'jam 5000ms ease-in-out alternate infinite',
         pulse: 'pulse 1500ms cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        wave: 'wave 1500ms infinite ease-in-out',
+        shine: 'pulse 5000ms ease-in-out infinite',
+        wave: 'wave 1500ms ease-in-out infinite',
       },
       keyframes: {
+        hover: {
+          '50%': {
+            transform: 'translateY(-1%)',
+          },
+        },
+        jam: {
+          '30%': {
+            transform: 'translateX(1%) translateY(1%)',
+          },
+          '60%': {
+            transform: 'translateX(-1%) translateY(1%)',
+          },
+        },
         ping: {
           '75%, 100%': {
             transform: 'scale(2)',
             opacity: '0',
+          },
+        },
+        shine: {
+          '50%': {
+            transform: 'scale(1.1)',
           },
         },
         wave: {

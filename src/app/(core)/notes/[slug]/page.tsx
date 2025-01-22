@@ -4,7 +4,6 @@ import { allNotes } from 'collections';
 import { constant } from '~/lib/constant';
 import { formattedDate } from '~/lib/utils';
 
-import { BreadCrumb } from '~/components/ui';
 import { MdxContent } from '~/components/mdx';
 
 export const dynamicParams = true;
@@ -27,15 +26,17 @@ export const generateMetadata = async (props: {
   }
 
   const { baseUrl } = constant;
-  const { slug, title } = post;
+  const { slug, title, summary } = post;
 
   return {
     alternates: {
       canonical: `${baseUrl}/notes/${slug}`,
     },
     title: title,
+    description: summary,
     openGraph: {
       title: title,
+      description: summary,
       url: `${baseUrl}/notes/${slug}`,
       siteName: constant.title,
       type: 'article',
@@ -51,6 +52,7 @@ export const generateMetadata = async (props: {
     },
     twitter: {
       title: title,
+      description: summary,
       card: 'summary_large_image',
       images: [
         {
@@ -77,20 +79,16 @@ const Notes = async (props: { params: Promise<{ slug: string }> }) => {
 
   return (
     <section>
-      <BreadCrumb />
-      <div className="mt-6" />
-      <MdxContent code={body.code} />
-      <div className="mt-12 flex flex-col items-start border-l-2 border-stone-500">
-        <mark className="ml-3 font-display text-sm font-medium tracking-tight">
-          {title} &#126;
-        </mark>
+      <div className="mb-10 flex flex-col items-start">
+        <h1 className="text-xl font-semibold text-amber-50">{title}</h1>
         <time
-          className="relative ml-3 mt-0.5 font-display text-xs text-amber-100 before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
-          dateTime={formattedDate(published, 'absolute')}
-          data-absolute={formattedDate(published, 'absolute')}
-          data-relative={formattedDate(published, 'relative')}
+          className="font-display text-xs font-light text-accent before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
+          dateTime={formattedDate(published, 'absolute', true)}
+          data-absolute={formattedDate(published, 'absolute', true)}
+          data-relative={`Written ${formattedDate(published, 'relative')}`}
         />
       </div>
+      <MdxContent code={body.code} />
     </section>
   );
 };

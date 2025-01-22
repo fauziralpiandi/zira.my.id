@@ -51,7 +51,7 @@ export const SpotifyTopTracks = () => {
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
-            className="aspect-square h-full w-full rounded-sm bg-stone-900"
+            className="aspect-square h-full w-full rounded-sm bg-neutral-900"
           />
         ))}
       </div>
@@ -64,7 +64,7 @@ export const SpotifyTopTracks = () => {
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
-            className="aspect-square h-full w-full rounded-sm bg-amber-200/5"
+            className="aspect-square h-full w-full rounded-sm bg-neutral-900"
           />
         ))}
       </div>
@@ -86,14 +86,17 @@ export const SpotifyTopTracks = () => {
               rel="noopener noreferrer nofollow"
             >
               <figure className="group relative aspect-square rounded-sm">
-                <div className="animate absolute inset-0 rounded-sm shadow-none group-hover:shadow-[0_0_50px_#fef3c7]" />
+                <div className="animate absolute inset-0 rounded-sm shadow-none group-hover:shadow-[0_0_50px_hsl(50,95%,88%)]" />
+                <span className="sr-only">
+                  {title} &mdash; {artist}
+                </span>
                 <Image
                   src={cover}
                   alt={`${title} \u2014 ${artist}`}
                   fill
                   loading="lazy"
                   sizes="48px"
-                  className="animate relative z-10 rounded-sm bg-stone-900 object-cover grayscale group-hover:grayscale-0"
+                  className="animate relative z-10 rounded-sm bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                 />
               </figure>
             </a>
@@ -104,7 +107,7 @@ export const SpotifyTopTracks = () => {
               key={index}
               className="group relative aspect-square overflow-hidden rounded-sm"
             >
-              <div className="h-full w-full bg-amber-200/5" />
+              <div className="h-full w-full bg-neutral-200/5" />
             </div>
           );
         }

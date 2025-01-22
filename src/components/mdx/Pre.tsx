@@ -37,7 +37,7 @@ export const MdxPreCode = ({
             copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
           )}
         >
-          <LuCopy className="text-xl text-stone-500" />
+          <LuCopy className="text-xl text-neutral-500" />
         </span>
         <span
           className={cx(
@@ -45,7 +45,7 @@ export const MdxPreCode = ({
             copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
           )}
         >
-          <LuCheck className="text-xl text-amber-100" />
+          <LuCheck className="text-xl text-accent" />
         </span>
       </button>
       {children}

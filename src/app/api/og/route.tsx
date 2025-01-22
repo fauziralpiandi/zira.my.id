@@ -6,19 +6,22 @@ export const runtime = 'edge';
 
 export const GET = async (request: Request) => {
   try {
-    const { baseUrl, authorName } = constant;
+    const { baseUrl, description, authorName } = constant;
     const { searchParams } = new URL(request.url);
     const hasTitle = searchParams.has('title');
-    const title = hasTitle ? searchParams.get('title') : '~';
+    const title = hasTitle ? searchParams.get('title') : constant.title;
 
     const extraBold = await fetch(
-      new URL('public/fonts/Recursive-ExtraBold.ttf', import.meta.url)
+      new URL('public/fonts/SofiaSans-ExtraBold.ttf', import.meta.url)
     ).then((res) => res.arrayBuffer());
     const semiBold = await fetch(
-      new URL('public/fonts/Recursive-SemiBold.ttf', import.meta.url)
+      new URL('public/fonts/SofiaSans-SemiBold.ttf', import.meta.url)
     ).then((res) => res.arrayBuffer());
     const regular = await fetch(
-      new URL('public/fonts/Geist-Regular.ttf', import.meta.url)
+      new URL(
+        'public/fonts/SofiaSansSemiCondensed-Regular.ttf',
+        import.meta.url
+      )
     ).then((res) => res.arrayBuffer());
 
     return new ImageResponse(
@@ -39,9 +42,8 @@ export const GET = async (request: Request) => {
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h1
               style={{
-                fontSize: '3.75rem',
+                fontSize: '4rem',
                 fontWeight: '800',
-                letterSpacing: '-0.025em',
                 lineHeight: '1.25',
                 color: '#fffbeb',
               }}
@@ -59,11 +61,11 @@ export const GET = async (request: Request) => {
                 height="96"
               >
                 <path
-                  fill="#fef3c7"
+                  fill="hsl(50, 95%, 88%)"
                   d="M 271.378906 250.332031 C 252.128906 263.75 228.726562 271.621094 203.484375 271.621094 C 137.835938 271.621094 84.617188 218.402344 84.617188 152.753906 C 84.617188 112.550781 104.574219 77.007812 135.125 55.496094 C 59.972656 58.589844 0 120.492188 0 196.40625 C 0 274.292969 63.140625 337.433594 141.027344 337.433594 C 199.816406 337.433594 250.199219 301.464844 271.378906 250.332031 Z"
                 />
                 <path
-                  fill="#fef3c7"
+                  fill="hsl(50, 95%, 88%)"
                   d="M 103.621094 124.664062 C 122.871094 111.246094 146.273438 103.378906 171.515625 103.378906 C 237.164062 103.378906 290.382812 156.597656 290.382812 222.246094 C 290.382812 262.449219 270.425781 297.992188 239.875 319.503906 C 315.027344 316.40625 375 254.503906 375 178.59375 C 375 100.707031 311.859375 37.566406 233.972656 37.566406 C 175.183594 37.566406 124.800781 73.535156 103.621094 124.664062 Z"
                 />
               </svg>
@@ -71,27 +73,25 @@ export const GET = async (request: Request) => {
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  marginLeft: '1.75rem',
+                  marginLeft: '1.5rem',
                 }}
               >
                 <span
                   style={{
-                    fontSize: '1.875rem',
-                    letterSpacing: '-0.025em',
+                    fontSize: '2rem',
                     fontWeight: '600',
                     color: '#fffbeb',
                   }}
                 >
-                  {authorName} ~
+                  {authorName}
                 </span>
                 <span
                   style={{
-                    fontSize: '1.5rem',
-                    color: '#d6d3d1',
+                    fontSize: '1.75rem',
+                    color: '#d4d4d4',
                   }}
                 >
-                  An enthusiastic frontend developer with a passionate
-                  storyteller&mdash;
+                  {description}
                 </span>
               </div>
             </div>

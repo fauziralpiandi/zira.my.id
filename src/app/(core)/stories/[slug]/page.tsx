@@ -5,7 +5,7 @@ import { allStories } from 'collections';
 import { constant } from '~/lib/constant';
 import { formattedDate } from '~/lib/utils';
 
-import { BreadCrumb, LikeButton } from '~/components/ui';
+import { LikeButton } from '~/components/ui';
 import { MdxContent } from '~/components/mdx';
 
 export const generateMetadata = async (props: {
@@ -72,22 +72,19 @@ const Stories = async (props: { params: Promise<{ slug: string }> }) => {
 
   return (
     <section>
-      <BreadCrumb />
-      <LikeButton slug={slug} />
-      <h1 className="my-3 font-display text-3xl font-extrabold leading-tight tracking-tight">
-        {title}
-      </h1>
-      <p className="mb-6 text-sm text-stone-400">{summary}</p>
-      <div className="flex items-center justify-between font-display">
+      <div className="text-left">
         <time
-          className="relative text-sm text-amber-100 before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
-          dateTime={formattedDate(published, 'absolute')}
-          data-absolute={formattedDate(published, 'absolute')}
-          data-relative={formattedDate(published, 'relative')}
+          className="text-xs text-accent before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
+          dateTime={formattedDate(published, 'absolute', true)}
+          data-absolute={`On ${formattedDate(published, 'absolute', true)}`}
+          data-relative={`Posted ${formattedDate(published, 'relative')}`}
         />
-        <hr className="mx-3 flex-grow border-amber-100/10" />
+        <h1 className="mb-2.5 mt-3 font-display text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
+          {title}
+        </h1>
+        <p className="text-sm text-neutral-400 md:mx-auto">{summary}</p>
       </div>
-      <figure className="relative left-[50%] right-[50%] my-8 aspect-[18/9] w-screen translate-x-[-50%] bg-stone-900 md:max-w-2xl md:rounded-lg">
+      <figure className="relative left-[50%] right-[50%] my-8 aspect-[2/1] w-screen translate-x-[-50%] bg-neutral-900 md:aspect-[21/9] md:max-w-2xl md:rounded-lg">
         <Image
           src={image}
           alt={title}
@@ -95,6 +92,9 @@ const Stories = async (props: { params: Promise<{ slug: string }> }) => {
           priority
           className="w-full object-cover md:rounded-lg"
         />
+        <div className="absolute bottom-3 right-3 z-10">
+          <LikeButton slug={slug} />
+        </div>
       </figure>
       <MdxContent code={body.code} />
     </section>

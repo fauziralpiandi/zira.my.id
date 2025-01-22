@@ -15,7 +15,7 @@ const sorted = allNotes.sort(
   (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
 );
 
-const desc = `Off-desk, I write and tell stories, spinning fresh metaphors and thought-provoking ideas, weaving together the intangible and the real. I dive into the depths of curiosity, unraveling complexities and finding simplicity in chaos. I\u2019ve written ${NotesWordCount} in ${allNotes.length} notes\u2014each one a brainwave, hopefully not a brain freeze.`;
+const desc = `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve written ${NotesWordCount} in ${allNotes.length} notes.`;
 
 export const metadata = {
   alternates: {
@@ -58,24 +58,23 @@ export const metadata = {
 const Notes = () => {
   return (
     <section>
-      <h1 className="font-display text-2xl font-bold tracking-tight">
-        Notes &#126;
-      </h1>
-      <p className="mb-12 mt-4 text-sm text-amber-100">
-        Off-desk, I write and tell stories, spinning fresh metaphors and
-        thought-provoking ideas, weaving together the intangible and the real. I
-        dive into the depths of curiosity, unraveling complexities and finding
-        simplicity in chaos. I&rsquo;ve written {NotesWordCount} in
-        {allNotes.length} notes&mdash;each one a brainwave, hopefully not a
-        brain freeze.
+      <p className="mb-12 font-medium text-amber-50">
+        Off-desk, <span className="text-accent">I write and tell stories</span>,
+        weaving together the intangible with reality, unraveling complexities
+        and finding simplicity in chaos.{' '}
+        <span className="text-accent">
+          I&rsquo;ve written {NotesWordCount} in {allNotes.length} notes&mdash;
+        </span>
+        each one a brainwave, hopefully not a brain freeze.
       </p>
-      <div className="flex flex-wrap gap-1.5">
+      <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {sorted.map((post) => (
-          <div key={post.slug}>
+          <li key={post.slug} className="flex items-start gap-2">
+            <span className="text-neutral-500">&mdash;</span>
             <NoteItem post={post} />
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

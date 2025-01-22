@@ -3,6 +3,12 @@ import { pluralize } from '~/lib/utils';
 
 const { locale, timeZone } = constant;
 
+const getOrdinal = (day: number): string => {
+  const suffix = ['th', 'st', 'nd', 'rd'];
+  const value = day % 100;
+  return day + (suffix[(value - 20) % 10] || suffix[value] || suffix[0]);
+};
+
 const getRelativeTime = (minutes: number, isFuture: boolean): string => {
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(minutes / (60 * 24));
@@ -31,7 +37,8 @@ const getRelativeTime = (minutes: number, isFuture: boolean): string => {
 
 export const formattedDate = (
   date: string,
-  format: 'absolute' | 'relative'
+  format: 'absolute' | 'relative',
+  showWeekday: boolean = false
 ): string => {
   const currentDate = new Date();
   const targetDate = new Date(date);
@@ -44,18 +51,22 @@ export const formattedDate = (
 
   if (format === 'absolute') {
     const dateOptions: Intl.DateTimeFormatOptions = {
+      weekday: showWeekday ? 'long' : undefined,
       timeZone: timeZone,
-      month: 'long',
+      month: showWeekday ? 'short' : 'long',
       day: 'numeric',
       year: 'numeric',
     };
 
-    return targetDate.toLocaleDateString(locale, dateOptions);
+    const formattedDate = targetDate.toLocaleDateString(locale, dateOptions);
+    const day = targetDate.getDate();
+    const formattedDay = getOrdinal(day);
+
+    return formattedDate.replace(day.toString(), formattedDay);
   }
 
   if (format === 'relative') {
-    const relativeTime = getRelativeTime(minutesDiff, isFuture);
-    return relativeTime;
+    return getRelativeTime(minutesDiff, isFuture);
   }
 
   return '';

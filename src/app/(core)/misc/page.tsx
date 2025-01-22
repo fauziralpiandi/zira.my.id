@@ -4,7 +4,7 @@ import { SpotifyTopArtists, SpotifyTopTracks } from '~/components/spotify';
 const { baseUrl, title } = constant;
 
 const desc =
-  'A little corner of chaos\u2014where music isn\u2019t just heard, it\u2019s felt. It\u2019s all here, raw and real. Beats that make me move, and questionable decisions to match.';
+  'A chaotic corner\u2014music felt, raw and real. Beats that move, questionable choices.';
 
 export const metadata = {
   alternates: {
@@ -47,22 +47,25 @@ export const metadata = {
 const Misc = () => {
   return (
     <section>
-      <h1 className="font-display text-2xl font-bold tracking-tight">
-        Misc &#126;
-      </h1>
-      <p className="mt-4 text-sm text-amber-100">
-        A little corner of chaos&mdash;where music isn&rsquo;t just heard,
-        it&rsquo;s felt. It&rsquo;s all here, raw and real. Beats that make me
-        move, and questionable decisions to match.
+      <p className="mb-12 font-medium text-amber-50">
+        A little corner of chaos&mdash;
+        <span className="text-accent">
+          where music isn&rsquo;t just heard, it&rsquo;s felt.
+        </span>{' '}
+        It&rsquo;s all here, raw and real. Beats that make me move, and
+        questionable decisions to match.{' '}
+        <span className="text-accent">
+          Eh&mdash;just try it out, it&rsquo;s all about sharing tastes, Lmao...
+        </span>
       </p>
-      <div className="mt-12 space-y-6">
+      <div className="space-y-6">
         <SpotifyTopTracks />
         <SpotifyTopArtists />
-        <p className="text-xs text-stone-300">
-          Whatever, wherever, and whenever, I escape into music with
-          Spotify&mdash;Gracie Abrams and AXMO stay on repeat&mdash;big-room,
-          future-bass, indie, and dream setting the vibe. If it&rsquo;s not
-          worth the replay? Nah, not my jam.
+        <p className="text-xs text-neutral-300">
+          Whatever, wherever, and whenever, I escape into music with Spotify.
+          Gracie&lt;3 stay on repeat&mdash;big-room, future-bass, indie, and
+          dream setting the vibe. If it&rsquo;s not worth the replay? Nah, not
+          my jam.
         </p>
       </div>
     </section>

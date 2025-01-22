@@ -14,12 +14,12 @@ const Error = ({
   }, [error]);
 
   return (
-    <div className="grid min-h-96 place-items-center">
+    <div className="grid min-h-72 place-items-center">
       <div className="flex flex-col items-center gap-1 text-center">
         <h1 className="font-display text-4xl font-bold tracking-tight">
           Oops!
         </h1>
-        <mark className="text-sm font-medium tracking-tight text-amber-100">
+        <mark className="text-sm font-medium tracking-tight text-accent">
           Something went wrong&mdash;
         </mark>
         <p className="mt-3 max-w-md font-display text-xs tracking-tight text-red-500">
@@ -27,7 +27,7 @@ const Error = ({
         </p>
         <button
           onClick={() => reset()}
-          className="mt-4 rounded-lg border border-stone-800 bg-stone-900 px-2 py-1 text-sm font-medium tracking-tight text-amber-100"
+          className="mt-4 rounded-lg border border-neutral-800 bg-neutral-900 px-2 py-1 text-sm font-medium tracking-tight text-accent"
         >
           Try again?
         </button>

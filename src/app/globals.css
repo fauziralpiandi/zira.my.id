@@ -9,10 +9,6 @@
     scrollbar-gutter: stable;
     text-rendering: geometricPrecision;
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
     img {
       pointer-events: none;
     }
@@ -30,6 +26,9 @@
 
 @layer components {
   .prose {
+    hr {
+      @apply mx-auto w-1/3 border-accent;
+    }
 
     h1,
     h2,
@@ -41,15 +40,28 @@
     }
 
     a {
-      @apply font-normal text-amber-100 no-underline;
+      @apply font-normal text-accent no-underline;
     }
 
     blockquote {
-      @apply border-l-2 border-amber-100/10;
+      @apply bg-neutral-900/25 border-l-2 p-0;
 
       >p {
-        @apply text-lg font-light leading-8 text-stone-400 before:content-none after:content-none;
+        @apply px-5 py-3 not-italic text-lg font-light text-neutral-400 leading-8 before:content-none after:content-none;
       }
+    }
+
+    ul {
+      @apply list-none p-0;
+    }
+
+    ul>li::before {
+      @apply inline-block mr-2 text-accent;
+      content: '—';
+    }
+
+    ul>li {
+      @apply pl-0;
     }
 
     pre,
@@ -58,22 +70,22 @@
     }
 
     :not(pre)>code {
-      @apply relative rounded-md border border-amber-100/10 bg-stone-800/50 px-[4px] py-[1px] text-[0.875rem] font-medium;
+      @apply relative rounded-md border border-neutral-800 bg-neutral-900 px-[4px] py-[1px] text-[0.825rem] font-medium;
     }
 
     pre {
       @apply relative overflow-auto p-0;
-      @apply border border-amber-100/10 bg-stone-900/40;
+      @apply border border-neutral-900 bg-neutral-900/25;
 
       >code {
-        @apply overflow-x-scroll py-2 text-[0.85rem];
+        @apply overflow-x-scroll py-2 text-[0.8rem];
         counter-reset: line;
 
         &[data-line-numbers] {
           >[data-line]::before {
             counter-increment: line;
             content: counter(line);
-            @apply mr-4 inline-block w-4 text-right text-xs text-stone-500;
+            @apply mr-4 inline-block w-4 text-right text-xs text-neutral-500;
           }
         }
 
@@ -82,18 +94,18 @@
         }
 
         >[data-highlighted-line] {
-          @apply border-l-amber-200/15 bg-amber-200/5;
+          @apply border-l-neutral-800 bg-neutral-800/50;
         }
 
         [data-highlighted-chars] {
-          @apply rounded-md bg-amber-200/10 p-1;
+          @apply rounded-md bg-neutral-800 p-1;
         }
       }
     }
 
     [data-rehype-pretty-code-title] {
-      @apply bg-stone-800/50 font-code text-xs text-amber-50/75;
-      @apply rounded-md rounded-b-none border-x border-t border-amber-200/10;
+      @apply bg-neutral-900/50 font-code text-xs text-neutral-300;
+      @apply rounded-md rounded-b-none border-x border-t border-neutral-900;
       @apply max-w-full overflow-x-auto whitespace-nowrap px-3 py-2;
 
       +pre {
@@ -102,8 +114,40 @@
     }
 
     [data-rehype-pretty-code-caption] {
-      @apply text-center text-xs text-stone-500;
+      @apply text-center text-xs text-neutral-500;
     }
+  }
+
+  #moon-group {
+    @apply animate-hover;
+  }
+
+  #moon-group #aura-group {
+    @apply animate-shine;
+  }
+
+  #moon-group #aura-group #aura-1,
+  #moon-group #aura-group #aura-2,
+  #moon-group #aura-group #aura-3 {
+    @apply animate-shine;
+  }
+
+  #moon-group #crater-group #crater-1,
+  #moon-group #crater-group #crater-2,
+  #moon-group #crater-group #crater-3,
+  #moon-group #crater-group #crater-4 {
+    @apply animate-hover;
+  }
+
+  #mountain-group {
+    @apply animate-jam;
+  }
+
+  #mountain-group #mountain-1,
+  #mountain-group #mountain-2,
+  #mountain-group #mountain-3,
+  #mountain-group #mountain-4 {
+    @apply animate-jam;
   }
 }
 

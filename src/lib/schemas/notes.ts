@@ -11,6 +11,10 @@ export const Notes = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
+    summary: {
+      type: 'string',
+      required: false,
+    },
     published: {
       type: 'date',
       required: true,

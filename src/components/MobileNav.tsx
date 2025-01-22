@@ -19,7 +19,7 @@ export const MobileNav = ({
   return (
     <nav
       className={cx(
-        'animate fixed inset-0 right-0 z-20 flex flex-col items-center justify-center bg-stone-950/80 backdrop-blur-3xl backdrop-grayscale md:hidden',
+        'animate fixed inset-0 right-0 z-20 flex flex-col items-center justify-center bg-neutral-950/80 backdrop-blur-3xl backdrop-grayscale md:hidden',
         isOpen ? 'visible opacity-100' : 'invisible opacity-0'
       )}
       aria-hidden={!isOpen}
@@ -30,7 +30,7 @@ export const MobileNav = ({
           href={path}
           onClick={closeNav}
           className={cx(
-            'py-3 font-display text-4xl font-medium capitalize tracking-tight text-amber-100',
+            'py-2 font-display text-5xl font-medium capitalize text-accent',
             pathname === path ? 'opacity-50' : ''
           )}
           aria-current={pathname === path ? 'page' : undefined}
@@ -41,7 +41,7 @@ export const MobileNav = ({
 
       <aside className="fixed bottom-0 block w-full p-6 md:hidden">
         <div className="flex items-center justify-center">
-          <p className="text-xs font-medium text-amber-100">
+          <p className="font-display text-xs font-medium text-accent">
             &copy; {new Date().getFullYear()} {constant.authorName}
           </p>
         </div>

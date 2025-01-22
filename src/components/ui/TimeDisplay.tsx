@@ -29,9 +29,9 @@ export const TimeDisplay = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-end font-display text-xs md:flex-row md:items-center md:gap-1.5">
-      <span className="text-amber-100">{currentDateTime.time}</span>
-      <span className="text-stone-300">{currentDateTime.day}</span>
+    <div className="flex flex-col items-end font-display text-xs md:flex-row md:items-center md:gap-1.5 md:text-sm">
+      <span className="text-accent">{currentDateTime.time}</span>
+      <span className="text-neutral-400">{currentDateTime.day}</span>
     </div>
   );
 };

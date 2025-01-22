@@ -45,8 +45,8 @@ export const SpotifyNowPlaying = () => {
             <AudioWave isPlaying={false} />
           </div>
           <div className="flex flex-col space-y-1.5">
-            <div className="h-4 w-32 rounded bg-stone-900" />
-            <div className="h-3 w-24 rounded bg-stone-900" />
+            <div className="h-4 w-32 rounded bg-neutral-900" />
+            <div className="h-3 w-24 rounded bg-neutral-900" />
           </div>
         </div>
       </div>
@@ -57,12 +57,12 @@ export const SpotifyNowPlaying = () => {
     return (
       <div className="flex items-center justify-center">
         <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
-          <div className="flex rotate-45 items-center justify-center">
+          <div className="flex items-center justify-center">
             <AudioWave isPlaying={false} />
           </div>
           <div className="flex flex-col space-y-1.5">
-            <div className="h-4 w-32 rounded bg-amber-200/5" />
-            <div className="h-3 w-24 rounded bg-amber-200/5" />
+            <div className="h-4 w-32 rounded bg-neutral-900" />
+            <div className="h-3 w-24 rounded bg-neutral-900" />
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ export const SpotifyNowPlaying = () => {
       <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
         <AudioWave isPlaying={isPlaying} />
         <div className="flex flex-col">
-          <h1 className="line-clamp-1 font-display text-sm font-semibold leading-tight tracking-tight">
+          <h1 className="line-clamp-1 font-display text-sm font-bold leading-tight">
             <a
               href={url}
               title={`Listen ${title} \u2014 ${artist} Spotify`}
@@ -92,7 +92,7 @@ export const SpotifyNowPlaying = () => {
               {title}
             </a>
           </h1>
-          <p className="line-clamp-1 text-xs text-stone-400">{artist}</p>
+          <p className="line-clamp-1 text-xs text-neutral-400">{artist}</p>
         </div>
       </div>
     </div>

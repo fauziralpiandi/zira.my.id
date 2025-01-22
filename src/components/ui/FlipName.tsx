@@ -4,7 +4,7 @@ import { constant } from '~/lib/constant';
 
 export const FlipName = () => {
   return (
-    <h1 className="font-display font-medium tracking-tight text-amber-100">
+    <h1 className="font-display font-medium text-accent">
       <span className="group relative block overflow-hidden">
         <span
           aria-hidden="true"

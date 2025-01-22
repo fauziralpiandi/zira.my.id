@@ -1,9 +1,11 @@
 {
   "name": "zira.my.id",
+  "author": "fauziralpiandi",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "build": "next build",
-    "clean": "rm -rf .next .contentlayer",
+    "clean": "rm -rf .next",
     "dev": "next dev --turbopack",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -15,8 +17,7 @@
   "dependencies": {
     "@vercel/analytics": "1.4.1",
     "@vercel/postgres": "0.10.0",
-    "@vercel/speed-insights": "1.1.0",
-    "next": "15.1.4",
+    "next": "15.1.5",
     "next-view-transitions": "0.3.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -31,7 +32,7 @@
     "autoprefixer": "10.4.20",
     "contentlayer2": "0.5.3",
     "eslint": "^9",
-    "eslint-config-next": "15.1.4",
+    "eslint-config-next": "15.1.5",
     "mdx-bundler": "10.0.3",
     "next-contentlayer2": "0.5.3",
     "postcss": "^8",

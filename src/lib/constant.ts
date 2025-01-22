@@ -11,7 +11,7 @@ export const constant: Constant = {
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL!,
   title: 'fwzyrln_',
   description:
-    'An enthusiastic frontend developer with a passionate storyteller who\u2019s all in\u2014 slapping semicolons and sprinkling quotations with ease.',
+    'A West Java-based Scribe Developer\u2014Naturally a Selenophile.',
   authorName: 'Fauzira Alpiandi',
   locale: 'en-US',
   timeZone: 'Asia/Jakarta',

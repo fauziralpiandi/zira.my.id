@@ -1,6 +1,6 @@
 import { type Metadata } from 'next';
+
 import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ViewTransitions } from 'next-view-transitions';
 
 import { constant } from '~/lib/constant';
@@ -78,7 +78,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             fontDisplay.variable,
             fontCode.variable,
             'font-body antialiased',
-            'bg-stone-950 text-amber-50'
+            'bg-neutral-950 text-neutral-50'
           )}
         >
           <svg
@@ -90,9 +90,10 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
               <feTurbulence
                 type="fractalNoise"
                 baseFrequency="1"
-                numOctaves="5"
+                numOctaves="3"
                 stitchTiles="stitch"
               />
+              <feColorMatrix type="saturate" values="0" />
             </filter>
             <rect width="100%" height="100%" filter="url(#noise)" />
           </svg>
@@ -105,7 +106,6 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             </div>
             <Footer />
             <Analytics />
-            <SpeedInsights />
           </div>
         </body>
       </ViewTransitions>

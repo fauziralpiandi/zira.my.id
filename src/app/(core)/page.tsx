@@ -10,7 +10,7 @@ const Home = () => {
       <div className="flex flex-col items-center gap-4 md:flex-row md:justify-around md:gap-8">
         <Moonlight />
         <div className="flex flex-col text-center md:text-left">
-          <h1 className="font-display text-2xl font-bold text-accent md:mb-1.5">
+          <h1 className="font-display text-2xl font-bold text-accent">
             {authorName}
           </h1>
           <p className="max-w-md font-light leading-snug text-neutral-300 md:text-lg">

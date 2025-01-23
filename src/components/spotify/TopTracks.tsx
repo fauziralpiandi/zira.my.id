@@ -86,7 +86,6 @@ export const SpotifyTopTracks = () => {
               rel="noopener noreferrer nofollow"
             >
               <figure className="group relative aspect-square rounded-sm">
-                <div className="animate absolute inset-0 rounded-sm shadow-none group-hover:shadow-[0_0_50px_hsl(50,95%,88%)]" />
                 <span className="sr-only">
                   {title} &mdash; {artist}
                 </span>

@@ -11,7 +11,7 @@ export default {
         code: ['var(--font-code)'],
       },
       colors: {
-        accent: 'hsl(50, 95%, 88%)',
+        accent: 'hsl(48, 96%, 87%)',
       },
       animation: {
         hover: 'hover 3000ms ease-in-out infinite',

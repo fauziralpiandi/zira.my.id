@@ -40,28 +40,24 @@
     }
 
     a {
-      @apply font-normal text-accent no-underline;
+      @apply font-normal text-accent no-underline hover:underline underline-offset-2 decoration-1 decoration-neutral-700;
     }
 
     blockquote {
-      @apply bg-neutral-900/25 border-l-2 p-0;
+      @apply bg-neutral-900/25 rounded border-none p-0;
 
       >p {
-        @apply px-5 py-3 not-italic text-lg font-light text-neutral-400 leading-8 before:content-none after:content-none;
+        @apply px-5 py-3 not-italic text-sm font-light text-neutral-400 before:content-none after:content-none;
       }
     }
 
     ul {
-      @apply list-none p-0;
+      @apply list-[square];
     }
 
-    ul>li::before {
-      @apply inline-block mr-2 text-accent;
-      content: '—';
-    }
-
-    ul>li {
-      @apply pl-0;
+    ul>li::marker,
+    ol>li::marker {
+      @apply text-accent;
     }
 
     pre,

@@ -30,7 +30,7 @@ export const MobileNav = ({
           href={path}
           onClick={closeNav}
           className={cx(
-            'py-2 font-display text-5xl font-medium capitalize text-accent',
+            'py-2 font-display text-5xl font-medium text-accent',
             pathname === path ? 'opacity-50' : ''
           )}
           aria-current={pathname === path ? 'page' : undefined}
@@ -39,11 +39,21 @@ export const MobileNav = ({
         </Link>
       ))}
 
-      <aside className="fixed bottom-0 block w-full p-6 md:hidden">
+      <aside className="fixed bottom-0 block w-full p-8 md:hidden">
         <div className="flex items-center justify-center">
-          <p className="font-display text-xs font-medium text-accent">
+          <p className="font-display text-xs text-neutral-400">
             &copy; {new Date().getFullYear()} {constant.authorName}
           </p>
+          <span className="mx-1.5 text-neutral-500">/</span>
+          <Link
+            href="/tnc"
+            title="Terms and Conditions"
+            aria-label="Terms and Conditions"
+            className="text-right font-display text-xs font-medium text-accent"
+          >
+            TnC
+            <span className="sr-only">(Terms and Conditions)</span>
+          </Link>
         </div>
       </aside>
     </nav>

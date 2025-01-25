@@ -8,7 +8,7 @@ export const TimeDisplay = () => {
   const [currentDateTime, setCurrentDateTime] = useState<{
     day: string;
     time: string;
-  }>({ day: '.....', time: '...' });
+  }>({ day: '[ day ]', time: '[ time ]' });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,8 +30,12 @@ export const TimeDisplay = () => {
 
   return (
     <div className="flex flex-col items-end font-display text-xs md:flex-row md:items-center md:gap-1.5 md:text-sm">
-      <span className="text-accent">{currentDateTime.time}</span>
-      <span className="text-neutral-400">{currentDateTime.day}</span>
+      <span className="order-2 text-neutral-400 md:order-1">
+        {currentDateTime.day}
+      </span>
+      <span className="order-1 text-accent md:order-2">
+        {currentDateTime.time}
+      </span>
     </div>
   );
 };

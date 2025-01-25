@@ -1,6 +1,5 @@
-import { Moonlight } from '~/components/ui';
-
 import { constant } from '~/lib/constant';
+import { Moonlight } from '~/components/ui';
 
 const { description, authorName } = constant;
 

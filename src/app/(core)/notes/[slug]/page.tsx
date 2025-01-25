@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { allNotes } from 'collections';
 import { constant } from '~/lib/constant';
 import { formattedDate } from '~/lib/utils';
-
 import { MdxContent } from '~/components/mdx';
 
 export const dynamicParams = true;

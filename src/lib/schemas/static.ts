@@ -13,7 +13,7 @@ export const Static = defineDocumentType(() => ({
     },
     summary: {
       type: 'string',
-      required: false,
+      required: true,
     },
     date: {
       type: 'date',

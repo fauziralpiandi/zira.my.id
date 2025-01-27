@@ -28,12 +28,13 @@ export const MobileNav = ({
         <Link
           key={path}
           href={path}
-          onClick={closeNav}
+          title={name}
           className={cx(
             'py-2 font-display text-5xl font-medium text-accent',
             pathname === path ? 'opacity-50' : ''
           )}
           aria-current={pathname === path ? 'page' : undefined}
+          onClick={closeNav}
         >
           {name}
         </Link>
@@ -50,6 +51,7 @@ export const MobileNav = ({
             title="Terms and Conditions"
             aria-label="Terms and Conditions"
             className="text-right font-display text-xs font-medium text-accent"
+            onClick={closeNav}
           >
             TnC
             <span className="sr-only">(Terms and Conditions)</span>

@@ -75,7 +75,7 @@ Some content displayed on this site, such as "Now Playing" and "Top" taken from 
 
 This site may contain links or references to third-party websites that are not managed or controlled by me. These links are provided for the convenience of visitors and do not imply affiliation, endorsement, or approval of the content, products, or services on these third-party sites. I have no control over or responsibility for the content, privacy policies, or other practices of these sites.
 
-### 6.1. Third-Party Usage Responsibility
+### Third-Party Usage Responsibility
 
 By accessing or visiting third-party sites through links provided on this site, you agree that using those sites is at your own risk. I am not responsible for any loss, damage, or discrepancies arising from interactions with third-party sites, including but not limited to:
 
@@ -83,7 +83,7 @@ By accessing or visiting third-party sites through links provided on this site, 
 2. **Privacy and Security Policies**: I cannot guarantee the security of personal data or other information you provide on third-party sites. Each site has its own privacy and security policies, which may differ from mine. Therefore, I encourage you to exercise caution and consider the risks involved before providing personal or sensitive information on third-party sites.
 3. **Unreliable Content**: I cannot guarantee that the content on third-party sites is accurate, trustworthy, or free from malware, viruses, or other harmful content. You are responsible for ensuring that any content you access or download from third-party sites does not harm your device or violate your rights.
 
-### 6.2. Importance of Reading and Understanding Third-Party Policies
+### Importance of Reading and Understanding Third-Party Policies
 
 Each third-party site linked from this site has its own terms and privacy policies, which may differ from mine. I strongly encourage you to read and understand these terms before using their services, downloading information, or providing personal data. Any interactions or transactions on third-party sites should be done with full understanding of the terms, conditions, and potential risks involved.
 

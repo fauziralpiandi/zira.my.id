@@ -1,6 +1,6 @@
 /**
- * Licensed under the MIT License.
- * Modified from original work by Novum Perspective Design (https://codepen.io/Launghe/pen/ZEGPxEr)
+ * MIT License (c) Novum Perspective Design
+ * Modified from (https://codepen.io/Launghe/pen/ZEGPxEr)
  */
 
 export const Moonlight = () => {

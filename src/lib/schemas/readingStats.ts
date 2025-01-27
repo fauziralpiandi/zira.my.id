@@ -1,5 +1,5 @@
 /**
- * https://github.com/icyJoseph/icyJoseph/blob/dev/src/lib/reading-stats/estimate.ts
+ * Modified from (https://github.com/icyJoseph/icyJoseph/blob/dev/src/lib/reading-stats/estimate.ts)
  */
 
 type ReadingStats = {

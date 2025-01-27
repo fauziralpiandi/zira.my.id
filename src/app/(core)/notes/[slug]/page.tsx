@@ -79,12 +79,12 @@ const Notes = async (props: { params: Promise<{ slug: string }> }) => {
   return (
     <section>
       <div className="mb-10 flex flex-col items-start">
-        <h1 className="text-xl font-semibold text-amber-50">{title}</h1>
+        <h1 className="text-xl font-bold text-amber-50">{title}</h1>
         <time
           className="font-display text-xs font-light text-accent before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
           dateTime={formattedDate(published, 'absolute', true)}
           data-absolute={formattedDate(published, 'absolute', true)}
-          data-relative={`Written ${formattedDate(published, 'relative')}`}
+          data-relative={`Written ${formattedDate(published, 'relative')}\u2014`}
         />
       </div>
       <MdxContent code={body.code} />

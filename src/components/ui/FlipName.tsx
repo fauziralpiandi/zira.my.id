@@ -1,3 +1,7 @@
+/*
+ * Modified from https://github.com/leerob/site/blob/main/app/name.tsx
+ */
+
 import { Link } from 'next-view-transitions';
 
 import { constant } from '~/lib/constant';

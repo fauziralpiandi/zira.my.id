@@ -1,3 +1,8 @@
+/**
+ * Licensed under the MIT License.
+ * Modified from original work by Rachel McGrane (https://codepen.io/rachelmcgrane/pen/VexWdX)
+ */
+
 import { cx } from '~/lib/utils';
 
 export const AudioWave = ({ isPlaying }: { isPlaying: boolean }) => {

@@ -1,3 +1,7 @@
+/**
+ * https://github.com/icyJoseph/icyJoseph/blob/dev/src/lib/reading-stats/estimate.ts
+ */
+
 type ReadingStats = {
   time: number;
   minutes: number;

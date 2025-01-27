@@ -53,7 +53,7 @@ This site automatically collects certain information (as part of analysis and to
 
 ## 4. Intellectual Property Rights
 
-All content published on this site, including but not limited to writings, logos, and icons, is protected by copyright and related regulations unless otherwise stated. This content is licensed under the [Creative Commons Attribution-NoDerivatives 4.0 International License](/cc-by-nd-4.0.txt), which grants you the right to:
+All content published on this site, including but not limited to writings, logos, and icons, is protected by copyright and related regulations unless otherwise stated. This content is licensed under the [Creative Commons Attribution-NoDerivatives 4.0 International License](https://github.com/fauziralpiandi/fauziralpiandi/blob/main/content/LICENSE), which grants you the right to:
 
 1. **Copy and Distribute Content**  
    You are permitted to copy and distribute materials published on this site in any media or format, for both commercial and non-commercial purposes. However, you are prohibited from modifying, adapting, or altering the content in any way.

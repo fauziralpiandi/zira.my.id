@@ -91,7 +91,7 @@ export const SpotifyTopTracks = () => {
                 </span>
                 <Image
                   src={cover}
-                  alt={`${title} \u2014 ${artist}`}
+                  alt={`Cover of ${title} by ${artist}`}
                   fill
                   loading="lazy"
                   sizes="48px"

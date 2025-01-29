@@ -89,7 +89,7 @@ export const SpotifyTopArtists = () => {
                   <span className="sr-only">{name}</span>
                   <Image
                     src={image}
-                    alt={name}
+                    alt={`${name}\u2019s picture`}
                     fill
                     loading="lazy"
                     sizes="96px"

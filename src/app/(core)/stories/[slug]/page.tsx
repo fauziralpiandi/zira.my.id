@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { allStories } from 'collections';
 import { constant } from '~/lib/constant';
 import { formattedDate } from '~/lib/utils';
-
 import { LikeButton } from '~/components/ui';
 import { MdxContent } from '~/components/mdx';
 

@@ -1,3 +1,5 @@
+import { Link } from 'next-view-transitions';
+
 import { constant } from '~/lib/constant';
 import { SpotifyNowPlaying } from '~/components/spotify';
 import { TimeDisplay } from '~/components/ui';
@@ -6,15 +8,32 @@ export const Footer = () => {
   return (
     <footer className="relative">
       <hr className="absolute left-1/2 top-0 h-px w-screen -translate-x-1/2 border-neutral-900" />
-      <aside className="mt-8 grid grid-cols-2 items-center md:grid-cols-3">
+      <aside className="mt-8 flex grid grid-cols-2 items-center md:grid-cols-3">
         <div className="justify-self-start" aria-label="Spotify Now Playing">
           <SpotifyNowPlaying />
         </div>
-        <p className="hidden justify-self-center font-display text-sm text-accent md:block">
-          &copy; {new Date().getFullYear()} {constant.authorName}
-        </p>
-        <div className="justify-self-end" aria-label="Current Time">
+        <div
+          className="justify-self-end md:justify-self-center"
+          aria-label="Current Time"
+        >
           <TimeDisplay />
+        </div>
+        <div className="hidden justify-self-end md:block">
+          <div className="flex items-center">
+            <p className="font-display text-sm text-neutral-400">
+              &copy; {new Date().getFullYear()} {constant.authorName}
+            </p>
+            <span className="mx-1.5 text-neutral-500">/</span>
+            <Link
+              href="/tnc"
+              title="Terms and Conditions"
+              aria-label="Terms and Conditions"
+              className="text-right font-display text-sm font-medium text-accent"
+            >
+              TnC
+              <span className="sr-only">(Terms and Conditions)</span>
+            </Link>
+          </div>
         </div>
       </aside>
     </footer>

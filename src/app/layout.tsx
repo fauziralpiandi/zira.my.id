@@ -1,5 +1,4 @@
 import { type Metadata } from 'next';
-
 import { Analytics } from '@vercel/analytics/next';
 import { ViewTransitions } from 'next-view-transitions';
 

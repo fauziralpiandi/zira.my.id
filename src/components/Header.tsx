@@ -8,9 +8,9 @@ import { FlipName } from './ui';
 import { DesktopNav, MobileNav } from '~/components';
 
 const navItems = {
-  '/stories': { name: 'stories' },
-  '/notes': { name: 'notes' },
-  '/misc': { name: 'misc' },
+  '/stories': { name: 'Stories' },
+  '/notes': { name: 'Notes' },
+  '/misc': { name: 'Misc' },
 };
 
 export const Header = () => {

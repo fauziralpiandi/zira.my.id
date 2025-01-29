@@ -1,10 +1,10 @@
 import { defineDocumentType } from 'contentlayer2/source-files';
 
-import { countWords, getSlug } from '~/lib/schemas';
+import { getSlug } from '~/lib/schemas';
 
-export const Notes = defineDocumentType(() => ({
-  name: 'Notes',
-  filePathPattern: `notes/**/*.{md,mdx}`,
+export const Static = defineDocumentType(() => ({
+  name: 'Static',
+  filePathPattern: `static/**/*.{md,mdx}`,
   contentType: 'mdx',
   fields: {
     title: {
@@ -13,9 +13,9 @@ export const Notes = defineDocumentType(() => ({
     },
     summary: {
       type: 'string',
-      required: false,
+      required: true,
     },
-    published: {
+    date: {
       type: 'date',
       required: true,
     },
@@ -24,10 +24,6 @@ export const Notes = defineDocumentType(() => ({
     slug: {
       type: 'string',
       resolve: getSlug,
-    },
-    wordCount: {
-      type: 'string',
-      resolve: (doc) => countWords(doc.body.raw),
     },
   },
 }));

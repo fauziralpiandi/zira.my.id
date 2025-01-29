@@ -17,16 +17,16 @@ export const findImage = async (doc: Doc) => {
     try {
       await fs.access(imagePath);
       return `/imgs${toPublicPath(imagePath)}`;
-    } catch {
-      const placeholderPath = path.join(baseDir, `placeholder.${ext}`);
-      try {
-        await fs.access(placeholderPath);
-        return `/imgs${toPublicPath(placeholderPath)}`;
-      } catch {}
-    }
+    } catch {}
   }
 
-  throw new Error(
-    `Unable to locate the image or placeholder for the ${slug}. Please ensure the image exists in the expected directory.`
-  );
+  for (const ext of possibleExtensions) {
+    const placeholderPath = path.join(baseDir, `placeholder.${ext}`);
+    try {
+      await fs.access(placeholderPath);
+      return `/imgs${toPublicPath(placeholderPath)}`;
+    } catch {}
+  }
+
+  throw new Error('Unable to locate any valid image or placeholder.');
 };

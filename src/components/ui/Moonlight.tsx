@@ -1,3 +1,8 @@
+/**
+ * MIT License (c) Novum Perspective Design
+ * Modified from (https://codepen.io/Launghe/pen/ZEGPxEr)
+ */
+
 export const Moonlight = () => {
   return (
     <div className="flex overflow-hidden rounded-full bg-neutral-900/75">

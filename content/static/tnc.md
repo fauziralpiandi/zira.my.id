@@ -24,13 +24,12 @@ If you disagree with the terms or feel uncomfortable with the regulations in pla
 
 3. **Privacy Protection and Data Management**  
    I am committed to protecting users' privacy. By limiting access for those under the age of 13, I minimize the risk of collecting personal data from individuals who may not be mature enough to understand and manage their personal information. Data protection is crucial, and I aim to ensure that personal data is only collected and used in a lawful and secure manner.
-   
-5. **Parental or Guardian Responsibility**  
+4. **Parental or Guardian Responsibility**  
    I encourage the role of parents or guardians in monitoring and overseeing their children's online activities. With this age restriction, I provide parents with an opportunity to more easily control their children's access and ensure that the content they view is appropriate for their age and understanding level.
 
-6. **Avoiding Exposure to Inappropriate Content**  
+5. **Avoiding Exposure to Inappropriate Content**  
    While I provide content that is beneficial and suitable for various audiences, I recognize that some materials might still be inappropriate or misinterpreted by younger children. Therefore, by implementing this age limit, I ensure that visitors to the site are better able to understand and evaluate the information presented in a more mature manner.
-   
+
 ## 2. Use of the Site
 
 You agree to use this site only for lawful purposes and in accordance with applicable laws. You are fully responsible for your use of the site and must ensure that your actions do not violate any legal provisions. Specifically, you agree not to:

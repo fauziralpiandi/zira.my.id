@@ -17,7 +17,7 @@ export const StoryCard = ({ post }: { post: Stories }) => {
             fill
             className="animate object-cover group-hover:scale-110"
           />
-          <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-neutral-950/50 p-4 backdrop-blur backdrop-grayscale">
+          <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-neutral-950/75 p-4 backdrop-blur backdrop-grayscale">
             <div className="flex items-center space-x-1.5">
               <time
                 className="font-display text-xs font-medium text-accent"

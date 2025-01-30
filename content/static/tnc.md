@@ -17,7 +17,7 @@ If you disagree with the terms or feel uncomfortable with the regulations in pla
 **You must be at least 13 years old to use this site**. By continuing to use this site, you confirm that you meet this age requirement and have the right to access and use the site. Users under the age of 13 are advised to obtain parental or guardian consent before accessing or using this site. This restriction is applied for several important reasons, aimed at protecting all parties involved:
 
 1. **Compliance with Legal Regulations**  
-   This site is designed to comply with applicable regulations in various countries. By setting the age limit at 13 years, I ensure that this site does not collect personal information from children under this age without the consent of their parents or guardians, helping us avoid potential legal issues.
+   This site is designed to comply with applicable regulations in various countries. By setting the age limit at 13 years, I ensure that this site does not collect personal information from children under this age without the consent of their parents or guardians, helping me avoid potential legal issues.
 
 2. **Security and Protection for Young Users**  
    Children under the age of 13 may not fully understand the risks of the online world, including exposure to inappropriate or harmful content. By establishing this age restriction, I can offer a safer and more controlled experience for visitors, reducing risks that might arise.
@@ -95,12 +95,11 @@ This site is provided "as is" and "as available" without any warranties, either 
 I am not responsible for any loss, damage, or costs that arise from using or being unable to use this site, including but not limited to direct, indirect, incidental, consequential, or punitive damages. These damages include, but are not limited to:
 
 - Losses arising from failures, errors, viruses, or other harmful software affecting your device.
-- Damage caused by data deletion or loss, whether uploaded to the site or existing on your device.
 - Financial loss, loss of business opportunities, or negative impacts on your reputation or activities due to using the site.
 
 I do not guarantee that this site is free from errors, viruses, or other issues that may affect your device or data security. While I strive to maintain the site’s security and functionality, I cannot guarantee that it will always be free from interruptions, technical errors, or other issues affecting the user experience.
 
-Furthermore, I am not responsible for any loss or damage arising from the use of third-party services or sites linked to this site. You are fully responsible for evaluating and taking steps to protect your device and data when accessing this site or third-party sites linked through it.
+You are fully responsible for evaluating and taking steps to protect your device and data when accessing this site or third-party sites linked through it.
 
 This site may experience temporary interruptions, maintenance, or other changes that may affect access or functionality. You agree not to claim or hold me responsible for any losses incurred during such periods.
 

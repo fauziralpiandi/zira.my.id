@@ -8,7 +8,7 @@ import { constant } from '~/lib/constant';
 
 export const FlipName = () => {
   return (
-    <h1 className="font-display font-medium text-accent">
+    <h1 className="font-display text-accent font-medium">
       <span className="group relative block overflow-hidden">
         <span
           aria-hidden="true"
@@ -24,7 +24,7 @@ export const FlipName = () => {
             </span>
           ))}
         </span>
-        <span className="animate absolute left-0 top-0 inline-block translate-y-full group-hover:translate-y-0">
+        <span className="animate absolute top-0 left-0 inline-block translate-y-full group-hover:translate-y-0">
           <Link href="/" title="Go to Home" aria-label="Go to Home">
             {'home'.split('').map((letter, index) => (
               <span

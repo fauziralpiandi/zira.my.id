@@ -56,7 +56,7 @@ const TnC = () => {
     <section>
       <div className="mb-8">
         <time
-          className="font-display text-sm font-light text-accent"
+          className="font-display text-accent text-sm font-light"
           dateTime={formattedDate(date, 'absolute')}
         >
           Effective on {formattedDate(date, 'absolute')}

@@ -1,6 +1,67 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
+  --font-code: var(--font-code);
+
+  --color-accent: hsl(48, 96%, 87%);
+
+  --animate-hover: hover 3000ms ease-in-out infinite;
+  --animate-jam: jam 5000ms ease-in-out alternate infinite;
+  --animate-pulse: pulse 1500ms cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-shine: pulse 5000ms ease-in-out infinite;
+  --animate-wave: wave 1500ms ease-in-out infinite;
+
+  @keyframes hover {
+    50% {
+      transform: translateY(-1%);
+    }
+  }
+
+  @keyframes jam {
+    30% {
+      transform: translateX(1%) translateY(1%);
+    }
+
+    60% {
+      transform: translateX(-1%) translateY(1%);
+    }
+  }
+
+  @keyframes ping {
+
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes shine {
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes wave {
+    0% {
+      transform: scaleY(1);
+      transform-origin: 50% 50%;
+    }
+
+    50% {
+      transform: scaleY(0.75);
+      transform-origin: 50% 50%;
+    }
+
+    100% {
+      transform: scaleY(1);
+      transform-origin: 50% 50%;
+    }
+  }
+}
 
 @layer base {
   html {
@@ -25,94 +86,6 @@
 }
 
 @layer components {
-  .prose {
-    hr {
-      @apply mx-auto w-1/3 border-accent;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      @apply font-display tracking-tight text-amber-50;
-    }
-
-    a {
-      @apply font-normal text-accent no-underline hover:underline underline-offset-2 decoration-1 decoration-neutral-700;
-    }
-
-    blockquote {
-      @apply bg-neutral-900/25 rounded border-none p-0;
-
-      >p {
-        @apply px-5 py-3 not-italic text-sm font-light text-neutral-400 before:content-none after:content-none;
-      }
-    }
-
-    ul {
-      @apply list-[square];
-    }
-
-    ul>li::marker,
-    ol>li::marker {
-      @apply text-accent;
-    }
-
-    pre,
-    code {
-      @apply font-code before:content-none after:content-none;
-    }
-
-    :not(pre)>code {
-      @apply relative rounded-md border border-neutral-800 bg-neutral-900 px-[4px] py-[1px] text-[0.825rem] font-medium;
-    }
-
-    pre {
-      @apply relative overflow-auto p-0;
-      @apply border border-neutral-900 bg-neutral-900/25;
-
-      >code {
-        @apply overflow-x-scroll py-2 text-[0.8rem];
-        counter-reset: line;
-
-        &[data-line-numbers] {
-          >[data-line]::before {
-            counter-increment: line;
-            content: counter(line);
-            @apply mr-4 inline-block w-4 text-right text-xs text-neutral-500;
-          }
-        }
-
-        >[data-line] {
-          @apply border-l-2 border-l-transparent px-3;
-        }
-
-        >[data-highlighted-line] {
-          @apply border-l-neutral-800 bg-neutral-800/50;
-        }
-
-        [data-highlighted-chars] {
-          @apply rounded-md bg-neutral-800 p-1;
-        }
-      }
-    }
-
-    [data-rehype-pretty-code-title] {
-      @apply bg-neutral-900/50 font-code text-xs text-neutral-300;
-      @apply rounded-md rounded-b-none border-x border-t border-neutral-900;
-      @apply max-w-full overflow-x-auto whitespace-nowrap px-3 py-2;
-
-      +pre {
-        @apply mt-0 rounded-t-none;
-      }
-    }
-
-    [data-rehype-pretty-code-caption] {
-      @apply text-center text-xs text-neutral-500;
-    }
-  }
 
   #moon-group {
     @apply animate-hover;
@@ -147,8 +120,97 @@
   }
 }
 
-@layer utilities {
-  .animate {
-    @apply transition-all duration-500 ease-in-out;
+@utility prose {
+  hr {
+    @apply mx-auto w-1/3 border-accent;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display tracking-tight text-amber-50;
+  }
+
+  a {
+    @apply font-normal text-accent no-underline hover:underline underline-offset-2 decoration-1 decoration-neutral-700;
+  }
+
+  blockquote {
+    @apply bg-neutral-900/25 rounded-sm border-none p-0;
+
+    >p {
+      @apply px-5 py-3 not-italic text-sm font-light text-neutral-400 before:content-none after:content-none;
+    }
+  }
+
+  ul {
+    @apply list-[square];
+  }
+
+  ul>li::marker,
+  ol>li::marker {
+    @apply text-accent;
+  }
+
+  pre,
+  code {
+    @apply font-code before:content-none after:content-none;
+  }
+
+  :not(pre)>code {
+    @apply relative rounded-md border border-neutral-800 bg-neutral-900 px-[4px] py-[1px] text-[0.825rem] font-medium;
+  }
+
+  pre {
+    @apply relative overflow-auto p-0;
+    @apply border border-neutral-900 bg-neutral-900/25;
+
+    >code {
+      @apply overflow-x-scroll py-2 text-[0.8rem];
+      counter-reset: line;
+
+      &[data-line-numbers] {
+        >[data-line]::before {
+          counter-increment: line;
+          content: counter(line);
+          @apply mr-4 inline-block w-4 text-right text-xs text-neutral-500;
+        }
+      }
+
+      >[data-line] {
+        @apply border-l-2 border-l-transparent px-3;
+      }
+
+      >[data-highlighted-line] {
+        @apply border-l-neutral-800 bg-neutral-800/50;
+      }
+
+      [data-highlighted-chars] {
+        @apply rounded-md bg-neutral-800 p-1;
+      }
+    }
+  }
+
+  [data-rehype-pretty-code-title] {
+    @apply bg-neutral-900/50 font-code text-xs text-neutral-300;
+    @apply rounded-md rounded-b-none border-x border-t border-neutral-900;
+    @apply max-w-full overflow-x-auto whitespace-nowrap px-3 py-2;
+
+    +pre {
+      @apply mt-0 rounded-t-none;
+    }
+  }
+
+  [data-rehype-pretty-code-caption] {
+    @apply text-center text-xs text-neutral-500;
   }
 }
+
+@utility animate {
+  @apply transition-all duration-500 ease-in-out;
+}
+
+@custom-variant hover (&:hover);

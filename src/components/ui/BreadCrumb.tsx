@@ -19,7 +19,7 @@ export const BreadCrumb = () => {
 
   return (
     <nav
-      className="flex items-center font-display text-xs tracking-tight text-amber-100"
+      className="font-display flex items-center text-xs tracking-tight text-amber-100"
       aria-label="Breadcrumb"
     >
       {breadcrumbs.map((crumb, index) => (

@@ -87,9 +87,9 @@ export const LikeButton = ({ slug }: { slug: string }) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center rounded-lg border-accent/25 bg-neutral-950/50 backdrop-blur backdrop-grayscale">
+      <div className="border-accent/25 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale">
         <div className="flex animate-pulse items-center gap-1 rounded-lg px-2 py-1.5">
-          <PiSpinner className="h-5 w-5 animate-spin fill-accent" />
+          <PiSpinner className="fill-accent h-5 w-5 animate-spin" />
         </div>
       </div>
     );
@@ -97,10 +97,10 @@ export const LikeButton = ({ slug }: { slug: string }) => {
 
   if (error) {
     return (
-      <div className="border-red/50 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur backdrop-grayscale">
+      <div className="border-red/50 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale">
         <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
           <PiHeartFill className="h-5 w-5 fill-red-500" />
-          <span className="translate-y-[1px] font-display text-sm text-red-500">
+          <span className="font-display translate-y-[1px] text-sm text-red-500">
             ERR
           </span>
         </div>
@@ -112,18 +112,18 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     <button
       onClick={addLike}
       className={cx(
-        'flex items-center rounded-lg border border-accent/25 bg-neutral-950/50 backdrop-blur backdrop-grayscale',
+        'border-accent/25 flex items-center rounded-lg border bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale',
         hasLiked ? 'cursor-not-allowed' : ''
       )}
       disabled={hasLiked}
     >
       <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
         {hasLiked ? (
-          <PiHeartFill className="h-5 w-5 fill-accent" />
+          <PiHeartFill className="fill-accent h-5 w-5" />
         ) : (
-          <PiHeart className="h-5 w-5 fill-accent" />
+          <PiHeart className="fill-accent h-5 w-5" />
         )}
-        <span className="translate-y-[1px] font-display text-accent">
+        <span className="font-display text-accent translate-y-[1px]">
           {count !== null ? count : 0}
         </span>
       </div>

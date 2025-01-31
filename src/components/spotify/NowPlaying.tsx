@@ -45,8 +45,8 @@ export const SpotifyNowPlaying = () => {
             <AudioWave isPlaying={false} />
           </div>
           <div className="flex flex-col space-y-1.5">
-            <div className="h-4 w-32 rounded bg-neutral-900" />
-            <div className="h-3 w-24 rounded bg-neutral-900" />
+            <div className="h-4 w-32 rounded-sm bg-neutral-900" />
+            <div className="h-3 w-24 rounded-sm bg-neutral-900" />
           </div>
         </div>
       </div>
@@ -61,8 +61,8 @@ export const SpotifyNowPlaying = () => {
             <AudioWave isPlaying={false} />
           </div>
           <div className="flex flex-col space-y-1.5">
-            <div className="h-4 w-32 rounded bg-neutral-900" />
-            <div className="h-3 w-24 rounded bg-neutral-900" />
+            <div className="h-4 w-32 rounded-sm bg-neutral-900" />
+            <div className="h-3 w-24 rounded-sm bg-neutral-900" />
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ export const SpotifyNowPlaying = () => {
       <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
         <AudioWave isPlaying={isPlaying} />
         <div className="flex flex-col">
-          <h1 className="line-clamp-1 font-display text-sm font-bold leading-tight">
+          <h1 className="font-display line-clamp-1 text-sm leading-tight font-bold">
             <a
               href={url}
               title={`Listen ${title} \u2014 ${artist} Spotify`}

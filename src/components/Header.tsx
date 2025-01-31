@@ -35,7 +35,7 @@ export const Header = () => {
 
   return (
     <header
-      className="fixed left-0 right-0 top-0 z-30 flex items-center justify-between bg-neutral-950 px-8 pb-3 pt-6"
+      className="fixed top-0 right-0 left-0 z-30 flex items-center justify-between bg-neutral-950 px-8 pt-6 pb-3"
       style={{
         boxShadow: '0px 0px 30px 50px hsl(0, 0%, 4%)',
       }}
@@ -63,7 +63,7 @@ export const Header = () => {
 
       <button
         onClick={toggleNav}
-        className="z-30 -mr-1 text-accent md:hidden"
+        className="text-accent z-30 -mr-1 md:hidden"
         aria-label="Toggle navigation"
       >
         {isOpen ? <LuX size={22} /> : <LuMenu size={22} />}

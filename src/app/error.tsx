@@ -19,15 +19,15 @@ const Error = ({
         <h1 className="font-display text-4xl font-bold tracking-tight">
           Oops!
         </h1>
-        <mark className="text-sm font-medium tracking-tight text-accent">
+        <mark className="text-accent text-sm font-medium tracking-tight">
           Something went wrong&mdash;
         </mark>
-        <p className="mt-3 max-w-md font-display text-xs tracking-tight text-red-500">
+        <p className="font-display mt-3 max-w-md text-xs tracking-tight text-red-500">
           {error?.message || 'An unexpected error occurred. Please try again!'}
         </p>
         <button
           onClick={() => reset()}
-          className="mt-4 rounded-lg border border-neutral-800 bg-neutral-900 px-2 py-1 text-sm font-medium tracking-tight text-accent"
+          className="text-accent mt-4 rounded-lg border border-neutral-800 bg-neutral-900 px-2 py-1 text-sm font-medium tracking-tight"
         >
           Try again?
         </button>

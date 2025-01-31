@@ -1,7 +1,6 @@
 import { type Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { ViewTransitions } from 'next-view-transitions';
-
 import { constant } from '~/lib/constant';
 import { cx } from '~/lib/utils';
 import { fontBody, fontCode, fontDisplay } from '~/lib/fonts';
@@ -98,8 +97,8 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           </svg>
           <div className="flex min-h-screen flex-col p-8">
             <Header />
-            <div className="mx-auto flex w-full max-w-2xl flex-grow flex-col">
-              <main className="my-24 flex-grow text-pretty break-words md:my-36">
+            <div className="mx-auto flex w-full max-w-2xl grow flex-col">
+              <main className="my-24 grow text-pretty break-words md:my-36">
                 {children}
               </main>
             </div>

@@ -51,7 +51,7 @@ export const SpotifyTopTracks = () => {
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
-            className="aspect-square h-full w-full rounded-sm bg-neutral-900"
+            className="aspect-square h-full w-full rounded-xs bg-neutral-900"
           />
         ))}
       </div>
@@ -64,7 +64,7 @@ export const SpotifyTopTracks = () => {
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
-            className="aspect-square h-full w-full rounded-sm bg-neutral-900"
+            className="aspect-square h-full w-full rounded-xs bg-neutral-900"
           />
         ))}
       </div>
@@ -85,7 +85,7 @@ export const SpotifyTopTracks = () => {
               target="_blank"
               rel="noopener noreferrer nofollow"
             >
-              <figure className="group relative aspect-square rounded-sm">
+              <figure className="group relative aspect-square rounded-xs">
                 <span className="sr-only">
                   {title} &mdash; {artist}
                 </span>
@@ -95,7 +95,7 @@ export const SpotifyTopTracks = () => {
                   fill
                   loading="lazy"
                   sizes="48px"
-                  className="animate relative z-10 rounded-sm bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
+                  className="animate relative z-10 rounded-xs bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                 />
               </figure>
             </a>
@@ -104,7 +104,7 @@ export const SpotifyTopTracks = () => {
           return (
             <div
               key={index}
-              className="group relative aspect-square overflow-hidden rounded-sm"
+              className="group relative aspect-square overflow-hidden rounded-xs"
             >
               <div className="h-full w-full bg-neutral-200/5" />
             </div>

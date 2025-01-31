@@ -28,12 +28,12 @@ export const MdxPreCode = ({
     <pre ref={preRef} {...restProps} tabIndex={0} className="group relative">
       <button
         onClick={handleCopy}
-        className="animate absolute right-2 top-2.5 opacity-0 group-focus-within:opacity-100"
+        className="animate absolute top-2.5 right-2 opacity-0 group-focus-within:opacity-100"
         aria-label="Copy to clipboard"
       >
         <span
           className={cx(
-            'animate absolute right-0 top-0',
+            'animate absolute top-0 right-0',
             copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
           )}
         >
@@ -41,11 +41,11 @@ export const MdxPreCode = ({
         </span>
         <span
           className={cx(
-            'animate absolute right-0 top-0',
+            'animate absolute top-0 right-0',
             copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
           )}
         >
-          <LuCheck className="text-xl text-accent" />
+          <LuCheck className="text-accent text-xl" />
         </span>
       </button>
       {children}

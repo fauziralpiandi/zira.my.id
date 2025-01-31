@@ -73,17 +73,17 @@ const Stories = async (props: { params: Promise<{ slug: string }> }) => {
     <section>
       <div className="text-left">
         <time
-          className="text-xs text-accent before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
+          className="text-accent text-xs before:content-[attr(data-absolute)] hover:before:content-[attr(data-relative)]"
           dateTime={formattedDate(published, 'absolute', true)}
           data-absolute={`On ${formattedDate(published, 'absolute', true)}`}
           data-relative={`Posted ${formattedDate(published, 'relative')}`}
         />
-        <h1 className="mb-2.5 mt-3 font-display text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
+        <h1 className="font-display mt-3 mb-2.5 text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
           {title}
         </h1>
         <p className="text-sm text-neutral-400 md:mx-auto">{summary}</p>
       </div>
-      <figure className="relative left-[50%] right-[50%] my-8 aspect-[2/1] w-screen translate-x-[-50%] bg-neutral-900 md:aspect-[21/9] md:max-w-2xl md:rounded-lg">
+      <figure className="relative right-[50%] left-[50%] my-8 aspect-2/1 w-screen translate-x-[-50%] bg-neutral-900 md:aspect-21/9 md:max-w-2xl md:rounded-lg">
         <Image
           src={image}
           alt={title}
@@ -91,7 +91,7 @@ const Stories = async (props: { params: Promise<{ slug: string }> }) => {
           priority
           className="w-full object-cover md:rounded-lg"
         />
-        <div className="absolute bottom-3 right-3 z-10">
+        <div className="absolute right-3 bottom-3 z-10">
           <LikeButton slug={slug} />
         </div>
       </figure>

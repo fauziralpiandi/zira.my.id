@@ -6,7 +6,7 @@
   --font-display: var(--font-display);
   --font-code: var(--font-code);
 
-  --color-accent: hsl(48, 96%, 87%);
+  --color-accent: oklch(95.57% 0.0668 95.68);
 
   --animate-hover: hover 3000ms ease-in-out infinite;
   --animate-jam: jam 5000ms ease-in-out alternate infinite;

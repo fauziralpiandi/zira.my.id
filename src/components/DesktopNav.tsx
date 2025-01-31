@@ -18,7 +18,7 @@ export const DesktopNav = ({ pathname, navItems }: DesktopNav) => {
           key={path}
           href={path}
           className={cx(
-            'font-display font-medium capitalize text-accent',
+            'font-display text-accent font-medium capitalize',
             pathname === path ? 'opacity-50' : ''
           )}
           aria-current={pathname === path ? 'page' : undefined}

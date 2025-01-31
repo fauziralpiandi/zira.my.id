@@ -7,7 +7,7 @@ import { TimeDisplay } from '~/components/ui';
 export const Footer = () => {
   return (
     <footer className="relative">
-      <hr className="absolute left-1/2 top-0 h-px w-screen -translate-x-1/2 border-neutral-900" />
+      <hr className="absolute top-0 left-1/2 h-px w-screen -translate-x-1/2 border-neutral-900" />
       <aside className="mt-8 flex grid grid-cols-2 items-center md:grid-cols-3">
         <div className="justify-self-start" aria-label="Spotify Now Playing">
           <SpotifyNowPlaying />
@@ -28,7 +28,7 @@ export const Footer = () => {
               href="/tnc"
               title="Terms and Conditions"
               aria-label="Terms and Conditions"
-              className="text-right font-display text-sm font-medium text-accent"
+              className="font-display text-accent text-right text-sm font-medium"
             >
               TnC
               <span className="sr-only">(Terms and Conditions)</span>

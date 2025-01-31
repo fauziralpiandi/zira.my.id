@@ -35,9 +35,9 @@ export const Header = () => {
 
   return (
     <header
-      className="fixed left-0 right-0 top-0 z-30 flex items-center justify-between bg-neutral-950 px-8 pb-3 pt-6"
+      className="fixed top-0 right-0 left-0 z-30 flex items-center justify-between bg-neutral-950 px-8 pt-6 pb-3"
       style={{
-        boxShadow: '0px 0px 30px 50px hsl(0, 0%, 4%)',
+        boxShadow: '0px 0px 30px 50px #0a0a0a',
       }}
     >
       <div className="z-30 flex items-center space-x-3">
@@ -48,13 +48,13 @@ export const Header = () => {
           width="24"
           height="24"
         >
-          <circle cx="187.5" cy="187.5" r="187.5" fill="hsl(0, 0%, 8%)" />
+          <circle cx="187.5" cy="187.5" r="187.5" fill="oklch(19.3% 0 0)" />
           <path
-            fill="hsl(48, 96%, 87%)"
+            fill="oklch(95.57% 0.0668 95.68)"
             d="M247.9 232.74c-13.86 9.66-30.71 15.33-48.89 15.33-47.27 0-85.59-38.32-85.59-85.59 0-28.95 14.37-54.54 36.36-70.03-54.11 2.23-97.29 46.8-97.29 101.46 0 56.08 45.46 101.54 101.54 101.54 42.33 0 78.61-25.9 93.85-62.72z"
           />
           <path
-            fill="hsl(48, 96%, 87%)"
+            fill="oklch(95.57% 0.0668 95.68)"
             d="M127.1 142.26c13.86-9.66 30.71-15.33 48.89-15.33 47.27 0 85.59 38.32 85.59 85.59 0 28.95-14.37 54.54-36.36 70.03 54.11-2.23 97.29-46.8 97.29-101.46 0-56.08-45.46-101.54-101.54-101.54-42.33 0-78.61 25.9-93.85 62.72z"
           />
         </svg>
@@ -63,7 +63,7 @@ export const Header = () => {
 
       <button
         onClick={toggleNav}
-        className="z-30 -mr-1 text-accent md:hidden"
+        className="text-accent z-30 -mr-1 md:hidden"
         aria-label="Toggle navigation"
       >
         {isOpen ? <LuX size={22} /> : <LuMenu size={22} />}

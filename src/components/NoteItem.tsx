@@ -9,9 +9,9 @@ export const NoteItem = ({ post }: { post: Notes }) => {
   return (
     <div className="group">
       <Link href={`notes/${slug}`} className="flex flex-col">
-        <p className="text-lg font-medium leading-snug">{title}</p>
+        <p className="text-lg leading-snug font-medium">{title}</p>
         <time
-          className="font-display text-xs text-accent"
+          className="font-display text-accent text-xs"
           dateTime={formattedDate(published, 'absolute')}
         >
           {formattedDate(published, 'absolute')}

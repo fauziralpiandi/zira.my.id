@@ -2,6 +2,7 @@ import { type Metadata } from 'next';
 import { type Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { ViewTransitions } from 'next-view-transitions';
+
 import { constant } from '~/lib/constant';
 import { cx } from '~/lib/utils';
 import { fontBody, fontCode, fontDisplay } from '~/lib/fonts';

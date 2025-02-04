@@ -4,6 +4,9 @@ import { withContentlayer } from 'next-contentlayer2';
 import { securityHeader } from '~/lib/services';
 
 const nextConfig: NextConfig = {
+  devIndicators: {
+    appIsrStatus: false,
+  },
   env: {
     NEXT_PUBLIC_BASE_URL:
       process.env.NODE_ENV === 'production'
@@ -11,6 +14,7 @@ const nextConfig: NextConfig = {
         : 'http://localhost:3000',
   },
   images: {
+    qualities: [100],
     remotePatterns: [
       {
         protocol: 'https',

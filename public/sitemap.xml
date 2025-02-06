@@ -4,22 +4,27 @@
   xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://zira.my.id/</loc>
-    <lastmod>2025-01-23T17:40:29+00:00</lastmod>
+    <lastmod>2025-02-06T02:31:54+00:00</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://zira.my.id/stories</loc>
-    <lastmod>2025-01-23T17:40:29+00:00</lastmod>
+    <lastmod>2025-02-06T02:31:54+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://zira.my.id/notes</loc>
-    <lastmod>2025-01-23T17:40:29+00:00</lastmod>
+    <lastmod>2025-02-06T02:31:54+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://zira.my.id/misc</loc>
-    <lastmod>2025-01-23T17:40:29+00:00</lastmod>
+    <lastmod>2025-02-06T02:31:54+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://zira.my.id/tnc</loc>
+    <lastmod>2025-02-06T02:31:54+00:00</lastmod>
     <priority>0.80</priority>
   </url>
 </urlset>

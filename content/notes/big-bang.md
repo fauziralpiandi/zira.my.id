@@ -32,12 +32,12 @@ How could I doubt someone who perceives more than the mere calculations of my be
 
 And if you were to ask whether I could ever let go, I possess but one answer: no, I will never yield to your plea to desist. Should it entail bearing all consequences, I shall accept them with unwavering resolve. Should it demand walking alone, I will proceed, even if the path does not favor me.
 
-### The Decision I’ve Never Once Regretted.
+### The Decision I’ve Never Once Regretted—
 
 So let me exist, unforced, undisturbing, without altering who you are. That, in itself, is sufficient—sufficient to make me feel truly alive.
 
 I am profoundly thankful for that, indeed :)
 
-## Contemplate This with Utmost Deliberation.
+## Contemplate This with Utmost Deliberation,
 
 It would be wiser **not to place your hopes on time** for this matter, for **time will change nothing...**

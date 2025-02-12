@@ -34,7 +34,7 @@ export const GET = async (request: Request) => {
             height: '100%',
             justifyContent: 'space-between',
             padding: '2rem 4rem',
-            backgroundImage: `url('${baseUrl}/imgs/opengraph-background.jpg')`,
+            backgroundImage: `url('${baseUrl}/imgs/opengraph.jpg')`,
             backgroundSize: '1200px 630px',
             backgroundPosition: 'center',
           }}

@@ -1,6 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://zira.my.id/sitemap-0.xml</loc>
-  </sitemap>
-</sitemapindex>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://zira.my.id/</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/stories</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/misc</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/tnc</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/stories/2025</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/big-bang</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/serenity</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/divine-syntax</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/betting-reality</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/genocide</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/moonlight-shadow</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/tyrants</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/the-butterfly-effect</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/selfless-devotion</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/viralysm</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/cosmic-dimensions</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/perfect-imperfection</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/whispers-of-despair</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/inner-darkness</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/eden</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/embrace-yourself</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/puppy-love</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/trust-lost</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zira.my.id/notes/first-notes</loc>
+  <lastmod>2025-02-12T19:48:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

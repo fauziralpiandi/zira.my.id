@@ -6,7 +6,7 @@
   --font-display: var(--font-display);
   --font-code: var(--font-code);
 
-  --color-accent: oklch(95.57% 0.0668 95.68);
+  --color-accent: oklch(95% 0.04 95);
 
   --animate-hover: hover 3000ms ease-in-out infinite;
   --animate-jam: jam 5000ms ease-in-out alternate infinite;
@@ -161,7 +161,7 @@
   }
 
   :not(pre)>code {
-    @apply relative rounded-md border border-neutral-800 bg-neutral-900 px-[4px] py-[1px] text-[0.825rem] font-medium;
+    @apply relative rounded-md border border-neutral-800 bg-neutral-900 px-[4px] py-[1px] text-[0.85rem] font-medium;
   }
 
   pre {
@@ -169,7 +169,7 @@
     @apply border border-neutral-900 bg-neutral-900/25;
 
     >code {
-      @apply overflow-x-scroll py-2 text-[0.8rem];
+      @apply overflow-x-scroll py-2 text-[0.825rem];
       counter-reset: line;
 
       &[data-line-numbers] {

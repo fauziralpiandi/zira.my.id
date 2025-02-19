@@ -10,7 +10,10 @@ const notFound = () => {
         </mark>
         <p className="mt-3 max-w-md text-xs text-neutral-300">
           No worries, you&rsquo;re not the only one! Double-check the URL or{' '}
-          <Link href="/" className="text-accent">
+          <Link
+            href="/"
+            className="text-accent no-underline decoration-neutral-700 decoration-1 underline-offset-2 hover:underline"
+          >
             head back to the homepage
           </Link>
           . Maybe you&rsquo;ll find something cooler.

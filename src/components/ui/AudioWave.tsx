@@ -9,7 +9,6 @@ export const AudioWave = ({ isPlaying }: { isPlaying: boolean }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 26 38.05"
       className={cx('h-7 w-7', isPlaying ? 'fill-accent' : 'fill-neutral-500')}
     >

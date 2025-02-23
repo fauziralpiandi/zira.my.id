@@ -14,10 +14,9 @@ export const MdxLink = ({
   className,
   ...props
 }: MdxLinkProps) => {
-  const isExternalLink =
-    href.startsWith('http://') || href.startsWith('https://');
+  const isInternalLink = href.startsWith('/');
 
-  if (isExternalLink) {
+  if (!isInternalLink) {
     return (
       <a
         href={href}

@@ -142,7 +142,7 @@
     @apply bg-neutral-900/25 rounded-sm border-none p-0;
 
     >p {
-      @apply px-5 py-3 not-italic text-sm font-light text-neutral-400 before:content-none after:content-none;
+      @apply px-5 py-3 not-italic font-light text-neutral-400 before:content-none after:content-none;
     }
   }
 
@@ -210,7 +210,7 @@
 }
 
 @utility animate {
-  @apply transition-all duration-500 ease-in-out;
+  @apply transition-all duration-[400ms] ease-in-out;
 }
 
 @custom-variant hover (&:hover);

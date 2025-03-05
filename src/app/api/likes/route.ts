@@ -24,6 +24,7 @@ const handleGet = async (slug: string): Promise<Response> => {
     const count = await getCount(slug);
     return jsonResponse({ slug, count });
   } catch (error) {
+    console.error('Error handling GET request:', error);
     return jsonResponse(
       { error: 'Failed to get count', details: (error as Error).message },
       500
@@ -42,6 +43,7 @@ const handlePost = async (slug: string): Promise<Response> => {
     const count = await getCount(slug);
     return jsonResponse({ slug, count });
   } catch (error) {
+    console.error('Error handling POST request:', error);
     return jsonResponse(
       { error: 'Failed to update count', details: (error as Error).message },
       500
@@ -54,6 +56,7 @@ const handleHead = async (slug: string): Promise<Response> => {
     const count = await getCount(slug);
     return new Response(null, { status: count > 0 ? 200 : 404 });
   } catch (error) {
+    console.error('Error handling HEAD request:', error);
     return new Response(null, { status: 500 });
   }
 };
@@ -76,6 +79,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     return jsonResponse({ error: 'Method not allowed' }, 405);
   } catch (error) {
+    console.error('Error handling request:', error);
     return jsonResponse(
       { error: 'Internal Server Error', details: (error as Error).message },
       500

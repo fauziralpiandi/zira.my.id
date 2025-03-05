@@ -1,20 +1,23 @@
-import { sql } from '@vercel/postgres';
+import { neon as db } from '@neondatabase/serverless';
 
-const getCount = async (slug: string): Promise<number> => {
-  try {
-    const result =
-      await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`;
-    return result.rows[0]?.count || 0;
-  } catch {
-    return 0;
-  }
-};
+const sql = db(process.env.DATABASE_URL!);
 
 const jsonResponse = (data: object, status: number = 200): Response =>
   new Response(JSON.stringify(data), {
     status,
     headers: { 'Content-Type': 'application/json' },
   });
+
+const getCount = async (slug: string): Promise<number> => {
+  try {
+    const result =
+      await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`;
+    return result[0]?.count || 0;
+  } catch (error) {
+    console.error('Error fetching count:', error);
+    return 0;
+  }
+};
 
 const handleGet = async (slug: string): Promise<Response> => {
   try {
@@ -50,7 +53,7 @@ const handleHead = async (slug: string): Promise<Response> => {
   try {
     const count = await getCount(slug);
     return new Response(null, { status: count > 0 ? 200 : 404 });
-  } catch {
+  } catch (error) {
     return new Response(null, { status: 500 });
   }
 };

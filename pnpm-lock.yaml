@@ -29,9 +29,6 @@ importers:
       react-icons:
         specifier: 5.5.0
         version: 5.5.0(react@19.0.0)
-      runner:
-        specifier: link:/home/runner
-        version: link:..
     devDependencies:
       '@eslint/eslintrc':
         specifier: 3.3.0

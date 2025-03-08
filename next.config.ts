@@ -10,16 +10,10 @@ const nextConfig: NextConfig = {
         ? 'https://zira.my.id'
         : 'http://localhost:3000',
   },
-  images: {
-    qualities: [100],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'i.scdn.co',
-        pathname: '/**',
-      },
-    ],
+  experimental: {
+    webVitalsAttribution: ['FCP', 'LCP', 'CLS', 'FID', 'TTFB', 'INP'],
   },
+  expireTime: 604800,
   headers() {
     if (process.env.NODE_ENV !== 'production') {
       return Promise.resolve([]);
@@ -30,6 +24,16 @@ const nextConfig: NextConfig = {
         headers: securityHeader,
       },
     ]);
+  },
+  images: {
+    qualities: [100],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        pathname: '/**',
+      },
+    ],
   },
 };
 

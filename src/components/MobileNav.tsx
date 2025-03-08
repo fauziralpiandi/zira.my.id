@@ -6,7 +6,7 @@ import { cx } from '~/lib/utils';
 type MobileNav = {
   isOpen: boolean;
   pathname: string;
-  navItems: Record<string, { name: string }>;
+  navItems: Record<string, { name: string; path: string }>;
   closeNav: () => void;
 };
 

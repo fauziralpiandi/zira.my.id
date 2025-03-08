@@ -7,7 +7,12 @@ type Constant = {
   timeZone: string;
 };
 
-export const constant: Constant = {
+type NavItem = {
+  name: string;
+  path: string;
+};
+
+const constant: Constant = {
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL!,
   title: 'fwzyrln_',
   description:
@@ -16,3 +21,11 @@ export const constant: Constant = {
   locale: 'en-US',
   timeZone: 'Asia/Jakarta',
 };
+
+const navItems: NavItem[] = [
+  { name: 'Stories', path: '/stories' },
+  { name: 'Notes', path: '/notes' },
+  { name: 'Misc', path: '/misc' },
+];
+
+export { constant, navItems };

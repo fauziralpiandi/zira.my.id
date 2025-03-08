@@ -17,6 +17,8 @@ export const SpotifyNowPlaying = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let intervalId: NodeJS.Timeout | null = null;
+
     const fetchTrack = async () => {
       try {
         setLoading(true);
@@ -24,17 +26,28 @@ export const SpotifyNowPlaying = () => {
         if (!response.ok) throw new Error('Failed to fetch Spotify data');
         const data: NowPlaying = await response.json();
         setTrack(data);
-      } catch {
-        setError('Error fetching track data');
+        setError(null);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Unexpected error occurred');
+        }
+        setTrack(null);
       } finally {
         setLoading(false);
       }
     };
 
     fetchTrack();
-    const intervalId = setInterval(fetchTrack, 30000);
 
-    return () => clearInterval(intervalId);
+    if (process.env.NODE_ENV === 'production') {
+      intervalId = setInterval(fetchTrack, 15000);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, []);
 
   if (loading) {

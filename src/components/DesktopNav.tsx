@@ -4,7 +4,7 @@ import { cx } from '~/lib/utils';
 
 type DesktopNav = {
   pathname: string;
-  navItems: Record<string, { name: string }>;
+  navItems: Record<string, { name: string; path: string }>;
 };
 
 export const DesktopNav = ({ pathname, navItems }: DesktopNav) => {

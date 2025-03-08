@@ -6,12 +6,7 @@ import { LuMenu, LuX } from 'react-icons/lu';
 
 import { FlipName } from './ui';
 import { DesktopNav, MobileNav } from '~/components';
-
-const navItems = {
-  '/stories': { name: 'Stories' },
-  '/notes': { name: 'Notes' },
-  '/misc': { name: 'Misc' },
-};
+import { navItems } from '~/lib/constant';
 
 export const Header = () => {
   const pathname = usePathname();
@@ -70,10 +65,19 @@ export const Header = () => {
       <MobileNav
         isOpen={isOpen}
         pathname={pathname}
-        navItems={navItems}
+        navItems={navItems.reduce(
+          (acc, item) => ({ ...acc, [item.path]: item }),
+          {}
+        )}
         closeNav={() => setIsOpen(false)}
       />
-      <DesktopNav pathname={pathname} navItems={navItems} />
+      <DesktopNav
+        pathname={pathname}
+        navItems={navItems.reduce(
+          (acc, item) => ({ ...acc, [item.path]: item }),
+          {}
+        )}
+      />
     </header>
   );
 };

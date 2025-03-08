@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { PiHeart, PiHeartFill, PiSpinner } from 'react-icons/pi';
 
 import { cx } from '~/lib/utils';
@@ -27,9 +27,12 @@ export const LikeButton = ({ slug }: { slug: string }) => {
         if (!res.ok) throw new Error('Failed to fetch count');
         const data: LikeResponse = await res.json();
         setCount(data.count);
-      } catch (error) {
-        if (error instanceof Error && error.name !== 'AbortError') {
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') return;
           setError(error.message);
+        } else {
+          setError('Unexpected error occurred');
         }
       } finally {
         setIsLoading(false);
@@ -42,7 +45,10 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     }
 
     fetchLike();
-    return () => controller.abort();
+
+    return () => {
+      controller.abort();
+    };
   }, [slug]);
 
   const getCookie = (name: string): string | undefined => {
@@ -59,7 +65,7 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     document.cookie = `${name}=${value}; ${expires}; path=/`;
   };
 
-  const addLike = async () => {
+  const addLike = useCallback(async () => {
     if (hasLiked || isAddingLike) return;
 
     setIsAddingLike(true);
@@ -83,7 +89,7 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     } finally {
       setIsAddingLike(false);
     }
-  };
+  }, [hasLiked, isAddingLike, slug]);
 
   if (isLoading) {
     return (

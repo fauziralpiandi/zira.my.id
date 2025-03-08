@@ -20,7 +20,7 @@ export const SpotifyTopArtists = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const fetchTracks = async () => {
+    const fetchArtists = async () => {
       try {
         const data = await saveCache<Artist[]>(
           'topArtists',
@@ -50,7 +50,7 @@ export const SpotifyTopArtists = () => {
       }
     };
 
-    fetchTracks();
+    fetchArtists();
 
     return () => {
       controller.abort();

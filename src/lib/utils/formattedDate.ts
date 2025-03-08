@@ -9,30 +9,19 @@ const getOrdinal = (day: number): string => {
   return day + (suffix[(value - 20) % 10] || suffix[value] || suffix[0]);
 };
 
-const getRelativeTime = (minutes: number, isFuture: boolean): string => {
+const getRelativeTime = (minutes: number): string => {
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(minutes / (60 * 24));
   const weeks = Math.floor(minutes / (60 * 24 * 7));
   const months = Math.floor(minutes / (60 * 24 * 30));
   const years = Math.floor(minutes / (60 * 24 * 365));
 
-  if (minutes < 60) return isFuture ? 'In a moment' : 'Just now';
-  if (hours < 24) return isFuture ? 'In a few hours' : 'Today';
-  if (days < 7)
-    return isFuture
-      ? `In ${pluralize(days, 'day')}`
-      : pluralize(days, 'day') + ' ago';
-  if (weeks < 4)
-    return isFuture
-      ? `In ${pluralize(weeks, 'week')}`
-      : pluralize(weeks, 'week') + ' ago';
-  if (months < 12)
-    return isFuture
-      ? `In ${pluralize(months, 'month')}`
-      : pluralize(months, 'month') + ' ago';
-  return isFuture
-    ? `In ${pluralize(years, 'year')}`
-    : pluralize(years, 'year') + ' ago';
+  if (minutes < 60) return 'Just now';
+  if (hours < 24) return 'A few hours ago';
+  if (days < 7) return `${pluralize(days, 'day')} ago`;
+  if (weeks < 4) return `${pluralize(weeks, 'week')} ago`;
+  if (months < 12) return `${pluralize(months, 'month')} ago`;
+  return `${pluralize(years, 'year')} ago`;
 };
 
 export const formattedDate = (
@@ -45,9 +34,8 @@ export const formattedDate = (
 
   if (isNaN(targetDate.getTime())) return 'Invalid date format';
 
-  const timeDifference = targetDate.getTime() - currentDate.getTime();
-  const minutesDiff = Math.floor(Math.abs(timeDifference) / (1000 * 60));
-  const isFuture = timeDifference > 0;
+  const timeDifference = currentDate.getTime() - targetDate.getTime();
+  const minutesDiff = Math.floor(timeDifference / (1000 * 60));
 
   if (format === 'absolute') {
     const dateOptions: Intl.DateTimeFormatOptions = {
@@ -66,7 +54,7 @@ export const formattedDate = (
   }
 
   if (format === 'relative') {
-    return getRelativeTime(minutesDiff, isFuture);
+    return getRelativeTime(minutesDiff);
   }
 
   return '';

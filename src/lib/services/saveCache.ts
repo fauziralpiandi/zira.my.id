@@ -1,29 +1,32 @@
-export const saveCache = <T>(
+export const saveCache = async <T>(
   key: string,
   maxAge: number,
   fetchData: () => Promise<T>
 ): Promise<T> => {
-  return new Promise(async (resolve, reject) => {
+  try {
     const cachedData = localStorage.getItem(key);
     const cacheTimestamp = localStorage.getItem(`${key}Timestamp`);
     const currentTime = Date.now();
 
-    if (
-      cachedData &&
-      cacheTimestamp &&
-      currentTime - parseInt(cacheTimestamp) < maxAge
-    ) {
-      resolve(JSON.parse(cachedData) as T);
-      return;
+    if (cachedData && cacheTimestamp) {
+      const parsedTimestamp = parseInt(cacheTimestamp);
+
+      if (currentTime - parsedTimestamp < maxAge) {
+        try {
+          return JSON.parse(cachedData) as T;
+        } catch {
+          console.warn(`Failed to parse cached data for key: ${key}`);
+        }
+      }
     }
 
-    try {
-      const data = await fetchData();
-      localStorage.setItem(key, JSON.stringify(data));
-      localStorage.setItem(`${key}Timestamp`, currentTime.toString());
-      resolve(data);
-    } catch (err) {
-      reject(err);
-    }
-  });
+    const data = await fetchData();
+    localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(`${key}Timestamp`, currentTime.toString());
+
+    return data;
+  } catch (error) {
+    console.error(`Error fetching data for key: ${key}`, error);
+    throw error;
+  }
 };

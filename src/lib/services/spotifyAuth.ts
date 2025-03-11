@@ -10,36 +10,21 @@ const SPOTIFY = SPOTIFY_ENV;
 
 const getBasicToken = (() => {
   let cachedToken: string | null = null;
-  return (): string => {
-    if (!cachedToken) {
-      cachedToken = Buffer.from(
-        `${SPOTIFY.CLIENT_ID}:${SPOTIFY.CLIENT_SECRET}`
-      ).toString('base64');
-    }
-    return cachedToken;
-  };
+  return () =>
+    (cachedToken ??= Buffer.from(
+      `${SPOTIFY.CLIENT_ID}:${SPOTIFY.CLIENT_SECRET}`
+    ).toString('base64'));
 })();
 
-const isAccessTokenResponse = (data: unknown): data is AccessTokenResponse => {
-  if (
-    typeof data === 'object' &&
-    data !== null &&
-    'access_token' in data &&
-    'token_type' in data &&
-    'expires_in' in data
-  ) {
-    const { access_token, token_type, expires_in } = data as Record<
-      string,
-      unknown
-    >;
-    return (
-      typeof access_token === 'string' &&
-      typeof token_type === 'string' &&
-      typeof expires_in === 'number'
-    );
-  }
-  return false;
-};
+const isAccessTokenResponse = (data: unknown): data is AccessTokenResponse =>
+  !!data &&
+  typeof data === 'object' &&
+  'access_token' in data &&
+  'token_type' in data &&
+  'expires_in' in data &&
+  typeof (data as Record<string, unknown>).access_token === 'string' &&
+  typeof (data as Record<string, unknown>).token_type === 'string' &&
+  typeof (data as Record<string, unknown>).expires_in === 'number';
 
 const formatError = (message: string, error: unknown): Error => {
   const errorMessage = error instanceof Error ? error.message : String(error);
@@ -53,11 +38,12 @@ export const getAccessToken = async (): Promise<string> => {
       headers: {
         Authorization: `Basic ${getBasicToken()}`,
         'Content-Type': 'application/x-www-form-urlencoded',
+        'Cache-Control': 'no-cache',
       },
       body: new URLSearchParams({
         grant_type: 'refresh_token',
         refresh_token: SPOTIFY.REFRESH_TOKEN,
-      }).toString(),
+      }),
     });
 
     if (!response.ok) {

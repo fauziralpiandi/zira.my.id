@@ -6,7 +6,8 @@ const { locale, timeZone } = constant;
 const getOrdinal = (day: number): string => {
   const suffix = ['th', 'st', 'nd', 'rd'];
   const value = day % 100;
-  return day + (suffix[(value - 20) % 10] || suffix[value] || suffix[0]);
+  if (value >= 11 && value <= 13) return `${day}th`;
+  return `${day}${suffix[day % 10] || 'th'}`;
 };
 
 const getRelativeTime = (minutes: number): string => {
@@ -16,8 +17,8 @@ const getRelativeTime = (minutes: number): string => {
   const months = Math.floor(minutes / (60 * 24 * 30));
   const years = Math.floor(minutes / (60 * 24 * 365));
 
-  if (minutes < 60) return 'Just now';
-  if (hours < 24) return 'A few hours ago';
+  if (minutes < 60) return 'just now';
+  if (hours < 24) return 'a few hours ago';
   if (days < 7) return `${pluralize(days, 'day')} ago`;
   if (weeks < 4) return `${pluralize(weeks, 'week')} ago`;
   if (months < 12) return `${pluralize(months, 'month')} ago`;

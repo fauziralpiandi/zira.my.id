@@ -9,24 +9,33 @@ export const findImage = async (doc: Doc) => {
   const possibleExtensions = ['webp', 'png', 'jpg', 'jpeg', 'svg', 'gif'];
   const baseDir = path.join(process.cwd(), 'public', 'imgs');
 
-  const toPublicPath = (filePath: string) =>
-    filePath.replace(baseDir, '').replace(/\\/g, '/');
+  const toPublicPath = (filePath: string) => {
+    const relativePath = path.relative(baseDir, filePath).replace(/\\/g, '/');
+    return `/${relativePath}`;
+  };
 
-  for (const ext of possibleExtensions) {
-    const imagePath = path.join(baseDir, `${slug}.${ext}`);
+  const findFile = async (name: string) => {
     try {
-      await fs.access(imagePath);
-      return `/imgs${toPublicPath(imagePath)}`;
-    } catch {}
-  }
+      return await Promise.any(
+        possibleExtensions.map(async (ext) => {
+          const filePath = path.join(baseDir, `${name}.${ext}`);
+          await fs.access(filePath);
+          return `/imgs${toPublicPath(filePath)}`;
+        })
+      );
+    } catch {
+      throw new Error(`No valid image found for ${name}`);
+    }
+  };
 
-  for (const ext of possibleExtensions) {
-    const placeholderPath = path.join(baseDir, `placeholder.${ext}`);
+  try {
+    return await findFile(slug);
+  } catch {
     try {
-      await fs.access(placeholderPath);
-      return `/imgs${toPublicPath(placeholderPath)}`;
-    } catch {}
+      return await findFile('placeholder');
+    } catch {
+      console.warn('No valid image or placeholder found, returning null.');
+      return null;
+    }
   }
-
-  throw new Error('Unable to locate any valid image or placeholder.');
 };

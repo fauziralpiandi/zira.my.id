@@ -4,117 +4,107 @@ summary: What’s the deal on my site. Make sure you’re down before moving for
 date: 2025-01-27
 ---
 
-This website is designed as a platform for sharing personal writings, opinions, and creative works. I provide a space for individuals to explore ideas, expand their horizons, and develop a deeper understanding of various topics. However, as a visitor and user of this site, you are expected to read, understand, and agree to the terms and conditions before continuing to use this site.
-
-By continuing to access, browse, or use this site, whether before or after the effective date, you hereby agree to be bound by all the terms and conditions set forth.
-
-If you disagree with the terms or feel uncomfortable with the regulations in place, I ask that you immediately leave this site and cease further use. Using this site without agreeing to these terms constitutes a violation of the usage terms established.
+This website serves as a platform for sharing personal writings, opinions, and creative works. By accessing or using this site, you agree to these terms. If you disagree, please discontinue use immediately.
 
 ---
 
 ## 1. Eligibility
 
-**You must be at least 13 years old to use this site**. By continuing to use this site, you confirm that you meet this age requirement and have the right to access and use the site. Users under the age of 13 are advised to obtain parental or guardian consent before accessing or using this site. This restriction is applied for several important reasons, aimed at protecting all parties involved:
+You must be **at least 13 years old** to use this site. Users under 13 should have parental or guardian consent. This restriction is in place to ensure compliance with **[COPPA (Children’s Online Privacy Protection Act)](https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa)** and similar regulations.
 
-1. **Compliance with Legal Regulations**  
-   This site is designed to comply with applicable regulations in various countries. By setting the age limit at 13 years, I ensure that this site does not collect personal information from children under this age without the consent of their parents or guardians, helping me avoid potential legal issues.
+**Why is this age restriction necessary?**
 
-2. **Security and Protection for Young Users**  
-   Children under the age of 13 may not fully understand the risks of the online world, including exposure to inappropriate or harmful content. By establishing this age restriction, I can offer a safer and more controlled experience for visitors, reducing risks that might arise.
+- **Legal Compliance** – Many jurisdictions prohibit data collection from minors without parental consent.
+- **User Safety** – Protects young users from inappropriate content and ensures a safe browsing experience.
+- **Privacy Protection** – Ensures that personal data is not collected from underage users without safeguards.
 
-3. **Privacy Protection and Data Management**  
-   I am committed to protecting users' privacy. By limiting access for those under the age of 13, I minimize the risk of collecting personal data from individuals who may not be mature enough to understand and manage their personal information. Data protection is crucial, and I aim to ensure that personal data is only collected and used in a lawful and secure manner.
-4. **Parental or Guardian Responsibility**  
-   I encourage the role of parents or guardians in monitoring and overseeing their children's online activities. With this age restriction, I provide parents with an opportunity to more easily control their children's access and ensure that the content they view is appropriate for their age and understanding level.
-
-5. **Avoiding Exposure to Inappropriate Content**  
-   While I provide content that is beneficial and suitable for various audiences, I recognize that some materials might still be inappropriate or misinterpreted by younger children. Therefore, by implementing this age limit, I ensure that visitors to the site are better able to understand and evaluate the information presented in a more mature manner.
+**Parents and guardians are encouraged to monitor their children's online activity.**
 
 ## 2. Use of the Site
 
-You agree to use this site only for lawful purposes and in accordance with applicable laws. You are fully responsible for your use of the site and must ensure that your actions do not violate any legal provisions. Specifically, you agree not to:
+By using this site, you agree to adhere to all **applicable laws and regulations**. You are solely responsible for your activities while browsing or interacting with this website.
 
-- Use this site to transmit illegal, misleading, or harmful material.
-- Access unauthorized data or attempt to access servers or networks connected to this site.
-- Use bots, spiders, or other automated tools to collect information from this site without permission.
-- Disrupt or damage the functionality of the site or its connected servers and networks.
+**You agree NOT to:**
+
+- Use this site for **illegal, fraudulent, or harmful purposes**.
+- Attempt to **hack, breach security, or access unauthorized data**.
+- Scrape, harvest, or collect user information without permission.
 
 ## 3. Information Collected
 
-This site automatically collects certain information (as part of analysis and to improve user experience) when you visit, including:
+This site collects **basic analytics data** to improve functionality, enhance user experience, and optimize performance.  
 
-- Your geographical location
-- Type of device and operating system used
-- Type of browser used
-- Pages accessed on the site
-- Time and date of access
-- Duration of your visit
+### **What is collected?**
 
-## 4. Intellectual Property Rights
+- **Geographical location** (general region, not precise coordinates).
+- **Device type, operating system, and browser version**.
+- **Pages accessed, session duration, and interaction patterns**.
+- **Date, time, and frequency of visits**.
 
-All content published on this site, including but not limited to writings, logos, and icons, is protected by copyright and related regulations unless otherwise stated. This content is licensed under the [Creative Commons Attribution-NoDerivatives 4.0 International License](https://github.com/fauziralpiandi/fauziralpiandi/blob/main/content/LICENSE), which grants you the right to:
+This data is collected automatically via **[Vercel Web Analytics](https://vercel.com/docs/analytics/privacy-policy)** and does **not** include personally identifiable information.
 
-1. **Copy and Distribute Content**  
-   You are permitted to copy and distribute materials published on this site in any media or format, for both commercial and non-commercial purposes. However, you are prohibited from modifying, adapting, or altering the content in any way.
+## 4. Intellectual Property
 
-2. **Attribution Requirement**  
-   While you have the freedom to use this content, you must ensure that it remains in its original form without derivative works, modifications, or additions, and you must provide appropriate attribution to the rightful owner. Attribution should include acknowledgment of the original source in a manner that is reasonable and consistent with the format provided by the copyright owner, without implying that you or your use of the content has a relationship or affiliation with the owner.
+All original content on this site, including text, logos, and graphics, is protected under the **[Creative Commons Attribution-NoDerivatives 4.0 International License](https://raw.githubusercontent.com/fauziralpiandi/zira.my.id/refs/heads/main/content/LICENSE)**.
+
+**What this means?**
+
+- You **may copy and distribute** the content, even for commercial purposes.
+- You **may not modify, adapt, or create derivative works**.
+- You **must provide proper attribution** to the original creator/author.
+
+For more information on how this license works, visit **[Creative Commons Licensing Guide](https://creativecommons.org/licenses/by-nd/4.0/)**.
 
 ## 5. Third-Party Licensed Content
 
-Some content displayed on this site, such as "Now Playing" and "Top" taken from Spotify, is provided by third parties and remains the property of Spotify. This includes, but is not limited to, data about currently playing songs, popular playlists, and related information shown on the site through [Spotify's Web API](https://developer.spotify.com/documentation/web-api). The copyright for this material remains with its rightful owners, in this case, Spotify and related parties.
+Some content displayed on this site, such as **“Now Playing”** and **“Top (Artist and Tracks)”**, is sourced from **[Spotify’s Web API](https://developer.spotify.com/documentation/web-api/)** and remains the property of Spotify.
 
-### Use of Spotify Content
+**Important notes about Spotify content:**
 
-- **Access and Use**: Content shown in the "Now Playing" or "Top" features comes from Spotify's official API and is used on this site solely to display my publicly available information, such as currently playing songs in real-time or top playlists.
-- **Limitations**: You are not allowed to copy, distribute, or alter material sourced from Spotify without explicit permission from the rightful owners, namely Spotify and its affiliates. You are also prohibited from using this content for commercial purposes without permission from Spotify and the involved parties.
-- **Spotify API License**: Material obtained from Spotify remains subject to the [terms](https://developer.spotify.com/terms) and [policies](https://developer.spotify.com/policy) of Spotify API. The use of Spotify content on this site does not grant you rights to the content, but only a limited license to view and access it according to Spotify's provided terms.
+- This site only **displays** data from Spotify and does not store or redistribute it.
+- You **cannot reuse or modify** this data for any commercial purpose.
+- The rights to music metadata, album covers, and track information remain with **Spotify and its licensors**.
+
+Use of this content is subject to **[Spotify API Terms](https://developer.spotify.com/terms)** and **[Spotify Developer Policy](https://developer.spotify.com/policy)**.
 
 ## 6. Links to External Sites
 
-This site may contain links or references to third-party websites that are not managed or controlled by me. These links are provided for the convenience of visitors and do not imply affiliation, endorsement, or approval of the content, products, or services on these third-party sites. I have no control over or responsibility for the content, privacy policies, or other practices of these sites.
+This site may contain links to third-party websites for informational or reference purposes. These external sites are **not controlled or monitored** by me, and the inclusion does **not** imply endorsement.
 
-### Third-Party Usage Responsibility
+**By clicking on an external link, you acknowledge that:**
 
-By accessing or visiting third-party sites through links provided on this site, you agree that using those sites is at your own risk. I am not responsible for any loss, damage, or discrepancies arising from interactions with third-party sites, including but not limited to:
+- The privacy and security policies of those sites **may differ** from this one.  
+- I am **not responsible** for the content, accuracy, or reliability of third-party sites.
+- You assume full responsibility for any actions or transactions taken on those sites.
 
-1. **Financial or Reputational Loss**: Actions taken on third-party sites, such as purchasing products or using services, are between you and the third-party site. I am not responsible for any financial transactions, purchases, or other obligations that arise from your interaction with those sites.
-2. **Privacy and Security Policies**: I cannot guarantee the security of personal data or other information you provide on third-party sites. Each site has its own privacy and security policies, which may differ from mine. Therefore, I encourage you to exercise caution and consider the risks involved before providing personal or sensitive information on third-party sites.
-3. **Unreliable Content**: I cannot guarantee that the content on third-party sites is accurate, trustworthy, or free from malware, viruses, or other harmful content. You are responsible for ensuring that any content you access or download from third-party sites does not harm your device or violate your rights.
-
-### Importance of Reading and Understanding Third-Party Policies
-
-Each third-party site linked from this site has its own terms and privacy policies, which may differ from mine. I strongly encourage you to read and understand these terms before using their services, downloading information, or providing personal data. Any interactions or transactions on third-party sites should be done with full understanding of the terms, conditions, and potential risks involved.
-
-It is also important to note that third-party sites may have different policies regarding the use of data, cookies, and tracking. I cannot influence or be responsible for how these sites manage personal information or other data you provide to them.
+For best practices on safe browsing, visit **[Google’s Safe Browsing Guide](https://safebrowsing.google.com/)**. 
 
 ## 7. Disclaimers
 
-This site is provided "as is" and "as available" without any warranties, either express or implied. I, as the owner and operator of this site, make no warranties or representations regarding the accuracy, completeness, or reliability of the information on this site. You agree that your use of the site is at your own risk.
+This site is provided **"as is"** and **"as available"** without warranties of any kind. While I strive to maintain an accurate and secure website, I cannot **guarantee**:
 
-I am not responsible for any loss, damage, or costs that arise from using or being unable to use this site, including but not limited to direct, indirect, incidental, consequential, or punitive damages. These damages include, but are not limited to:
+- That the site will be **error-free, uninterrupted, or fully secure**.
+- That information presented is **always up to date or completely accurate**.
+- That the site is **immune to viruses, malware, or cyber threats**.
 
-- Losses arising from failures, errors, viruses, or other harmful software affecting your device.
-- Financial loss, loss of business opportunities, or negative impacts on your reputation or activities due to using the site.
+**I am not liable for:**
 
-I do not guarantee that this site is free from errors, viruses, or other issues that may affect your device or data security. While I strive to maintain the site’s security and functionality, I cannot guarantee that it will always be free from interruptions, technical errors, or other issues affecting the user experience.
+- **Technical failures** affecting your ability to access the site.
+- **Losses due to data breaches, security vulnerabilities, or errors**.
+- **Financial or reputational damages** resulting from site use.
 
-You are fully responsible for evaluating and taking steps to protect your device and data when accessing this site or third-party sites linked through it.
-
-This site may experience temporary interruptions, maintenance, or other changes that may affect access or functionality. You agree not to claim or hold me responsible for any losses incurred during such periods.
-
-**USE OF THIS SITE IS ENTIRELY AT YOUR OWN RISK, AND BY CONTINUING TO ACCESS IT, YOU RELEASE ME FROM ANY LIABILITY FOR ISSUES ARISING FROM YOUR USE OF THE SITE.**
+For cybersecurity best practices, refer to **[OWASP Web Security Guide](https://owasp.org/www-project-top-ten/)**.
 
 ## 8. Changes to the Terms
 
-I reserve the right to update, amend, or modify these terms and conditions at any time, without prior notice. Any changes will take effect immediately once updated and published on this page with the latest effective date. Therefore, you are advised to periodically review this page to ensure that you understand the current terms and conditions.
+I reserve the right to update, modify, or amend these terms at any time **without prior notice**. Changes take effect immediately upon publication.
+
+To stay informed, periodically check this page for updates. Continued use of this site after any changes indicates your **acceptance of the new terms**.
 
 ---
 
-> I implement these policies to protect users' rights and security, ensure compliance with applicable laws, and maintain the integrity of content and data privacy. These policies also aim to provide a safe and beneficial experience for all visitors, as well as protect the site from misuse. By establishing clear terms and conditions, I hope to ensure that this site remains a safe, transparent, and reliable space for all users.
+For any questions or concerns regarding these **Terms and Conditions**, please feel free to contact me via **[email](mailto:fwzyrln@gmail.com)**.
 
 ---
 
-If you have any questions, comments, or clarifications regarding these terms of use, or if you need further information about the site's policies, please feel free to contact me via [email](mailto:fwzyrln@gmail.com). I will endeavor to respond to your queries or comments within a reasonable time frame and provide any necessary clarification.
-
-**Thank you for your attention.**
+Thanks for attentions — Your support and compliance are appreciated!

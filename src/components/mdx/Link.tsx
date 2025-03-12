@@ -14,7 +14,12 @@ export const MdxLink = ({
   className,
   ...props
 }: MdxLinkProps) => {
-  const isInternalLink = href.startsWith('/');
+  if (!href || typeof href !== 'string') {
+    console.error('Requires a valid href string');
+    return null;
+  }
+
+  const isInternalLink = href.startsWith('/') || href.startsWith('#');
 
   if (!isInternalLink) {
     return (
@@ -37,7 +42,14 @@ export const MdxLink = ({
   }
 
   return (
-    <Link href={href} passHref {...props} className={className}>
+    <Link
+      passHref
+      href={href}
+      title={`Navigate to: ${href}`}
+      aria-label={`Navigate to: ${href}`}
+      className={className}
+      {...props}
+    >
       {children}
     </Link>
   );

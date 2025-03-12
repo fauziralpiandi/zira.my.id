@@ -1,28 +1,33 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
+import { useEffect, useState } from 'react';
 import { constant } from '~/lib/constant';
 
+const { locale } = constant;
+
 export const TimeDisplay = () => {
-  const [currentDateTime, setCurrentDateTime] = useState<{
-    day: string;
-    time: string;
-  }>({ day: '[ day ]', time: '[ time ]' });
+  const [currentTime, setCurrentTime] = useState<string | null>(null);
+  const [currentDay, setCurrentDay] = useState<string | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const formattedDay = now.toLocaleString(constant.locale, {
-        weekday: 'long',
-      });
-      const formattedTime = now.toLocaleString(constant.locale, {
+    const now = new Date();
+    setCurrentDay(now.toLocaleString(locale, { weekday: 'long' }));
+    setCurrentTime(
+      now.toLocaleTimeString(locale, {
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
-      });
+      })
+    );
 
-      setCurrentDateTime({ day: formattedDay, time: formattedTime });
+    const interval = setInterval(() => {
+      setCurrentTime(
+        new Date().toLocaleTimeString(locale, {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        })
+      );
     }, 1000);
 
     return () => clearInterval(interval);
@@ -31,10 +36,10 @@ export const TimeDisplay = () => {
   return (
     <div className="font-display flex flex-col items-end text-xs md:flex-row md:items-center md:gap-1.5 md:text-sm">
       <span className="order-2 text-neutral-400 md:order-1">
-        {currentDateTime.day}
+        {currentDay ?? 'currentDay'}
       </span>
       <span className="text-accent order-1 md:order-2">
-        {currentDateTime.time}
+        {currentTime ?? 'currentTime'}
       </span>
     </div>
   );

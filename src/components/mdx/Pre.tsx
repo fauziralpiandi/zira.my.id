@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LuCopy, LuCheck } from 'react-icons/lu';
 
 import { cx } from '~/lib/utils';
@@ -13,16 +13,23 @@ export const MdxPreCode = ({
   const preRef = useRef<HTMLPreElement>(null);
 
   const handleCopy = () => {
-    if (preRef.current) {
-      const codeText = preRef.current.innerText;
-      navigator.clipboard.writeText(codeText).then(() => {
-        setCopied(true);
-        setTimeout(() => {
-          setCopied(false);
-        }, 1000);
-      });
+    if (!preRef.current) return;
+
+    const codeText = preRef.current.innerText;
+
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+      console.error('Clipboard API is not supported in this browser.');
+      return;
     }
+
+    navigator.clipboard.writeText(codeText).then(() => setCopied(true));
   };
+
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 1000);
+    return () => clearTimeout(timer);
+  }, [copied]);
 
   return (
     <pre ref={preRef} {...restProps} tabIndex={0} className="group relative">

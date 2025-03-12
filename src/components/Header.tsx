@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { LuMenu, LuX } from 'react-icons/lu';
 
@@ -12,17 +12,16 @@ export const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleNav = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleNav = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    setIsOpen(false);
+  }, [pathname]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
     };

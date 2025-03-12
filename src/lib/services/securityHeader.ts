@@ -1,20 +1,19 @@
 const csp = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline';
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data:;
+    script-src 'self';
+    style-src 'self';
+    img-src 'self' https:;
     font-src 'self';
-    object-src 'none';
     base-uri 'self';
     form-action 'self';
+    frame-src 'self';
     frame-ancestors 'none';
-    upgrade-insecure-requests;
 `.replace(/\n/g, '');
 
 export const securityHeader = [
   {
     key: 'Content-Security-Policy',
-    value: csp.replace(/\n/g, ''),
+    value: csp,
   },
   {
     key: 'Referrer-Policy',

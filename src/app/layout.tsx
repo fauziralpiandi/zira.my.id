@@ -112,7 +112,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
               </main>
             </div>
             <Footer />
-            <Analytics />
+            <Analytics mode="production" />
           </div>
         </body>
       </ViewTransitions>

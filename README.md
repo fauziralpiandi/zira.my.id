@@ -1,6 +1,6 @@
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/fauziralpiandi/zira.my.id)
 
-## zira.my.id
+# zira.my.id
 
 My personal website built with:
 
@@ -28,7 +28,7 @@ My personal website built with:
 
 ## Getting Started
 
-1. Clone the repository and install dependencies
+Clone the repository and install dependencies:
 
 ```sh
 git clone https://github.com/fauziralpiandi/zira.my.id.git
@@ -36,9 +36,7 @@ cd zira.my.id
 pnpm install
 ```
 
-2. Configure environment variables
-
-Create a `.env.local` file in the root directory and add the following variables:
+Create a `.env.local` file in the root directory and add the following environment variables:
 
 ```sh
 DATABASE_URL=your_database_url
@@ -47,7 +45,7 @@ SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
 ```
 
-3. Start the server
+Start the server:
 
 ```sh
 pnpm generate && pnpm dev # development

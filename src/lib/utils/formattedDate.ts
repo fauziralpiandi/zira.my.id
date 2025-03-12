@@ -1,5 +1,4 @@
 import { constant } from '~/lib/constant';
-import { pluralize } from '~/lib/utils';
 
 const { locale, timeZone } = constant;
 
@@ -19,10 +18,14 @@ const getRelativeTime = (minutes: number): string => {
 
   if (minutes < 60) return 'just now';
   if (hours < 24) return 'a few hours ago';
-  if (days < 7) return `${pluralize(days, 'day')} ago`;
-  if (weeks < 4) return `${pluralize(weeks, 'week')} ago`;
-  if (months < 12) return `${pluralize(months, 'month')} ago`;
-  return `${pluralize(years, 'year')} ago`;
+  if (days === 1) return 'yesterday';
+  if (weeks === 1) return 'a week ago';
+  if (days < 7) return `${days} days ago`;
+  if (months === 1) return 'a month ago';
+  if (weeks < 4) return `${weeks} weeks ago`;
+  if (years === 1) return 'a year ago';
+  if (months < 12) return `${months} months ago`;
+  return `${years} years ago`;
 };
 
 export const formattedDate = (

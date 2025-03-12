@@ -12,11 +12,11 @@ export const FlipName = () => {
       <span className="group relative block overflow-hidden">
         <span
           aria-hidden="true"
-          className="animate inline-block whitespace-nowrap group-hover:-translate-y-full"
+          className="animate block whitespace-nowrap group-hover:-translate-y-full"
         >
           {constant.title.split('').map((letter, index) => (
             <span
-              key={letter + index}
+              key={index}
               className="inline-block"
               style={{ transitionDelay: `${index * 25}ms` }}
             >
@@ -24,11 +24,11 @@ export const FlipName = () => {
             </span>
           ))}
         </span>
-        <span className="animate absolute top-0 left-0 inline-block translate-y-full group-hover:translate-y-0">
+        <span className="animate absolute top-0 left-0 block translate-y-full group-hover:translate-y-0">
           <Link href="/" title="Go to Home" aria-label="Go to Home">
             {'home'.split('').map((letter, index) => (
               <span
-                key={letter + index}
+                key={index}
                 className="inline-block"
                 style={{ transitionDelay: `${index * 25}ms` }}
               >

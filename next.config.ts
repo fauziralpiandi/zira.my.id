@@ -13,7 +13,6 @@ const nextConfig: NextConfig = {
   experimental: {
     webVitalsAttribution: ['FCP', 'LCP', 'CLS', 'FID', 'TTFB', 'INP'],
   },
-  expireTime: 604800,
   headers() {
     if (process.env.NODE_ENV !== 'production') {
       return Promise.resolve([]);

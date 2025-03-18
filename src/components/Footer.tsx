@@ -6,7 +6,7 @@ import { TimeDisplay } from '~/components/ui';
 
 export const Footer = () => {
   return (
-    <footer className="relative">
+    <footer className="relative" data-nosnippet>
       <hr className="absolute top-0 left-1/2 h-px w-screen -translate-x-1/2 border-neutral-900" />
       <aside className="mt-8 flex grid grid-cols-2 items-center md:grid-cols-3">
         <div className="justify-self-start" aria-label="Spotify Now Playing">

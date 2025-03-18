@@ -33,6 +33,7 @@ export const Header = () => {
       style={{
         boxShadow: '0px 0px 30px 50px #0a0a0a',
       }}
+      data-nosnippet
     >
       <div className="z-30 flex items-center space-x-2">
         <svg

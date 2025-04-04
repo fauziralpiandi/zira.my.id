@@ -8,23 +8,10 @@ My personal website built with:
 - **Library:** [React 19](https://react.dev/)
 - **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
 - **Content SDK:** [Contentlayer 2](https://github.com/timlrx/contentlayer2)
-- **Database:** [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres)
+- **Database:** [Neon Database](https://neon.tech/)
 - **Analytics:** [Vercel Analytics](https://vercel.com/docs/analytics)
 - **API Integration:** [Spotify API](https://developer.spotify.com/)
 - **Deployment:** [Vercel](https://vercel.com/home)
-
-## Features
-
-- **High Performance (SSR, SSG, ISR)** — Optimized rendering for faster page loads and improved SEO.
-- **Optimized Loading (Code Splitting & Lazy Loading)** — Loads only necessary components to enhance speed.
-- **Efficient Data Handling (Caching & Optimization)** — Reduces redundant API calls and speeds up data retrieval.
-- **Scalable Backend (Edge & Serverless Functions)** — Ensures fast, distributed, and scalable request handling.
-- **Modern & Responsive UI (Mobile & Desktop)** — Fully adaptive design for all screen sizes.
-- **Flexible Content Management (Markdown & MDX)** — Supports rich content creation with embedded components.
-- **SEO & Accessibility Optimized** — Improves search engine rankings and enhances user accessibility.
-- **Real-time Insights & Analytics** — Monitors traffic, user behavior, and performance metrics.
-- **Seamless API Integrations** — Connects effortlessly with third-party services and APIs.
-- **Structured & Scalable Storage** — Handles structured and unstructured data efficiently.
 
 ## Getting Started
 
@@ -39,7 +26,7 @@ pnpm install
 Create a `.env.local` file in the root directory and add the following environment variables:
 
 ```sh
-DATABASE_URL=your_database_url
+DATABASE_URL=your_neon_database_url
 SPOTIFY_CLIENT_ID=your_spotify_client_id
 SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token

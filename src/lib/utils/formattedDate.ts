@@ -22,7 +22,7 @@ const getRelativeTime = (minutes: number): string => {
   if (days < 7) return `${days} days ago`;
   if (weeks === 1) return 'a week ago';
   if (weeks < 4) return `${weeks} weeks ago`;
-  if (weeks >= 4 && months < 1) return 'a month ago';
+  if (months === 1) return 'a month ago';
   if (months < 12) return `${months} months ago`;
   if (years === 1) return 'a year ago';
   return `${years} years ago`;

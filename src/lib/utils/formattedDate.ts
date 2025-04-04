@@ -12,19 +12,19 @@ const getOrdinal = (day: number): string => {
 const getRelativeTime = (minutes: number): string => {
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(minutes / (60 * 24));
-  const weeks = Math.floor(minutes / (60 * 24 * 7));
-  const months = Math.floor(minutes / (60 * 24 * 30));
-  const years = Math.floor(minutes / (60 * 24 * 365));
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(days / 365);
 
   if (minutes < 60) return 'just now';
   if (hours < 24) return 'a few hours ago';
   if (days === 1) return 'yesterday';
-  if (weeks === 1) return 'a week ago';
   if (days < 7) return `${days} days ago`;
-  if (months === 1) return 'a month ago';
+  if (weeks === 1) return 'a week ago';
   if (weeks < 4) return `${weeks} weeks ago`;
-  if (years === 1) return 'a year ago';
+  if (weeks >= 4 && months < 1) return 'a month ago';
   if (months < 12) return `${months} months ago`;
+  if (years === 1) return 'a year ago';
   return `${years} years ago`;
 };
 

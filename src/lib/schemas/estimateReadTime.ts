@@ -1,7 +1,11 @@
 import { pluralize } from '~/lib/utils';
 import { readingStats } from './readingStats';
 
-export const estimateReadTime = async (content: string): Promise<string> => {
-  const stats = await readingStats(content);
-  return pluralize(stats.minutes, 'min');
+export const estimateReadTime = (content: string): string => {
+  try {
+    const stats = readingStats(content);
+    return pluralize(stats.minutes, 'min');
+  } catch {
+    return 'Error estimating time';
+  }
 };

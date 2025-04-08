@@ -23,7 +23,7 @@ export const SpotifyTopArtists = () => {
     const fetchArtists = async () => {
       try {
         const data = await saveCache<Artist[]>(
-          'topArtists',
+          'artists',
           7 * 24 * 60 * 60 * 1000,
           async () => {
             const response = await fetch('/api/spotify/top-artists', {

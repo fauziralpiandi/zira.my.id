@@ -24,7 +24,7 @@ export const SpotifyTopTracks = () => {
     const fetchTracks = async () => {
       try {
         const data = await saveCache<Track[]>(
-          'topTracks',
+          'tracks',
           24 * 60 * 60 * 1000,
           async () => {
             const response = await fetch('/api/spotify/top-tracks', { signal });

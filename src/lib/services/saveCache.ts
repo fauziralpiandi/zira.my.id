@@ -1,32 +1,66 @@
+type CacheEntry<T> = {
+  data: T;
+  timestamp: number;
+};
+
+/**
+ * Caches data in localStorage with expiration.
+ *
+ * Returns cached data if fresh, otherwise fetches and updates the cache.
+ *
+ * @param key - Unique cache key
+ * @param maxAge - Cache lifetime in ms
+ * @param fetchData - Async function to fetch new data
+ * @returns Cached or fresh data
+ */
 export const saveCache = async <T>(
   key: string,
   maxAge: number,
   fetchData: () => Promise<T>
 ): Promise<T> => {
-  try {
-    const cachedData = localStorage.getItem(key);
-    const cacheTimestamp = localStorage.getItem(`${key}Timestamp`);
-    const currentTime = Date.now();
+  const timestampKey = `${key}:ts`;
 
-    if (cachedData && cacheTimestamp) {
-      const parsedTimestamp = parseInt(cacheTimestamp);
+  /**
+   * Parses cache entry if both value and timestamp exist and are valid.
+   */
+  const getCache = (): CacheEntry<T> | null => {
+    try {
+      const raw = localStorage.getItem(key);
+      const rawTs = localStorage.getItem(timestampKey);
 
-      if (currentTime - parsedTimestamp < maxAge) {
-        try {
-          return JSON.parse(cachedData) as T;
-        } catch {
-          console.warn(`Failed to parse cached data for key: ${key}`);
-        }
-      }
+      if (!raw || !rawTs) return null;
+
+      const timestamp = Number(rawTs);
+      if (!Number.isFinite(timestamp)) return null;
+
+      const data = JSON.parse(raw) as T;
+      return { data, timestamp };
+    } catch {
+      console.warn(`[cache] Failed to read key: ${key}`);
+      return null;
     }
+  };
 
-    const data = await fetchData();
-    localStorage.setItem(key, JSON.stringify(data));
-    localStorage.setItem(`${key}Timestamp`, currentTime.toString());
+  /**
+   * Stores the value and timestamp, with fallback cleanup on failure.
+   */
+  const setCache = (data: T, timestamp: number): void => {
+    try {
+      localStorage.setItem(key, JSON.stringify(data));
+      localStorage.setItem(timestampKey, timestamp.toString());
+    } catch (err) {
+      console.error(`[cache] Failed to save key: ${key}`, err);
+      localStorage.removeItem(key);
+      localStorage.removeItem(timestampKey);
+    }
+  };
 
-    return data;
-  } catch (error) {
-    console.error(`Error fetching data for key: ${key}`, error);
-    throw error;
-  }
+  const now = Date.now();
+  const cache = getCache();
+
+  if (cache && now - cache.timestamp < maxAge) return cache.data;
+
+  const freshData = await fetchData();
+  setCache(freshData, now);
+  return freshData;
 };

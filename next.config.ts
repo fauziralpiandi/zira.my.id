@@ -10,9 +10,6 @@ const nextConfig: NextConfig = {
         ? 'https://zira.my.id'
         : 'http://localhost:3000',
   },
-  experimental: {
-    webVitalsAttribution: ['FCP', 'LCP', 'CLS', 'FID', 'TTFB', 'INP'],
-  },
   headers() {
     if (process.env.NODE_ENV !== 'production') {
       return Promise.resolve([]);

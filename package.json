@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "next build --turbopack",
+    "build": "next build",
     "clean": "rm -rf .next .contentlayer",
     "dev": "next dev --turbopack",
     "format": "prettier --write src/**/*.{ts,tsx}",

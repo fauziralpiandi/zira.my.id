@@ -30,9 +30,11 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       } catch (error: unknown) {
         if (error instanceof Error) {
           if (error.name === 'AbortError') return;
-          setError(error.message);
+          console.error('Failed to fetch likes:', error.message);
+          setError('Failed to load likes count. Please try again later.');
         } else {
-          setError('Unexpected error occurred');
+          console.error('Unexpected error while fetching likes');
+          setError('An unexpected error occurred.');
         }
       } finally {
         setIsLoading(false);
@@ -83,9 +85,8 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       setCount(data.count);
       setHasLiked(true);
     } catch (error) {
-      setError(
-        error instanceof Error ? error.message : 'An unknown error occurred'
-      );
+      console.error('Failed to add like:', error);
+      setError(error instanceof Error ? error.message : 'Failed to add like');
     } finally {
       setIsAddingLike(false);
     }

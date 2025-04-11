@@ -74,7 +74,10 @@ export const LikeButton = ({ slug }: { slug: string }) => {
   const addLike = useCallback(async () => {
     if (hasLiked || isAddingLike) return;
 
+    setCount((prev) => (prev !== null ? prev + 1 : 1));
+    setHasLiked(true);
     setIsAddingLike(true);
+
     try {
       const res = await fetch('/api/likes', {
         method: 'POST',
@@ -91,6 +94,8 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       setHasLiked(true);
     } catch (error) {
       console.error('Failed to add like:', error);
+      setCount((prev) => (prev !== null ? prev - 1 : 0));
+      setHasLiked(false);
       setError(error instanceof Error ? error.message : 'Failed to add like');
     } finally {
       setIsAddingLike(false);

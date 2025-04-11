@@ -32,6 +32,15 @@ SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
 ```
 
+Database schema:
+
+```sql
+CREATE TABLE likes (
+  slug TEXT PRIMARY KEY,
+  count INTEGER NOT NULL DEFAULT 0
+);
+```
+
 Start the server:
 
 ```sh

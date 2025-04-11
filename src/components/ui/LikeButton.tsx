@@ -125,9 +125,10 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       onClick={addLike}
       className={cx(
         'border-accent/25 flex items-center rounded-lg border bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale',
-        hasLiked ? 'cursor-not-allowed' : ''
+        hasLiked || isLoading || isAddingLike ? 'cursor-not-allowed' : ''
       )}
-      disabled={hasLiked}
+      aria-label={hasLiked ? 'Liked!' : 'Like?'}
+      disabled={hasLiked || isLoading || isAddingLike}
     >
       <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
         {hasLiked ? (

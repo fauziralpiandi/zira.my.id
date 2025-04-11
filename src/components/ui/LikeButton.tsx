@@ -17,17 +17,21 @@ export const LikeButton = ({ slug }: { slug: string }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAddingLike, setIsAddingLike] = useState(false);
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+
   useEffect(() => {
-    const controller = new AbortController();
     const fetchLike = async () => {
       try {
         const res = await fetch(`/api/likes?slug=${slug}`, {
           signal: controller.signal,
         });
+        clearTimeout(timeoutId);
         if (!res.ok) throw new Error('Failed to fetch count');
         const data: LikeResponse = await res.json();
         setCount(data.count);
       } catch (error: unknown) {
+        clearTimeout(timeoutId);
         if (error instanceof Error) {
           if (error.name === 'AbortError') return;
           console.error('Failed to fetch likes:', error.message);
@@ -78,6 +82,7 @@ export const LikeButton = ({ slug }: { slug: string }) => {
         body: JSON.stringify({ slug }),
       });
 
+      clearTimeout(timeoutId);
       const data: LikeResponse = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to add like');
 

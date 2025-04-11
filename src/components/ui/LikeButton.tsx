@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { PiHeart, PiHeartFill, PiSpinner } from 'react-icons/pi';
 
 import { cx } from '~/lib/utils';
@@ -10,7 +10,7 @@ type LikeResponse = {
   error?: string;
 };
 
-export const LikeButton = ({ slug }: { slug: string }) => {
+export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   const [count, setCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [hasLiked, setHasLiked] = useState(false);
@@ -147,4 +147,4 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       </div>
     </button>
   );
-};
+});

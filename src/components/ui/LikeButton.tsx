@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { PiHeart, PiHeartFill, PiSpinner } from 'react-icons/pi';
 
 import { cx } from '~/lib/utils';
@@ -10,7 +10,14 @@ type LikeResponse = {
   error?: string;
 };
 
-export const LikeButton = ({ slug }: { slug: string }) => {
+/**
+ * @component
+ * @param {Object} props
+ * @param {string} props.slug - Unique identifier for the post.
+ * @example
+ * <LikeButton slug="my-post" />
+ */
+export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   const [count, setCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [hasLiked, setHasLiked] = useState(false);
@@ -19,26 +26,37 @@ export const LikeButton = ({ slug }: { slug: string }) => {
 
   useEffect(() => {
     const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    /**
+     * Fetch like count for the post from API.
+     * Sets count or error state based on response.
+     */
     const fetchLike = async () => {
       try {
         const res = await fetch(`/api/likes?slug=${slug}`, {
           signal: controller.signal,
         });
+        clearTimeout(timeoutId);
         if (!res.ok) throw new Error('Failed to fetch count');
         const data: LikeResponse = await res.json();
         setCount(data.count);
       } catch (error: unknown) {
+        clearTimeout(timeoutId);
         if (error instanceof Error) {
           if (error.name === 'AbortError') return;
-          setError(error.message);
+          console.error('Failed to fetch likes:', error.message);
+          setError('Failed to load likes count. Please try again later.');
         } else {
-          setError('Unexpected error occurred');
+          console.error('Unexpected error while fetching likes');
+          setError('An unexpected error occurred.');
         }
       } finally {
         setIsLoading(false);
       }
     };
 
+    // Check if user has liked this post via cookie
     const likedCookie = getCookie(`liked-${slug}`);
     if (likedCookie) {
       setHasLiked(true);
@@ -51,6 +69,11 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     };
   }, [slug]);
 
+  /**
+   * Get cookie value by name.
+   * @param name - Cookie name (e.g., 'liked-my-post').
+   * @returns Cookie value or undefined if not found.
+   */
   const getCookie = (name: string): string | undefined => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -58,6 +81,12 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     return undefined;
   };
 
+  /**
+   * Set cookie with name, value, and expiry.
+   * @param name - Cookie name.
+   * @param value - Cookie value.
+   * @param days - Days until expiry.
+   */
   const setCookie = (name: string, value: string, days: number) => {
     const d = new Date();
     d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
@@ -65,10 +94,21 @@ export const LikeButton = ({ slug }: { slug: string }) => {
     document.cookie = `${name}=${value}; ${expires}; path=/`;
   };
 
+  /**
+   * Handle like action with optimistic UI update.
+   * Posts to API and sets cookie to prevent duplicate likes.
+   * Reverts UI on error.
+   */
   const addLike = useCallback(async () => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     if (hasLiked || isAddingLike) return;
 
+    setCount((prev) => (prev !== null ? prev + 1 : 1));
+    setHasLiked(true);
     setIsAddingLike(true);
+
     try {
       const res = await fetch('/api/likes', {
         method: 'POST',
@@ -76,6 +116,7 @@ export const LikeButton = ({ slug }: { slug: string }) => {
         body: JSON.stringify({ slug }),
       });
 
+      clearTimeout(timeoutId);
       const data: LikeResponse = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to add like');
 
@@ -83,9 +124,10 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       setCount(data.count);
       setHasLiked(true);
     } catch (error) {
-      setError(
-        error instanceof Error ? error.message : 'An unknown error occurred'
-      );
+      console.error('Failed to add like:', error);
+      setCount((prev) => (prev !== null ? prev - 1 : 0));
+      setHasLiked(false);
+      setError(error instanceof Error ? error.message : 'Failed to add like');
     } finally {
       setIsAddingLike(false);
     }
@@ -119,9 +161,10 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       onClick={addLike}
       className={cx(
         'border-accent/25 flex items-center rounded-lg border bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale',
-        hasLiked ? 'cursor-not-allowed' : ''
+        hasLiked || isLoading || isAddingLike ? 'cursor-not-allowed' : ''
       )}
-      disabled={hasLiked}
+      aria-label={hasLiked ? 'Liked!' : 'Like?'}
+      disabled={hasLiked || isLoading || isAddingLike}
     >
       <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
         {hasLiked ? (
@@ -135,4 +178,6 @@ export const LikeButton = ({ slug }: { slug: string }) => {
       </div>
     </button>
   );
-};
+});
+
+LikeButton.displayName = 'LikeButton';

@@ -24,7 +24,7 @@ export const SpotifyTopArtists = () => {
       try {
         const data = await saveCache<Artist[]>(
           'artists',
-          7 * 24 * 60 * 60 * 1000,
+          7 * 24 * 60 * 60 * 1000, // 7 days
           async () => {
             const response = await fetch('/api/spotify/top-artists', {
               signal,
@@ -60,10 +60,14 @@ export const SpotifyTopArtists = () => {
   if (loading) {
     return (
       <div className="grid animate-pulse grid-cols-3 gap-3">
+        <span className="sr-only" aria-live="polite" role="status">
+          Loading top artists...
+        </span>
         {Array.from({ length: 9 }).map((_, index) => (
           <div
             key={index}
             className="group relative aspect-square overflow-hidden rounded-sm"
+            aria-hidden="true"
           >
             <div className="h-full w-full bg-neutral-900" />
           </div>
@@ -75,10 +79,14 @@ export const SpotifyTopArtists = () => {
   if (error) {
     return (
       <div className="grid grid-cols-3 gap-3">
+        <span className="sr-only" role="alert">
+          Error: {error}
+        </span>
         {Array.from({ length: 9 }).map((_, index) => (
           <div
             key={index}
             className="group relative aspect-square overflow-hidden rounded-sm"
+            aria-hidden="true"
           >
             <div className="h-full w-full bg-neutral-900" />
           </div>
@@ -101,14 +109,18 @@ export const SpotifyTopArtists = () => {
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >
-                <figure className="group relative aspect-square rounded-sm">
+                <figure
+                  role="img"
+                  className="group relative mx-auto aspect-square max-w-[128px] rounded-sm"
+                  aria-label={name}
+                >
                   <span className="sr-only">{name}</span>
                   <Image
                     src={image}
-                    alt={`${name}\u2019s picture`}
+                    alt={`${name}’s profile picture`}
                     fill
                     loading="lazy"
-                    sizes="96px"
+                    sizes="(max-width: 640px) 64px, (max-width: 1024px) 96px, 128px"
                     className="animate relative z-10 rounded-sm bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                   />
                 </figure>

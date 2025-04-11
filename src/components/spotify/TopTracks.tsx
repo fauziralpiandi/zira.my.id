@@ -25,7 +25,7 @@ export const SpotifyTopTracks = () => {
       try {
         const data = await saveCache<Track[]>(
           'tracks',
-          24 * 60 * 60 * 1000,
+          24 * 60 * 60 * 1000, // 24 hours
           async () => {
             const response = await fetch('/api/spotify/top-tracks', { signal });
             if (!response.ok) {
@@ -59,10 +59,14 @@ export const SpotifyTopTracks = () => {
   if (loading) {
     return (
       <div className="grid animate-pulse grid-cols-5 gap-1.5">
+        <span className="sr-only" aria-live="polite" role="status">
+          Loading top tracks...
+        </span>
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
             className="aspect-square h-full w-full rounded-xs bg-neutral-900"
+            aria-hidden="true"
           />
         ))}
       </div>
@@ -72,10 +76,14 @@ export const SpotifyTopTracks = () => {
   if (error) {
     return (
       <div className="grid grid-cols-5 gap-1.5">
+        <span className="sr-only" role="alert">
+          Error: {error}
+        </span>
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
             className="aspect-square h-full w-full rounded-xs bg-neutral-900"
+            aria-hidden="true"
           />
         ))}
       </div>
@@ -96,16 +104,20 @@ export const SpotifyTopTracks = () => {
               target="_blank"
               rel="noopener noreferrer nofollow"
             >
-              <figure className="group relative aspect-square rounded-xs">
+              <figure
+                role="img"
+                className="group relative mx-auto aspect-square max-w-[128px] rounded-xs"
+                aria-label={`${title} \u2014 ${artist}`}
+              >
                 <span className="sr-only">
-                  {title} &mdash; {artist}
+                  {title} — {artist}
                 </span>
                 <Image
                   src={cover}
                   alt={`Cover of ${title} by ${artist}`}
                   fill
                   loading="lazy"
-                  sizes="48px"
+                  sizes="(max-width: 640px) 64px, (max-width: 1024px) 96px, 128px"
                   className="animate relative z-10 rounded-xs bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                 />
               </figure>

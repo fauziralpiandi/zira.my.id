@@ -10,6 +10,13 @@ type LikeResponse = {
   error?: string;
 };
 
+/**
+ * @component
+ * @param {Object} props
+ * @param {string} props.slug - Unique identifier for the post.
+ * @example
+ * <LikeButton slug="my-post" />
+ */
 export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   const [count, setCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -21,6 +28,10 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
 
+    /**
+     * Fetch like count for the post from API.
+     * Sets count or error state based on response.
+     */
     const fetchLike = async () => {
       try {
         const res = await fetch(`/api/likes?slug=${slug}`, {
@@ -45,6 +56,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       }
     };
 
+    // Check if user has liked this post via cookie
     const likedCookie = getCookie(`liked-${slug}`);
     if (likedCookie) {
       setHasLiked(true);
@@ -57,6 +69,11 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
     };
   }, [slug]);
 
+  /**
+   * Get cookie value by name.
+   * @param name - Cookie name (e.g., 'liked-my-post').
+   * @returns Cookie value or undefined if not found.
+   */
   const getCookie = (name: string): string | undefined => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -64,6 +81,12 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
     return undefined;
   };
 
+  /**
+   * Set cookie with name, value, and expiry.
+   * @param name - Cookie name.
+   * @param value - Cookie value.
+   * @param days - Days until expiry.
+   */
   const setCookie = (name: string, value: string, days: number) => {
     const d = new Date();
     d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
@@ -71,6 +94,11 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
     document.cookie = `${name}=${value}; ${expires}; path=/`;
   };
 
+  /**
+   * Handle like action with optimistic UI update.
+   * Posts to API and sets cookie to prevent duplicate likes.
+   * Reverts UI on error.
+   */
   const addLike = useCallback(async () => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);

@@ -17,10 +17,10 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAddingLike, setIsAddingLike] = useState(false);
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 5000);
-
   useEffect(() => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     const fetchLike = async () => {
       try {
         const res = await fetch(`/api/likes?slug=${slug}`, {
@@ -72,6 +72,9 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   };
 
   const addLike = useCallback(async () => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     if (hasLiked || isAddingLike) return;
 
     setCount((prev) => (prev !== null ? prev + 1 : 1));
@@ -148,3 +151,5 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
     </button>
   );
 });
+
+LikeButton.displayName = 'LikeButton';

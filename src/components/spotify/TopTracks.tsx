@@ -82,7 +82,7 @@ export const SpotifyTopTracks = () => {
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
-            className="aspect-square h-full w-full rounded-xs bg-neutral-900"
+            className="aspect-square h-full w-full rounded-xs bg-neutral-900/50"
             aria-hidden="true"
           />
         ))}
@@ -106,7 +106,7 @@ export const SpotifyTopTracks = () => {
             >
               <figure
                 role="img"
-                className="group relative mx-auto aspect-square max-w-[128px] rounded-xs"
+                className="group relative mx-auto aspect-square w-full rounded-xs"
                 aria-label={`${title} \u2014 ${artist}`}
               >
                 <span className="sr-only">
@@ -117,7 +117,7 @@ export const SpotifyTopTracks = () => {
                   alt={`Cover of ${title} by ${artist}`}
                   fill
                   loading="lazy"
-                  sizes="(max-width: 640px) 64px, (max-width: 1024px) 96px, 128px"
+                  sizes="(max-width: 640px) 48px, (max-width: 1024px) 64px, 128px"
                   className="animate relative z-10 rounded-xs bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                 />
               </figure>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { AudioWave } from '~/components/ui';
 
 type NowPlaying = {
@@ -10,70 +11,64 @@ type NowPlaying = {
   isPlaying?: boolean;
 };
 
-// Magic numbers for polling intervals.
-const ERROR_THRESHOLD = 3;
-const NORMAL_INTERVAL = 15000;
-const BACKOFF_INTERVAL = 30000;
+const FETCH_INTERVAL = 15000; // 15s in ms
 
 /**
- * Polls every 15s (30s after 3 errors) in prod.
- * Skips if track hasn't changed.
+ * Fetches track data every 15s in production, only on mount/refresh in dev.
+ * Skips redundant fetches and aborts on unmount for clean DX.
+ *
+ * @returns JSX.Element
  */
 export const SpotifyNowPlaying = () => {
   const [track, setTrack] = useState<NowPlaying | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [errorCount, setErrorCount] = useState(0);
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null); // Ref for polling interval
+  const lastUrlRef = useRef<string | null>(null);
+  const controllerRef = useRef<AbortController | null>(null);
 
   /**
-   * Fetches current Spotify track.
-   * Skips if track URL is unchanged. Resets errors on success.
-   * @param signal - AbortSignal to cancel fetch
+   * Fetches the current Spotify track, skipping if the track URL hasn't changed.
+   * Handles errors gracefully and aborts on signal.
    */
-  const fetchTrack = useCallback(
-    async (signal: AbortSignal) => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/spotify/now-playing', { signal });
-        if (!response.ok) throw new Error('Failed to fetch Spotify data');
+  const fetchTrack = useCallback(async () => {
+    controllerRef.current = new AbortController();
+    const signal = controllerRef.current.signal;
 
-        const data: NowPlaying = await response.json();
-        if (data?.url && data.url === track?.url) return;
+    try {
+      setLoading(true);
+      const response = await fetch('/api/spotify/now-playing', { signal });
+      if (!response.ok) throw new Error('Failed to fetch Spotify data');
 
-        setTrack(data);
-        setError(null);
-        setErrorCount(0);
-      } catch (err) {
-        if ((err as Error)?.name === 'AbortError') return;
-        setError((err as Error)?.message ?? 'Unexpected error occurred');
-        setErrorCount((prev) => prev + 1);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [track?.url]
-  ); // Depend on track.url for skip logic.
+      const data: NowPlaying = await response.json();
 
+      if (data?.url && data.url === lastUrlRef.current) return;
+
+      setTrack(data);
+      lastUrlRef.current = data.url ?? null;
+      setError(null);
+    } catch (err) {
+      if ((err as Error)?.name === 'AbortError') return;
+      setError((err as Error)?.message ?? 'Unexpected error occurred');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Cleans up interval and aborts fetch on unmount.
   useEffect(() => {
-    const controller = new AbortController();
-
-    fetchTrack(controller.signal);
+    fetchTrack();
 
     if (process.env.NODE_ENV === 'production') {
-      const interval =
-        errorCount > ERROR_THRESHOLD ? BACKOFF_INTERVAL : NORMAL_INTERVAL;
-      intervalRef.current = setInterval(() => {
-        fetchTrack(controller.signal);
-      }, interval);
+      const intervalId = setInterval(fetchTrack, FETCH_INTERVAL);
+      return () => {
+        clearInterval(intervalId);
+        controllerRef.current?.abort();
+      };
     }
 
-    return () => {
-      controller.abort();
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [fetchTrack, errorCount]);
+    return () => controllerRef.current?.abort();
+  }, [fetchTrack]);
 
   const {
     title = 'Unknown',
@@ -109,8 +104,8 @@ export const SpotifyNowPlaying = () => {
             />
           </div>
           <div className="flex flex-col space-y-1.5">
-            <div className="h-4 w-32 rounded-sm bg-neutral-900" />
-            <div className="h-3 w-24 rounded-sm bg-neutral-900" />
+            <div className="h-4 w-32 rounded-sm bg-neutral-900/50" />
+            <div className="h-3 w-24 rounded-sm bg-neutral-900/50" />
           </div>
         </div>
       </div>

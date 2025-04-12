@@ -88,7 +88,7 @@ export const SpotifyTopArtists = () => {
             className="group relative aspect-square overflow-hidden rounded-sm"
             aria-hidden="true"
           >
-            <div className="h-full w-full bg-neutral-900" />
+            <div className="h-full w-full bg-neutral-900/50" />
           </div>
         ))}
       </div>
@@ -111,7 +111,7 @@ export const SpotifyTopArtists = () => {
               >
                 <figure
                   role="img"
-                  className="group relative mx-auto aspect-square max-w-[128px] rounded-sm"
+                  className="group relative mx-auto aspect-square w-full rounded-sm"
                   aria-label={name}
                 >
                   <span className="sr-only">{name}</span>
@@ -120,7 +120,7 @@ export const SpotifyTopArtists = () => {
                     alt={`${name}’s profile picture`}
                     fill
                     loading="lazy"
-                    sizes="(max-width: 640px) 64px, (max-width: 1024px) 96px, 128px"
+                    sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 256px"
                     className="animate relative z-10 rounded-sm bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                   />
                 </figure>

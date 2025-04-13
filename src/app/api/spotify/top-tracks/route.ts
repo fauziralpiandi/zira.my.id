@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 
 import { getAccessToken, fetchSpotifyData } from '~/lib/services';
 
-// Tipe dulu biar alur jelas
 type TopTrack = {
   name: string;
   artists: Array<{ name: string }>;

@@ -1,13 +1,66 @@
-import { neon as db } from '@neondatabase/serverless';
-
-const databaseUrl: string | undefined = process.env.DATABASE_URL;
-const sql = databaseUrl ? db(databaseUrl) : null;
+import { neon as database } from '@neondatabase/serverless';
 
 /**
- * Crafts a JSON response with finesse.
- * @param {object} data - Payload to serialize.
- * @param {number} [status=200] - HTTP status code, defaults to 200.
- * @returns {Response} A polished Response object.
+ * Error messages and status codes for API responses.
+ * Maps internal keys to user-friendly messages and HTTP status codes.
+ * Used by AppError to keep responses consistent and safe.
+ */
+const LOGGING = {
+  'Database not configured': {
+    message: 'Service unavailable, database not configured',
+    status: 503,
+  },
+  'Invalid Content-Type': {
+    message: 'Content-Type must be application/json',
+    status: 415,
+  },
+  'Method not allowed': {
+    message: 'HTTP method not supported',
+    status: 405,
+  },
+  'Invalid slug': {
+    message: 'Valid slug required (non-empty string, max 255 characters)',
+    status: 400,
+  },
+  'Failed to fetch count': {
+    message: 'Unable to retrieve count',
+    status: 500,
+  },
+  'Failed to update count': {
+    message: 'Unable to update count',
+    status: 500,
+  },
+} as const;
+
+type KnownErrorKey = keyof typeof LOGGING;
+
+/**
+ * Custom error for API failures, tied to LOGGING keys.
+ * Ensures every error has a user-friendly message and correct status code.
+ * @example
+ * throw new AppError('Invalid slug'); // Triggers 400 with message
+ */
+class AppError extends Error {
+  public status: number;
+  public key: KnownErrorKey;
+
+  constructor(key: KnownErrorKey) {
+    super(key);
+    this.key = key;
+    this.status = LOGGING[key].status;
+  }
+}
+
+// Database setup
+const url: string | undefined = process.env.DATABASE_URL;
+const sql = url ? database(url) : null;
+
+/**
+ * Builds a JSON response with proper headers.
+ * Used for all API responses to keep format consistent.
+ * @param data - The payload to send (e.g., { slug, count } or { error }).
+ * @param status - HTTP status code (defaults to 200).
+ * @returns A Response object ready for the client.
  */
 const jsonResponse = (data: object, status: number = 200): Response =>
   new Response(JSON.stringify(data), {
@@ -16,50 +69,54 @@ const jsonResponse = (data: object, status: number = 200): Response =>
   });
 
 /**
- * Fetches the like count for a slug with precision.
- * @param {string} slug - The identifier to query.
- * @returns {Promise<number>} The count, or 0 if absent.
- * @throws {Error} If the database falters or isn't configured.
+ * Checks if a slug is valid for a blog post.
+ * A valid slug is a non-empty string, max 255 chars, to prevent bad inputs.
+ * @param s - The slug to validate.
+ * @returns True if valid, false otherwise.
+ */
+const isValidSlug = (s: unknown): s is string =>
+  typeof s === 'string' && s.trim() !== '' && s.length <= 255;
+
+/**
+ * Fetches the like count for a blog post by slug.
+ * Talks to Neon DB to get the count, returns 0 if slug doesn't exist.
+ * @param slug - The blog post identifier (e.g., "my-first-post").
+ * @returns The number of likes.
+ * @throws AppError if DB is down or query fails.
  */
 const getCount = async (slug: string): Promise<number> => {
-  if (!sql) {
-    console.warn('Database URL not provided, cannot fetch count');
-    throw new Error('Database not configured');
+  if (!sql) throw new AppError('Database not configured');
+  try {
+    const result =
+      await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`;
+    return result.length && result[0].count !== undefined ? result[0].count : 0;
+  } catch {
+    throw new AppError('Failed to fetch count');
   }
-  const result =
-    await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`;
-  return result.length && result[0].count !== undefined ? result[0].count : 0;
 };
 
 /**
- * Retrieves the count for a slug, served with grace.
- * @param {string} slug - The slug to inspect.
- * @returns {Promise<Response>} JSON response with slug and count.
+ * Handles GET requests to fetch like count for a blog post.
+ * Returns the slug and its like count as JSON.
+ * @param slug - The blog post identifier.
+ * @returns JSON response like { slug: "my-post", count: 42 }.
+ * @throws AppError if fetching count fails.
  */
 const handleGet = async (slug: string): Promise<Response> => {
-  try {
-    const count = await getCount(slug);
-    return jsonResponse({ slug, count });
-  } catch (error) {
-    console.error('Error handling GET request:', error);
-    return jsonResponse(
-      { error: 'Failed to get count', details: (error as Error).message },
-      500
-    );
-  }
+  const count = await getCount(slug);
+  return jsonResponse({ slug, count });
 };
 
 /**
- * Increments or initializes a slug’s count, elegantly.
- * @param {string} slug - The slug to update.
- * @returns {Promise<Response>} JSON response with updated slug and count.
+ * Handles POST requests to increment like count for a blog post.
+ * Creates a new entry or updates existing count in DB.
+ * @param slug - The blog post identifier.
+ * @returns JSON response with updated { slug, count }.
+ * @throws AppError if DB update fails.
  */
 const handlePost = async (slug: string): Promise<Response> => {
+  if (!sql) throw new AppError('Database not configured');
   try {
-    if (!sql) {
-      console.warn('Database URL not provided, cannot update count');
-      throw new Error('Database not configured');
-    }
     const result = await sql`
       INSERT INTO likes (slug, count)
       VALUES (${slug}, 1)
@@ -69,76 +126,62 @@ const handlePost = async (slug: string): Promise<Response> => {
     `;
     const count = result[0]?.count ?? (await getCount(slug));
     return jsonResponse({ slug, count });
-  } catch (error) {
-    console.error('Error handling POST request:', error);
-    return jsonResponse(
-      { error: 'Failed to update count', details: (error as Error).message },
-      500
-    );
+  } catch {
+    throw new AppError('Failed to update count');
   }
 };
 
 /**
- * Checks a slug’s existence with a subtle nod.
- * @param {string} slug - The slug to probe.
- * @returns {Promise<Response>} 200 if exists, 404 if not.
+ * Handles HEAD requests to check if a blog post has likes.
+ * Quick way to see if a slug exists without fetching data.
+ * @param slug - The blog post identifier.
+ * @returns Empty response with status 200 (exists) or 404 (not found).
+ * @throws AppError if DB check fails.
  */
 const handleHead = async (slug: string): Promise<Response> => {
-  try {
-    const count = await getCount(slug);
-    return new Response(null, { status: count > 0 ? 200 : 404 });
-  } catch (error) {
-    console.error('Error handling HEAD request:', error);
-    return new Response(null, { status: 500 });
-  }
+  const count = await getCount(slug);
+  return new Response(null, { status: count > 0 ? 200 : 404 });
+};
+
+type RequestBody = {
+  slug: string;
 };
 
 /**
- * Orchestrates request handling with poise.
- * @param {Request} req - Incoming HTTP request.
- * @returns {Promise<Response>} A tailored response.
+ * Main API handler for blog likes.
+ * Routes GET, POST, HEAD requests to manage like counts for blog posts.
+ * Validates inputs, handles errors, and logs issues for debugging.
+ * @param req - Incoming HTTP request.
+ * @returns JSON response with like data or error message.
+ * @example
+ * GET /?slug=my-post -> { slug: "my-post", count: 42 }
+ * POST / { slug: "my-post" } -> { slug: "my-post", count: 43 }
+ * HEAD /?slug=my-post -> 200 or 404
  */
 const handler = async (req: Request): Promise<Response> => {
   try {
-    if (!sql) {
-      console.warn('Database URL not provided, API is non-functional');
-      return jsonResponse(
-        { error: 'Service unavailable, database not configured' },
-        503
-      );
-    }
+    if (!sql) throw new AppError('Database not configured');
 
     const { searchParams } = new URL(req.url);
-    let slug: string | null;
+    let slug: unknown;
 
     if (req.method === 'GET' || req.method === 'HEAD') {
       slug = searchParams.get('slug');
     } else if (req.method === 'POST') {
       if (req.headers.get('Content-Type') !== 'application/json') {
-        return jsonResponse(
-          { error: 'Content-Type must be application/json' },
-          415
-        );
+        throw new AppError('Invalid Content-Type');
       }
-      const body = await req.json();
-      slug = body?.slug;
+      const body: unknown = await req.json();
+      if (typeof body !== 'object' || body === null || !('slug' in body)) {
+        throw new AppError('Invalid slug');
+      }
+      slug = (body as RequestBody).slug;
     } else {
-      return jsonResponse({ error: 'Method not allowed' }, 405);
+      throw new AppError('Method not allowed');
     }
 
-    if (
-      !slug ||
-      typeof slug !== 'string' ||
-      slug.trim() === '' ||
-      slug.length > 255
-    ) {
-      return jsonResponse(
-        {
-          error:
-            'Valid slug is required (non-empty string, max 255 characters)',
-        },
-        400
-      );
+    if (!isValidSlug(slug)) {
+      throw new AppError('Invalid slug');
     }
 
     const trimmedSlug = slug.trim();
@@ -147,13 +190,18 @@ const handler = async (req: Request): Promise<Response> => {
     if (req.method === 'POST') return handlePost(trimmedSlug);
     if (req.method === 'HEAD') return handleHead(trimmedSlug);
 
-    return jsonResponse({ error: 'Method not allowed' }, 405);
-  } catch (error) {
-    console.error('Error handling request:', error);
-    return jsonResponse(
-      { error: 'Internal Server Error', details: (error as Error).message },
-      500
-    );
+    throw new AppError('Method not allowed');
+  } catch (error: unknown) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error:', error);
+      if (error instanceof Error) console.error(error.stack);
+    } else {
+      console.error(`[ERROR] ${new Date().toISOString()}: ${String(error)}`);
+    }
+    if (error instanceof AppError) {
+      return jsonResponse({ error: LOGGING[error.key].message }, error.status);
+    }
+    return jsonResponse({ error: 'Something went wrong' }, 500);
   }
 };
 

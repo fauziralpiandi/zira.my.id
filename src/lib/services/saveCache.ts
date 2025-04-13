@@ -1,32 +1,27 @@
+// A frame for cached riches, bound by time’s subtle mark.
 type CacheEntry<T> = {
   data: T;
   timestamp: number;
 };
 
 /**
- * Caches data in localStorage with expiration.
- *
- * Returns cached data if fresh, otherwise fetches and updates the cache.
- *
- * @param key - Unique cache key
- * @param maxAge - Cache lifetime in ms
- * @param fetchData - Async function to fetch new data
- * @returns Cached or fresh data
+ * Guards a cache in the browser’s silent keep, guided by time’s measure.
+ * Returns stored data if fresh, else seeks anew and seals it fast.
+ * @param key - The emblem to name the cache.
+ * @param maxAge - The span in milliseconds for data to endure.
+ * @param fetchData - A call to summon fresh data when needed.
+ * @returns Data, cached or newly drawn, steady and true.
  */
 export const saveCache = async <T>(
   key: string,
   maxAge: number,
   fetchData: () => Promise<T>
 ): Promise<T> => {
-  const timestampKey = `${key}:ts`;
-
-  /**
-   * Parses cache entry if both value and timestamp exist and are valid.
-   */
+  // Reads the cache’s quiet store, or yields none if broken.
   const getCache = (): CacheEntry<T> | null => {
     try {
       const raw = localStorage.getItem(key);
-      const rawTs = localStorage.getItem(timestampKey);
+      const rawTs = localStorage.getItem(`${key}:ts`);
 
       if (!raw || !rawTs) return null;
 
@@ -35,32 +30,55 @@ export const saveCache = async <T>(
 
       const data = JSON.parse(raw) as T;
       return { data, timestamp };
-    } catch {
-      console.warn(`[cache] Failed to read key: ${key}`);
+    } catch (error: unknown) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error(`[CACHE] Failed to read ${key}`, error);
+      } else {
+        console.error(
+          `[CACHE] [ERROR] ${new Date().toISOString()}: Failed to read ${key}`
+        );
+      }
       return null;
     }
   };
 
-  /**
-   * Stores the value and timestamp, with fallback cleanup on failure.
-   */
+  // Sets the cache with data and time, or clears it if marred.
   const setCache = (data: T, timestamp: number): void => {
     try {
       localStorage.setItem(key, JSON.stringify(data));
-      localStorage.setItem(timestampKey, timestamp.toString());
-    } catch (err) {
-      console.error(`[cache] Failed to save key: ${key}`, err);
+      localStorage.setItem(`${key}:ts`, timestamp.toString());
+    } catch (error: unknown) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error(`[CACHE] Failed to save ${key}`, error);
+      } else {
+        console.error(
+          `[CACHE] [ERROR] ${new Date().toISOString()}: Failed to save ${key}`
+        );
+      }
       localStorage.removeItem(key);
-      localStorage.removeItem(timestampKey);
+      localStorage.removeItem(`${key}:ts`);
     }
   };
 
-  const now = Date.now();
-  const cache = getCache();
+  try {
+    const now = Date.now();
+    const cache = getCache();
 
-  if (cache && now - cache.timestamp < maxAge) return cache.data;
+    if (cache && now - cache.timestamp < maxAge) {
+      return cache.data;
+    }
 
-  const freshData = await fetchData();
-  setCache(freshData, now);
-  return freshData;
+    const freshData = await fetchData();
+    setCache(freshData, now);
+    return freshData;
+  } catch (error: unknown) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(`[CACHE] Failed to fetch ${key}`, error);
+    } else {
+      console.error(
+        `[CACHE] [ERROR] ${new Date().toISOString()}: Failed to fetch ${key}`
+      );
+    }
+    throw error instanceof Error ? error : new Error('Cache fetch failed');
+  }
 };

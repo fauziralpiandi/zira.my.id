@@ -1,6 +1,16 @@
+type FetchOptions = RequestInit & { headers?: Record<string, string> };
+
+/**
+ * Sprints to fetch a resource with a time-bound vow.
+ * Halts if the clock outpaces the promise, yielding a quiet lament.
+ * @param url - The destination to pursue.
+ * @param options - Fetch settings to guide the journey.
+ * @param timeout - Milliseconds to wait before surrender.
+ * @returns A Response, or an error if time runs dry.
+ */
 const fetchWithTimeout = async (
   url: string,
-  options: RequestInit,
+  options: FetchOptions,
   timeout: number
 ): Promise<Response> => {
   const controller = new AbortController();
@@ -17,16 +27,24 @@ const fetchWithTimeout = async (
   ]);
 };
 
+/**
+ * Ventures to Spotify’s realm for treasured data.
+ * Bears an access token as its key, returning riches or a whispered error.
+ * @param url - The Spotify endpoint to explore.
+ * @param accessToken - The token to unlock the gate.
+ * @param timeout - Milliseconds to linger before retreat (defaults to 5000).
+ * @returns A promise of data shaped as T, or an error’s gentle sting.
+ */
 export const fetchSpotifyData = async <T>(
   url: string,
   accessToken: string,
   timeout = 5000
 ): Promise<T> => {
-  if (!accessToken) {
-    throw new Error('Access token is required');
-  }
-
   try {
+    if (!accessToken) {
+      throw new Error('Missing access token');
+    }
+
     const response = await fetchWithTimeout(
       url,
       { headers: { Authorization: `Bearer ${accessToken}` } },
@@ -34,20 +52,20 @@ export const fetchSpotifyData = async <T>(
     );
 
     if (!response.ok) {
-      const errorDetails = await response.json().catch(() => response.text());
       if (response.status === 401) {
-        throw new Error('Unauthorized access, check your access token');
+        throw new Error('Unauthorized access token');
       }
-      throw new Error(
-        `Failed to fetch data from ${url}: ${response.status} ${response.statusText} - ${errorDetails}`
-      );
+      throw new Error(`Failed to fetch from ${url}: ${response.status}`);
     }
 
     return (await response.json()) as T;
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      throw error;
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error:', error);
+      if (error instanceof Error) console.error(error.stack);
+    } else {
+      console.error(`[ERROR] ${new Date().toISOString()}: ${String(error)}`);
     }
-    throw new Error('Unexpected error occurred');
+    throw error instanceof Error ? error : new Error('Unexpected fetch error');
   }
 };

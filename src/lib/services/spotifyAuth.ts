@@ -8,6 +8,11 @@ type AccessTokenResponse = {
 
 const SPOTIFY = SPOTIFY_ENV;
 
+/**
+ * Crafts a basic token with quiet efficiency.
+ * Caches the result to avoid redundant computation, locked in memory’s vault.
+ * @returns A base64-encoded string of client ID and secret.
+ */
 const getBasicToken = (() => {
   let cachedToken: string | null = null;
   return () =>
@@ -16,6 +21,12 @@ const getBasicToken = (() => {
     ).toString('base64'));
 })();
 
+/**
+ * Guards the gate of Spotify’s token response.
+ * Ensures the data sings the expected tune before passing through.
+ * @param data - The raw response to inspect.
+ * @returns True if the data matches the expected structure, false otherwise.
+ */
 const isAccessTokenResponse = (data: unknown): data is AccessTokenResponse =>
   !!data &&
   typeof data === 'object' &&
@@ -26,13 +37,21 @@ const isAccessTokenResponse = (data: unknown): data is AccessTokenResponse =>
   typeof (data as Record<string, unknown>).token_type === 'string' &&
   typeof (data as Record<string, unknown>).expires_in === 'number';
 
-const formatError = (message: string, error: unknown): Error => {
-  const errorMessage = error instanceof Error ? error.message : String(error);
-  return new Error(`${message}: ${errorMessage}`);
-};
-
+/**
+ * Pursues Spotify’s access token with steadfast resolve.
+ * Trades a refresh token for a new key to the musical vault.
+ * @returns A promise of a fresh access token, or an error’s quiet murmur.
+ */
 export const getAccessToken = async (): Promise<string> => {
   try {
+    if (
+      !SPOTIFY.CLIENT_ID ||
+      !SPOTIFY.CLIENT_SECRET ||
+      !SPOTIFY.REFRESH_TOKEN
+    ) {
+      throw new Error('Missing Spotify credentials');
+    }
+
     const response = await fetch(SPOTIFY.TOKEN_URL, {
       method: 'POST',
       headers: {
@@ -47,20 +66,25 @@ export const getAccessToken = async (): Promise<string> => {
     });
 
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch access token: ${response.status} ${response.statusText}`
-      );
+      throw new Error(`Failed to fetch access token: ${response.status}`);
     }
 
     const data = await response.json();
 
     if (!isAccessTokenResponse(data)) {
-      throw new Error('Invalid response structure for access token.');
+      throw new Error('Invalid access token response structure');
     }
 
     return data.access_token;
-  } catch (error) {
-    console.error('Error fetching access token:', error);
-    throw formatError('Error fetching access token', error);
+  } catch (error: unknown) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error:', error);
+      if (error instanceof Error) console.error(error.stack);
+    } else {
+      console.error(`[ERROR] ${new Date().toISOString()}: ${String(error)}`);
+    }
+    throw error instanceof Error
+      ? error
+      : new Error('Failed to fetch access token');
   }
 };

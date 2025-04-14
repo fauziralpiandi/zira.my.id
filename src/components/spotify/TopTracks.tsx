@@ -15,45 +15,33 @@ type Track = {
 export const SpotifyTopTracks = () => {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
-
     const fetchTracks = async () => {
       try {
         const data = await saveCache<Track[]>(
-          'tracks',
-          24 * 60 * 60 * 1000, // 24 hours
+          'top_tracks',
+          24 * 60 * 60 * 1000,
           async () => {
-            const response = await fetch('/api/spotify/top-tracks', { signal });
-            if (!response.ok) {
-              const errorData = await response.json();
-              throw new Error(errorData.error || 'Failed to fetch top tracks');
-            }
-            return response.json();
+            const res = await fetch('/api/spotify/top-tracks', {
+              signal: controller.signal,
+            });
+            if (!res.ok) throw new Error();
+            return res.json();
           }
         );
         setTracks(data);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          if (err.name !== 'AbortError') {
-            setError(err.message);
-          }
-        } else {
-          setError('Unexpected error occurred');
-        }
+      } catch {
+        setError('Something broke!');
       } finally {
         setLoading(false);
       }
     };
 
     fetchTracks();
-
-    return () => {
-      controller.abort();
-    };
+    return () => controller.abort();
   }, []);
 
   if (loading) {

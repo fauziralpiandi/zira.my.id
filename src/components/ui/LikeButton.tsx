@@ -5,18 +5,11 @@ import { PiHeart, PiHeartFill, PiSpinner } from 'react-icons/pi';
 
 import { cx } from '~/lib/utils';
 
-type LikeResponse = {
+type Response = {
   count: number;
   error?: string;
 };
 
-/**
- * @component
- * @param {Object} props
- * @param {string} props.slug - Unique identifier for the post.
- * @example
- * <LikeButton slug="my-post" />
- */
 export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   const [count, setCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -25,55 +18,29 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   const [isAddingLike, setIsAddingLike] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-    /**
-     * Fetch like count for the post from API.
-     * Sets count or error state based on response.
-     */
     const fetchLike = async () => {
       try {
-        const res = await fetch(`/api/likes?slug=${slug}`, {
-          signal: controller.signal,
-        });
-        clearTimeout(timeoutId);
-        if (!res.ok) throw new Error('Failed to fetch count');
-        const data: LikeResponse = await res.json();
+        const res = await fetch(`/api/likes?slug=${slug}`);
+        if (!res.ok) throw new Error();
+        const data: Response = await res.json();
         setCount(data.count);
-      } catch (error: unknown) {
-        clearTimeout(timeoutId);
-        if (error instanceof Error) {
-          if (error.name === 'AbortError') return;
-          console.error('Failed to fetch likes:', error.message);
-          setError('Failed to load likes count. Please try again later.');
-        } else {
-          console.error('Unexpected error while fetching likes');
-          setError('An unexpected error occurred.');
-        }
+      } catch {
+        setError('Something broke!');
       } finally {
         setIsLoading(false);
       }
     };
 
-    // Check if user has liked this post via cookie
-    const likedCookie = getCookie(`liked-${slug}`);
-    if (likedCookie) {
+    const liked = getCookie(`liked-${slug}`);
+    if (liked) {
       setHasLiked(true);
     }
 
     fetchLike();
 
-    return () => {
-      controller.abort();
-    };
+    return () => {};
   }, [slug]);
 
-  /**
-   * Get cookie value by name.
-   * @param name - Cookie name (e.g., 'liked-my-post').
-   * @returns Cookie value or undefined if not found.
-   */
   const getCookie = (name: string): string | undefined => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -81,28 +48,14 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
     return undefined;
   };
 
-  /**
-   * Set cookie with name, value, and expiry.
-   * @param name - Cookie name.
-   * @param value - Cookie value.
-   * @param days - Days until expiry.
-   */
   const setCookie = (name: string, value: string, days: number) => {
-    const d = new Date();
-    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-    const expires = `expires=${d.toUTCString()}`;
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    const expires = `expires=${date.toUTCString()}`;
     document.cookie = `${name}=${value}; ${expires}; path=/`;
   };
 
-  /**
-   * Handle like action with optimistic UI update.
-   * Posts to API and sets cookie to prevent duplicate likes.
-   * Reverts UI on error.
-   */
   const addLike = useCallback(async () => {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
-
     if (hasLiked || isAddingLike) return;
 
     setCount((prev) => (prev !== null ? prev + 1 : 1));
@@ -115,23 +68,19 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug }),
       });
-
-      clearTimeout(timeoutId);
-      const data: LikeResponse = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to add like');
-
+      const like: Response = await res.json();
+      if (!res.ok) throw new Error();
       setCookie(`liked-${slug}`, 'true', 365);
-      setCount(data.count);
+      setCount(like.count);
       setHasLiked(true);
-    } catch (error) {
-      console.error('Failed to add like:', error);
+    } catch {
       setCount((prev) => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
-      setError(error instanceof Error ? error.message : 'Failed to add like');
+      setError('Something broke!');
     } finally {
       setIsAddingLike(false);
     }
-  }, [hasLiked, isAddingLike, slug]);
+  }, [slug, hasLiked, isAddingLike]);
 
   if (isLoading) {
     return (

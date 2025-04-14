@@ -122,8 +122,7 @@ export const GET = async (request: Request) => {
         ],
       }
     );
-  } catch (e) {
-    console.log((e as { message: string }).message);
+  } catch {
     return new Response(`Failed to generate the image`, {
       status: 500,
     });

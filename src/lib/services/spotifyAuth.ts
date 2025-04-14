@@ -1,12 +1,12 @@
 import { SPOTIFY_ENV } from './spotifyEnv';
 
-type AccessTokenResponse = {
+const SPOTIFY = SPOTIFY_ENV;
+
+type Response = {
   access_token: string;
   token_type: string;
   expires_in: number;
 };
-
-const SPOTIFY = SPOTIFY_ENV;
 
 const getBasicToken = (() => {
   let cachedToken: string | null = null;
@@ -16,7 +16,7 @@ const getBasicToken = (() => {
     ).toString('base64'));
 })();
 
-const isAccessTokenResponse = (data: unknown): data is AccessTokenResponse =>
+const isAccessTokenResponse = (data: unknown): data is Response =>
   !!data &&
   typeof data === 'object' &&
   'access_token' in data &&
@@ -26,14 +26,16 @@ const isAccessTokenResponse = (data: unknown): data is AccessTokenResponse =>
   typeof (data as Record<string, unknown>).token_type === 'string' &&
   typeof (data as Record<string, unknown>).expires_in === 'number';
 
-const formatError = (message: string, error: unknown): Error => {
-  const errorMessage = error instanceof Error ? error.message : String(error);
-  return new Error(`${message}: ${errorMessage}`);
-};
-
 export const getAccessToken = async (): Promise<string> => {
   try {
-    const response = await fetch(SPOTIFY.TOKEN_URL, {
+    if (
+      !SPOTIFY.CLIENT_ID ||
+      !SPOTIFY.CLIENT_SECRET ||
+      !SPOTIFY.REFRESH_TOKEN
+    ) {
+      throw new Error('Something broke!');
+    }
+    const res = await fetch(SPOTIFY.TOKEN_URL, {
       method: 'POST',
       headers: {
         Authorization: `Basic ${getBasicToken()}`,
@@ -45,22 +47,15 @@ export const getAccessToken = async (): Promise<string> => {
         refresh_token: SPOTIFY.REFRESH_TOKEN,
       }),
     });
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch access token: ${response.status} ${response.statusText}`
-      );
+    if (!res.ok) {
+      throw new Error('Something broke!');
     }
-
-    const data = await response.json();
-
+    const data = await res.json();
     if (!isAccessTokenResponse(data)) {
-      throw new Error('Invalid response structure for access token.');
+      throw new Error('Something broke!');
     }
-
     return data.access_token;
-  } catch (error) {
-    console.error('Error fetching access token:', error);
-    throw formatError('Error fetching access token', error);
+  } catch {
+    throw new Error('Something broke!');
   }
 };

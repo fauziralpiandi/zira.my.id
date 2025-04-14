@@ -1,21 +1,15 @@
 import { Link } from 'next-view-transitions';
 import { PiArrowUpRight } from 'react-icons/pi';
 
-type MdxLinkProps = {
+type Link = {
   href: string;
   children: React.ReactNode;
   key?: string;
   className?: string;
 };
 
-export const MdxLink = ({
-  href,
-  children,
-  className,
-  ...props
-}: MdxLinkProps) => {
+export const MdxLink = ({ href, children, className, ...props }: Link) => {
   if (!href || typeof href !== 'string') {
-    console.error('Requires a valid href string');
     return null;
   }
 

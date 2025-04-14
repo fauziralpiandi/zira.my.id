@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { LuCopy, LuCheck } from 'react-icons/lu';
+import { LuCheck, LuCopy } from 'react-icons/lu';
 
 import { cx } from '~/lib/utils';
 
@@ -14,14 +14,8 @@ export const MdxPreCode = ({
 
   const handleCopy = () => {
     if (!preRef.current) return;
-
     const codeText = preRef.current.innerText;
-
-    if (!navigator.clipboard || !navigator.clipboard.writeText) {
-      console.error('Clipboard API is not supported in this browser.');
-      return;
-    }
-
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return;
     navigator.clipboard.writeText(codeText).then(() => setCopied(true));
   };
 

@@ -5,20 +5,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { AudioWave } from '~/components/ui';
 
 type NowPlaying = {
-  title?: string;
-  artist?: string;
-  url?: string;
-  isPlaying?: boolean;
+  title: string;
+  artist: string;
+  url: string;
+  isPlaying: boolean;
 };
 
-const FETCH_INTERVAL = 15000; // 15s in ms
-
-/**
- * Fetches track data every 15s in production, only on mount/refresh in dev.
- * Skips redundant fetches and aborts on unmount for clean DX.
- *
- * @returns JSX.Element
- */
 export const SpotifyNowPlaying = () => {
   const [track, setTrack] = useState<NowPlaying | null>(null);
   const [loading, setLoading] = useState(true);
@@ -27,48 +19,37 @@ export const SpotifyNowPlaying = () => {
   const lastUrlRef = useRef<string | null>(null);
   const controllerRef = useRef<AbortController | null>(null);
 
-  /**
-   * Fetches the current Spotify track, skipping if the track URL hasn't changed.
-   * Handles errors gracefully and aborts on signal.
-   */
-  const fetchTrack = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     controllerRef.current = new AbortController();
-    const signal = controllerRef.current.signal;
-
     try {
       setLoading(true);
-      const response = await fetch('/api/spotify/now-playing', { signal });
-      if (!response.ok) throw new Error('Failed to fetch Spotify data');
-
-      const data: NowPlaying = await response.json();
-
+      const res = await fetch('/api/spotify/now-playing', {
+        signal: controllerRef.current.signal,
+      });
+      if (!res.ok) throw new Error();
+      const data: NowPlaying = await res.json();
       if (data?.url && data.url === lastUrlRef.current) return;
-
       setTrack(data);
       lastUrlRef.current = data.url ?? null;
       setError(null);
-    } catch (err) {
-      if ((err as Error)?.name === 'AbortError') return;
-      setError((err as Error)?.message ?? 'Unexpected error occurred');
+    } catch {
+      setError('Something broke!');
     } finally {
       setLoading(false);
     }
   }, []);
 
-  // Cleans up interval and aborts fetch on unmount.
   useEffect(() => {
-    fetchTrack();
-
+    fetchData();
     if (process.env.NODE_ENV === 'production') {
-      const intervalId = setInterval(fetchTrack, FETCH_INTERVAL);
+      const interval = setInterval(fetchData, 15000);
       return () => {
-        clearInterval(intervalId);
+        clearInterval(interval);
         controllerRef.current?.abort();
       };
     }
-
     return () => controllerRef.current?.abort();
-  }, [fetchTrack]);
+  }, [fetchData]);
 
   const {
     title = 'Unknown',

@@ -1,7 +1,4 @@
-/**
- * MIT License (c) Rachel McGrane
- * Modified from (https://codepen.io/rachelmcgrane/pen/VexWdX)
- */
+// (https://codepen.io/rachelmcgrane/pen/VexWdX)
 
 import { cx } from '~/lib/utils';
 

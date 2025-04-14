@@ -4,17 +4,6 @@ import { type Document as Doc } from 'contentlayer2/core';
 
 import { getSlug } from '~/lib/schemas';
 
-/**
- * Finds an image for a given content doc based on its slug.
- * Falls back to a placeholder if not found.
- *
- * Looks inside a configurable image directory and supports common formats.
- *
- * @param doc - Contentlayer document
- * @param imgDir - Folder where images are stored (default: public/imgs)
- * @param prefix - URL prefix for public access (default: /imgs)
- * @returns Image URL or null if nothing found
- */
 export const findImage = async (
   doc: Doc,
   imgDir = 'public/imgs',
@@ -23,16 +12,16 @@ export const findImage = async (
   const slug = getSlug(doc);
   if (!slug) throw new Error('Invalid slug');
 
-  const possibleExtensions = ['webp', 'png', 'jpg', 'jpeg', 'svg', 'gif'];
+  const possibleExts = ['webp', 'png', 'jpg', 'jpeg', 'svg', 'gif'];
   const baseDir = path.join(process.cwd(), imgDir);
 
   const toPublicPath = (filePath: string) =>
     path.relative(baseDir, filePath).replace(/\\/g, '/');
 
-  const findFile = async (name: string) => {
+  const find = async (name: string) => {
     try {
       return await Promise.any(
-        possibleExtensions.map(async (ext) => {
+        possibleExts.map(async (ext) => {
           const filePath = path.join(baseDir, `${name}.${ext}`);
           await fs.access(filePath);
           return path.posix.join(prefix, toPublicPath(filePath));
@@ -44,10 +33,10 @@ export const findImage = async (
   };
 
   try {
-    return await findFile(slug);
+    return await find(slug);
   } catch {
     try {
-      return await findFile('placeholder');
+      return await find('placeholder');
     } catch {
       throw new Error('No valid image or placeholder found');
     }

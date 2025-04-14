@@ -1,18 +1,13 @@
 import { SPOTIFY_ENV } from './spotifyEnv';
 
-type AccessTokenResponse = {
+const SPOTIFY = SPOTIFY_ENV;
+
+type Response = {
   access_token: string;
   token_type: string;
   expires_in: number;
 };
 
-const SPOTIFY = SPOTIFY_ENV;
-
-/**
- * Crafts a basic token with quiet efficiency.
- * Caches the result to avoid redundant computation, locked in memory’s vault.
- * @returns A base64-encoded string of client ID and secret.
- */
 const getBasicToken = (() => {
   let cachedToken: string | null = null;
   return () =>
@@ -21,13 +16,7 @@ const getBasicToken = (() => {
     ).toString('base64'));
 })();
 
-/**
- * Guards the gate of Spotify’s token response.
- * Ensures the data sings the expected tune before passing through.
- * @param data - The raw response to inspect.
- * @returns True if the data matches the expected structure, false otherwise.
- */
-const isAccessTokenResponse = (data: unknown): data is AccessTokenResponse =>
+const isAccessTokenResponse = (data: unknown): data is Response =>
   !!data &&
   typeof data === 'object' &&
   'access_token' in data &&
@@ -37,11 +26,6 @@ const isAccessTokenResponse = (data: unknown): data is AccessTokenResponse =>
   typeof (data as Record<string, unknown>).token_type === 'string' &&
   typeof (data as Record<string, unknown>).expires_in === 'number';
 
-/**
- * Pursues Spotify’s access token with steadfast resolve.
- * Trades a refresh token for a new key to the musical vault.
- * @returns A promise of a fresh access token, or an error’s quiet murmur.
- */
 export const getAccessToken = async (): Promise<string> => {
   try {
     if (
@@ -49,10 +33,9 @@ export const getAccessToken = async (): Promise<string> => {
       !SPOTIFY.CLIENT_SECRET ||
       !SPOTIFY.REFRESH_TOKEN
     ) {
-      throw new Error('Missing Spotify credentials');
+      throw new Error('Something broke!');
     }
-
-    const response = await fetch(SPOTIFY.TOKEN_URL, {
+    const res = await fetch(SPOTIFY.TOKEN_URL, {
       method: 'POST',
       headers: {
         Authorization: `Basic ${getBasicToken()}`,
@@ -64,27 +47,15 @@ export const getAccessToken = async (): Promise<string> => {
         refresh_token: SPOTIFY.REFRESH_TOKEN,
       }),
     });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch access token: ${response.status}`);
+    if (!res.ok) {
+      throw new Error('Something broke!');
     }
-
-    const data = await response.json();
-
+    const data = await res.json();
     if (!isAccessTokenResponse(data)) {
-      throw new Error('Invalid access token response structure');
+      throw new Error('Something broke!');
     }
-
     return data.access_token;
-  } catch (error: unknown) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Error:', error);
-      if (error instanceof Error) console.error(error.stack);
-    } else {
-      console.error(`[ERROR] ${new Date().toISOString()}: ${String(error)}`);
-    }
-    throw error instanceof Error
-      ? error
-      : new Error('Failed to fetch access token');
+  } catch {
+    throw new Error('Something broke!');
   }
 };

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
 import { constant } from '~/lib/constant';
 
 const { locale } = constant;

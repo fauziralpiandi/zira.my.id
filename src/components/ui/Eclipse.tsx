@@ -1,11 +1,8 @@
-/**
- * MIT License (c) Novum Perspective Design
- * Modified from (https://codepen.io/Launghe/pen/ZEGPxEr)
- */
+// (https://codepen.io/Launghe/pen/ZEGPxEr)
 
-export const Moonlight = () => {
+export const Eclipse = () => {
   return (
-    <div className="flex overflow-hidden rounded-full bg-neutral-900/75">
+    <div className="flex overflow-hidden rounded-full bg-neutral-900/50">
       <svg viewBox="0 0 400 400" width="144" height="144">
         <g id="moon-group">
           <g id="aura-group" fill="#f5f5f5" fillOpacity="0.1">

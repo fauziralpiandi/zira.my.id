@@ -2,7 +2,6 @@ import { constant } from '~/lib/constant';
 
 const { locale, timeZone } = constant;
 
-// Adds ordinal suffix to day numbers
 const getOrdinal = (day: number): string => {
   const j = day % 10;
   const k = day % 100;
@@ -13,7 +12,6 @@ const getOrdinal = (day: number): string => {
   return `${day}th`;
 };
 
-// Turns minutes into a rough "time ago" string
 const getRelativeTime = (minutes: number): string => {
   const days = Math.floor(minutes / (60 * 24));
   const weeks = Math.floor(days / 7);
@@ -32,16 +30,6 @@ const getRelativeTime = (minutes: number): string => {
   return `${years} years ago`;
 };
 
-/**
- * Formats a given ISO date string as either a relative time ("a few hours ago", "yesterday", etc.),
- * or an absolute date with optional weekday ("April 26th, 2005", "Tuesday, April 26th, 2005").
- *
- * Throws an error for invalid dates or future timestamps.
- *
- * @param date - A valid ISO date string (e.g. "2005-04-26T10:00:00Z")
- * @param format - 'absolute' or 'relative'
- * @param showWeekday - If true, includes weekday in absolute date.
- */
 export const formattedDate = (
   date: string,
   format: 'absolute' | 'relative',

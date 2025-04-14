@@ -1,6 +1,4 @@
-/**
- * Modified from (https://github.com/leerob/site/blob/main/app/name.tsx)
- */
+// (https://github.com/leerob/site/blob/main/app/name.tsx)
 
 import { Link } from 'next-view-transitions';
 

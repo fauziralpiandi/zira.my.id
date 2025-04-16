@@ -27,9 +27,7 @@ export const SpotifyNowPlaying = () => {
         signal: controllerRef.current.signal,
       });
       if (!res.ok) {
-        const data = await res.json().catch(() => ({
-          /* no-op */
-        }));
+        const data = await res.json().catch(() => ({}));
         throw new Error(data.error || 'Failed to fetch now playing');
       }
       const data: NowPlaying = await res.json();

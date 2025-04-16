@@ -2,6 +2,8 @@ import { SPOTIFY_ENV } from './spotifyEnv';
 
 const SPOTIFY = SPOTIFY_ENV;
 
+const LOG_PREFIX = '[Spotify Auth API]';
+
 type Response = {
   access_token: string;
   token_type: string;
@@ -10,10 +12,15 @@ type Response = {
 
 const getBasicToken = (() => {
   let cachedToken: string | null = null;
-  return () =>
-    (cachedToken ??= Buffer.from(
+  return () => {
+    if (!SPOTIFY.CLIENT_ID || !SPOTIFY.CLIENT_SECRET) {
+      console.error(`${LOG_PREFIX} Missing CLIENT_ID or CLIENT_SECRET`);
+      throw new Error('Invalid configuration');
+    }
+    return (cachedToken ??= Buffer.from(
       `${SPOTIFY.CLIENT_ID}:${SPOTIFY.CLIENT_SECRET}`
     ).toString('base64'));
+  };
 })();
 
 const isAccessTokenResponse = (data: unknown): data is Response =>
@@ -27,29 +34,41 @@ const isAccessTokenResponse = (data: unknown): data is Response =>
   typeof (data as Record<string, unknown>).expires_in === 'number';
 
 export const getAccessToken = async (): Promise<string> => {
-  const res = await fetch(SPOTIFY.TOKEN_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${getBasicToken()}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Cache-Control': 'no-cache',
-    },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token: SPOTIFY.REFRESH_TOKEN,
-    }),
-  });
-
-  if (!res.ok) {
-    console.error(`[Spotify API request failed]: ${res.status}`);
-    throw new Error('Spotify API request failed');
+  if (!SPOTIFY.REFRESH_TOKEN || !SPOTIFY.TOKEN_URL) {
+    console.error(`${LOG_PREFIX} Missing REFRESH_TOKEN`);
+    throw new Error('Invalid configuration');
   }
 
-  const data = await res.json();
-  if (!isAccessTokenResponse(data)) {
-    console.error('[Invalid Spotify API response]:', data);
-    throw new Error('Invalid Spotify API response');
-  }
+  try {
+    const res = await fetch(SPOTIFY.TOKEN_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${getBasicToken()}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cache-Control': 'no-cache',
+      },
+      body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: SPOTIFY.REFRESH_TOKEN,
+      }),
+    });
 
-  return data.access_token;
+    if (!res.ok) {
+      console.error(`${LOG_PREFIX} Failed to fetch token (HTTP ${res.status})`);
+      throw new Error('Spotify API failed');
+    }
+
+    const data = await res.json();
+    if (!isAccessTokenResponse(data)) {
+      console.error(`${LOG_PREFIX} Invalid token response`);
+      throw new Error('Invalid response');
+    }
+
+    return data.access_token;
+  } catch (error) {
+    console.error(
+      `${LOG_PREFIX} Error: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
+    throw error;
+  }
 };

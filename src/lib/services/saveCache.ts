@@ -43,7 +43,7 @@ export const saveCache = async <T>(
     setCache(data, now);
     return data;
   } catch (error) {
-    console.error(`[Cache fetch failed: (${key})]:`, error);
+    console.error(`[Cache] Failed to fetch (${key})`, error);
     throw new Error('Cache fetch failed');
   }
 };

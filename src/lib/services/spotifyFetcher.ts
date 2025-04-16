@@ -1,5 +1,7 @@
 type FetchOptions = RequestInit & { headers?: Record<string, string> };
 
+const LOG_PREFIX = '[Spotify Fetch]';
+
 const fetchWithTimeout = async (
   url: string,
   options: FetchOptions,
@@ -9,6 +11,7 @@ const fetchWithTimeout = async (
   const timeoutPromise = new Promise<never>((_, reject) =>
     setTimeout(() => {
       controller.abort();
+      console.error(`${LOG_PREFIX} Fetch timeout (${url})`);
       reject(new Error('Fetch timeout'));
     }, timeout)
   );
@@ -24,20 +27,28 @@ export const fetchSpotify = async <T>(
   timeout = 3000
 ): Promise<T> => {
   if (!accessToken) {
-    console.error('[Missing Spotify access token]');
-    throw new Error('Missing access token');
+    console.error(`${LOG_PREFIX} No access token provided`);
+    throw new Error('Invalid access token');
   }
 
-  const res = await fetchWithTimeout(
-    url,
-    { headers: { Authorization: `Bearer ${accessToken}` } },
-    timeout
-  );
+  try {
+    const res = await fetchWithTimeout(
+      url,
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+      timeout
+    );
 
-  if (!res.ok) {
-    console.error(`[Spotify API failed]: ${res.status}`);
-    throw new Error('Spotify API failed');
+    if (!res.ok) {
+      console.error(
+        `${LOG_PREFIX} Failed to fetch (${url}): HTTP ${res.status}`
+      );
+      throw new Error('Spotify API failed');
+    }
+
+    return (await res.json()) as T;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    console.error(`${LOG_PREFIX} Error fetching ${url}: ${message}`);
+    throw error;
   }
-
-  return (await res.json()) as T;
 };

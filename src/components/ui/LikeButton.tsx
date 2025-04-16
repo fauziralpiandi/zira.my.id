@@ -28,7 +28,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
         const data: Response = await res.json();
         setCount(data.count);
       } catch (error) {
-        console.error(`[Failed to fetch likes: (${slug})]:`, error);
+        console.error(`Failed to fetch likes (${slug})`, error);
         setError(
           error instanceof Error && error.message !== 'Failed to fetch likes'
             ? error.message
@@ -85,7 +85,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       setCount(like.count);
       setHasLiked(true);
     } catch (error) {
-      console.error(`[Failed to add like: (${slug})]:`, error);
+      console.error(`Failed to add like (${slug})`, error);
       setCount((prev) => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
       setError(
@@ -114,7 +114,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
         <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
           <PiHeartFill className="h-5 w-5 fill-red-500" />
           <span className="font-display translate-y-[1px] text-sm text-red-500">
-            ERR
+            Error!
           </span>
         </div>
       </div>

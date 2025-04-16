@@ -38,7 +38,7 @@ export const SpotifyTopTracks = () => {
         setTracks(data);
         setError(null);
       } catch (error) {
-        console.error('[Failed to fetch top tracks]:', error);
+        console.error('Failed to fetch top tracks', error);
         setError(
           error instanceof Error &&
             error.message !== 'Failed to fetch top tracks'
@@ -108,7 +108,7 @@ export const SpotifyTopTracks = () => {
                 aria-label={`${title} \u2014 ${artist}`}
               >
                 <span className="sr-only">
-                  {title} — {artist}
+                  {title} &mdash; {artist}
                 </span>
                 <Image
                   src={cover}

@@ -37,7 +37,7 @@ export const SpotifyTopArtists = () => {
         setArtists(data);
         setError(null);
       } catch (error) {
-        console.error('[Failed to fetch top artists]:', error);
+        console.error('Failed to fetch top artists', error);
         setError(
           error instanceof Error &&
             error.message !== 'Failed to fetch top artists'

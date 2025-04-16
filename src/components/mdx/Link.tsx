@@ -21,8 +21,8 @@ export const MdxLink = ({ href, children, className, ...props }: Link) => {
         href={href}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        title={`Visit external link: ${href}`}
-        aria-label={`Visit external link: ${href}`}
+        title={`Visit external link (${href})`}
+        aria-label={`Visit external link (${href})`}
         className={className}
         {...props}
       >
@@ -39,8 +39,8 @@ export const MdxLink = ({ href, children, className, ...props }: Link) => {
     <Link
       passHref
       href={href}
-      title={`Navigate to: ${href}`}
-      aria-label={`Navigate to: ${href}`}
+      title={`Navigate to (${href})`}
+      aria-label={`Navigate to (${href})`}
       className={className}
       {...props}
     >

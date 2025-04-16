@@ -33,7 +33,7 @@ export const StoryCard = ({ post }: { post: Stories }) => {
             <h1 className="mt-1.5 line-clamp-2 text-lg leading-tight font-semibold">
               {title}
             </h1>
-            <p className="sr-only">{summary}</p>
+            <span className="sr-only">{summary}</span>
           </div>
         </figure>
       </Link>

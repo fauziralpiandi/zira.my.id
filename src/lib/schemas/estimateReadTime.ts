@@ -6,7 +6,7 @@ export const estimateReadTime = (content: string): string => {
     const stats = readingStats(content);
     return pluralize(stats.minutes, 'min');
   } catch (error) {
-    console.error('[Error estimating time]:', error);
+    console.error('Error estimating time', error);
     return 'Error estimating time';
   }
 };

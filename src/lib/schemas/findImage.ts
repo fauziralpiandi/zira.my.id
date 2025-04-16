@@ -31,10 +31,10 @@ export const findImage = async (
 
   let result = await find(slug);
   if (!result) {
-    console.warn(`[Image not found: (${slug})]: falling back to placeholder.`);
+    console.warn(`Image not found (${slug}), falling back to placeholder.`);
     result = await find('placeholder');
     if (!result) {
-      console.error('[Placeholder not found]');
+      console.error('Placeholder not found');
     }
   }
 

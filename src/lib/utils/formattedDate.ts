@@ -40,14 +40,14 @@ export const formattedDate = (
   const targetDate = new Date(date);
 
   if (isNaN(targetDate.getTime())) {
-    console.error(`[Invalid date input]: ${date}`);
+    console.error(`Invalid date input (${date})`);
     throw new Error('Invalid date input');
   }
   const timeDifference = currentDate.getTime() - targetDate.getTime();
   const minutesDiff = Math.floor(timeDifference / (1000 * 60));
   if (minutesDiff < 0) {
-    console.error(`[Future date detected]: ${date}`);
-    throw new Error('You’re not a time traveler!');
+    console.error(`Bruh! (${date})`);
+    throw new Error('LMAO');
   }
 
   if (format === 'absolute') {
@@ -71,6 +71,6 @@ export const formattedDate = (
     return result;
   }
 
-  console.error(`[Invalid format provided]: ${format}`);
+  console.error(`Invalid format provided (${format})`);
   throw new Error('Invalid format');
 };

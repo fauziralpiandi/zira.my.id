@@ -54,10 +54,9 @@ const Misc = () => {
         <SpotifyTopTracks />
         <SpotifyTopArtists />
         <p className="text-xs text-neutral-300">
-          Whatever, wherever, and whenever, I escape into music with Spotify.
-          Gracie&lt;3 stay on repeat&mdash;big-room, future-bass, indie, and
-          dream setting the vibe. If it&rsquo;s not worth the replay? Nah, not
-          my jam.
+          Whatever, wherever, and whenever, I escape into music w/ Spotify.
+          Gracie stay on repeat&mdash;big-room, future-bass, indie, and dream
+          setting the vibe. If it&rsquo;s not worth the replay? Nah, not my jam.
         </p>
       </div>
     </section>

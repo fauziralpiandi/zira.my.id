@@ -9,7 +9,7 @@
     "dev": "next dev --turbopack",
     "generate": "contentlayer2 build",
     "lint": "tsc --noEmit && next lint",
-    "pretty": "prettier --write src/**/*.{ts,tsx}",
+    "prettier": "prettier --write src/**/*.{ts,tsx}",
     "preview": "next build && next start",
     "start": "next start"
   },

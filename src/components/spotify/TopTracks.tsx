@@ -28,13 +28,23 @@ export const SpotifyTopTracks = () => {
             const res = await fetch('/api/spotify/top-tracks', {
               signal: controller.signal,
             });
-            if (!res.ok) throw new Error();
+            if (!res.ok) {
+              const data = await res.json().catch(() => ({}));
+              throw new Error(data.error || 'Failed to fetch top tracks');
+            }
             return res.json();
           }
         );
         setTracks(data);
-      } catch {
-        setError('Something broke!');
+        setError(null);
+      } catch (error) {
+        console.error('[Failed to fetch top tracks]:', error);
+        setError(
+          error instanceof Error &&
+            error.message !== 'Failed to fetch top tracks'
+            ? error.message
+            : 'Unknown error'
+        );
       } finally {
         setLoading(false);
       }

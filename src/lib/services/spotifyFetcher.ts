@@ -9,7 +9,7 @@ const fetchWithTimeout = async (
   const timeoutPromise = new Promise<never>((_, reject) =>
     setTimeout(() => {
       controller.abort();
-      reject(new Error('Something broke!'));
+      reject(new Error('Fetch timeout'));
     }, timeout)
   );
   return Promise.race([
@@ -21,22 +21,23 @@ const fetchWithTimeout = async (
 export const fetchSpotify = async <T>(
   url: string,
   accessToken: string,
-  timeout = 5000
+  timeout = 3000
 ): Promise<T> => {
-  try {
-    if (!accessToken) {
-      throw new Error('Something broke!');
-    }
-    const res = await fetchWithTimeout(
-      url,
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-      timeout
-    );
-    if (!res.ok) {
-      throw new Error('Something broke!');
-    }
-    return (await res.json()) as T;
-  } catch {
-    throw new Error('Something broke!');
+  if (!accessToken) {
+    console.error('[Missing Spotify access token]');
+    throw new Error('Missing access token');
   }
+
+  const res = await fetchWithTimeout(
+    url,
+    { headers: { Authorization: `Bearer ${accessToken}` } },
+    timeout
+  );
+
+  if (!res.ok) {
+    console.error(`[Spotify API failed]: ${res.status}`);
+    throw new Error('Spotify API failed');
+  }
+
+  return (await res.json()) as T;
 };

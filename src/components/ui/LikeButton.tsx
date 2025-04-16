@@ -21,11 +21,19 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
     const fetchLike = async () => {
       try {
         const res = await fetch(`/api/likes?slug=${slug}`);
-        if (!res.ok) throw new Error();
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || 'Failed to fetch likes');
+        }
         const data: Response = await res.json();
         setCount(data.count);
-      } catch {
-        setError('Something broke!');
+      } catch (error) {
+        console.error(`[Failed to fetch likes: (${slug})]:`, error);
+        setError(
+          error instanceof Error && error.message !== 'Failed to fetch likes'
+            ? error.message
+            : 'Unknown error'
+        );
       } finally {
         setIsLoading(false);
       }
@@ -68,15 +76,23 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug }),
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to add like');
+      }
       const like: Response = await res.json();
-      if (!res.ok) throw new Error();
       setCookie(`liked-${slug}`, 'true', 365);
       setCount(like.count);
       setHasLiked(true);
-    } catch {
+    } catch (error) {
+      console.error(`[Failed to add like: (${slug})]:`, error);
       setCount((prev) => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
-      setError('Something broke!');
+      setError(
+        error instanceof Error && error.message !== 'Failed to add like'
+          ? error.message
+          : 'Unknown error'
+      );
     } finally {
       setIsAddingLike(false);
     }

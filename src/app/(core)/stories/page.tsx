@@ -31,11 +31,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent('Stories')}`,
-        type: 'image/png',
-        width: 1200,
-        height: 630,
-        alt: `OpenGraph`,
+        url: `${baseUrl}/api/og?title=Stories`,
       },
     ],
   },
@@ -45,11 +41,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent('Stories')}`,
-        type: 'image/png',
-        width: 1200,
-        height: 630,
-        alt: `OpenGraph`,
+        url: `${baseUrl}/api/og?title=Stories`,
       },
     ],
   },

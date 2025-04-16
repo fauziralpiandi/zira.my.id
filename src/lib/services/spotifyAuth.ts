@@ -27,35 +27,29 @@ const isAccessTokenResponse = (data: unknown): data is Response =>
   typeof (data as Record<string, unknown>).expires_in === 'number';
 
 export const getAccessToken = async (): Promise<string> => {
-  try {
-    if (
-      !SPOTIFY.CLIENT_ID ||
-      !SPOTIFY.CLIENT_SECRET ||
-      !SPOTIFY.REFRESH_TOKEN
-    ) {
-      throw new Error('Something broke!');
-    }
-    const res = await fetch(SPOTIFY.TOKEN_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Basic ${getBasicToken()}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Cache-Control': 'no-cache',
-      },
-      body: new URLSearchParams({
-        grant_type: 'refresh_token',
-        refresh_token: SPOTIFY.REFRESH_TOKEN,
-      }),
-    });
-    if (!res.ok) {
-      throw new Error('Something broke!');
-    }
-    const data = await res.json();
-    if (!isAccessTokenResponse(data)) {
-      throw new Error('Something broke!');
-    }
-    return data.access_token;
-  } catch {
-    throw new Error('Something broke!');
+  const res = await fetch(SPOTIFY.TOKEN_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${getBasicToken()}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cache-Control': 'no-cache',
+    },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: SPOTIFY.REFRESH_TOKEN,
+    }),
+  });
+
+  if (!res.ok) {
+    console.error(`[Spotify API request failed]: ${res.status}`);
+    throw new Error('Spotify API request failed');
   }
+
+  const data = await res.json();
+  if (!isAccessTokenResponse(data)) {
+    console.error('[Invalid Spotify API response]:', data);
+    throw new Error('Invalid Spotify API response');
+  }
+
+  return data.access_token;
 };

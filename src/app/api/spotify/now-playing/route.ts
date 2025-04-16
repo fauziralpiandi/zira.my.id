@@ -27,8 +27,9 @@ const SPOTIFY_RECENTLY_PLAYED_URL =
 const formatResponse = (data: Response) => {
   const track = data.item ?? data.items?.[0]?.track;
   if (!track) {
-    throw new Error('Something broke!');
+    throw new Error('No data available');
   }
+
   return {
     title: track.name,
     artist: track.album.artists[0]?.name,
@@ -37,26 +38,47 @@ const formatResponse = (data: Response) => {
   };
 };
 
-const getNowPlaying = async (accessToken: string): Promise<Response> => {
-  let nowPlaying = await fetchSpotify<Response>(
-    SPOTIFY_NOW_PLAYING_URL,
-    accessToken
-  );
-  if (!nowPlaying.is_playing || nowPlaying.currently_playing_type !== 'track') {
-    nowPlaying = await fetchSpotify<Response>(
+const getNowPlaying = async (accessToken: string) => {
+  try {
+    const nowPlaying = await fetchSpotify<Response>(
+      SPOTIFY_NOW_PLAYING_URL,
+      accessToken
+    );
+
+    if (
+      !nowPlaying.is_playing ||
+      nowPlaying.currently_playing_type !== 'track'
+    ) {
+      const recentlyPlayed = await fetchSpotify<Response>(
+        SPOTIFY_RECENTLY_PLAYED_URL,
+        accessToken
+      );
+      return formatResponse(recentlyPlayed);
+    }
+
+    return formatResponse(nowPlaying);
+  } catch {
+    const recentlyPlayed = await fetchSpotify<Response>(
       SPOTIFY_RECENTLY_PLAYED_URL,
       accessToken
     );
+
+    return formatResponse(recentlyPlayed);
   }
-  return nowPlaying;
 };
 
 export const GET = async () => {
   try {
     const accessToken = await getAccessToken();
-    const nowPlaying = await getNowPlaying(accessToken);
-    return NextResponse.json(formatResponse(nowPlaying));
-  } catch {
-    return NextResponse.json({ error: 'Something broke!' }, { status: 500 });
+    const result = await getNowPlaying(accessToken);
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error('[Unknown API error]:', error);
+    const errorMessage =
+      error instanceof Error &&
+      ['No data available', 'Spotify API failed'].includes(error.message)
+        ? error.message
+        : 'Unknown error';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 };

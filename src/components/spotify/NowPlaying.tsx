@@ -26,14 +26,32 @@ export const SpotifyNowPlaying = () => {
       const res = await fetch('/api/spotify/now-playing', {
         signal: controllerRef.current.signal,
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({
+          /* no-op */
+        }));
+        throw new Error(data.error || 'Failed to fetch now playing');
+      }
       const data: NowPlaying = await res.json();
       if (data?.url && data.url === lastUrlRef.current) return;
       setTrack(data);
       lastUrlRef.current = data.url ?? null;
       setError(null);
-    } catch {
-      setError('Something broke!');
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        return;
+      }
+      setError(
+        error instanceof Error
+          ? error.message === 'Failed to fetch track'
+            ? error.message
+            : error.name === 'TypeError'
+              ? 'Network error'
+              : error.message === 'Unexpected token'
+                ? 'Invalid response'
+                : error.message
+          : 'Unknown error'
+      );
     } finally {
       setLoading(false);
     }

@@ -11,7 +11,7 @@ const res = (data: object, status: number = 200): Response =>
 
 const validateSlug = (slug: unknown): string => {
   if (typeof slug !== 'string') {
-    throw new Error('Something broke!');
+    throw new Error('Invalid slug');
   }
   const cleaned = slug
     .trim()
@@ -23,7 +23,7 @@ const validateSlug = (slug: unknown): string => {
     cleaned.length > 255 ||
     !/^[a-z0-9_-]+$/.test(cleaned)
   ) {
-    throw new Error('Something broke!');
+    throw new Error('Invalid slug');
   }
   return cleaned;
 };
@@ -31,19 +31,20 @@ const validateSlug = (slug: unknown): string => {
 type LikeRow = { count: number };
 
 const getCount = async (slug: string): Promise<number> => {
-  if (!sql) throw new Error('Something broke!');
+  if (!sql) {
+    console.error('[No database connection]');
+    throw new Error('No database connection');
+  }
   const result =
     (await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`) as LikeRow[];
   return result.length && result[0].count !== undefined ? result[0].count : 0;
 };
 
-const handleGet = async (slug: string): Promise<Response> => {
-  const count = await getCount(slug);
-  return res({ slug, count });
-};
-
 const handlePost = async (slug: string): Promise<Response> => {
-  if (!sql) throw new Error('Something broke!');
+  if (!sql) {
+    console.error('[No database connection]');
+    throw new Error('No database connection');
+  }
   const result = (await sql`
     INSERT INTO likes (slug, count)
     VALUES (${slug}, 1)
@@ -52,6 +53,11 @@ const handlePost = async (slug: string): Promise<Response> => {
     RETURNING count;
   `) as LikeRow[];
   const count = result[0]?.count ?? (await getCount(slug));
+  return res({ slug, count });
+};
+
+const handleGet = async (slug: string): Promise<Response> => {
+  const count = await getCount(slug);
   return res({ slug, count });
 };
 
@@ -66,7 +72,10 @@ type RequestBody = {
 
 const handler = async (req: Request): Promise<Response> => {
   try {
-    if (!sql) throw new Error('Something broke!');
+    if (!sql) {
+      console.error('[No database connection]');
+      return res({ error: 'No database connection' }, 503);
+    }
 
     const { searchParams } = new URL(req.url);
     let slug: unknown;
@@ -75,15 +84,15 @@ const handler = async (req: Request): Promise<Response> => {
       slug = searchParams.get('slug');
     } else if (req.method === 'POST') {
       if (req.headers.get('Content-Type') !== 'application/json') {
-        throw new Error('Something broke!');
+        return res({ error: 'Invalid Content-Type' }, 400);
       }
       const body: unknown = await req.json();
       if (typeof body !== 'object' || body === null || !('slug' in body)) {
-        throw new Error('Something broke!');
+        return res({ error: 'Invalid request body' }, 400);
       }
       slug = (body as RequestBody).slug;
     } else {
-      throw new Error('Something broke!');
+      return res({ error: 'Method not allowed' }, 405);
     }
 
     const validatedSlug = validateSlug(slug);
@@ -92,9 +101,10 @@ const handler = async (req: Request): Promise<Response> => {
     if (req.method === 'POST') return handlePost(validatedSlug);
     if (req.method === 'HEAD') return handleHead(validatedSlug);
 
-    throw new Error('Something broke!');
-  } catch {
-    return res({ error: 'Something broke!' }, 500);
+    return res({ error: 'Method not allowed' }, 405);
+  } catch (error) {
+    console.error('[Unknown API error]:', error);
+    return res({ error: 'Unknown error' }, 500);
   }
 };
 

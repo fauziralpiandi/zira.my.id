@@ -15,7 +15,7 @@ export const findImage = async (
   const toPublicPath = (filePath: string) =>
     path.relative(baseDir, filePath).replace(/\\/g, '/');
 
-  const find = async (name: string) => {
+  const find = async (name: string): Promise<string | null> => {
     try {
       return await Promise.any(
         possibleExts.map(async (ext) => {
@@ -29,13 +29,14 @@ export const findImage = async (
     }
   };
 
-  try {
-    return await find(slug);
-  } catch {
-    try {
-      return await find('placeholder');
-    } catch {
-      return null;
+  let result = await find(slug);
+  if (!result) {
+    console.warn(`[Image not found: (${slug})]: falling back to placeholder.`);
+    result = await find('placeholder');
+    if (!result) {
+      console.error('[Placeholder not found]');
     }
   }
+
+  return result;
 };

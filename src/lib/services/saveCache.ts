@@ -32,16 +32,18 @@ export const saveCache = async <T>(
     }
   };
 
+  const now = Date.now();
+  const cachedEntry = getCache();
+  if (cachedEntry && now - cachedEntry.timestamp < maxAge) {
+    return cachedEntry.data;
+  }
+
   try {
-    const now = Date.now();
-    const cachedEntry = getCache();
-    if (cachedEntry && now - cachedEntry.timestamp < maxAge) {
-      return cachedEntry.data;
-    }
     const data = await fetchData();
     setCache(data, now);
     return data;
-  } catch {
-    throw new Error('Something broke!');
+  } catch (error) {
+    console.error(`[Cache] Failed to fetch (${key})`, error);
+    throw new Error('Cache fetch failed');
   }
 };

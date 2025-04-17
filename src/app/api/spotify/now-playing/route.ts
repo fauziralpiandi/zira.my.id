@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { getAccessToken, fetchSpotify } from '~/lib/services';
 
+const LOG_PREFIX = '[Now Playing API]';
+
 type NowPlaying = {
   name: string;
   album: {
@@ -24,39 +26,82 @@ const SPOTIFY_NOW_PLAYING_URL =
 const SPOTIFY_RECENTLY_PLAYED_URL =
   'https://api.spotify.com/v1/me/player/recently-played?limit=1';
 
-const formatResponse = (data: Response) => {
-  const track = data.item ?? data.items?.[0]?.track;
+const formatResponse = (nowPlaying: Response) => {
+  const track = nowPlaying.item ?? nowPlaying.items?.[0]?.track;
   if (!track) {
-    throw new Error('Something broke!');
+    console.error(`${LOG_PREFIX} No track data available`);
+    throw new Error('No track data');
   }
+
   return {
     title: track.name,
-    artist: track.album.artists[0]?.name,
+    artist: track.album.artists[0].name,
     url: track.external_urls.spotify,
-    isPlaying: data.is_playing,
+    isPlaying: nowPlaying.is_playing,
   };
 };
 
-const getNowPlaying = async (accessToken: string): Promise<Response> => {
-  let nowPlaying = await fetchSpotify<Response>(
-    SPOTIFY_NOW_PLAYING_URL,
-    accessToken
-  );
-  if (!nowPlaying.is_playing || nowPlaying.currently_playing_type !== 'track') {
-    nowPlaying = await fetchSpotify<Response>(
+const getNowPlaying = async (accessToken: string) => {
+  if (!accessToken) {
+    console.error(`${LOG_PREFIX} No access token provided`);
+    throw new Error('Invalid access token');
+  }
+
+  try {
+    const nowPlaying = await fetchSpotify<Response>(
+      SPOTIFY_NOW_PLAYING_URL,
+      accessToken
+    );
+
+    if (
+      !nowPlaying.is_playing ||
+      nowPlaying.currently_playing_type !== 'track'
+    ) {
+      console.log(`${LOG_PREFIX} Offline, fetching recently played`);
+      const recentlyPlayed = await fetchSpotify<Response>(
+        SPOTIFY_RECENTLY_PLAYED_URL,
+        accessToken
+      );
+      return formatResponse(recentlyPlayed);
+    }
+
+    return formatResponse(nowPlaying);
+  } catch (error) {
+    console.error(
+      `${LOG_PREFIX} Failed to fetch now playing: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
+    const recentlyPlayed = await fetchSpotify<Response>(
       SPOTIFY_RECENTLY_PLAYED_URL,
       accessToken
     );
+    return formatResponse(recentlyPlayed);
   }
-  return nowPlaying;
 };
 
 export const GET = async () => {
   try {
     const accessToken = await getAccessToken();
-    const nowPlaying = await getNowPlaying(accessToken);
-    return NextResponse.json(formatResponse(nowPlaying));
-  } catch {
-    return NextResponse.json({ error: 'Something broke!' }, { status: 500 });
+    if (!accessToken) {
+      console.error(`${LOG_PREFIX} Failed to obtain access token`);
+      return NextResponse.json(
+        { error: 'Invalid access token' },
+        { status: 400 }
+      );
+    }
+
+    const result = await getNowPlaying(accessToken);
+    return NextResponse.json(result);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    console.error(`${LOG_PREFIX} Error: ${message}`);
+    return NextResponse.json(
+      { error: message },
+      {
+        status:
+          message.includes('Invalid') || message === 'No track data'
+            ? 400
+            : 500,
+      }
+    );
   }
 };

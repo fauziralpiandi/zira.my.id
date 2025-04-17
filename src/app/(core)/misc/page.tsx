@@ -20,11 +20,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent('Misc')}`,
-        type: 'image/png',
-        width: 1200,
-        height: 630,
-        alt: `OpenGraph`,
+        url: `${baseUrl}/api/og?title=Misc)}`,
       },
     ],
   },
@@ -34,11 +30,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent('Misc')}`,
-        type: 'image/png',
-        width: 1200,
-        height: 630,
-        alt: `OpenGraph`,
+        url: `${baseUrl}/api/og?title=Misc)}`,
       },
     ],
   },
@@ -62,10 +54,9 @@ const Misc = () => {
         <SpotifyTopTracks />
         <SpotifyTopArtists />
         <p className="text-xs text-neutral-300">
-          Whatever, wherever, and whenever, I escape into music with Spotify.
-          Gracie&lt;3 stay on repeat&mdash;big-room, future-bass, indie, and
-          dream setting the vibe. If it&rsquo;s not worth the replay? Nah, not
-          my jam.
+          Whatever, wherever, and whenever, I escape into music w/ Spotify.
+          Gracie stay on repeat&mdash;big-room, future-bass, indie, and dream
+          setting the vibe. If it&rsquo;s not worth the replay? Nah, not my jam.
         </p>
       </div>
     </section>

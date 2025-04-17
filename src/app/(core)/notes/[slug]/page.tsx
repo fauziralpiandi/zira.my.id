@@ -41,11 +41,7 @@ export const generateMetadata = async (props: {
       type: 'article',
       images: [
         {
-          url: `${baseUrl}/api/og?title=${encodeURIComponent(title)}`,
-          type: 'image/png',
-          width: 1200,
-          height: 630,
-          alt: `OpenGraph`,
+          url: `${baseUrl}/api/og?title=${title}`,
         },
       ],
     },
@@ -55,11 +51,7 @@ export const generateMetadata = async (props: {
       card: 'summary_large_image',
       images: [
         {
-          url: `${baseUrl}/api/og?title=${encodeURIComponent(title)}`,
-          type: 'image/png',
-          width: 1200,
-          height: 630,
-          alt: `OpenGraph`,
+          url: `${baseUrl}/api/og?title=${title}`,
         },
       ],
     },

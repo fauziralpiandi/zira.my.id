@@ -39,10 +39,16 @@ export const formattedDate = (
   const currentDate = new Date();
   const targetDate = new Date(date);
 
-  if (isNaN(targetDate.getTime())) throw new Error('Something broke!');
+  if (isNaN(targetDate.getTime())) {
+    console.error(`Invalid date input (${date})`);
+    throw new Error('Invalid date input');
+  }
   const timeDifference = currentDate.getTime() - targetDate.getTime();
   const minutesDiff = Math.floor(timeDifference / (1000 * 60));
-  if (minutesDiff < 0) throw new Error('Something broke!');
+  if (minutesDiff < 0) {
+    console.error(`Bruh! (${date})`);
+    throw new Error('LMAO');
+  }
 
   if (format === 'absolute') {
     const dateOptions: Intl.DateTimeFormatOptions = {
@@ -56,12 +62,15 @@ export const formattedDate = (
     const formattedDate = targetDate.toLocaleDateString(locale, dateOptions);
     const day = targetDate.getDate();
     const formattedDay = getOrdinal(day);
-    return formattedDate.replace(day.toString(), formattedDay);
+    const result = formattedDate.replace(day.toString(), formattedDay);
+    return result;
   }
 
   if (format === 'relative') {
-    return getRelativeTime(minutesDiff);
+    const result = getRelativeTime(minutesDiff);
+    return result;
   }
 
-  throw new Error('Something broke!');
+  console.error(`Invalid format provided (${format})`);
+  throw new Error('Invalid format');
 };

@@ -9,7 +9,7 @@ export const GET = async () => {
   try {
     return new ImageResponse(
       (
-        <div tw="bg-neutral-900 w-full h-full flex items-center justify-center">
+        <div tw="flex h-full w-full items-center justify-center bg-neutral-900">
           <svg
             viewBox="0 0 40 40"
             height="500"

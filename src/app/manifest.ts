@@ -1,6 +1,6 @@
 import { type MetadataRoute } from 'next';
 
-import { constant } from '~/lib/constant';
+import { constant } from '@/lib/constant';
 
 const { title, description } = constant;
 

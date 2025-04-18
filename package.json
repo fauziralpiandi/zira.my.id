@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "clean": "rm -rf .next .contentlayer",
+    "clean": "rm -rf .next/cache",
     "dev": "next dev --turbopack",
     "generate": "contentlayer2 build",
     "lint": "tsc --noEmit && next lint",
@@ -41,5 +41,8 @@
     "remark-gfm": "4.0.1",
     "tailwindcss": "4.1.4",
     "typescript": "5.8.3"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

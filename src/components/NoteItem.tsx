@@ -1,7 +1,7 @@
 import { Link } from 'next-view-transitions';
 
-import { type Notes } from 'collections';
-import { formattedDate } from '~/lib/utils';
+import { type Notes } from 'contents';
+import { formattedDate } from '@/lib/utils';
 
 export const NoteItem = ({ post }: { post: Notes }) => {
   const { slug, title, summary, published } = post;

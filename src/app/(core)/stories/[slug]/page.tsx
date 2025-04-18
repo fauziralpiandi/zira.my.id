@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-import { allStories } from 'collections';
-import { constant } from '~/lib/constant';
-import { formattedDate } from '~/lib/utils';
-import { LikeButton } from '~/components/ui';
-import { MdxContent } from '~/components/mdx';
+import { allStories } from 'contents';
+import { constant } from '@/lib/constant';
+import { formattedDate } from '@/lib/utils';
+import { LikeButton } from '@/components/ui';
+import { MdxContent } from '@/components/mdx';
 
 export const generateMetadata = async (props: {
   params: Promise<{ slug: string }>;
@@ -34,7 +34,7 @@ export const generateMetadata = async (props: {
       type: 'article',
       images: [
         {
-          url: `${baseUrl}/api/og?title=${title}`,
+          url: `${baseUrl}/api/og`,
         },
       ],
     },
@@ -44,7 +44,7 @@ export const generateMetadata = async (props: {
       card: 'summary_large_image',
       images: [
         {
-          url: `${baseUrl}/api/og?title=${title}`,
+          url: `${baseUrl}/api/og`,
         },
       ],
     },

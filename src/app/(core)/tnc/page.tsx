@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 
-import { allStatics } from 'collections';
-import { constant } from '~/lib/constant';
-import { formattedDate } from '~/lib/utils';
-import { MdxContent } from '~/components/mdx';
+import { allStatics } from 'contents';
+import { constant } from '@/lib/constant';
+import { formattedDate } from '@/lib/utils';
+import { MdxContent } from '@/components/mdx';
 
 const { baseUrl } = constant;
 const page = allStatics.find((doc) => doc.slug === 'tnc');
@@ -23,7 +23,7 @@ export const metadata = {
     type: 'article',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${title}`,
+        url: `${baseUrl}/api/og`,
       },
     ],
   },
@@ -33,7 +33,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${title}`,
+        url: `${baseUrl}/api/og`,
       },
     ],
   },

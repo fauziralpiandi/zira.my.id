@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { constant } from '~/lib/constant';
+import { constant } from '@/lib/constant';
 
 const { locale } = constant;
 

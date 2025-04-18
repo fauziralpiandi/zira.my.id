@@ -1,6 +1,6 @@
 import { defineDocumentType } from 'contentlayer2/source-files';
 
-import { getSlug } from '~/lib/schemas';
+import { getSlug } from '@/lib/schemas';
 
 export const Static = defineDocumentType(() => ({
   name: 'Static',

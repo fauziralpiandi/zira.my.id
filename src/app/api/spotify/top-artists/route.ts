@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { getAccessToken, fetchSpotify } from '~/lib/services';
+import { getAccessToken, fetchSpotify } from '@/lib/services';
 
 const LOG_PREFIX = '[Top Artists API]';
 

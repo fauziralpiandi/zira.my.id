@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { LuCheck, LuCopy } from 'react-icons/lu';
 
-import { cx } from '~/lib/utils';
+import { cx } from '@/lib/utils';
 
 export const MdxPreCode = ({
   children,

@@ -1,5 +1,5 @@
-import { constant } from '~/lib/constant';
-import { SpotifyTopArtists, SpotifyTopTracks } from '~/components/spotify';
+import { constant } from '@/lib/constant';
+import { SpotifyTopArtists, SpotifyTopTracks } from '@/components/spotify';
 
 const { baseUrl, title } = constant;
 
@@ -20,7 +20,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: `${baseUrl}/api/og?title=Misc)}`,
+        url: `${baseUrl}/api/og`,
       },
     ],
   },
@@ -30,7 +30,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${baseUrl}/api/og?title=Misc)}`,
+        url: `${baseUrl}/api/og`,
       },
     ],
   },

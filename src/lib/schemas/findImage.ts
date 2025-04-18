@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { type Document as Doc } from 'contentlayer2/core';
 
-import { getSlug } from '~/lib/schemas';
+import { getSlug } from '@/lib/schemas';
 
 export const findImage = async (
   doc: Doc,

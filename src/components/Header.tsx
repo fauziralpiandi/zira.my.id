@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 import { LuMenu, LuX } from 'react-icons/lu';
 
 import { FlipName } from './ui';
-import { DesktopNav, MobileNav } from '~/components';
-import { navItems } from '~/lib/constant';
+import { DesktopNav, MobileNav } from '@/components';
+import { navItems } from '@/lib/constant';
 
 export const Header = () => {
   const pathname = usePathname();

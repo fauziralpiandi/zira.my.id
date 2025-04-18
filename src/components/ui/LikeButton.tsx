@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { PiHeart, PiHeartFill, PiSpinner } from 'react-icons/pi';
 
-import { cx } from '~/lib/utils';
+import { cx } from '@/lib/utils';
 
 type Response = {
   count: number;

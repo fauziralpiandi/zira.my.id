@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { Link } from 'next-view-transitions';
 
-import { type Stories } from 'collections';
-import { formattedDate } from '~/lib/utils';
+import { type Stories } from 'contents';
+import { formattedDate } from '@/lib/utils';
 
 export const StoryCard = ({ post }: { post: Stories }) => {
   const { slug, image, title, summary, published, readTime } = post;

@@ -1,6 +1,6 @@
 import { defineDocumentType } from 'contentlayer2/source-files';
 
-import { estimateReadTime, findImage, getSlug } from '~/lib/schemas';
+import { estimateReadTime, findImage, getSlug } from '@/lib/schemas';
 
 export const Stories = defineDocumentType(() => ({
   name: 'Stories',

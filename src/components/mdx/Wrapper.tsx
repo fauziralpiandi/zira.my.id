@@ -1,6 +1,6 @@
 import { useMDXComponent } from 'next-contentlayer2/hooks';
 
-import { MdxLink, MdxPreCode } from '~/components/mdx';
+import { MdxLink, MdxPreCode } from '@/components/mdx';
 
 const MdxComponents = {
   a: MdxLink,

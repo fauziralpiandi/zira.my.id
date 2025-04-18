@@ -3,12 +3,12 @@ import { type Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { ViewTransitions } from 'next-view-transitions';
 
-import { constant } from '~/lib/constant';
-import { cx } from '~/lib/utils';
-import { fontBody, fontCode, fontDisplay } from '~/lib/fonts';
-import { Header, Footer } from '~/components';
+import { constant } from '@/lib/constant';
+import { cx } from '@/lib/utils';
+import { fontBody, fontCode, fontDisplay } from '@/lib/fonts';
+import { Header, Footer } from '@/components';
 
-import '~/app/globals.css';
+import '@/app/globals.css';
 
 const { baseUrl, title, description, locale } = constant;
 
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${title}`,
+        url: `${baseUrl}/api/og`,
       },
     ],
   },
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${title}`,
+        url: `${baseUrl}/api/og`,
       },
     ],
   },

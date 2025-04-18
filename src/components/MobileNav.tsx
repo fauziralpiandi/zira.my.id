@@ -1,7 +1,7 @@
 import { Link } from 'next-view-transitions';
 
-import { constant } from '~/lib/constant';
-import { cx } from '~/lib/utils';
+import { constant } from '@/lib/constant';
+import { cx } from '@/lib/utils';
 
 type MobileNav = {
   isOpen: boolean;

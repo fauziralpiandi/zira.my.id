@@ -1,6 +1,6 @@
 import { defineDocumentType } from 'contentlayer2/source-files';
 
-import { countWords, getSlug } from '~/lib/schemas';
+import { countWords, getSlug } from '@/lib/schemas';
 
 export const Notes = defineDocumentType(() => ({
   name: 'Notes',

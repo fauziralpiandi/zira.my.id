@@ -1,7 +1,7 @@
 import { type NextConfig } from 'next';
 import { withContentlayer } from 'next-contentlayer2';
 
-import { securityHeader } from '~/lib/services';
+import { securityHeader } from '@/lib/services';
 
 const nextConfig: NextConfig = {
   env: {

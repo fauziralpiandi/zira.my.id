@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { AudioWave } from '~/components/ui';
+import { AudioWave } from '@/components/ui';
 
 type NowPlaying = {
   title: string;

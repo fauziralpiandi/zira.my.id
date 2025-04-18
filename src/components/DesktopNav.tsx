@@ -1,6 +1,6 @@
 import { Link } from 'next-view-transitions';
 
-import { cx } from '~/lib/utils';
+import { cx } from '@/lib/utils';
 
 type DesktopNav = {
   pathname: string;

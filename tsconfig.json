@@ -24,8 +24,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "collections": ["./.contentlayer/generated"]
+      "@/*": ["./src/*"],
+      "contents": ["./.contentlayer/generated"]
     }
   },
   "include": [

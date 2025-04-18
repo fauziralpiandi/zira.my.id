@@ -1,6 +1,6 @@
 // (https://codepen.io/rachelmcgrane/pen/VexWdX)
 
-import { cx } from '~/lib/utils';
+import { cx } from '@/lib/utils';
 
 export const AudioWave = ({ isPlaying }: { isPlaying: boolean }) => {
   return (

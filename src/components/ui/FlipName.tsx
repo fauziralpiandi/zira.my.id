@@ -2,7 +2,7 @@
 
 import { Link } from 'next-view-transitions';
 
-import { constant } from '~/lib/constant';
+import { constant } from '@/lib/constant';
 
 export const FlipName = () => {
   return (

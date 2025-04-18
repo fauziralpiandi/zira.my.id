@@ -1,7 +1,7 @@
-import { allStories } from 'collections';
-import { constant } from '~/lib/constant';
-import { pluralize } from '~/lib/utils';
-import { StoryCard } from '~/components';
+import { allStories } from 'contents';
+import { constant } from '@/lib/constant';
+import { pluralize } from '@/lib/utils';
+import { StoryCard } from '@/components';
 
 const { baseUrl, title } = constant;
 
@@ -31,7 +31,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: `${baseUrl}/api/og?title=Stories`,
+        url: `${baseUrl}/api/og`,
       },
     ],
   },
@@ -41,7 +41,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${baseUrl}/api/og?title=Stories`,
+        url: `${baseUrl}/api/og`,
       },
     ],
   },

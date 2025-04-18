@@ -1,5 +1,5 @@
-import { constant } from '~/lib/constant';
-import { Eclipse } from '~/components/ui';
+import { constant } from '@/lib/constant';
+import { Eclipse } from '@/components/ui';
 
 const { description, authorName } = constant;
 

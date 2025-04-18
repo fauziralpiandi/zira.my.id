@@ -1,8 +1,8 @@
 import { Link } from 'next-view-transitions';
 
-import { constant } from '~/lib/constant';
-import { SpotifyNowPlaying } from '~/components/spotify';
-import { TimeDisplay } from '~/components/ui';
+import { constant } from '@/lib/constant';
+import { SpotifyNowPlaying } from '@/components/spotify';
+import { TimeDisplay } from '@/components/ui';
 
 export const Footer = () => {
   return (

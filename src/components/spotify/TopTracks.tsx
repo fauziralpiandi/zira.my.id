@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import { saveCache } from '~/lib/services';
+import { saveCache } from '@/lib/services';
 
 type Track = {
   title: string;

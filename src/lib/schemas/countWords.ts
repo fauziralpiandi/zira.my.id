@@ -1,4 +1,4 @@
-import { pluralize } from '~/lib/utils';
+import { pluralize } from '@/lib/utils';
 import { readingStats } from './readingStats';
 
 export const countWords = (content: string): string => {

@@ -1,4 +1,4 @@
-import { constant } from '~/lib/constant';
+import { constant } from '@/lib/constant';
 
 const { locale, timeZone } = constant;
 

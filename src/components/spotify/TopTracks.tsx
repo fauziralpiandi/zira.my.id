@@ -5,6 +5,8 @@ import Image from 'next/image';
 
 import { saveCache } from '@/lib/services';
 
+const LOG_PREFIX = '[SpotifyTopTracks]';
+
 type Track = {
   title: string;
   artist: string;
@@ -27,23 +29,59 @@ export const SpotifyTopTracks = () => {
           async () => {
             const res = await fetch('/api/spotify/top-tracks', {
               signal: controller.signal,
+              cache: 'no-store',
+              headers: {
+                'Content-Type': 'application/json',
+              },
             });
+
             if (!res.ok) {
               const data = await res.json().catch(() => ({}));
-              throw new Error(data.error || 'Failed to fetch top tracks');
+              throw new Error(
+                data.error || `Failed to fetch top tracks (${res.status})`,
+              );
             }
-            return res.json();
-          }
+
+            try {
+              return await res.json();
+            } catch (parseError) {
+              console.error(
+                `${LOG_PREFIX} Error: Failed to parse API response`,
+                parseError,
+              );
+              throw new Error('Invalid response format');
+            }
+          },
         );
+
+        if (!data || !Array.isArray(data)) {
+          throw new Error('Invalid data format received');
+        }
+
         setTracks(data);
         setError(null);
       } catch (error) {
-        console.error('Failed to fetch top tracks', error);
+        if (error instanceof Error && error.name === 'AbortError') {
+          return;
+        }
+
+        console.error(
+          `${LOG_PREFIX} Error: Failed to fetch top tracks: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`,
+        );
+
         setError(
-          error instanceof Error &&
-            error.message !== 'Failed to fetch top tracks'
-            ? error.message
-            : 'Unknown error'
+          error instanceof Error
+            ? error.message.includes('Failed to fetch')
+              ? 'Failed to connect to Spotify'
+              : error.name === 'TypeError'
+                ? 'Network connection error'
+                : error.message.includes('Invalid') ||
+                    error.message.includes('Unexpected token')
+                  ? 'Invalid response format'
+                  : error.message
+            : 'Unknown error occurred',
         );
       } finally {
         setLoading(false);

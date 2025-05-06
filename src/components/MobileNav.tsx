@@ -20,7 +20,7 @@ export const MobileNav = ({
     <nav
       className={cx(
         'animate fixed inset-0 right-0 z-20 flex flex-col items-center justify-center bg-neutral-950/80 backdrop-blur-3xl backdrop-grayscale md:hidden',
-        isOpen ? 'visible opacity-100' : 'invisible opacity-0'
+        isOpen ? 'visible opacity-100' : 'invisible opacity-0',
       )}
       aria-hidden={!isOpen}
     >
@@ -31,7 +31,7 @@ export const MobileNav = ({
           title={name}
           className={cx(
             'font-display text-accent py-2 text-5xl font-medium',
-            pathname === path ? 'opacity-50' : ''
+            pathname === path ? 'opacity-50' : '',
           )}
           aria-current={pathname === path ? 'page' : undefined}
           onClick={closeNav}

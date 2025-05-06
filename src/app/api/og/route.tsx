@@ -5,7 +5,7 @@ const size = {
   height: 630,
 };
 
-export const GET = async () => {
+export async function GET() {
   try {
     return new ImageResponse(
       (
@@ -29,11 +29,11 @@ export const GET = async () => {
       ),
       {
         ...size,
-      }
+      },
     );
   } catch {
     return new Response(`Failed to generate the OpenGraph`, {
       status: 500,
     });
   }
-};
+}

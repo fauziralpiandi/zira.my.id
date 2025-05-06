@@ -12,7 +12,7 @@ const totalReadTime = allStories.reduce((total, story) => {
 
 const StoriesReadTime = pluralize(totalReadTime, 'minute');
 const sorted = allStories.sort(
-  (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
+  (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime(),
 );
 
 const desc = `${allStories.length} stories, ${StoriesReadTime} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`;

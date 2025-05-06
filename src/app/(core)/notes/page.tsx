@@ -12,7 +12,7 @@ const totalWordCount = allNotes.reduce((total, note) => {
 
 const NotesWordCount = pluralize(totalWordCount, 'word');
 const sorted = allNotes.sort(
-  (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
+  (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime(),
 );
 
 const desc = `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${NotesWordCount} across ${allNotes.length} notes.`;

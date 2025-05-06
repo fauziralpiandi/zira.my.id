@@ -3,13 +3,16 @@ type CacheEntry<T> = {
   timestamp: number;
 };
 
-export const saveCache = async <T>(
+const LOG_PREFIX = '[CacheManager]';
+
+export async function saveCache<T>(
   key: string,
   maxAge: number,
-  fetchData: () => Promise<T>
-): Promise<T> => {
-  const getCache = (): CacheEntry<T> | null => {
+  fetchData: () => Promise<T>,
+): Promise<T> {
+  function getCache(): CacheEntry<T> | null {
     try {
+      if (typeof window === 'undefined') return null;
       const raw = localStorage.getItem(key);
       const rawTs = localStorage.getItem(`${key}:ts`);
       if (!raw || !rawTs) return null;
@@ -20,17 +23,23 @@ export const saveCache = async <T>(
     } catch {
       return null;
     }
-  };
+  }
 
-  const setCache = (data: T, timestamp: number): void => {
+  function setCache(data: T, timestamp: number): void {
     try {
+      if (typeof window === 'undefined') return;
       localStorage.setItem(key, JSON.stringify(data));
       localStorage.setItem(`${key}:ts`, timestamp.toString());
-    } catch {
-      localStorage.removeItem(key);
-      localStorage.removeItem(`${key}:ts`);
+    } catch (error) {
+      console.error(
+        `${LOG_PREFIX} Error: Failed to set cache - ${error instanceof Error ? error.message : 'Unknown error'}`,
+      );
+      try {
+        localStorage.removeItem(key);
+        localStorage.removeItem(`${key}:ts`);
+      } catch {}
     }
-  };
+  }
 
   const now = Date.now();
   const cachedEntry = getCache();
@@ -43,7 +52,9 @@ export const saveCache = async <T>(
     setCache(data, now);
     return data;
   } catch (error) {
-    console.error(`[Cache] Failed to fetch (${key})`, error);
+    console.error(
+      `${LOG_PREFIX} Error: Failed to fetch data for key "${key}": ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
     throw new Error('Cache fetch failed');
   }
-};
+}

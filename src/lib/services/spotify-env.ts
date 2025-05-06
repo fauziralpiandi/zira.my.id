@@ -5,10 +5,10 @@ type Spotify = {
   TOKEN_URL: string;
 };
 
-const getEnvVar = (key: string): string => {
+function getEnvVar(key: string): string {
   const value = process.env[key];
   return value || '';
-};
+}
 
 export const SPOTIFY_ENV: Spotify = Object.freeze({
   CLIENT_ID: getEnvVar('SPOTIFY_CLIENT_ID'),

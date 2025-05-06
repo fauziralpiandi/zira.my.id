@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { AudioWave } from '@/components/ui';
 
+const LOG_PREFIX = '[SpotifyNowPlaying]';
+
 type NowPlaying = {
   title: string;
   artist: string;
@@ -16,39 +18,71 @@ export const SpotifyNowPlaying = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const lastUrlRef = useRef<string | null>(null);
   const controllerRef = useRef<AbortController | null>(null);
 
   const fetchData = useCallback(async () => {
+    if (controllerRef.current) {
+      controllerRef.current.abort();
+    }
     controllerRef.current = new AbortController();
+
     try {
       setLoading(true);
       const res = await fetch('/api/spotify/now-playing', {
         signal: controllerRef.current.signal,
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || 'Failed to fetch now playing');
+        const errorMessage =
+          data.error || `Failed to fetch now playing track (${res.status})`;
+        console.error(
+          `${LOG_PREFIX} Error: API request failed with status ${res.status}`,
+        );
+        throw new Error(errorMessage);
       }
-      const data: NowPlaying = await res.json();
-      if (data?.url && data.url === lastUrlRef.current) return;
+
+      let data: NowPlaying;
+      try {
+        data = await res.json();
+      } catch (parseError) {
+        console.error(
+          `${LOG_PREFIX} Error: Failed to parse API response`,
+          parseError,
+        );
+        throw new Error('Invalid response format');
+      }
+
+      if (!data) {
+        throw new Error('Empty response received');
+      }
+
       setTrack(data);
-      lastUrlRef.current = data.url ?? null;
       setError(null);
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
         return;
       }
+
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
+      console.error(`${LOG_PREFIX} Error: ${errorMessage}`);
+
       setError(
         error instanceof Error
-          ? error.message === 'Failed to fetch track'
-            ? error.message
+          ? error.message.includes('Failed to fetch')
+            ? 'Failed to connect to Spotify'
             : error.name === 'TypeError'
-              ? 'Network error'
-              : error.message === 'Unexpected token'
-                ? 'Invalid response'
+              ? 'Network connection error'
+              : error.message.includes('Unexpected token') ||
+                  error.message.includes('Invalid response')
+                ? 'Invalid response format'
                 : error.message
-          : 'Unknown error'
+          : 'Unknown error occurred',
       );
     } finally {
       setLoading(false);
@@ -57,6 +91,7 @@ export const SpotifyNowPlaying = () => {
 
   useEffect(() => {
     fetchData();
+
     if (process.env.NODE_ENV === 'production') {
       const interval = setInterval(fetchData, 15000);
       return () => {
@@ -64,6 +99,7 @@ export const SpotifyNowPlaying = () => {
         controllerRef.current?.abort();
       };
     }
+
     return () => controllerRef.current?.abort();
   }, [fetchData]);
 

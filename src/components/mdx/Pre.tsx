@@ -35,7 +35,7 @@ export const MdxPreCode = ({
         <span
           className={cx(
             'animate absolute top-0 right-0',
-            copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+            copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100',
           )}
         >
           <LuCopy className="text-xl text-neutral-500" />
@@ -43,7 +43,7 @@ export const MdxPreCode = ({
         <span
           className={cx(
             'animate absolute top-0 right-0',
-            copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+            copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0',
           )}
         >
           <LuCheck className="text-accent text-xl" />

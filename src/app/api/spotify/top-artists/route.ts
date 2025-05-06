@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 
-import { getAccessToken, fetchSpotify } from '@/lib/services';
+import { getAccessToken } from '@/lib/services/spotify-auth';
+import { fetchSpotify } from '@/lib/services/spotify-fetcher';
 
-const LOG_PREFIX = '[Top Artists API]';
+const LOG_PREFIX = '[Spotify Top Artists]';
 
 type TopArtists = {
   name: string;
@@ -25,10 +26,10 @@ type Response = {
 const TOP_ARTISTS_URL =
   'https://api.spotify.com/v1/me/top/artists?limit=9&time_range=long_term';
 
-const formatResponse = (data: Response): Artist[] => {
+function formatResponse(data: Response): Artist[] {
   if (!data.items || data.items.length === 0) {
-    console.error(`${LOG_PREFIX} No artist data available`);
-    throw new Error('No artist data');
+    console.error(`${LOG_PREFIX} Error: No artist data available`);
+    throw new Error('No artist data available');
   }
   return data.items.map((artist) => {
     if (
@@ -37,7 +38,7 @@ const formatResponse = (data: Response): Artist[] => {
       !artist.external_urls.spotify
     ) {
       console.error(
-        `${LOG_PREFIX} Invalid artist data (${artist.name || 'unknown'})`
+        `${LOG_PREFIX} Error: Invalid artist data for ${artist.name || 'unknown artist'}`,
       );
       throw new Error('Invalid artist data');
     }
@@ -47,31 +48,31 @@ const formatResponse = (data: Response): Artist[] => {
       url: artist.external_urls.spotify,
     };
   });
-};
+}
 
-const getTopArtists = async (accessToken: string): Promise<Response> => {
+async function getTopArtists(accessToken: string): Promise<Response> {
   if (!accessToken) {
-    console.error(`${LOG_PREFIX} No access token provided`);
+    console.error(`${LOG_PREFIX} Error: No access token provided`);
     throw new Error('Invalid access token');
   }
   try {
     return await fetchSpotify<Response>(TOP_ARTISTS_URL, accessToken);
   } catch (error) {
     console.error(
-      `${LOG_PREFIX} Failed to fetch top artists: ${error instanceof Error ? error.message : 'Unknown error'}`
+      `${LOG_PREFIX} Error: Failed to fetch top artists: ${error instanceof Error ? error.message : 'Unknown error'}`,
     );
-    throw new Error('Spotify API failed');
+    throw new Error('Spotify API request failed');
   }
-};
+}
 
-export const GET = async () => {
+export async function GET() {
   try {
     const accessToken = await getAccessToken();
     if (!accessToken) {
-      console.error(`${LOG_PREFIX} Failed to obtain access token`);
+      console.error(`${LOG_PREFIX} Error: Failed to obtain access token`);
       return NextResponse.json(
         { error: 'Invalid access token' },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const result = await getTopArtists(accessToken);
@@ -83,10 +84,10 @@ export const GET = async () => {
       { error: message },
       {
         status:
-          message.includes('Invalid') || message === 'No artist data'
+          message.includes('Invalid') || message.includes('No artist data')
             ? 400
             : 500,
-      }
+      },
     );
   }
-};
+}

@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react';
 
+const LOG_PREFIX = '[ErrorBoundary]';
+
 const Error = ({
   error,
   reset,
@@ -10,7 +12,9 @@ const Error = ({
   reset: () => void;
 }) => {
   useEffect(() => {
-    console.error(error);
+    console.error(
+      `${LOG_PREFIX} Error: ${error.message || 'Unknown error'} ${error.digest ? `(digest: ${error.digest})` : ''}`,
+    );
   }, [error]);
 
   return (

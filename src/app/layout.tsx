@@ -77,7 +77,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             fontDisplay.variable,
             fontCode.variable,
             'font-body antialiased',
-            'bg-neutral-950 text-neutral-50'
+            'bg-neutral-950 text-neutral-50',
           )}
         >
           <svg

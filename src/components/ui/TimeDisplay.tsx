@@ -18,7 +18,7 @@ export const TimeDisplay = () => {
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
-      })
+      }),
     );
 
     const interval = setInterval(() => {
@@ -27,7 +27,7 @@ export const TimeDisplay = () => {
           hour: '2-digit',
           minute: '2-digit',
           hour12: false,
-        })
+        }),
       );
     }, 1000);
 

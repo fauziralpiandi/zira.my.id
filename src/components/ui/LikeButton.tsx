@@ -5,7 +5,9 @@ import { PiHeart, PiHeartFill, PiSpinner } from 'react-icons/pi';
 
 import { cx } from '@/lib/utils';
 
-type Response = {
+const LOG_PREFIX = '[LikeButton]';
+
+type LikeResponse = {
   count: number;
   error?: string;
 };
@@ -20,20 +22,51 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   useEffect(() => {
     const fetchLike = async () => {
       try {
+        setIsLoading(true);
+
         const res = await fetch(`/api/likes?slug=${slug}`);
+
         if (!res.ok) {
-          const data = await res.json().catch(() => ({}));
-          throw new Error(data.error || 'Failed to fetch likes');
+          const statusCode = res.status;
+          let errorMessage = `Failed to fetch like count (HTTP ${statusCode})`;
+
+          try {
+            const data = await res.json();
+            if (data && data.error) {
+              errorMessage = data.error;
+            }
+          } catch (parseError) {
+            console.error(
+              `${LOG_PREFIX} Error: Could not parse error response`,
+              parseError,
+            );
+          }
+
+          console.error(
+            `${LOG_PREFIX} Error: API request failed with status ${statusCode}`,
+          );
+          throw new Error(errorMessage);
         }
-        const data: Response = await res.json();
+
+        const data: LikeResponse = await res.json();
         setCount(data.count);
+        setError(null);
       } catch (error) {
-        console.error(`Failed to fetch likes (${slug})`, error);
-        setError(
-          error instanceof Error && error.message !== 'Failed to fetch likes'
-            ? error.message
-            : 'Unknown error'
+        const errorMessage =
+          error instanceof Error ? error.message : 'Unknown error';
+        console.error(
+          `${LOG_PREFIX} Error: Failed to fetch likes for slug '${slug}': ${errorMessage}`,
         );
+
+        setError(
+          error instanceof Error
+            ? error.message.includes('Failed to fetch')
+              ? 'Network error loading like count'
+              : error.message
+            : 'Could not load like count',
+        );
+
+        setCount(null);
       } finally {
         setIsLoading(false);
       }
@@ -50,19 +83,33 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   }, [slug]);
 
   const getCookie = (name: string): string | undefined => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift();
-    return undefined;
+    try {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift();
+      return undefined;
+    } catch (error) {
+      console.error(
+        `${LOG_PREFIX} Error: Failed to get cookie '${name}'`,
+        error,
+      );
+      return undefined;
+    }
   };
 
-  const setCookie = (name: string, value: string, days: number) => {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    const expires = `expires=${date.toUTCString()}`;
-    document.cookie = `${name}=${value}; ${expires}; path=/`;
+  const setCookie = (name: string, value: string, days: number): void => {
+    try {
+      const date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      const expires = `expires=${date.toUTCString()}`;
+      document.cookie = `${name}=${value}; ${expires}; path=/; SameSite=Lax`;
+    } catch (error) {
+      console.error(
+        `${LOG_PREFIX} Error: Failed to set cookie '${name}'`,
+        error,
+      );
+    }
   };
-
   const addLike = useCallback(async () => {
     if (hasLiked || isAddingLike) return;
 
@@ -76,22 +123,51 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug }),
       });
+
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || 'Failed to add like');
+        const statusCode = res.status;
+        let errorMessage = `Failed to add like (HTTP ${statusCode})`;
+
+        try {
+          const data = await res.json();
+          if (data && data.error) {
+            errorMessage = data.error;
+          }
+        } catch (parseError) {
+          console.error(
+            `${LOG_PREFIX} Error: Could not parse error response`,
+            parseError,
+          );
+        }
+
+        console.error(
+          `${LOG_PREFIX} Error: API request failed with status ${statusCode}`,
+        );
+        throw new Error(errorMessage);
       }
-      const like: Response = await res.json();
+
+      const like: LikeResponse = await res.json();
+
       setCookie(`liked-${slug}`, 'true', 365);
       setCount(like.count);
       setHasLiked(true);
+      setError(null);
     } catch (error) {
-      console.error(`Failed to add like (${slug})`, error);
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
+      console.error(
+        `${LOG_PREFIX} Error: Failed to add like for slug '${slug}': ${errorMessage}`,
+      );
+
       setCount((prev) => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
+
       setError(
-        error instanceof Error && error.message !== 'Failed to add like'
-          ? error.message
-          : 'Unknown error'
+        error instanceof Error
+          ? error.message.includes('Failed to fetch')
+            ? 'Network error adding like'
+            : error.message
+          : 'Could not add like',
       );
     } finally {
       setIsAddingLike(false);
@@ -126,7 +202,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       onClick={addLike}
       className={cx(
         'border-accent/25 flex items-center rounded-lg border bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale',
-        hasLiked || isLoading || isAddingLike ? 'cursor-not-allowed' : ''
+        hasLiked || isLoading || isAddingLike ? 'cursor-not-allowed' : '',
       )}
       aria-label={hasLiked ? 'Liked!' : 'Like?'}
       disabled={hasLiked || isLoading || isAddingLike}

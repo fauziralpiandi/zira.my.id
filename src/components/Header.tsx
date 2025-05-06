@@ -65,7 +65,7 @@ export const Header = () => {
         pathname={pathname}
         navItems={navItems.reduce(
           (acc, item) => ({ ...acc, [item.path]: item }),
-          {}
+          {},
         )}
         closeNav={() => setIsOpen(false)}
       />
@@ -73,7 +73,7 @@ export const Header = () => {
         pathname={pathname}
         navItems={navItems.reduce(
           (acc, item) => ({ ...acc, [item.path]: item }),
-          {}
+          {},
         )}
       />
     </header>

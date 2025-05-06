@@ -1,3 +1,3 @@
-export * from './className';
-export * from './formattedDate';
-export * from './pluralize';
+export * from './class-name';
+export * from './formatted-date';
+export * from './pluralize-text';

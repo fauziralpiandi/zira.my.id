@@ -31,7 +31,7 @@ function formatResponse(data: Response): Artist[] {
     console.error(`${LOG_PREFIX} Error: No artist data available`);
     throw new Error('No artist data available');
   }
-  return data.items.map((artist) => {
+  return data.items.map(artist => {
     if (
       !artist.name ||
       !artist.images[0]?.url ||

@@ -27,7 +27,7 @@ export const Notes = defineDocumentType(() => ({
     },
     wordCount: {
       type: 'string',
-      resolve: (doc) => countWords(doc.body.raw),
+      resolve: doc => countWords(doc.body.raw),
     },
   },
 }));

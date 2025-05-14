@@ -61,7 +61,7 @@ const Notes = () => {
         each one its own little chapter.
       </p>
       <ul className="my-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {sorted.map((post) => (
+        {sorted.map(post => (
           <li key={post.slug} className="flex items-start gap-2">
             <span className="text-neutral-500">&mdash;</span>
             <NoteItem post={post} />

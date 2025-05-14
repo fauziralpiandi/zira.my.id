@@ -18,7 +18,7 @@ And damn, maybe that’s the kind of thought I shouldn’t entertain.
 
 Maybe it’s just the quiet, the stillness, the way the **super blue moon** turns everything silver and surreal.
 
-**The lake doesn’t just reflect the moon—it holds it.** Like a secret it’s been keeping for centuries. And tonight, it’s holding us too.  
+**The lake doesn’t just reflect the moon—it holds it.** Like a secret it’s been keeping for centuries. And tonight, it’s holding us too.
 
 But tell that to my heartbeat. Because my chest? **It sure as hell isn’t staying quiet. Except everything else does. And I fucking know it.**
 
@@ -32,7 +32,7 @@ And the craziest part?
 
 > **Idgaf if it makes sense.**
 
-I try to play it cool, act like this isn’t getting under my skin, like I’m not already f*cking invested. But deep down? I know damn well this night just rewrote something inside me.
+I try to play it cool, act like this isn’t getting under my skin, like I’m not already f\*cking invested. But deep down? I know damn well this night just rewrote something inside me.
 
 And let’s be real—**I’m fucked.**
 
@@ -50,11 +50,11 @@ Because for once, **it doesn’t fucking matter.**
 
 She doesn’t say much. Neither do I. But somehow, the silence is loud as fuck, and yet—somewhere in the back of my mind, there’s a voice whispering—
 
-*What if this is **just a moment?***
+\*What if this is **just a moment?\***
 
-*What if **she walks away and never looks back?***
+\*What if **she walks away and never looks back?\***
 
-*What if **I’m the only one feeling this?***
+\*What if **I’m the only one feeling this?\***
 
 But then—she looks at me. Not just at me, but through me.
 
@@ -68,7 +68,7 @@ It’s full of all the words we’re too scared to say. Because for the first ti
 
 Do I leave this night as it is? Let it be this untouchable, perfect thing that never has to face reality? Or do I risk everything and try to make it real?
 
-Because that’s the thing about moments like this. They either become **everything**—or they fade into **nothing**.  
+Because that’s the thing about moments like this. They either become **everything**—or they fade into **nothing**.
 
 One text away from becoming a memory. One call away from rewriting my whole goddamn story.
 

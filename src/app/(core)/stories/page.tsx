@@ -62,7 +62,7 @@ const Stories = () => {
         </span>
       </p>
       <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {sorted.map((post) => (
+        {sorted.map(post => (
           <li key={post.slug}>
             <StoryCard post={post} />
           </li>

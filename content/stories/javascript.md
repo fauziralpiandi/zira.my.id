@@ -16,15 +16,15 @@ console.log([] == ![]);
 
 The result? `true`
 
-Wait—how? How could an **empty array** be *loosely equal* to the **negation of an empty array**[^1]?
+Wait—how? How could an **empty array** be _loosely equal_ to the **negation of an empty array**[^1]?
 
 That was my first taste of JavaScript’s eccentricity, but it certainly wasn’t the last. The deeper I delved, the more I uncovered logic-defying quirks that seemed to defy rationality.
 
 Consider this:
 
 ```js
-console.log("5" - 3); // 2
-console.log("5" + 3); // "53"
+console.log('5' - 3); // 2
+console.log('5' + 3); // "53"
 ```
 
 Here, `"5" - 3` is coerced into **numeric subtraction**, yielding `2`. However, `"5" + 3` triggers **string concatenation**, resulting in `"53"`[^2]. The implicit type conversion—or rather, [type coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)—is unpredictable at best.
@@ -38,7 +38,7 @@ console.log(null === undefined); // false
 
 So, `null` and `undefined` are loosely equal[^3], yet strictly unequal[^4]. This raises a fundamental question:
 
-*In what reality are two entities simultaneously the same and different?*
+_In what reality are two entities simultaneously the same and different?_
 
 And then there’s this legendary revelation:
 
@@ -66,7 +66,7 @@ To understand its quirks, we need to go back to where it all began—**Netscape,
 
 In the mid-1990s, the internet was in its infancy. Websites were mostly static, and **[Netscape Navigator](https://en.m.wikipedia.org/wiki/Netscape_Navigator)** was the dominant web browser. But Netscape had a vision: they wanted to make web pages interactive.
 
-So, they assigned **[Brendan Eich](https://en.m.wikipedia.org/wiki/Brendan_Eich)**, a developer at Netscape, to create a new scripting language. The catch?  
+So, they assigned **[Brendan Eich](https://en.m.wikipedia.org/wiki/Brendan_Eich)**, a developer at Netscape, to create a new scripting language. The catch?
 
 > **He had just 10 days to build it.**
 
@@ -78,7 +78,7 @@ Since Eich was working under extreme time constraints, he had to make some hasty
 
 - **Syntax resembling Java** — To attract Java and C++ developers.
 - **Dynamically typed and loosely structured** — To make scripting easy for beginners.
-- **Prototype-based inheritance instead of classical classes** — Inspired by [Self](https://en.wikipedia.org/wiki/Self_(programming_language)), but later misunderstood.
+- **Prototype-based inheritance instead of classical classes** — Inspired by [Self](<https://en.wikipedia.org/wiki/Self_(programming_language)>), but later misunderstood.
 - **Implicit type coercion** — To allow flexible operations between different data types.
 
 These quick choices led to some of JavaScript’s strangest behaviors today.
@@ -98,12 +98,12 @@ console.log(typeof null); // "object"
 Why does `null` return `"object"`? Because of a **bug in the original implementation** of JavaScript[^7]. It was a mistake, but fixing it would have broken too many websites, so it was left unchanged.
 
 ```js caption="Another quirk that couldn’t be undone"
-console.log(0 == "0"); // true
+console.log(0 == '0'); // true
 console.log(0 == []); // true
-console.log("0" == []); // false (bruhhh)
+console.log('0' == []); // false (bruhhh)
 ```
 
-This happens due to JavaScript’s **abstract equality algorithm**, which performs automatic type conversions[^8]. It’s weird, but it’s now a *feature*, not a *bug*.
+This happens due to JavaScript’s **abstract equality algorithm**, which performs automatic type conversions[^8]. It’s weird, but it’s now a _feature_, not a _bug_.
 
 ### JavaScript Was Never Meant for Serious Programming
 
@@ -127,7 +127,7 @@ JavaScript wasn’t built to take over the world—but here we are.
 
 ## Technical Quirks That Test Your Sanity
 
-If you’ve spent enough time writing JavaScript, you’ve likely encountered moments where you stopped, stared at your screen, and thought:  
+If you’ve spent enough time writing JavaScript, you’ve likely encountered moments where you stopped, stared at your screen, and thought:
 
 > **Wait… what just happened?**
 
@@ -138,8 +138,8 @@ JavaScript has quirks—**some amusing, some infuriating, and some downright baf
 One of JavaScript’s most infamous features is **implicit type coercion**, where it automatically converts one type to another. This often leads to unpredictable results.
 
 ```js caption="Consider these mind-bending operations"
-console.log("5" - 3); // 2
-console.log("5" + 3); // "53"
+console.log('5' - 3); // 2
+console.log('5' + 3); // "53"
 console.log(true + true); // 2
 console.log([] + {}); // "[object Object]"
 console.log({} + []); // 0
@@ -153,7 +153,7 @@ console.log({} + []); // 0
 - `[] + {}` — An empty array `[]` coerces into an empty string `""`, and `"" + {}` results in `"[object Object]"`.
 - `{} + []` — The `{}` is treated as an empty block, so this evaluates to `+[]`, which becomes `0`.
 
-*See the full madness: [MDN: Type Coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)*
+_See the full madness: [MDN: Type Coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)_
 
 ### 3. The Mystery of `==` vs. `===`
 
@@ -165,9 +165,9 @@ JavaScript provides two types of equality comparisons:
 Sounds simple?
 
 ```js caption="Well, let’s test that!"
-console.log(0 == "0"); // true
+console.log(0 == '0'); // true
 console.log(0 == []); // true
-console.log([] == "0"); // false (???)
+console.log([] == '0'); // false (???)
 console.log(null == undefined); // true
 console.log(null === undefined); // false
 ```
@@ -180,7 +180,7 @@ console.log(null === undefined); // false
 
 This behavior is dictated by JavaScript’s **abstract equality comparison rules**[^9].
 
-*Deep dive: [ECMAScript Specification on Equality](https://262.ecma-international.org/5.1/#sec-11.9.3)*
+_Deep dive: [ECMAScript Specification on Equality](https://262.ecma-international.org/5.1/#sec-11.9.3)_
 
 ### 3. The Nightmare of `this`
 
@@ -188,10 +188,10 @@ JavaScript’s `this` keyword is **context-dependent**, meaning its value change
 
 ```js {3-4}
 const obj = {
-  name: "Alice",
-  greet: function() {
+  name: 'Alice',
+  greet: function () {
     console.log(this.name);
-  }
+  },
 };
 ```
 
@@ -211,16 +211,16 @@ const boundGreet = obj.greet.bind(obj);
 boundGreet(); // "Alice"
 ```
 
-*Learn more: [MDN: `this` Explained](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)*
+_Learn more: [MDN: `this` Explained](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)_
 
 ### 4. Callback Hell & The Evolution of Asynchronous JavaScript
 
 Before **Promises** and **async/await**, JavaScript relied on callbacks for handling asynchronous operations. This often led to **deeply nested**, **unreadable code**, known as **callback hell**:
 
 ```js {2-4} caption="Nested callbacks (pyramid of doom)"
-doSomething(function(result) {
-  doSomethingElse(result, function(newResult) {
-    doMore(newResult, function(finalResult) {
+doSomething(function (result) {
+  doSomethingElse(result, function (newResult) {
+    doMore(newResult, function (finalResult) {
       console.log(finalResult);
     });
   });
@@ -236,24 +236,24 @@ This pyramid-like structure is **hard to read**, **debug**, and **maintain**.
 
 ```js /async/ /await/
 async function fetchData() {
-  const data = await fetch("https://api.example.com/data");
+  const data = await fetch('https://api.example.com/data');
   console.log(await data.json());
 }
 ```
 
-*The full story: [MDN: Asynchronous JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous)*
+_The full story: [MDN: Asynchronous JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous)_
 
 ## Why Do We Keep Using JavaScript Despite Its Flaws?
 
 By now, we’ve seen JavaScript’s **strange quirks**, **illogical behavior**, and **historical baggage**.
 
-So, why do we still use it? Why hasn’t it been replaced by a *better*, *more structured* language?
+So, why do we still use it? Why hasn’t it been replaced by a _better_, _more structured_ language?
 
 The answer lies in three key factors:
 
-1. **Ubiquity** — It runs *everywhere*.
-2. **Ecosystem & Community** — It has the *largest* developer ecosystem.
-3. **Evolution & Adaptability** — JavaScript *keeps getting better*.
+1. **Ubiquity** — It runs _everywhere_.
+2. **Ecosystem & Community** — It has the _largest_ developer ecosystem.
+3. **Evolution & Adaptability** — JavaScript _keeps getting better_.
 
 Let’s break these down.
 
@@ -261,7 +261,7 @@ Let’s break these down.
 
 JavaScript started as a simple browser scripting language. Today, it powers **the entire software stack**:
 
-- **Frontend development** — JavaScript is the *only* language that runs natively in browsers.
+- **Frontend development** — JavaScript is the _only_ language that runs natively in browsers.
 - **Backend development** — **Node.js** turned JavaScript into a server-side powerhouse.
 - **Mobile development** — **React Native, Ionic, and NativeScript** enable cross-platform mobile apps.
 - **Desktop applications** — **Electron.js** allows building apps like VS Code and Slack.
@@ -303,8 +303,8 @@ And now, **[TypeScript](https://en.m.wikipedia.org/wiki/TypeScript)** is solving
 
 ## So, Should You Use JavaScript?
 
-If you’re building **web applications**, you have no choice—JavaScript *is the standard*.  
-If you’re developing **full-stack** or **mobile apps**, JavaScript lets you use *one language for everything*.
+If you’re building **web applications**, you have no choice—JavaScript _is the standard_.  
+If you’re developing **full-stack** or **mobile apps**, JavaScript lets you use _one language for everything_.
 
 If you need **fast prototyping**, JavaScript is the easiest way to go from idea to production.
 
@@ -314,7 +314,7 @@ Like it or not, **JavaScript is here to stay.**
 
 ## Final Thoughts
 
-JavaScript is like an *old car with a souped-up engine*:
+JavaScript is like an _old car with a souped-up engine_:
 
 1. **It has quirks, but it still runs.**
 2. **It’s constantly upgraded with new features.**
@@ -332,12 +332,21 @@ Because **JavaScript isn’t just a language—it’s the foundation of the mode
 ---
 
 [^1]: This happens due to JavaScript’s **type coercion rules**, where `![]` gets coerced into false, which then converts to `0`. Since `[]` is loosely equal to `0`, the result is `true`. See [ECMAScript Abstract Equality Comparison](https://262.ecma-international.org/5.1/#sec-11.9.3).
+
 [^2]: The `+` operator in JavaScript acts as both addition and concatenation. If either operand is a string, **JavaScript coerces the other operand into a string**. See [MDN: Addition Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Equality_comparisons_and_sameness).
+
 [^3]: `null == undefined` evaluates to true because JavaScript treats them as equivalent in loose [equality comparisons](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Equality_comparisons_and_sameness).
+
 [^4]: `null === undefined` is `false` because **[strict equality](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality)** (`===`) requires both type and value to match.
+
 [^5]: `NaN` is not equal to itself because it's defined as an **invalid number**, and per IEEE 754 floating-point standards, any operation involving `NaN` results in `NaN`. See [MDN: `NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).
+
 [^6]: As of 2024, **JavaScript is used by 98.3% of all websites**, according to [W3Techs](https://w3techs.com/technologies/details/cp-javascript).
+
 [^7]: The `"object"` type for `null` was an accident in JavaScript’s first implementation, but it couldn’t be fixed due to compatibility concerns. See [MDN: typeof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#typeof_null).
+
 [^8]: JavaScript’s abstract equality comparison (`==`) follows a complex algorithm that forces type conversions. See the [ECMAScript Specification](https://262.ecma-international.org/5.1/#sec-11.9.3).
+
 [^9]: JavaScript’s `==` operator follows complex type conversion rules. See the [ECMAScript Spec](https://262.ecma-international.org/5.1/#sec-11.9.3).
+
 [^10]: **17.4 million JavaScript developers** as of 2023, per the [State of Developer Ecosystem report](https://www.jetbrains.com/lp/devecosystem-2023/).

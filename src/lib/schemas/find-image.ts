@@ -18,7 +18,7 @@ export async function findImage(
     }
 
     const slug = getSlug(doc);
-    
+
     if (!slug) {
       console.error(`${LOG_PREFIX} Error: Failed to get slug from document`);
       return null;
@@ -42,7 +42,7 @@ export async function findImage(
     async function find(name: string): Promise<string | null> {
       try {
         return await Promise.any(
-          possibleExts.map(async (ext) => {
+          possibleExts.map(async ext => {
             try {
               const filePath = path.join(baseDir, `${name}.${ext}`);
               await fs.access(filePath);
@@ -58,7 +58,7 @@ export async function findImage(
     }
 
     let result = await find(slug);
-    
+
     if (!result) {
       console.warn(
         `${LOG_PREFIX} Warning: Image not found for slug "${slug}", falling back to placeholder`,

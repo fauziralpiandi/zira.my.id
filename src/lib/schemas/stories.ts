@@ -31,7 +31,7 @@ export const Stories = defineDocumentType(() => ({
     },
     readTime: {
       type: 'string',
-      resolve: (doc) => estimateReadTime(doc.body.raw),
+      resolve: doc => estimateReadTime(doc.body.raw),
     },
   },
 }));

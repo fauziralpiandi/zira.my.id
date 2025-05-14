@@ -9,7 +9,7 @@ export const dynamicParams = true;
 export const revalidate = 3600;
 
 export const generateStaticParams = async () => {
-  return allNotes.map((post) => ({
+  return allNotes.map(post => ({
     slug: post.slug,
   }));
 };
@@ -18,7 +18,7 @@ export const generateMetadata = async (props: {
   params: Promise<{ slug: string }>;
 }) => {
   const params = await props.params;
-  const post = allNotes.find((post) => post.slug === params.slug);
+  const post = allNotes.find(post => post.slug === params.slug);
 
   if (!post) {
     return notFound();
@@ -60,7 +60,7 @@ export const generateMetadata = async (props: {
 
 const Notes = async (props: { params: Promise<{ slug: string }> }) => {
   const params = await props.params;
-  const post = allNotes.find((post) => post.slug === params.slug);
+  const post = allNotes.find(post => post.slug === params.slug);
 
   if (!post) {
     return notFound();

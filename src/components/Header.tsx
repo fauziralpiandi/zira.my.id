@@ -12,7 +12,7 @@ export const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleNav = () => setIsOpen((prev) => !prev);
+  const toggleNav = () => setIsOpen(prev => !prev);
 
   useEffect(() => {
     setIsOpen(false);

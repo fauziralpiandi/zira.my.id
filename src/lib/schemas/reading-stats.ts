@@ -19,7 +19,7 @@ function inverseWPM(words: number, wpm: number) {
     }
 
     const minutes = words / wpm;
-    
+
     return {
       time: Math.round(minutes * 60_000),
       minutes: Math.max(1, Math.ceil(minutes)),
@@ -41,11 +41,11 @@ function countWords(text: string): number {
 
     return text
       .split('\n\n')
-      .filter((block) => !block.startsWith('```') && !block.endsWith('```'))
+      .filter(block => !block.startsWith('```') && !block.endsWith('```'))
       .join(' ')
       .trim()
       .split(/\s+/)
-      .filter((word) => word.length > 0).length;
+      .filter(word => word.length > 0).length;
   } catch (error) {
     console.error(`${LOG_PREFIX} Error: Failed to count words in text`, error);
     return 0;

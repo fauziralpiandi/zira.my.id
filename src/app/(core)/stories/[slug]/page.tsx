@@ -11,7 +11,7 @@ export const generateMetadata = async (props: {
   params: Promise<{ slug: string }>;
 }) => {
   const params = await props.params;
-  const post = allStories.find((post) => post.slug === params.slug);
+  const post = allStories.find(post => post.slug === params.slug);
 
   if (!post) {
     return notFound();
@@ -53,7 +53,7 @@ export const generateMetadata = async (props: {
 
 const Stories = async (props: { params: Promise<{ slug: string }> }) => {
   const params = await props.params;
-  const post = allStories.find((post) => post.slug === params.slug);
+  const post = allStories.find(post => post.slug === params.slug);
 
   if (!post) {
     return notFound();

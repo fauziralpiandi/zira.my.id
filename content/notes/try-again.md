@@ -22,9 +22,9 @@ Maybe it comes from a friend, maybe it’s in a random song you weren’t even p
 
 You fall, you bleed, you lose things you swore you couldn’t live without. And yet… you get back up. Not because you’re invincible, not because it doesn’t hurt—But because deep down, you know—
 
-**If you quit now, everything you've endured would mean nothing.**  
+**If you quit now, everything you've endured would mean nothing.**
 
-And that’s the real absurdity of life. You’ve been knocked down a thousand times, but here you are. Breathing. Existing. Moving forward. Maybe not gracefully, maybe not without scars, but still—**you’re here.**  
+And that’s the real absurdity of life. You’ve been knocked down a thousand times, but here you are. Breathing. Existing. Moving forward. Maybe not gracefully, maybe not without scars, but still—**you’re here.**
 
 **You don’t have to have it all figured out, You don’t need to be okay all the time, You can scream, cry, blast music at 1 AM like some indie movie protagonist,**
 

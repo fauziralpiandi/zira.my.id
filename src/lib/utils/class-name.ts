@@ -45,7 +45,7 @@ function sanitizeClass(className: string): string {
 export function cx(...classes: ClassValue[]): string {
   try {
     return deepFlatten(classes)
-      .map((value) => {
+      .map(value => {
         if (typeof value === 'string' || typeof value === 'number') {
           const str = value.toString();
           return str ? sanitizeClass(str) : null;

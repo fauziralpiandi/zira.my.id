@@ -32,4 +32,4 @@ It’s just space—and you decide what to do with it. You can sit there. You ca
 
 And if you’re still waiting for time to solve everything?
 
-> **Well, f*ck that. You can sit there and wait like a dumbass all you want—I’m already on my damn way...**
+> **Well, f\*ck that. You can sit there and wait like a dumbass all you want—I’m already on my damn way...**

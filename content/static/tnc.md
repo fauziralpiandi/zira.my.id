@@ -32,7 +32,7 @@ By using this site, you agree to adhere to all **applicable laws and regulations
 
 ## 3. Information Collected
 
-This site collects **basic analytics data** to improve functionality, enhance user experience, and optimize performance.  
+This site collects **basic analytics data** to improve functionality, enhance user experience, and optimize performance.
 
 ### **What is collected?**
 
@@ -73,11 +73,11 @@ This site may contain links to third-party websites for informational or referen
 
 **By clicking on an external link, you acknowledge that:**
 
-- The privacy and security policies of those sites **may differ** from this one.  
+- The privacy and security policies of those sites **may differ** from this one.
 - I am **not responsible** for the content, accuracy, or reliability of third-party sites.
 - You assume full responsibility for any actions or transactions taken on those sites.
 
-For best practices on safe browsing, visit **[Google’s Safe Browsing Guide](https://safebrowsing.google.com/)**. 
+For best practices on safe browsing, visit **[Google’s Safe Browsing Guide](https://safebrowsing.google.com/)**.
 
 ## 7. Disclaimers
 

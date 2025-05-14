@@ -35,7 +35,7 @@ function formatResponse(data: Response): Track[] {
     console.error(`${LOG_PREFIX} Error: No track data available`);
     throw new Error('No track data available');
   }
-  return data.items.map((track) => {
+  return data.items.map(track => {
     if (
       !track.name ||
       !track.artists[0]?.name ||
@@ -49,7 +49,7 @@ function formatResponse(data: Response): Track[] {
     }
     return {
       title: track.name,
-      artist: track.artists.map((artist) => artist.name).join(', '),
+      artist: track.artists.map(artist => artist.name).join(', '),
       cover: track.album.images[0].url,
       url: track.external_urls.spotify,
     };

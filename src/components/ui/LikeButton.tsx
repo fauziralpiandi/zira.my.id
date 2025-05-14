@@ -113,7 +113,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
   const addLike = useCallback(async () => {
     if (hasLiked || isAddingLike) return;
 
-    setCount((prev) => (prev !== null ? prev + 1 : 1));
+    setCount(prev => (prev !== null ? prev + 1 : 1));
     setHasLiked(true);
     setIsAddingLike(true);
 
@@ -159,7 +159,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
         `${LOG_PREFIX} Error: Failed to add like for slug '${slug}': ${errorMessage}`,
       );
 
-      setCount((prev) => (prev !== null ? prev - 1 : 0));
+      setCount(prev => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
 
       setError(

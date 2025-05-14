@@ -6,7 +6,7 @@ import { formattedDate } from '@/lib/utils';
 import { MdxContent } from '@/components/mdx';
 
 const { baseUrl } = constant;
-const page = allStatics.find((doc) => doc.slug === 'tnc');
+const page = allStatics.find(doc => doc.slug === 'tnc');
 const { title, summary, date, body } = page!;
 
 export const metadata = {

@@ -11,7 +11,7 @@
     "lint": "tsc --noEmit && next lint",
     "prettier": "prettier --write src/**/*.{ts,tsx}",
     "preview": "next build && next start",
-    "start": "next start"
+    "start": "next start -p 3000"
   },
   "dependencies": {
     "@neondatabase/serverless": "1.0.0",

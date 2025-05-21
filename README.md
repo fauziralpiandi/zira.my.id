@@ -25,7 +25,3 @@ CREATE TABLE likes (
 ## License
 
 This project is licensed under the [MIT License](LICENSE), and its [contents](content) are under the [CC BY-ND 4.0 License](content/LICENSE).
-
----
-
-**Cheers!**

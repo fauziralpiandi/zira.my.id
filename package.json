@@ -2,7 +2,7 @@
   "name": "zira.my.id",
   "private": true,
   "license": "MIT",
-  "author": "fauziralpiandi",
+  "author": "Fauzira Alpiandi <fwzyrln@gmail.com>",
   "scripts": {
     "build": "next build",
     "clean": "rm -rf .next/cache",

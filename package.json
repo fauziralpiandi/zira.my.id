@@ -7,9 +7,9 @@
     "build": "next build",
     "clean": "rm -rf .next/cache",
     "dev": "next dev --turbopack",
-    "format": "prettier --write src/**/*.{ts,tsx}",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "generate": "contentlayer2 build",
-    "lint": "tsc --noEmit && next lint",
+    "lint": "prettier --check \"src/**/*.{ts,tsx}\" && next lint && tsc --noEmit",
     "start": "next start"
   },
   "dependencies": {

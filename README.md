@@ -13,15 +13,6 @@ My personal website built with:
 - **API Integration:** [Spotify API](https://developer.spotify.com/)
 - **Deployment:** [Vercel](https://vercel.com/home)
 
-## Database Schema
-
-```sql
-CREATE TABLE likes (
-  slug TEXT PRIMARY KEY,
-  count INTEGER NOT NULL DEFAULT 0
-);
-```
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE), and its [contents](content) are under the [CC BY-ND 4.0 License](content/LICENSE).

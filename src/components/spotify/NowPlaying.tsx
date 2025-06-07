@@ -133,7 +133,7 @@ export const SpotifyNowPlaying = () => {
           <div className="flex items-center justify-center">
             <AudioWave
               isPlaying={false}
-              aria-label="Can't connect to Spotify"
+              aria-label="Can&rsquo;t connect to Spotify"
             />
           </div>
           <div className="flex flex-col space-y-1.5">

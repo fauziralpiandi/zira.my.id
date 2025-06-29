@@ -36,12 +36,8 @@ export const TimeDisplay = () => {
 
   return (
     <div className="font-display flex flex-col items-end text-xs md:flex-row md:items-center md:gap-1.5 md:text-sm">
-      <time className="order-2 text-neutral-400 md:order-1">
-        {currentDay ?? '---'}
-      </time>
-      <time className="text-accent order-1 md:order-2">
-        {currentTime ?? '---'}
-      </time>
+      <time className="order-2 text-neutral-400 md:order-1">{currentDay ?? '---'}</time>
+      <time className="text-accent order-1 md:order-2">{currentTime ?? '---'}</time>
     </div>
   );
 };

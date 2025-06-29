@@ -13,9 +13,7 @@ export function estimateReadTime(content: string): string {
     }
 
     if (typeof content !== 'string') {
-      console.error(
-        `${LOG_PREFIX} Error: Content is not a string (type: ${typeof content})`,
-      );
+      console.error(`${LOG_PREFIX} Error: Content is not a string (type: ${typeof content})`);
       return '< 1 min';
     }
 
@@ -31,11 +29,8 @@ export function estimateReadTime(content: string): string {
 
     return pluralize(stats.minutes, 'min');
   } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : 'Unknown error';
-    console.error(
-      `${LOG_PREFIX} Error: Failed to estimate reading time: ${errorMessage}`,
-    );
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error(`${LOG_PREFIX} Error: Failed to estimate reading time: ${errorMessage}`);
 
     return '~1 min';
   }

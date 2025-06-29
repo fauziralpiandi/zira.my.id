@@ -51,12 +51,10 @@ const Notes = () => {
   return (
     <section>
       <p className="font-medium text-amber-50">
-        Off-desk, <span className="text-accent">I write and tell stories</span>,
-        weaving together the intangible with reality, unraveling complexities
-        and finding simplicity in chaos.{' '}
+        Off-desk, <span className="text-accent">I write and tell stories</span>, weaving together
+        the intangible with reality, unraveling complexities and finding simplicity in chaos.{' '}
         <span className="text-accent">
-          I&rsquo;ve shared {NotesWordCount} across {allNotes.length}{' '}
-          notes&mdash;
+          I&rsquo;ve shared {NotesWordCount} across {allNotes.length} notes&mdash;
         </span>
         each one its own little chapter.
       </p>
@@ -69,8 +67,8 @@ const Notes = () => {
         ))}
       </ul>
       <p className="text-xs text-neutral-300">
-        And hundreds of other records that linger still, confined to
-        paper&mdash;patiently awaiting their turn to feel important...
+        And hundreds of other records that linger still, confined to paper&mdash;patiently awaiting
+        their turn to feel important...
       </p>
     </section>
   );

@@ -36,12 +36,7 @@ export const Header = () => {
       data-nosnippet
     >
       <div className="z-30 flex items-center space-x-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 32 32"
-          height="24"
-          width="24"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="24" width="24">
           <path
             fill="#f7efd1"
             stroke="#f7efd1"
@@ -63,18 +58,12 @@ export const Header = () => {
       <MobileNav
         isOpen={isOpen}
         pathname={pathname}
-        navItems={navItems.reduce(
-          (acc, item) => ({ ...acc, [item.path]: item }),
-          {},
-        )}
+        navItems={navItems.reduce((acc, item) => ({ ...acc, [item.path]: item }), {})}
         closeNav={() => setIsOpen(false)}
       />
       <DesktopNav
         pathname={pathname}
-        navItems={navItems.reduce(
-          (acc, item) => ({ ...acc, [item.path]: item }),
-          {},
-        )}
+        navItems={navItems.reduce((acc, item) => ({ ...acc, [item.path]: item }), {})}
       />
     </header>
   );

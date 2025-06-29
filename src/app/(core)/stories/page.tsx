@@ -55,8 +55,8 @@ const Stories = () => {
         <span className="text-accent">
           {StoriesReadTime} of my brain dumps, explorations, and insights.
         </span>{' '}
-        I touch on different topics, from existential crises to making
-        people&rsquo;s live simple , and everything in between.{' '}
+        I touch on different topics, from existential crises to making people&rsquo;s live simple ,
+        and everything in between.{' '}
         <span className="text-accent">
           {allStories.length} stories so far&mdash;stay tuned for more!
         </span>

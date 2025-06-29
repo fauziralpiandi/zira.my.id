@@ -13,9 +13,7 @@ export function countWords(content: string): string {
     }
 
     if (typeof content !== 'string') {
-      console.error(
-        `${LOG_PREFIX} Error: Content is not a string (type: ${typeof content})`,
-      );
+      console.error(`${LOG_PREFIX} Error: Content is not a string (type: ${typeof content})`);
       return '0 words';
     }
 
@@ -27,11 +25,8 @@ export function countWords(content: string): string {
 
     return pluralize(stats.words, 'word');
   } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : 'Unknown error';
-    console.error(
-      `${LOG_PREFIX} Error: Failed to count words in content: ${errorMessage}`,
-    );
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error(`${LOG_PREFIX} Error: Failed to count words in content: ${errorMessage}`);
 
     return 'Error counting words';
   }

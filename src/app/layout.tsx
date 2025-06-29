@@ -99,9 +99,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <div className="flex min-h-screen flex-col p-8">
             <Header />
             <div className="mx-auto flex w-full max-w-2xl grow flex-col">
-              <main className="my-24 grow text-pretty break-words md:my-36">
-                {children}
-              </main>
+              <main className="my-24 grow text-pretty break-words md:my-36">{children}</main>
             </div>
             <Footer />
             <Analytics mode="production" />

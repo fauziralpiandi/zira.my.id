@@ -25,10 +25,7 @@ function inverseWPM(words: number, wpm: number) {
       minutes: Math.max(1, Math.ceil(minutes)),
     };
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to calculate reading time`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to calculate reading time`, error);
     return { time: 0, minutes: 1 };
   }
 }
@@ -55,16 +52,12 @@ function countWords(text: string): number {
 export function readingStats(text: string, wpm = 200): ReadingStats {
   try {
     if (text === undefined || text === null) {
-      console.error(
-        `${LOG_PREFIX} Error: Text is ${text === undefined ? 'undefined' : 'null'}`,
-      );
+      console.error(`${LOG_PREFIX} Error: Text is ${text === undefined ? 'undefined' : 'null'}`);
       return { time: 0, minutes: 0, words: 0 };
     }
 
     if (typeof text !== 'string') {
-      console.error(
-        `${LOG_PREFIX} Error: Text is not a string (type: ${typeof text})`,
-      );
+      console.error(`${LOG_PREFIX} Error: Text is not a string (type: ${typeof text})`);
       return { time: 0, minutes: 0, words: 0 };
     }
 
@@ -73,10 +66,7 @@ export function readingStats(text: string, wpm = 200): ReadingStats {
 
     return { time, minutes, words };
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to calculate reading stats`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to calculate reading stats`, error);
     return { time: 0, minutes: 1, words: 0 };
   }
 }

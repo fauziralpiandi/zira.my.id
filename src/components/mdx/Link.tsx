@@ -27,10 +27,7 @@ export const MdxLink = ({ href, children, className, ...props }: Link) => {
         {...props}
       >
         {children}
-        <PiArrowUpRight
-          size={10}
-          className="inline -translate-y-1 opacity-80"
-        />
+        <PiArrowUpRight size={10} className="inline -translate-y-1 opacity-80" />
       </a>
     );
   }

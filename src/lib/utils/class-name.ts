@@ -1,10 +1,4 @@
-type ClassValue =
-  | null
-  | undefined
-  | string
-  | number
-  | ClassValue[]
-  | { [key: string]: boolean };
+type ClassValue = null | undefined | string | number | ClassValue[] | { [key: string]: boolean };
 
 const LOG_PREFIX = '[ClassName]';
 

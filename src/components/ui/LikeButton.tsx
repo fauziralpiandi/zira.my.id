@@ -36,15 +36,10 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
               errorMessage = data.error;
             }
           } catch (parseError) {
-            console.error(
-              `${LOG_PREFIX} Error: Could not parse error response`,
-              parseError,
-            );
+            console.error(`${LOG_PREFIX} Error: Could not parse error response`, parseError);
           }
 
-          console.error(
-            `${LOG_PREFIX} Error: API request failed with status ${statusCode}`,
-          );
+          console.error(`${LOG_PREFIX} Error: API request failed with status ${statusCode}`);
           throw new Error(errorMessage);
         }
 
@@ -52,8 +47,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
         setCount(data.count);
         setError(null);
       } catch (error) {
-        const errorMessage =
-          error instanceof Error ? error.message : 'Unknown error';
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         console.error(
           `${LOG_PREFIX} Error: Failed to fetch likes for slug '${slug}': ${errorMessage}`,
         );
@@ -89,10 +83,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       if (parts.length === 2) return parts.pop()?.split(';').shift();
       return undefined;
     } catch (error) {
-      console.error(
-        `${LOG_PREFIX} Error: Failed to get cookie '${name}'`,
-        error,
-      );
+      console.error(`${LOG_PREFIX} Error: Failed to get cookie '${name}'`, error);
       return undefined;
     }
   };
@@ -104,10 +95,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       const expires = `expires=${date.toUTCString()}`;
       document.cookie = `${name}=${value}; ${expires}; path=/; SameSite=Lax`;
     } catch (error) {
-      console.error(
-        `${LOG_PREFIX} Error: Failed to set cookie '${name}'`,
-        error,
-      );
+      console.error(`${LOG_PREFIX} Error: Failed to set cookie '${name}'`, error);
     }
   };
   const addLike = useCallback(async () => {
@@ -134,15 +122,10 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
             errorMessage = data.error;
           }
         } catch (parseError) {
-          console.error(
-            `${LOG_PREFIX} Error: Could not parse error response`,
-            parseError,
-          );
+          console.error(`${LOG_PREFIX} Error: Could not parse error response`, parseError);
         }
 
-        console.error(
-          `${LOG_PREFIX} Error: API request failed with status ${statusCode}`,
-        );
+        console.error(`${LOG_PREFIX} Error: API request failed with status ${statusCode}`);
         throw new Error(errorMessage);
       }
 
@@ -153,11 +136,8 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       setHasLiked(true);
       setError(null);
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error';
-      console.error(
-        `${LOG_PREFIX} Error: Failed to add like for slug '${slug}': ${errorMessage}`,
-      );
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`${LOG_PREFIX} Error: Failed to add like for slug '${slug}': ${errorMessage}`);
 
       setCount(prev => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
@@ -189,9 +169,7 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       <div className="border-red/50 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale">
         <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
           <PiHeartFill className="h-5 w-5 fill-red-500" />
-          <span className="font-display translate-y-[1px] text-sm text-red-500">
-            Error!
-          </span>
+          <span className="font-display translate-y-[1px] text-sm text-red-500">Error!</span>
         </div>
       </div>
     );

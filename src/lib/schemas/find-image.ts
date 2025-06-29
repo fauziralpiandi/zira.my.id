@@ -31,10 +31,7 @@ export async function findImage(
       try {
         return path.relative(baseDir, filePath).replace(/\\/g, '/');
       } catch (error) {
-        console.error(
-          `${LOG_PREFIX} Error: Failed to convert path: ${filePath}`,
-          error,
-        );
+        console.error(`${LOG_PREFIX} Error: Failed to convert path: ${filePath}`, error);
         return '';
       }
     }
@@ -65,18 +62,13 @@ export async function findImage(
       );
       result = await find('placeholder');
       if (!result) {
-        console.error(
-          `${LOG_PREFIX} Error: Placeholder image not found in ${imgDir}`,
-        );
+        console.error(`${LOG_PREFIX} Error: Placeholder image not found in ${imgDir}`);
       }
     }
 
     return result;
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to find image for document`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to find image for document`, error);
     return null;
   }
 }

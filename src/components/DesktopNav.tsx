@@ -9,10 +9,7 @@ type DesktopNav = {
 
 export const DesktopNav = ({ pathname, navItems }: DesktopNav) => {
   return (
-    <nav
-      className="hidden items-center space-x-6 md:flex"
-      aria-label="Main navigation"
-    >
+    <nav className="hidden items-center space-x-6 md:flex" aria-label="Main navigation">
       {Object.entries(navItems).map(([path, { name }]) => (
         <Link
           key={path}

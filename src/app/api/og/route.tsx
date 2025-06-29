@@ -10,12 +10,7 @@ export async function GET() {
     return new ImageResponse(
       (
         <div tw="flex h-full w-full items-center justify-center bg-neutral-900">
-          <svg
-            viewBox="0 0 40 40"
-            height="500"
-            width="500"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg viewBox="0 0 40 40" height="500" width="500" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(4, 4)">
               <path
                 fill="#f7efd1"

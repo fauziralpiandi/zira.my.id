@@ -90,9 +90,7 @@ const analytics = {
 
   getSummary() {
     const runningTime = Math.floor((Date.now() - this.startTime) / 1000);
-    const topPaths = [...this.pathCounts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
+    const topPaths = [...this.pathCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
 
     const deviceStats = Object.fromEntries(this.userAgents.entries());
     const statusStats = Object.fromEntries(this.statusCounts.entries());
@@ -109,8 +107,7 @@ const analytics = {
 
 const middlewareHeaders = {
   'X-Response-From': 'Middleware',
-  'Permissions-Policy':
-    'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
 };
 
 export function middleware(request: NextRequest) {
@@ -139,10 +136,7 @@ export function middleware(request: NextRequest) {
     response.headers.set('Retry-After', '60');
     response.headers.set('X-RateLimit-Limit', rateLimit.maxRequests.toString());
     response.headers.set('X-RateLimit-Remaining', '0');
-    response.headers.set(
-      'X-RateLimit-Reset',
-      (rateLimit.getResetTime(ip) / 1000).toString(),
-    );
+    response.headers.set('X-RateLimit-Reset', (rateLimit.getResetTime(ip) / 1000).toString());
 
     return response;
   }
@@ -155,14 +149,8 @@ export function middleware(request: NextRequest) {
   const responseTime = Date.now() - start;
 
   response.headers.set('X-RateLimit-Limit', rateLimit.maxRequests.toString());
-  response.headers.set(
-    'X-RateLimit-Remaining',
-    rateLimit.getRemainingRequests(ip).toString(),
-  );
-  response.headers.set(
-    'X-RateLimit-Reset',
-    (rateLimit.getResetTime(ip) / 1000).toString(),
-  );
+  response.headers.set('X-RateLimit-Remaining', rateLimit.getRemainingRequests(ip).toString());
+  response.headers.set('X-RateLimit-Reset', (rateLimit.getResetTime(ip) / 1000).toString());
   response.headers.set('X-Response-Time', `${responseTime}ms`);
 
   Object.entries(middlewareHeaders).forEach(([key, value]) => {
@@ -173,16 +161,11 @@ export function middleware(request: NextRequest) {
     response.headers.set(key, value);
   });
 
-  console.log(
-    `${LOG_PREFIX} Response: ${request.method} ${pathname}${search} - ${responseTime}ms`,
-  );
+  console.log(`${LOG_PREFIX} Response: ${request.method} ${pathname}${search} - ${responseTime}ms`);
 
   return response;
 }
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|imgs/|fonts/).*)',
-    '/_analytics',
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|imgs/|fonts/).*)', '/_analytics'],
 };

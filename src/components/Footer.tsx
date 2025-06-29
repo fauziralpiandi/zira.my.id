@@ -12,10 +12,7 @@ export const Footer = () => {
         <div className="justify-self-start" aria-label="Spotify Now Playing">
           <SpotifyNowPlaying />
         </div>
-        <div
-          className="justify-self-end md:justify-self-center"
-          aria-label="Current Time"
-        >
+        <div className="justify-self-end md:justify-self-center" aria-label="Current Time">
           <TimeDisplay />
         </div>
         <div className="hidden justify-self-end md:block">

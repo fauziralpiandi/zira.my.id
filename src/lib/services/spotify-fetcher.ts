@@ -13,22 +13,14 @@ async function fetchWithTimeout(
     const timeoutPromise = new Promise<never>((_, reject) =>
       setTimeout(() => {
         controller.abort();
-        console.error(
-          `${LOG_PREFIX} Error: Request timeout for URL ${url} after ${timeout}ms`,
-        );
+        console.error(`${LOG_PREFIX} Error: Request timeout for URL ${url} after ${timeout}ms`);
         reject(new Error(`Request timeout after ${timeout}ms`));
       }, timeout),
     );
 
-    return Promise.race([
-      fetch(url, { ...options, signal: controller.signal }),
-      timeoutPromise,
-    ]);
+    return Promise.race([fetch(url, { ...options, signal: controller.signal }), timeoutPromise]);
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to initialize fetch request to ${url}`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to initialize fetch request to ${url}`, error);
     throw new Error(`Failed to initialize request to ${url}`);
   }
 }
@@ -65,8 +57,7 @@ export async function fetchSpotify<T>(
       let errorMessage = `Spotify API request failed with status ${status}`;
 
       if (status === 401) {
-        errorMessage =
-          'Spotify API authorization failed: token may be invalid or expired';
+        errorMessage = 'Spotify API authorization failed: token may be invalid or expired';
       } else if (status === 403) {
         errorMessage = 'Spotify API access forbidden: insufficient permissions';
       } else if (status === 404) {
@@ -85,10 +76,7 @@ export async function fetchSpotify<T>(
       const data = await res.json();
       return data as T;
     } catch (parseError) {
-      console.error(
-        `${LOG_PREFIX} Error: Failed to parse JSON response from ${url}`,
-        parseError,
-      );
+      console.error(`${LOG_PREFIX} Error: Failed to parse JSON response from ${url}`, parseError);
       throw new Error('Invalid response format: unable to parse JSON');
     }
   } catch (error) {

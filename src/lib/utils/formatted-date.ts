@@ -6,9 +6,7 @@ const LOG_PREFIX = '[DateFormatter]';
 function getOrdinal(day: number): string {
   try {
     if (isNaN(day) || day < 1 || day > 31) {
-      console.error(
-        `${LOG_PREFIX} Error: Invalid day number for ordinal: ${day}`,
-      );
+      console.error(`${LOG_PREFIX} Error: Invalid day number for ordinal: ${day}`);
       return `${day}th`;
     }
 
@@ -21,10 +19,7 @@ function getOrdinal(day: number): string {
     if (j === 3) return `${day}rd`;
     return `${day}th`;
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to calculate ordinal for day ${day}`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to calculate ordinal for day ${day}`, error);
     return `${day}`;
   }
 }
@@ -32,9 +27,7 @@ function getOrdinal(day: number): string {
 function getRelativeTime(minutes: number): string {
   try {
     if (isNaN(minutes) || minutes < 0) {
-      console.error(
-        `${LOG_PREFIX} Error: Invalid minutes value for relative time: ${minutes}`,
-      );
+      console.error(`${LOG_PREFIX} Error: Invalid minutes value for relative time: ${minutes}`);
       return 'some time ago';
     }
 
@@ -83,9 +76,7 @@ export function formattedDate(
     const targetDate = new Date(date);
 
     if (isNaN(targetDate.getTime())) {
-      console.error(
-        `${LOG_PREFIX} Error: Invalid date string provided "${date}"`,
-      );
+      console.error(`${LOG_PREFIX} Error: Invalid date string provided "${date}"`);
       throw new Error(`Invalid date: "${date}" could not be parsed`);
     }
 
@@ -107,10 +98,7 @@ export function formattedDate(
           year: 'numeric',
         };
 
-        const formattedDate = targetDate.toLocaleDateString(
-          locale,
-          dateOptions,
-        );
+        const formattedDate = targetDate.toLocaleDateString(locale, dateOptions);
         const day = targetDate.getDate();
         const formattedDay = getOrdinal(day);
         return formattedDate.replace(day.toString(), formattedDay);
@@ -134,10 +122,7 @@ export function formattedDate(
       throw error;
     }
 
-    console.error(
-      `${LOG_PREFIX} Error: Unexpected error formatting date "${date}"`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Unexpected error formatting date "${date}"`, error);
     throw new Error('Failed to format date: unexpected error');
   }
 }

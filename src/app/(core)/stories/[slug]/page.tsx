@@ -7,9 +7,7 @@ import { formattedDate } from '@/lib/utils';
 import { LikeButton } from '@/components/ui';
 import { MdxContent } from '@/components/mdx';
 
-export const generateMetadata = async (props: {
-  params: Promise<{ slug: string }>;
-}) => {
+export const generateMetadata = async (props: { params: Promise<{ slug: string }> }) => {
   const params = await props.params;
   const post = allStories.find(post => post.slug === params.slug);
 

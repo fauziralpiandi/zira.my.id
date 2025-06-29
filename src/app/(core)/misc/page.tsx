@@ -44,8 +44,8 @@ const Misc = () => {
         <span className="text-accent">
           where music isn&rsquo;t just heard, it&rsquo;s felt.
         </span>{' '}
-        It&rsquo;s all here, raw and real. Beats that make me move, and
-        questionable decisions to match.{' '}
+        It&rsquo;s all here, raw and real. Beats that make me move, and questionable decisions to
+        match.{' '}
         <span className="text-accent">
           Eh&mdash;just try it out, it&rsquo;s all about sharing tastes, Lmao...
         </span>
@@ -54,9 +54,9 @@ const Misc = () => {
         <SpotifyTopTracks />
         <SpotifyTopArtists />
         <p className="text-xs text-neutral-300">
-          Whatever, wherever, and whenever, I escape into music w/ Spotify.
-          Gracie stay on repeat&mdash;big-room, future-bass, indie, and dream
-          setting the vibe. If it&rsquo;s not worth the replay? Nah, not my jam.
+          Whatever, wherever, and whenever, I escape into music w/ Spotify. Gracie stay on
+          repeat&mdash;big-room, future-bass, indie, and dream setting the vibe. If it&rsquo;s not
+          worth the replay? Nah, not my jam.
         </p>
       </div>
     </section>

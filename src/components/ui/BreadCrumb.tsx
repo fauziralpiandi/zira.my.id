@@ -31,9 +31,7 @@ export const BreadCrumb = () => {
               {crumb.label}
             </span>
           )}
-          {index < breadcrumb.length - 1 && (
-            <span className="mx-1.5 text-stone-400">/</span>
-          )}
+          {index < breadcrumb.length - 1 && <span className="mx-1.5 text-stone-400">/</span>}
         </span>
       ))}
     </nav>

@@ -26,13 +26,9 @@ export const StoryCard = ({ post }: { post: Stories }) => {
                 {formattedDate(published, 'absolute')}
               </time>
               <span className="text-xs text-neutral-300">/</span>
-              <span className="font-display text-accent text-xs font-medium">
-                {readTime}
-              </span>
+              <span className="font-display text-accent text-xs font-medium">{readTime}</span>
             </div>
-            <h1 className="mt-1.5 line-clamp-2 text-lg leading-tight font-semibold">
-              {title}
-            </h1>
+            <h1 className="mt-1.5 line-clamp-2 text-lg leading-tight font-semibold">{title}</h1>
             <span className="sr-only">{summary}</span>
           </div>
         </figure>

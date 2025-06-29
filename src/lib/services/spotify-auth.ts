@@ -15,26 +15,17 @@ const getBasicToken = (() => {
   return () => {
     try {
       if (!SPOTIFY.CLIENT_ID || !SPOTIFY.CLIENT_SECRET) {
-        console.error(
-          `${LOG_PREFIX} Error: Missing CLIENT_ID or CLIENT_SECRET`,
-        );
-        throw new Error(
-          'Invalid Spotify configuration: missing client credentials',
-        );
+        console.error(`${LOG_PREFIX} Error: Missing CLIENT_ID or CLIENT_SECRET`);
+        throw new Error('Invalid Spotify configuration: missing client credentials');
       }
 
-      return (cachedToken ??= Buffer.from(
-        `${SPOTIFY.CLIENT_ID}:${SPOTIFY.CLIENT_SECRET}`,
-      ).toString('base64'));
+      return (cachedToken ??= Buffer.from(`${SPOTIFY.CLIENT_ID}:${SPOTIFY.CLIENT_SECRET}`).toString(
+        'base64',
+      ));
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error';
-      console.error(
-        `${LOG_PREFIX} Error: Failed to generate basic token - ${errorMessage}`,
-      );
-      throw new Error(
-        'Failed to authenticate with Spotify: invalid client configuration',
-      );
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`${LOG_PREFIX} Error: Failed to generate basic token - ${errorMessage}`);
+      throw new Error('Failed to authenticate with Spotify: invalid client configuration');
     }
   };
 })();
@@ -63,10 +54,7 @@ function isAccessTokenResponse(data: unknown): data is Response {
 
     return true;
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to validate token response`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to validate token response`, error);
     return false;
   }
 }
@@ -75,9 +63,7 @@ export async function getAccessToken(): Promise<string> {
   try {
     if (!SPOTIFY.REFRESH_TOKEN || !SPOTIFY.TOKEN_URL) {
       console.error(`${LOG_PREFIX} Error: Missing REFRESH_TOKEN or TOKEN_URL`);
-      throw new Error(
-        'Invalid Spotify configuration: missing required credentials',
-      );
+      throw new Error('Invalid Spotify configuration: missing required credentials');
     }
 
     const res = await fetch(SPOTIFY.TOKEN_URL, {
@@ -105,24 +91,19 @@ export async function getAccessToken(): Promise<string> {
         errorMessage = 'Spotify authentication failed: service unavailable';
       }
 
-      console.error(
-        `${LOG_PREFIX} Error: Failed to fetch token (HTTP ${statusCode})`,
-      );
+      console.error(`${LOG_PREFIX} Error: Failed to fetch token (HTTP ${statusCode})`);
       throw new Error(errorMessage);
     }
 
     const data = await res.json();
     if (!isAccessTokenResponse(data)) {
       console.error(`${LOG_PREFIX} Error: Invalid token response format`);
-      throw new Error(
-        'Invalid Spotify response format: missing required fields',
-      );
+      throw new Error('Invalid Spotify response format: missing required fields');
     }
 
     return data.access_token;
   } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : 'Unknown error';
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error(`${LOG_PREFIX} Error: ${errorMessage}`);
 
     if (!(error instanceof Error)) {

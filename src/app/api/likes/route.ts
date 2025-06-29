@@ -8,9 +8,7 @@ const LOG_PREFIX = '[Likes]';
 function validateSlug(slug: unknown): string {
   try {
     if (typeof slug !== 'string') {
-      console.error(
-        `${LOG_PREFIX} Error: Invalid slug format - received type '${typeof slug}'`,
-      );
+      console.error(`${LOG_PREFIX} Error: Invalid slug format - received type '${typeof slug}'`);
       throw new Error('Invalid slug format: must be a string');
     }
 
@@ -26,9 +24,7 @@ function validateSlug(slug: unknown): string {
     }
 
     if (cleaned.length > 255) {
-      console.error(
-        `${LOG_PREFIX} Error: Slug exceeds maximum length (${cleaned.length} > 255)`,
-      );
+      console.error(`${LOG_PREFIX} Error: Slug exceeds maximum length (${cleaned.length} > 255)`);
       throw new Error('Invalid slug: exceeds maximum length of 255 characters');
     }
 
@@ -37,9 +33,7 @@ function validateSlug(slug: unknown): string {
     if (error instanceof Error) {
       throw error; // Re-throw validation errors with clear messages
     }
-    console.error(
-      `${LOG_PREFIX} Error: Unexpected error during slug validation`,
-    );
+    console.error(`${LOG_PREFIX} Error: Unexpected error during slug validation`);
     throw new Error('Invalid slug: validation failed');
   }
 }
@@ -56,18 +50,13 @@ type LikeRow = { count: number };
 async function handleHead(slug: string): Promise<Response> {
   if (!sql) {
     console.error(`${LOG_PREFIX} Error: Database connection unavailable`);
-    throw new Error(
-      'Database connection unavailable: Neon client not initialized',
-    );
+    throw new Error('Database connection unavailable: Neon client not initialized');
   }
   try {
     const result = await sql`SELECT 1 FROM likes WHERE slug = ${slug} LIMIT 1;`;
     return new Response(null, { status: result.length > 0 ? 200 : 404 });
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to check existence for slug '${slug}'`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to check existence for slug '${slug}'`, error);
     throw new Error(`Failed to check existence for slug '${slug}'`);
   }
 }
@@ -75,21 +64,14 @@ async function handleHead(slug: string): Promise<Response> {
 async function handleGet(slug: string): Promise<Response> {
   if (!sql) {
     console.error(`${LOG_PREFIX} Error: Database connection unavailable`);
-    throw new Error(
-      'Database connection unavailable: Neon client not initialized',
-    );
+    throw new Error('Database connection unavailable: Neon client not initialized');
   }
   try {
-    const result =
-      (await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`) as LikeRow[];
-    const count =
-      result.length && result[0].count !== undefined ? result[0].count : 0;
+    const result = (await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`) as LikeRow[];
+    const count = result.length && result[0].count !== undefined ? result[0].count : 0;
     return formatResponse({ slug, count });
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to get like count for slug '${slug}'`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to get like count for slug '${slug}'`, error);
     throw new Error(`Failed to get like count for slug '${slug}'`);
   }
 }
@@ -97,9 +79,7 @@ async function handleGet(slug: string): Promise<Response> {
 async function handlePost(slug: string): Promise<Response> {
   if (!sql) {
     console.error(`${LOG_PREFIX} Error: Database connection unavailable`);
-    throw new Error(
-      'Database connection unavailable: Neon client not initialized',
-    );
+    throw new Error('Database connection unavailable: Neon client not initialized');
   }
   try {
     const result = (await sql`
@@ -111,18 +91,13 @@ async function handlePost(slug: string): Promise<Response> {
     `) as LikeRow[];
 
     if (!result[0]?.count) {
-      console.error(
-        `${LOG_PREFIX} Error: Failed to update count for slug '${slug}'`,
-      );
+      console.error(`${LOG_PREFIX} Error: Failed to update count for slug '${slug}'`);
       throw new Error(`Failed to update like count for slug '${slug}'`);
     }
 
     return formatResponse({ slug, count: result[0].count });
   } catch (error) {
-    console.error(
-      `${LOG_PREFIX} Error: Failed to add like for slug '${slug}'`,
-      error,
-    );
+    console.error(`${LOG_PREFIX} Error: Failed to add like for slug '${slug}'`, error);
     throw new Error(`Failed to add like for slug '${slug}'`);
   }
 }

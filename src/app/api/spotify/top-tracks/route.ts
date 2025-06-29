@@ -27,8 +27,7 @@ type Response = {
   items: Array<TopTracks>;
 };
 
-const TOP_TRACKS_URL =
-  'https://api.spotify.com/v1/me/top/tracks?limit=25&time_range=short_term';
+const TOP_TRACKS_URL = 'https://api.spotify.com/v1/me/top/tracks?limit=25&time_range=short_term';
 
 function formatResponse(data: Response): Track[] {
   if (!data.items || data.items.length === 0) {
@@ -42,9 +41,7 @@ function formatResponse(data: Response): Track[] {
       !track.album.images[0]?.url ||
       !track.external_urls.spotify
     ) {
-      console.error(
-        `${LOG_PREFIX} Error: Invalid track data for ${track.name || 'unknown track'}`,
-      );
+      console.error(`${LOG_PREFIX} Error: Invalid track data for ${track.name || 'unknown track'}`);
       throw new Error('Invalid track data');
     }
     return {
@@ -76,10 +73,7 @@ export async function GET() {
     const accessToken = await getAccessToken();
     if (!accessToken) {
       console.error(`${LOG_PREFIX} Error: Failed to obtain access token`);
-      return NextResponse.json(
-        { error: 'Invalid access token' },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: 'Invalid access token' }, { status: 400 });
     }
     const result = await getTopTracks(accessToken);
     return NextResponse.json(formatResponse(result));
@@ -89,10 +83,7 @@ export async function GET() {
     return NextResponse.json(
       { error: message },
       {
-        status:
-          message.includes('Invalid') || message.includes('No track data')
-            ? 400
-            : 500,
+        status: message.includes('Invalid') || message.includes('No track data') ? 400 : 500,
       },
     );
   }

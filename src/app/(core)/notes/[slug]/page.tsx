@@ -14,9 +14,7 @@ export const generateStaticParams = async () => {
   }));
 };
 
-export const generateMetadata = async (props: {
-  params: Promise<{ slug: string }>;
-}) => {
+export const generateMetadata = async (props: { params: Promise<{ slug: string }> }) => {
   const params = await props.params;
   const post = allNotes.find(post => post.slug === params.slug);
 

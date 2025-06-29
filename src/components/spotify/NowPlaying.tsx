@@ -38,11 +38,8 @@ export const SpotifyNowPlaying = () => {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        const errorMessage =
-          data.error || `Failed to fetch now playing track (${res.status})`;
-        console.error(
-          `${LOG_PREFIX} Error: API request failed with status ${res.status}`,
-        );
+        const errorMessage = data.error || `Failed to fetch now playing track (${res.status})`;
+        console.error(`${LOG_PREFIX} Error: API request failed with status ${res.status}`);
         throw new Error(errorMessage);
       }
 
@@ -50,10 +47,7 @@ export const SpotifyNowPlaying = () => {
       try {
         data = await res.json();
       } catch (parseError) {
-        console.error(
-          `${LOG_PREFIX} Error: Failed to parse API response`,
-          parseError,
-        );
+        console.error(`${LOG_PREFIX} Error: Failed to parse API response`, parseError);
         throw new Error('Invalid response format');
       }
 
@@ -68,8 +62,7 @@ export const SpotifyNowPlaying = () => {
         return;
       }
 
-      const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error(`${LOG_PREFIX} Error: ${errorMessage}`);
 
       setError(
@@ -103,12 +96,7 @@ export const SpotifyNowPlaying = () => {
     return () => controllerRef.current?.abort();
   }, [fetchData]);
 
-  const {
-    title = 'Unknown',
-    artist = 'Unknown',
-    url = '#',
-    isPlaying = false,
-  } = track ?? {};
+  const { title = 'Unknown', artist = 'Unknown', url = '#', isPlaying = false } = track ?? {};
 
   if (loading && !track) {
     return (
@@ -131,10 +119,7 @@ export const SpotifyNowPlaying = () => {
       <div className="flex items-center justify-center">
         <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
           <div className="flex items-center justify-center">
-            <AudioWave
-              isPlaying={false}
-              aria-label="Can&rsquo;t connect to Spotify"
-            />
+            <AudioWave isPlaying={false} aria-label="Can&rsquo;t connect to Spotify" />
           </div>
           <div className="flex flex-col space-y-1.5">
             <div className="h-4 w-32 rounded-sm bg-neutral-900/50" />

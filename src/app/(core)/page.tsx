@@ -9,9 +9,7 @@ const Home = () => {
       <div className="flex flex-col items-center gap-4 md:flex-row md:justify-around md:gap-8">
         <Eclipse />
         <div className="flex flex-col text-center md:text-left">
-          <h1 className="font-display text-accent text-2xl font-bold">
-            {authorName}
-          </h1>
+          <h1 className="font-display text-accent text-2xl font-bold">{authorName}</h1>
           <p className="max-w-md leading-snug font-light text-neutral-300 md:text-lg">
             {description}
           </p>

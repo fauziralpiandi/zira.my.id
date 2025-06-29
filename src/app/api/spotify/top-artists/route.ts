@@ -23,8 +23,7 @@ type Response = {
   items: Array<TopArtists>;
 };
 
-const TOP_ARTISTS_URL =
-  'https://api.spotify.com/v1/me/top/artists?limit=9&time_range=long_term';
+const TOP_ARTISTS_URL = 'https://api.spotify.com/v1/me/top/artists?limit=9&time_range=long_term';
 
 function formatResponse(data: Response): Artist[] {
   if (!data.items || data.items.length === 0) {
@@ -32,11 +31,7 @@ function formatResponse(data: Response): Artist[] {
     throw new Error('No artist data available');
   }
   return data.items.map(artist => {
-    if (
-      !artist.name ||
-      !artist.images[0]?.url ||
-      !artist.external_urls.spotify
-    ) {
+    if (!artist.name || !artist.images[0]?.url || !artist.external_urls.spotify) {
       console.error(
         `${LOG_PREFIX} Error: Invalid artist data for ${artist.name || 'unknown artist'}`,
       );
@@ -70,10 +65,7 @@ export async function GET() {
     const accessToken = await getAccessToken();
     if (!accessToken) {
       console.error(`${LOG_PREFIX} Error: Failed to obtain access token`);
-      return NextResponse.json(
-        { error: 'Invalid access token' },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: 'Invalid access token' }, { status: 400 });
     }
     const result = await getTopArtists(accessToken);
     return NextResponse.json(formatResponse(result));
@@ -83,10 +75,7 @@ export async function GET() {
     return NextResponse.json(
       { error: message },
       {
-        status:
-          message.includes('Invalid') || message.includes('No artist data')
-            ? 400
-            : 500,
+        status: message.includes('Invalid') || message.includes('No artist data') ? 400 : 500,
       },
     );
   }

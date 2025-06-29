@@ -4,13 +4,7 @@ import { useEffect } from 'react';
 
 const LOG_PREFIX = '[ErrorBoundary]';
 
-const Error = ({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) => {
+const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   useEffect(() => {
     console.error(
       `${LOG_PREFIX} Error: ${error.message || 'Unknown error'} ${error.digest ? `(digest: ${error.digest})` : ''}`,
@@ -20,9 +14,7 @@ const Error = ({
   return (
     <div className="grid min-h-72 place-items-center">
       <div className="flex flex-col items-center gap-1 text-center">
-        <h1 className="font-display text-4xl font-bold tracking-tight">
-          Oops!
-        </h1>
+        <h1 className="font-display text-4xl font-bold tracking-tight">Oops!</h1>
         <mark className="text-accent text-sm font-medium tracking-tight">
           Something went wrong&mdash;
         </mark>

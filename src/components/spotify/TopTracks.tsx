@@ -23,36 +23,27 @@ export const SpotifyTopTracks = () => {
     const controller = new AbortController();
     const fetchTracks = async () => {
       try {
-        const data = await saveCache<Track[]>(
-          'top_tracks',
-          24 * 60 * 60 * 1000,
-          async () => {
-            const res = await fetch('/api/spotify/top-tracks', {
-              signal: controller.signal,
-              cache: 'no-store',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
+        const data = await saveCache<Track[]>('top_tracks', 24 * 60 * 60 * 1000, async () => {
+          const res = await fetch('/api/spotify/top-tracks', {
+            signal: controller.signal,
+            cache: 'no-store',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
-            if (!res.ok) {
-              const data = await res.json().catch(() => ({}));
-              throw new Error(
-                data.error || `Failed to fetch top tracks (${res.status})`,
-              );
-            }
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            throw new Error(data.error || `Failed to fetch top tracks (${res.status})`);
+          }
 
-            try {
-              return await res.json();
-            } catch (parseError) {
-              console.error(
-                `${LOG_PREFIX} Error: Failed to parse API response`,
-                parseError,
-              );
-              throw new Error('Invalid response format');
-            }
-          },
-        );
+          try {
+            return await res.json();
+          } catch (parseError) {
+            console.error(`${LOG_PREFIX} Error: Failed to parse API response`, parseError);
+            throw new Error('Invalid response format');
+          }
+        });
 
         if (!data || !Array.isArray(data)) {
           throw new Error('Invalid data format received');
@@ -77,8 +68,7 @@ export const SpotifyTopTracks = () => {
               ? 'Failed to connect to Spotify'
               : error.name === 'TypeError'
                 ? 'Network connection error'
-                : error.message.includes('Invalid') ||
-                    error.message.includes('Unexpected token')
+                : error.message.includes('Invalid') || error.message.includes('Unexpected token')
                   ? 'Invalid response format'
                   : error.message
             : 'Unknown error occurred',
@@ -161,10 +151,7 @@ export const SpotifyTopTracks = () => {
           );
         } else {
           return (
-            <div
-              key={index}
-              className="group relative aspect-square overflow-hidden rounded-xs"
-            >
+            <div key={index} className="group relative aspect-square overflow-hidden rounded-xs">
               <div className="h-full w-full bg-neutral-200/5" />
             </div>
           );

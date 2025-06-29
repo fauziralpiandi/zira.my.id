@@ -29,10 +29,8 @@ type FormattedTrack = {
   isPlaying: boolean;
 };
 
-const SPOTIFY_NOW_PLAYING_URL =
-  'https://api.spotify.com/v1/me/player/currently-playing';
-const SPOTIFY_RECENTLY_PLAYED_URL =
-  'https://api.spotify.com/v1/me/player/recently-played?limit=1';
+const SPOTIFY_NOW_PLAYING_URL = 'https://api.spotify.com/v1/me/player/currently-playing';
+const SPOTIFY_RECENTLY_PLAYED_URL = 'https://api.spotify.com/v1/me/player/recently-played?limit=1';
 
 function formatResponse(nowPlaying: Response): FormattedTrack {
   const track = nowPlaying.item ?? nowPlaying.items?.[0]?.track;
@@ -41,11 +39,7 @@ function formatResponse(nowPlaying: Response): FormattedTrack {
     throw new Error('No track data available');
   }
 
-  if (
-    !track.name ||
-    !track.album?.artists?.[0]?.name ||
-    !track.external_urls?.spotify
-  ) {
+  if (!track.name || !track.album?.artists?.[0]?.name || !track.external_urls?.spotify) {
     console.error(`${LOG_PREFIX} Error: Incomplete track data`);
     throw new Error('Incomplete track data');
   }
@@ -65,18 +59,10 @@ async function getNowPlaying(accessToken: string): Promise<FormattedTrack> {
   }
 
   try {
-    const nowPlaying = await fetchSpotify<Response>(
-      SPOTIFY_NOW_PLAYING_URL,
-      accessToken,
-    );
+    const nowPlaying = await fetchSpotify<Response>(SPOTIFY_NOW_PLAYING_URL, accessToken);
 
-    if (
-      !nowPlaying.is_playing ||
-      nowPlaying.currently_playing_type !== 'track'
-    ) {
-      console.info(
-        `${LOG_PREFIX} Info: No track currently playing, fetching recently played`,
-      );
+    if (!nowPlaying.is_playing || nowPlaying.currently_playing_type !== 'track') {
+      console.info(`${LOG_PREFIX} Info: No track currently playing, fetching recently played`);
       try {
         const recentlyPlayed = await fetchSpotify<Response>(
           SPOTIFY_RECENTLY_PLAYED_URL,
@@ -98,10 +84,7 @@ async function getNowPlaying(accessToken: string): Promise<FormattedTrack> {
     );
 
     try {
-      const recentlyPlayed = await fetchSpotify<Response>(
-        SPOTIFY_RECENTLY_PLAYED_URL,
-        accessToken,
-      );
+      const recentlyPlayed = await fetchSpotify<Response>(SPOTIFY_RECENTLY_PLAYED_URL, accessToken);
       return formatResponse(recentlyPlayed);
     } catch (fallbackError) {
       console.error(
@@ -117,10 +100,7 @@ export async function GET() {
     const accessToken = await getAccessToken();
     if (!accessToken) {
       console.error(`${LOG_PREFIX} Error: Failed to obtain access token`);
-      return NextResponse.json(
-        { error: 'Invalid access token' },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: 'Invalid access token' }, { status: 400 });
     }
 
     const result = await getNowPlaying(accessToken);
@@ -131,10 +111,7 @@ export async function GET() {
     return NextResponse.json(
       { error: message },
       {
-        status:
-          message.includes('Invalid') || message.includes('No track data')
-            ? 400
-            : 500,
+        status: message.includes('Invalid') || message.includes('No track data') ? 400 : 500,
       },
     );
   }

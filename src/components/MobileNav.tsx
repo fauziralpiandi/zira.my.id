@@ -10,12 +10,7 @@ type MobileNav = {
   closeNav: () => void;
 };
 
-export const MobileNav = ({
-  isOpen,
-  pathname,
-  navItems,
-  closeNav,
-}: MobileNav) => {
+export const MobileNav = ({ isOpen, pathname, navItems, closeNav }: MobileNav) => {
   return (
     <nav
       className={cx(

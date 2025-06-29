@@ -5,10 +5,7 @@ import { LuCheck, LuCopy } from 'react-icons/lu';
 
 import { cx } from '@/lib/utils';
 
-export const MdxPreCode = ({
-  children,
-  ...restProps
-}: React.ComponentPropsWithoutRef<'pre'>) => {
+export const MdxPreCode = ({ children, ...restProps }: React.ComponentPropsWithoutRef<'pre'>) => {
   const [copied, setCopied] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
 

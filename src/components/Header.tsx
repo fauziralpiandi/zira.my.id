@@ -3,25 +3,25 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { LuMenu, LuX } from 'react-icons/lu';
-
 import { FlipName } from './ui';
-import { DesktopNav, MobileNav } from '@/components';
+import { DesktopNav, MobileNav } from '@/components/Nav';
 import { navItems } from '@/lib/constant';
 
-export const Header = () => {
+export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleNav = () => setIsOpen(prev => !prev);
 
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
-
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     document.body.style.overflow = 'hidden';
+
     return () => {
       document.body.style.overflow = '';
     };
@@ -33,10 +33,14 @@ export const Header = () => {
       style={{
         boxShadow: '0px 0px 30px 50px #0a0a0a',
       }}
-      data-nosnippet
     >
       <div className="z-30 flex items-center space-x-2">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="24" width="24">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 32 32"
+          height="24"
+          width="24"
+        >
           <path
             fill="#f7efd1"
             stroke="#f7efd1"
@@ -58,13 +62,19 @@ export const Header = () => {
       <MobileNav
         isOpen={isOpen}
         pathname={pathname}
-        navItems={navItems.reduce((acc, item) => ({ ...acc, [item.path]: item }), {})}
+        navItems={navItems.reduce(
+          (acc, item) => ({ ...acc, [item.path]: item }),
+          {},
+        )}
         closeNav={() => setIsOpen(false)}
       />
       <DesktopNav
         pathname={pathname}
-        navItems={navItems.reduce((acc, item) => ({ ...acc, [item.path]: item }), {})}
+        navItems={navItems.reduce(
+          (acc, item) => ({ ...acc, [item.path]: item }),
+          {},
+        )}
       />
     </header>
   );
-};
+}

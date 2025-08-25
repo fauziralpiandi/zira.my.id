@@ -2,7 +2,7 @@
 
 import { cx } from '@/lib/utils';
 
-export const AudioWave = ({ isPlaying }: { isPlaying: boolean }) => {
+export function AudioWave({ isPlaying }: { isPlaying: boolean }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -31,4 +31,4 @@ export const AudioWave = ({ isPlaying }: { isPlaying: boolean }) => {
       />
     </svg>
   );
-};
+}

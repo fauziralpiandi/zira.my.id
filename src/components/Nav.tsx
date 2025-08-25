@@ -3,6 +3,11 @@ import { Link } from 'next-view-transitions';
 import { constant } from '@/lib/constant';
 import { cx } from '@/lib/utils';
 
+type DesktopNav = {
+  pathname: string;
+  navItems: Record<string, { name: string; path: string }>;
+};
+
 type MobileNav = {
   isOpen: boolean;
   pathname: string;
@@ -10,7 +15,30 @@ type MobileNav = {
   closeNav: () => void;
 };
 
-export const MobileNav = ({ isOpen, pathname, navItems, closeNav }: MobileNav) => {
+function DesktopNav({ pathname, navItems }: DesktopNav) {
+  return (
+    <nav
+      className="hidden items-center space-x-6 md:flex"
+      aria-label="Main navigation"
+    >
+      {Object.entries(navItems).map(([path, { name }]) => (
+        <Link
+          key={path}
+          href={path}
+          className={cx(
+            'font-display text-accent font-medium capitalize',
+            pathname === path ? 'opacity-50' : '',
+          )}
+          aria-current={pathname === path ? 'page' : undefined}
+        >
+          {name}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
+function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
   return (
     <nav
       className={cx(
@@ -55,4 +83,6 @@ export const MobileNav = ({ isOpen, pathname, navItems, closeNav }: MobileNav) =
       </aside>
     </nav>
   );
-};
+}
+
+export { DesktopNav, MobileNav };

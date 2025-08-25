@@ -1,10 +1,9 @@
 // (https://github.com/leerob/site/blob/main/app/name.tsx)
 
 import { Link } from 'next-view-transitions';
-
 import { constant } from '@/lib/constant';
 
-export const FlipName = () => {
+export function FlipName() {
   return (
     <h1 className="font-display text-accent font-medium">
       <span className="group relative block overflow-hidden">
@@ -38,4 +37,4 @@ export const FlipName = () => {
       </span>
     </h1>
   );
-};
+}

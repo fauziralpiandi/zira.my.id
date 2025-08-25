@@ -1,8 +1,4 @@
----
-title: Terms and Conditions
-summary: What’s the deal on my site. Make sure you’re down before moving forward!
-date: 2025-01-27
----
+# Terms & Conditions (2025-01-27)
 
 This website serves as a platform for sharing personal writings, opinions, and creative works. By accessing or using this site, you agree to these terms. If you disagree, please discontinue use immediately.
 

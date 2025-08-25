@@ -1,16 +1,13 @@
-import { type Metadata } from 'next';
-import { type Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { ViewTransitions } from 'next-view-transitions';
 
 import { constant } from '@/lib/constant';
 import { cx } from '@/lib/utils';
 import { fontBody, fontCode, fontDisplay } from '@/lib/fonts';
-import { Header, Footer } from '@/components';
+import { Footer, Header } from '@/components';
 
-import '@/app/globals.css';
-
-const { baseUrl, title, description, locale } = constant;
+import './globals.css';
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
@@ -20,34 +17,34 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`${baseUrl}`),
+  metadataBase: new URL(`${constant.baseUrl}`),
   alternates: {
-    canonical: baseUrl,
+    canonical: constant.baseUrl,
   },
   title: {
-    default: title,
-    template: `%s \u2014 ${title}`,
+    default: constant.title,
+    template: `%s \u2014 ${constant.title}`,
   },
-  description: description,
+  description: constant.description,
   openGraph: {
-    title: title,
-    description: description,
-    url: baseUrl,
-    siteName: title,
+    title: constant.title,
+    description: constant.description,
+    url: constant.baseUrl,
+    siteName: constant.title,
     type: 'website',
     images: [
       {
-        url: `${baseUrl}/api/og`,
+        url: `${constant.baseUrl}/api/og`,
       },
     ],
   },
   twitter: {
-    title: title,
-    description: description,
+    title: constant.title,
+    description: constant.description,
     card: 'summary_large_image',
     images: [
       {
-        url: `${baseUrl}/api/og`,
+        url: `${constant.baseUrl}/api/og`,
       },
     ],
   },
@@ -67,9 +64,11 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang={locale} suppressHydrationWarning={true}>
+    <html lang={constant.locale} suppressHydrationWarning>
       <ViewTransitions>
         <body
           className={cx(
@@ -99,7 +98,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <div className="flex min-h-screen flex-col p-8">
             <Header />
             <div className="mx-auto flex w-full max-w-2xl grow flex-col">
-              <main className="my-24 grow text-pretty break-words md:my-36">{children}</main>
+              <main className="my-24 grow text-pretty break-words md:my-36">
+                {children}
+              </main>
             </div>
             <Footer />
             <Analytics mode="production" />
@@ -108,6 +109,4 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       </ViewTransitions>
     </html>
   );
-};
-
-export default RootLayout;
+}

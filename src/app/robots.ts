@@ -1,5 +1,4 @@
-import { type MetadataRoute } from 'next';
-
+import type { MetadataRoute } from 'next';
 import { constant } from '@/lib/constant';
 
 export default function Robots(): MetadataRoute.Robots {

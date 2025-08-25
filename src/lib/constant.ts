@@ -4,7 +4,7 @@ type Constant = {
   description: string;
   authorName: string;
   locale: string;
-  timeZone: string;
+  tz: string;
 };
 
 type NavItem = {
@@ -18,7 +18,7 @@ const constant: Constant = {
   description: 'An Engineer Defined by Intent \u2014 Lunar Enthusiast.',
   authorName: 'Fauzira Alpiandi',
   locale: 'en-US',
-  timeZone: 'Asia/Jakarta',
+  tz: 'Asia/Jakarta',
 };
 
 const navItems: NavItem[] = [

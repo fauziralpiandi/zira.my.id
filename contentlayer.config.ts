@@ -1,12 +1,11 @@
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
 import { makeSource } from 'contentlayer2/source-files';
-
-import { Notes, Static, Stories } from '@/lib/schemas';
+import { Notes, Stories } from '@/lib/contents';
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Notes, Static, Stories],
+  documentTypes: [Notes, Stories],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

@@ -1,18 +1,12 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PiHeart, PiHeartFill, PiSpinner } from 'react-icons/pi';
-
 import { cx } from '@/lib/utils';
 
-const LOG_PREFIX = '[LikeButton]';
+type LikeResponse = { count: number; error?: string };
 
-type LikeResponse = {
-  count: number;
-  error?: string;
-};
-
-export const LikeButton = React.memo(({ slug }: { slug: string }) => {
+export function LikeButton({ slug }: { slug: string }) {
   const [count, setCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [hasLiked, setHasLiked] = useState(false);
@@ -27,79 +21,44 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
         const res = await fetch(`/api/likes?slug=${slug}`);
 
         if (!res.ok) {
-          const statusCode = res.status;
-          let errorMessage = `Failed to fetch like count (HTTP ${statusCode})`;
+          const data = await res.json().catch(() => ({}));
 
-          try {
-            const data = await res.json();
-            if (data && data.error) {
-              errorMessage = data.error;
-            }
-          } catch (parseError) {
-            console.error(`${LOG_PREFIX} Error: Could not parse error response`, parseError);
-          }
-
-          console.error(`${LOG_PREFIX} Error: API request failed with status ${statusCode}`);
-          throw new Error(errorMessage);
+          throw new Error(data.error || `HTTP ${res.status}`);
         }
 
         const data: LikeResponse = await res.json();
+
         setCount(data.count);
         setError(null);
       } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        console.error(
-          `${LOG_PREFIX} Error: Failed to fetch likes for slug '${slug}': ${errorMessage}`,
-        );
+        const e = error instanceof Error ? error.message : 'Unknown error';
 
-        setError(
-          error instanceof Error
-            ? error.message.includes('Failed to fetch')
-              ? 'Network error loading like count'
-              : error.message
-            : 'Could not load like count',
-        );
-
+        setError(e.includes('HTTP') ? 'Invalid response' : 'Network error');
         setCount(null);
       } finally {
         setIsLoading(false);
       }
     };
+    const liked = document.cookie.includes(`liked-${slug}=true`);
 
-    const liked = getCookie(`liked-${slug}`);
-    if (liked) {
-      setHasLiked(true);
-    }
-
+    setHasLiked(liked);
     fetchLike();
-
-    return () => {};
   }, [slug]);
 
-  const getCookie = (name: string): string | undefined => {
-    try {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(';').shift();
-      return undefined;
-    } catch (error) {
-      console.error(`${LOG_PREFIX} Error: Failed to get cookie '${name}'`, error);
-      return undefined;
-    }
-  };
-
-  const setCookie = (name: string, value: string, days: number): void => {
+  const setCookie = (name: string, value: string, days: number) => {
     try {
       const date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      const expires = `expires=${date.toUTCString()}`;
-      document.cookie = `${name}=${value}; ${expires}; path=/; SameSite=Lax`;
-    } catch (error) {
-      console.error(`${LOG_PREFIX} Error: Failed to set cookie '${name}'`, error);
+
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1e3);
+      document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; SameSite=Lax`;
+    } catch {
+      // ignore
     }
   };
   const addLike = useCallback(async () => {
-    if (hasLiked || isAddingLike) return;
+    if (hasLiked || isAddingLike) {
+      return;
+    }
 
     setCount(prev => (prev !== null ? prev + 1 : 1));
     setHasLiked(true);
@@ -113,42 +72,22 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       });
 
       if (!res.ok) {
-        const statusCode = res.status;
-        let errorMessage = `Failed to add like (HTTP ${statusCode})`;
+        const data = await res.json().catch(() => ({}));
 
-        try {
-          const data = await res.json();
-          if (data && data.error) {
-            errorMessage = data.error;
-          }
-        } catch (parseError) {
-          console.error(`${LOG_PREFIX} Error: Could not parse error response`, parseError);
-        }
-
-        console.error(`${LOG_PREFIX} Error: API request failed with status ${statusCode}`);
-        throw new Error(errorMessage);
+        throw new Error(data.error || `HTTP ${res.status}`);
       }
 
       const like: LikeResponse = await res.json();
 
       setCookie(`liked-${slug}`, 'true', 365);
       setCount(like.count);
-      setHasLiked(true);
       setError(null);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error(`${LOG_PREFIX} Error: Failed to add like for slug '${slug}': ${errorMessage}`);
+      const e = error instanceof Error ? error.message : 'Unknown error';
 
       setCount(prev => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
-
-      setError(
-        error instanceof Error
-          ? error.message.includes('Failed to fetch')
-            ? 'Network error adding like'
-            : error.message
-          : 'Could not add like',
-      );
+      setError(e.includes('HTTP') ? 'Invalid response' : 'Network error');
     } finally {
       setIsAddingLike(false);
     }
@@ -169,7 +108,9 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       <div className="border-red/50 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale">
         <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
           <PiHeartFill className="h-5 w-5 fill-red-500" />
-          <span className="font-display translate-y-[1px] text-sm text-red-500">Error!</span>
+          <span className="font-display translate-y-[1px] text-sm text-red-500">
+            Error!
+          </span>
         </div>
       </div>
     );
@@ -197,6 +138,4 @@ export const LikeButton = React.memo(({ slug }: { slug: string }) => {
       </div>
     </button>
   );
-});
-
-LikeButton.displayName = 'LikeButton';
+}

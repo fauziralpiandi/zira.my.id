@@ -1,171 +1,144 @@
-import { NextResponse } from 'next/server';
-import { type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 
-import { securityHeader } from '@/lib/services';
+const WINDOW_MS = 60 * 1e3;
+const MAX_REQ = 100;
 
-const LOG_PREFIX = '[Middleware]';
-
-const rateLimit = {
-  windowMs: 60 * 1000,
-  maxRequests: 100,
-  requestCounts: new Map<string, { count: number; resetTime: number }>(),
-
-  shouldLimit(ip: string): boolean {
-    if (!ip) return false;
-
-    const now = Date.now();
-    const record = this.requestCounts.get(ip);
-
-    if (!record || now > record.resetTime) {
-      this.requestCounts.set(ip, {
-        count: 1,
-        resetTime: now + this.windowMs,
-      });
-      return false;
-    }
-
-    record.count += 1;
-
-    return record.count > this.maxRequests;
-  },
-
-  getRemainingRequests(ip: string): number {
-    if (!ip) return this.maxRequests;
-
-    const now = Date.now();
-    const record = this.requestCounts.get(ip);
-
-    if (!record || now > record.resetTime) {
-      return this.maxRequests;
-    }
-
-    return Math.max(0, this.maxRequests - record.count);
-  },
-
-  getResetTime(ip: string): number {
-    if (!ip) return Date.now() + this.windowMs;
-
-    const record = this.requestCounts.get(ip);
-
-    return record ? record.resetTime : Date.now() + this.windowMs;
-  },
-};
-
-const analytics = {
-  totalRequests: 0,
-  pathCounts: new Map<string, number>(),
-  userAgents: new Map<string, number>(),
-  statusCounts: new Map<number, number>(),
-  startTime: Date.now(),
-
-  recordVisit(pathname: string, userAgent: string, status = 200) {
-    this.totalRequests++;
-    this.pathCounts.set(pathname, (this.pathCounts.get(pathname) || 0) + 1);
-    this.statusCounts.set(status, (this.statusCounts.get(status) || 0) + 1);
-
-    const device = this.categorizeUserAgent(userAgent);
-
-    this.userAgents.set(device, (this.userAgents.get(device) || 0) + 1);
-  },
-
-  categorizeUserAgent(userAgent: string): string {
-    if (!userAgent) return 'Unknown';
-
-    userAgent = userAgent.toLowerCase();
-
-    if (
-      userAgent.includes('mobile') ||
-      userAgent.includes('android') ||
-      userAgent.includes('iphone')
-    ) {
-      return 'Mobile';
-    }
-
-    if (userAgent.includes('tablet') || userAgent.includes('ipad')) {
-      return 'Tablet';
-    }
-
-    return 'Desktop';
-  },
-
-  getSummary() {
-    const runningTime = Math.floor((Date.now() - this.startTime) / 1000);
-    const topPaths = [...this.pathCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
-
-    const deviceStats = Object.fromEntries(this.userAgents.entries());
-    const statusStats = Object.fromEntries(this.statusCounts.entries());
-
-    return {
-      totalRequests: this.totalRequests,
-      runningTime: `${runningTime}s`,
-      topPaths,
-      deviceStats,
-      statusStats,
-    };
-  },
-};
-
-const middlewareHeaders = {
+const securityHeaders: Record<string, string> = {
+  'X-DNS-Prefetch-Control': 'on',
+  'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
+  'X-XSS-Protection': '1; mode=block',
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'origin-when-cross-origin',
+  'Permissions-Policy':
+    'camera=(), microphone=(), geolocation=(), interest-cohort=()',
   'X-Response-From': 'Middleware',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
 };
 
-export function middleware(request: NextRequest) {
+const counts = new Map<string, { count: number; reset: number }>();
+
+const stats = {
+  total: 0,
+  paths: new Map<string, number>(),
+  devices: new Map<string, number>(),
+  statuses: new Map<number, number>(),
+  start: Date.now(),
+};
+
+const deviceType = (ua: string) => {
+  ua = ua.toLowerCase();
+
+  if (
+    ua.includes('mobile') ||
+    ua.includes('android') ||
+    ua.includes('iphone')
+  ) {
+    return 'Mobile';
+  }
+
+  if (ua.includes('tablet') || ua.includes('ipad')) {
+    return 'Tablet';
+  }
+
+  return 'Desktop';
+};
+
+const record = (path: string, ua: string, status = 200) => {
+  stats.total++;
+  stats.paths.set(path, (stats.paths.get(path) || 0) + 1);
+  stats.statuses.set(status, (stats.statuses.get(status) || 0) + 1);
+  stats.devices.set(
+    deviceType(ua),
+    (stats.devices.get(deviceType(ua)) || 0) + 1,
+  );
+};
+
+const checkRateLimit = (ip?: string) => {
+  if (!ip) {
+    return {
+      limited: false,
+      remaining: MAX_REQ,
+      reset: Date.now() + WINDOW_MS,
+    };
+  }
+
+  const now = Date.now();
+  const rec = counts.get(ip);
+
+  if (!rec || now > rec.reset) {
+    counts.set(ip, { count: 1, reset: now + WINDOW_MS });
+
+    return { limited: false, remaining: MAX_REQ - 1, reset: now + WINDOW_MS };
+  }
+
+  rec.count++;
+
+  return {
+    limited: rec.count > MAX_REQ,
+    remaining: Math.max(0, MAX_REQ - rec.count),
+    reset: rec.reset,
+  };
+};
+
+export function middleware(req: NextRequest) {
   if (process.env.NODE_ENV !== 'production') {
     return NextResponse.next();
   }
 
-  if (request.nextUrl.pathname === '/_analytics') {
-    return NextResponse.json(analytics.getSummary());
-  }
-
-  const { pathname, search } = request.nextUrl;
-  const userAgent = request.headers.get('user-agent') || 'Unknown';
-  const ip = request.headers.get('x-forwarded-for') || 'unknown';
+  const { pathname } = req.nextUrl;
+  const ua = req.headers.get('user-agent') || 'Unknown';
+  const ip = req.headers.get('x-forwarded-for') || '';
   const start = Date.now();
 
-  if (rateLimit.shouldLimit(ip)) {
-    console.warn(`${LOG_PREFIX} Rate limit exceeded for IP: ${ip}`);
-    analytics.recordVisit(pathname, userAgent, 429);
-
-    const response = NextResponse.json(
-      { error: 'Too Many Requests', message: 'Rate limit exceeded' },
-      { status: 429 },
-    );
-
-    response.headers.set('Retry-After', '60');
-    response.headers.set('X-RateLimit-Limit', rateLimit.maxRequests.toString());
-    response.headers.set('X-RateLimit-Remaining', '0');
-    response.headers.set('X-RateLimit-Reset', (rateLimit.getResetTime(ip) / 1000).toString());
-
-    return response;
+  if (pathname === '/_analytics') {
+    return NextResponse.json({
+      total: stats.total,
+      uptime: `${Math.floor((Date.now() - stats.start) / 1e3)}s`,
+      topPaths: [...stats.paths.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5),
+      devices: Object.fromEntries(stats.devices.entries()),
+      statuses: Object.fromEntries(stats.statuses.entries()),
+    });
   }
 
-  analytics.recordVisit(pathname, userAgent);
+  const { limited, remaining, reset } = checkRateLimit(ip);
 
-  console.log(`${LOG_PREFIX} Request: ${request.method} ${pathname}${search}`);
+  if (limited) {
+    record(pathname, ua, 429);
 
-  const response = NextResponse.next();
-  const responseTime = Date.now() - start;
+    return NextResponse.json(
+      { error: 'Too Many Requests' },
+      {
+        status: 429,
+        headers: {
+          'Retry-After': '60',
+          'X-RateLimit-Limit': MAX_REQ.toString(),
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': (reset / 1e3).toString(),
+        },
+      },
+    );
+  }
 
-  response.headers.set('X-RateLimit-Limit', rateLimit.maxRequests.toString());
-  response.headers.set('X-RateLimit-Remaining', rateLimit.getRemainingRequests(ip).toString());
-  response.headers.set('X-RateLimit-Reset', (rateLimit.getResetTime(ip) / 1000).toString());
-  response.headers.set('X-Response-Time', `${responseTime}ms`);
+  record(pathname, ua);
 
-  Object.entries(middlewareHeaders).forEach(([key, value]) => {
-    response.headers.set(key, value);
-  });
+  const res = NextResponse.next();
+  const time = Date.now() - start;
 
-  securityHeader.forEach(({ key, value }) => {
-    response.headers.set(key, value);
-  });
+  res.headers.set('X-RateLimit-Limit', MAX_REQ.toString());
+  res.headers.set('X-RateLimit-Remaining', remaining.toString());
+  res.headers.set('X-RateLimit-Reset', (reset / 1e3).toString());
+  res.headers.set('X-Response-Time', `${time}ms`);
 
-  console.log(`${LOG_PREFIX} Response: ${request.method} ${pathname}${search} - ${responseTime}ms`);
+  Object.entries(securityHeaders).forEach(([k, v]) => res.headers.set(k, v));
 
-  return response;
+  return res;
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|imgs/|fonts/).*)', '/_analytics'],
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|imgs/|fonts/).*)',
+    '/_analytics',
+  ],
 };

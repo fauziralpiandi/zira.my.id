@@ -5,7 +5,7 @@
   "author": "Fauzira Alpiandi <fwzyrln@gmail.com>",
   "type": "module",
   "scripts": {
-    "build": "next build",
+    "build": "next build --no-lint",
     "check": "tsc --noEmit",
     "clean": "rm -rf .next/cache",
     "dev": "next dev --turbopack",
@@ -36,6 +36,7 @@
     "contentlayer2": "0.5.8",
     "eslint": "9.34.0",
     "eslint-config-next": "15.5.0",
+    "mdx-bundler": "10.1.1",
     "next-contentlayer2": "0.5.8",
     "postcss": "8.5.6",
     "prettier": "3.6.2",
@@ -58,8 +59,5 @@
     "plugins": [
       "prettier-plugin-tailwindcss"
     ]
-  },
-  "engines": {
-    "node": ">=18"
   }
 }

@@ -1,6 +1,4 @@
-import { type MetadataRoute } from 'next';
-
-import { constant } from '@/lib/constant';
+import type { MetadataRoute } from 'next';
 
 export default function Robots(): MetadataRoute.Robots {
   return {
@@ -8,6 +6,6 @@ export default function Robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: `${constant.baseUrl}/sitemap.xml`,
+    sitemap: 'https://zira.my.id/sitemap.xml',
   };
 }

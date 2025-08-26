@@ -1,162 +1,96 @@
-import { neon as database } from '@neondatabase/serverless';
+import { neon } from '@neondatabase/serverless';
 
-const url: string | undefined = process.env.DATABASE_URL;
-const sql = url ? database(url) : null;
-
-const LOG_PREFIX = '[Likes]';
+const sql = process.env.DATABASE_URL ? neon(process.env.DATABASE_URL) : null;
 
 function validateSlug(slug: unknown): string {
-  try {
-    if (typeof slug !== 'string') {
-      console.error(`${LOG_PREFIX} Error: Invalid slug format - received type '${typeof slug}'`);
-      throw new Error('Invalid slug format: must be a string');
-    }
-
-    const cleaned = slug
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z0-9_-]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-
-    if (cleaned.length === 0) {
-      console.error(`${LOG_PREFIX} Error: Empty slug after sanitization`);
-      throw new Error('Invalid slug: cannot be empty');
-    }
-
-    if (cleaned.length > 255) {
-      console.error(`${LOG_PREFIX} Error: Slug exceeds maximum length (${cleaned.length} > 255)`);
-      throw new Error('Invalid slug: exceeds maximum length of 255 characters');
-    }
-
-    return cleaned;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error; // Re-throw validation errors with clear messages
-    }
-    console.error(`${LOG_PREFIX} Error: Unexpected error during slug validation`);
-    throw new Error('Invalid slug: validation failed');
+  if (typeof slug !== 'string' || !slug.trim()) {
+    throw new Error('Invalid slug');
   }
+
+  const cleaned = slug
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  if (!cleaned || cleaned.length > 255) {
+    throw new Error('Invalid slug');
+  }
+
+  return cleaned;
 }
-
-function formatResponse(data: object, status: number = 200): Response {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { 'Content-Type': 'application/json' },
-  });
-}
-
-type LikeRow = { count: number };
-
-async function handleHead(slug: string): Promise<Response> {
-  if (!sql) {
-    console.error(`${LOG_PREFIX} Error: Database connection unavailable`);
-    throw new Error('Database connection unavailable: Neon client not initialized');
-  }
-  try {
-    const result = await sql`SELECT 1 FROM likes WHERE slug = ${slug} LIMIT 1;`;
-    return new Response(null, { status: result.length > 0 ? 200 : 404 });
-  } catch (error) {
-    console.error(`${LOG_PREFIX} Error: Failed to check existence for slug '${slug}'`, error);
-    throw new Error(`Failed to check existence for slug '${slug}'`);
-  }
-}
-
-async function handleGet(slug: string): Promise<Response> {
-  if (!sql) {
-    console.error(`${LOG_PREFIX} Error: Database connection unavailable`);
-    throw new Error('Database connection unavailable: Neon client not initialized');
-  }
-  try {
-    const result = (await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`) as LikeRow[];
-    const count = result.length && result[0].count !== undefined ? result[0].count : 0;
-    return formatResponse({ slug, count });
-  } catch (error) {
-    console.error(`${LOG_PREFIX} Error: Failed to get like count for slug '${slug}'`, error);
-    throw new Error(`Failed to get like count for slug '${slug}'`);
-  }
-}
-
-async function handlePost(slug: string): Promise<Response> {
-  if (!sql) {
-    console.error(`${LOG_PREFIX} Error: Database connection unavailable`);
-    throw new Error('Database connection unavailable: Neon client not initialized');
-  }
-  try {
-    const result = (await sql`
-      INSERT INTO likes (slug, count)
-      VALUES (${slug}, 1)
-      ON CONFLICT (slug)
-      DO UPDATE SET count = likes.count + 1
-      RETURNING count;
-    `) as LikeRow[];
-
-    if (!result[0]?.count) {
-      console.error(`${LOG_PREFIX} Error: Failed to update count for slug '${slug}'`);
-      throw new Error(`Failed to update like count for slug '${slug}'`);
-    }
-
-    return formatResponse({ slug, count: result[0].count });
-  } catch (error) {
-    console.error(`${LOG_PREFIX} Error: Failed to add like for slug '${slug}'`, error);
-    throw new Error(`Failed to add like for slug '${slug}'`);
-  }
-}
-
-type RequestBody = {
-  slug: string;
-};
 
 async function handler(req: Request): Promise<Response> {
   try {
     if (!sql) {
-      console.error(`${LOG_PREFIX} Error: Database connection unavailable`);
-      return formatResponse({ error: 'Database connection unavailable' }, 503);
+      throw new Error('Database unavailable');
     }
 
+    const { method } = req;
     const { searchParams } = new URL(req.url);
+
     let slug: unknown;
 
-    const allowedMethods = ['HEAD', 'GET', 'POST'];
-    if (!allowedMethods.includes(req.method)) {
-      console.error(`${LOG_PREFIX} Error: Invalid method '${req.method}'`);
-      return formatResponse({ error: 'Method not allowed' }, 405);
-    }
-
-    if (req.method === 'GET' || req.method === 'HEAD') {
+    if (method === 'GET' || method === 'HEAD') {
       slug = searchParams.get('slug');
-    } else if (req.method === 'POST') {
+    } else if (method === 'POST') {
       if (req.headers.get('Content-Type') !== 'application/json') {
-        console.error(`${LOG_PREFIX} Error: Invalid Content-Type header`);
-        return formatResponse({ error: 'Invalid Content-Type' }, 400);
+        throw new Error('Invalid Content-Type');
       }
-      const body: unknown = await req.json();
-      if (
-        typeof body !== 'object' ||
-        body === null ||
-        !('slug' in body) ||
-        typeof (body as RequestBody).slug !== 'string'
-      ) {
-        console.error(`${LOG_PREFIX} Error: Invalid request body structure`);
-        return formatResponse({ error: 'Invalid request body' }, 400);
+
+      const body = await req.json();
+
+      if (typeof body !== 'object' || !body.slug) {
+        throw new Error('Invalid body');
       }
-      slug = (body as RequestBody).slug;
+
+      slug = body.slug;
+    } else {
+      throw new Error('Method not allowed');
     }
 
     const validatedSlug = validateSlug(slug);
 
-    const handlers: { [key: string]: (slug: string) => Promise<Response> } = {
-      HEAD: handleHead,
-      GET: handleGet,
-      POST: handlePost,
-    };
-    return handlers[req.method](validatedSlug);
+    let result;
+
+    if (method === 'HEAD') {
+      result =
+        await sql`SELECT 1 FROM likes WHERE slug = ${validatedSlug} LIMIT 1;`;
+
+      return new Response(null, { status: result.length ? 200 : 404 });
+    }
+
+    if (method === 'GET') {
+      result =
+        await sql`SELECT count FROM likes WHERE slug = ${validatedSlug} LIMIT 1;`;
+
+      const count = result.length ? result[0].count : 0;
+
+      return new Response(JSON.stringify({ slug: validatedSlug, count }), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    result = await sql`
+      INSERT INTO likes (slug, count)
+      VALUES (${validatedSlug}, 1)
+      ON CONFLICT (slug)
+      DO UPDATE SET count = likes.count + 1
+      RETURNING count;
+    `;
+
+    const count = result[0].count;
+
+    return new Response(JSON.stringify({ slug: validatedSlug, count }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    console.error(`${LOG_PREFIX} Error: ${message}`);
-    return formatResponse(
-      { error: message },
-      error instanceof Error && message.includes('Invalid') ? 400 : 500,
-    );
+    const e = error instanceof Error ? error.message : 'Unknown error';
+
+    return new Response(JSON.stringify({ error: e }), {
+      status: e.includes('Invalid') || e.includes('Method') ? 400 : 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
 

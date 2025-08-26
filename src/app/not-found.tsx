@@ -1,6 +1,6 @@
 import { Link } from 'next-view-transitions';
 
-const NotFound = () => {
+export default function NotFound() {
   return (
     <div className="grid min-h-72 place-items-center">
       <div className="flex flex-col items-center gap-1 text-center">
@@ -21,6 +21,4 @@ const NotFound = () => {
       </div>
     </div>
   );
-};
-
-export default NotFound;
+}

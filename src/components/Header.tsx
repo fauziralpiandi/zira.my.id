@@ -1,27 +1,32 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { LuMenu, LuX } from 'react-icons/lu';
-
+import { DesktopNav, MobileNav } from './Nav';
 import { FlipName } from './ui';
-import { DesktopNav, MobileNav } from '@/components';
-import { navItems } from '@/lib/constant';
 
-export const Header = () => {
+const navItems = [
+  { name: 'Stories', path: '/stories' },
+  { name: 'Notes', path: '/notes' },
+  { name: 'Misc', path: '/misc' },
+];
+
+export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleNav = () => setIsOpen(prev => !prev);
 
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
-
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     document.body.style.overflow = 'hidden';
+
     return () => {
       document.body.style.overflow = '';
     };
@@ -33,10 +38,14 @@ export const Header = () => {
       style={{
         boxShadow: '0px 0px 30px 50px #0a0a0a',
       }}
-      data-nosnippet
     >
       <div className="z-30 flex items-center space-x-2">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="24" width="24">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 32 32"
+          height="24"
+          width="24"
+        >
           <path
             fill="#f7efd1"
             stroke="#f7efd1"
@@ -46,7 +55,6 @@ export const Header = () => {
         </svg>
         <FlipName />
       </div>
-
       <button
         onClick={toggleNav}
         className="text-accent z-30 -mr-1 md:hidden"
@@ -54,17 +62,22 @@ export const Header = () => {
       >
         {isOpen ? <LuX size={22} /> : <LuMenu size={22} />}
       </button>
-
       <MobileNav
         isOpen={isOpen}
         pathname={pathname}
-        navItems={navItems.reduce((acc, item) => ({ ...acc, [item.path]: item }), {})}
+        navItems={navItems.reduce(
+          (acc, item) => ({ ...acc, [item.path]: item }),
+          {},
+        )}
         closeNav={() => setIsOpen(false)}
       />
       <DesktopNav
         pathname={pathname}
-        navItems={navItems.reduce((acc, item) => ({ ...acc, [item.path]: item }), {})}
+        navItems={navItems.reduce(
+          (acc, item) => ({ ...acc, [item.path]: item }),
+          {},
+        )}
       />
     </header>
   );
-};
+}

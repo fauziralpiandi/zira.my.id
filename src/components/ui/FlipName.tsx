@@ -2,9 +2,7 @@
 
 import { Link } from 'next-view-transitions';
 
-import { constant } from '@/lib/constant';
-
-export const FlipName = () => {
+export function FlipName() {
   return (
     <h1 className="font-display text-accent font-medium">
       <span className="group relative block overflow-hidden">
@@ -12,7 +10,7 @@ export const FlipName = () => {
           aria-hidden="true"
           className="animate block whitespace-nowrap group-hover:-translate-y-full"
         >
-          {constant.title.split('').map((letter, index) => (
+          {'fwzyrln_'.split('').map((letter, index) => (
             <span
               key={index}
               className="inline-block"
@@ -38,4 +36,4 @@ export const FlipName = () => {
       </span>
     </h1>
   );
-};
+}

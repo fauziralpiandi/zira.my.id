@@ -208,7 +208,7 @@
 }
 
 @utility animate {
-  @apply transition-all duration-[400ms] ease-in-out;
+  @apply transition-all duration-[500ms] ease-in-out;
 }
 
 @custom-variant hover (&:hover);

@@ -9,10 +9,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy':
-    'camera=(), microphone=(), geolocation=(), interest-cohort=()',
-  'Content-Security-Policy':
-    "default-src 'self'; img-src * data:; script-src 'self'; style-src 'self' 'unsafe-inline';",
+  'Permissions-Policy': 'geolocation=(), interest-cohort=()',
 };
 
 export function middleware(req: NextRequest) {

@@ -1,14 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictNullChecks": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -25,7 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "contents": ["./.contentlayer/generated"]
+      "contentlayer/generated": ["./.contentlayer/generated"]
     }
   },
   "include": [

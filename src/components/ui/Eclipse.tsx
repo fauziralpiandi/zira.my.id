@@ -1,6 +1,6 @@
 // (https://codepen.io/Launghe/pen/ZEGPxEr)
 
-export const Eclipse = () => {
+export function Eclipse() {
   return (
     <div className="flex overflow-hidden rounded-full bg-neutral-900/50">
       <svg viewBox="0 0 400 400" width="144" height="144">
@@ -84,4 +84,4 @@ export const Eclipse = () => {
       </svg>
     </div>
   );
-};
+}

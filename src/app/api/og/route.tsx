@@ -1,16 +1,16 @@
 import { ImageResponse } from 'next/og';
 
-const size = {
-  width: 1200,
-  height: 630,
-};
-
 export async function GET() {
   try {
     return new ImageResponse(
       (
         <div tw="flex h-full w-full items-center justify-center bg-neutral-900">
-          <svg viewBox="0 0 40 40" height="500" width="500" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            viewBox="0 0 40 40"
+            height="500"
+            width="500"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <g transform="translate(4, 4)">
               <path
                 fill="#f7efd1"
@@ -23,11 +23,12 @@ export async function GET() {
         </div>
       ),
       {
-        ...size,
+        width: 1200,
+        height: 630,
       },
     );
   } catch {
-    return new Response(`Failed to generate the OpenGraph`, {
+    return new Response('Failed to generate the OpenGraph Image', {
       status: 500,
     });
   }

@@ -1,14 +1,10 @@
-import { type MetadataRoute } from 'next';
-
-import { constant } from '@/lib/constant';
-
-const { title, description } = constant;
+import type { MetadataRoute } from 'next';
 
 export default function Manifest(): MetadataRoute.Manifest {
   return {
-    name: title,
-    short_name: title,
-    description: description,
+    name: 'Fauzira Alpiandi',
+    short_name: 'Fauzira Alpiandi',
+    description: 'All Cruise, No Breaks \u2014 Y Nada Más.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0a0a0a',

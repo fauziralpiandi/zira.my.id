@@ -8,10 +8,10 @@ export const metadata: Metadata = {
     canonical: 'https://zira.my.id/notes',
   },
   title: 'Notes',
-  description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} across ${notes().length}.`,
+  description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} :)`,
   openGraph: {
     title: 'Notes',
-    description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} across ${notes().length}.`,
+    description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} :)`,
     url: 'https://zira.my.id/notes',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Notes',
-    description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} across ${notes().length}.`,
+    description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} :)`,
     card: 'summary_large_image',
     images: [
       {
@@ -58,7 +58,7 @@ export default function Notes() {
         weaving together the intangible with reality, unraveling complexities
         and finding simplicity in chaos.{' '}
         <span className="text-accent">
-          I&rsquo;ve shared {totalWordCount()} across {notes().length}&mdash;
+          I&rsquo;ve shared {totalWordCount()}&mdash;
         </span>
         each one its own little chapter.
       </p>

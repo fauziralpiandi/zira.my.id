@@ -24,6 +24,7 @@ function calculateTotal<T>(
     (sum, item) => sum + parseInt(String(item[property])),
     0,
   );
+
   return pluralize(total, unit);
 }
 
@@ -32,7 +33,7 @@ function totalWordCount() {
 }
 
 function totalReadTime() {
-  return calculateTotal(allStories, 'readTime', 'minute');
+  return calculateTotal(allStories, 'readTime', 'min');
 }
 
 export type { Notes, Stories } from 'contentlayer/generated';

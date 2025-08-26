@@ -29,15 +29,16 @@ export function Footer() {
               &copy; {new Date().getFullYear()} Fauzira Alpiandi
             </p>
             <span className="mx-1.5 text-neutral-500">/</span>
-            <Link
+            <a
               href="/tnc.md"
+              download
               title="Terms and Conditions"
               aria-label="Terms and Conditions"
               className="font-display text-accent text-right text-sm font-medium"
             >
               TnC
               <span className="sr-only">(Terms and Conditions)</span>
-            </Link>
+            </a>
           </div>
         </div>
       </aside>

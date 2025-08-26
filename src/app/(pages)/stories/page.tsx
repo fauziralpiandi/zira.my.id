@@ -9,10 +9,10 @@ export const metadata: Metadata = {
     canonical: 'https://zira.my.id/stories',
   },
   title: 'Stories',
-  description: `${stories().length}, ${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
+  description: `${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
   openGraph: {
     title: 'Stories',
-    description: `${stories().length}, ${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
+    description: `${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
     url: 'https://zira.my.id/stories',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Stories',
-    description: `${stories().length}, ${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
+    description: `${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
     card: 'summary_large_image',
     images: [
       {
@@ -78,10 +78,8 @@ export default function Stories() {
           {totalReadTime()} of my brain dumps, explorations, and insights.
         </span>{' '}
         I touch on different topics, from existential crises to making
-        people&rsquo;s live simple , and everything in between.{' '}
-        <span className="text-accent">
-          {stories().length} stories so far&mdash;stay tuned for more!
-        </span>
+        people&rsquo;s live simple , and everything in between&mdash;
+        <span className="text-accent">stay tuned for more!</span>
       </p>
       <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {stories().map(post => (

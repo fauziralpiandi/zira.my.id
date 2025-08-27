@@ -120,12 +120,12 @@ export function LikeButton({ slug }: { slug: string }) {
   return (
     <button
       onClick={addLike}
+      aria-label={hasLiked ? 'Liked!' : 'Like?'}
+      disabled={hasLiked || isLoading || isAddingLike}
       className={cx(
         'border-accent/25 flex items-center rounded-lg border bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale',
         hasLiked || isLoading || isAddingLike ? 'cursor-not-allowed' : '',
       )}
-      aria-label={hasLiked ? 'Liked!' : 'Like?'}
-      disabled={hasLiked || isLoading || isAddingLike}
     >
       <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
         {hasLiked ? (

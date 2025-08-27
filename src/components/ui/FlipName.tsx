@@ -21,7 +21,7 @@ export function FlipName() {
           ))}
         </span>
         <span className="animate absolute top-0 left-0 block translate-y-full group-hover:translate-y-0">
-          <Link href="/" title="Go to Home" aria-label="Go to Home">
+          <Link href="/" title="Home" aria-label="Go to Home">
             {'home'.split('').map((letter, index) => (
               <span
                 key={index}

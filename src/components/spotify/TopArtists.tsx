@@ -74,13 +74,13 @@ export function TopArtists() {
     return (
       <div className="grid animate-pulse grid-cols-3 gap-3">
         <span className="sr-only" aria-live="polite" role="status">
-          Loading top artists...
+          Loading...
         </span>
         {Array.from({ length: 9 }).map((_, index) => (
           <div
             key={index}
-            className="group relative aspect-square overflow-hidden rounded-sm"
             aria-hidden="true"
+            className="group relative aspect-square overflow-hidden rounded-sm"
           >
             <div className="h-full w-full bg-neutral-900" />
           </div>
@@ -98,8 +98,8 @@ export function TopArtists() {
         {Array.from({ length: 9 }).map((_, index) => (
           <div
             key={index}
-            className="group relative aspect-square overflow-hidden rounded-sm"
             aria-hidden="true"
+            className="group relative aspect-square overflow-hidden rounded-sm"
           >
             <div className="h-full w-full bg-neutral-900/50" />
           </div>
@@ -120,13 +120,13 @@ export function TopArtists() {
                 href={url}
                 title={`Follow ${name} on Spotify`}
                 aria-label={`Follow ${name} on Spotify`}
-                target="_blank"
                 rel="noopener noreferrer nofollow"
+                target="_blank"
               >
                 <figure
                   role="img"
+                  aria-label={`${name}’s profile picture`}
                   className="group relative mx-auto aspect-square w-full rounded-sm"
-                  aria-label={name}
                 >
                   <span className="sr-only">{name}</span>
                   <Image

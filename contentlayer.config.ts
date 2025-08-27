@@ -1,8 +1,15 @@
-import { defineDocumentType } from 'contentlayer2/source-files';
-import { makeSource } from 'contentlayer2/source-files';
+import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import { estimateReadTime, findImage, getSlug, wordCount } from '@/lib/schemas';
+import remarkToc from 'remark-toc';
+import {
+  calculateWordCount,
+  estimateReadTime,
+  findImage,
+  getSlug,
+} from '@/lib/schemas';
 
 const Notes = defineDocumentType(() => ({
   name: 'Notes',
@@ -29,7 +36,7 @@ const Notes = defineDocumentType(() => ({
     },
     wordCount: {
       type: 'string',
-      resolve: doc => wordCount(doc.body.raw),
+      resolve: doc => calculateWordCount(doc.body.raw),
     },
   },
 }));
@@ -72,8 +79,15 @@ export default makeSource({
   contentDirPath: 'content',
   documentTypes: [Notes, Stories],
   mdx: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkToc],
     rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'wrap',
+        },
+      ],
       [
         rehypePrettyCode,
         {

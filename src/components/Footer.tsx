@@ -1,25 +1,40 @@
-import { Link } from 'next-view-transitions';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { formatDate } from '@/lib/utils';
 import { NowPlaying } from '@/components/spotify';
 
 export function Footer() {
+  const [mounted, setMounted] = useState(false);
+  const [now, setNow] = useState(Date.now());
+
+  useEffect(() => {
+    setMounted(true);
+
+    const timer = setInterval(() => {
+      setNow(Date.now());
+    }, 1e3);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <footer className="relative">
       <hr className="absolute top-0 left-1/2 h-px w-screen -translate-x-1/2 border-neutral-900" />
       <aside className="mt-8 flex grid grid-cols-2 items-center md:grid-cols-3">
-        <div className="justify-self-start" aria-label="Spotify Now Playing">
+        <div className="justify-self-start" aria-label="Now Playing (Spotify)">
           <NowPlaying />
         </div>
         <div
           className="justify-self-end md:justify-self-center"
-          aria-label="Current Time"
+          aria-label="Current Time (GMT+7)"
         >
           <div className="font-display flex flex-col items-end text-xs md:flex-row md:items-center md:gap-1.5 md:text-sm">
             <time className="order-2 text-neutral-400 md:order-1">
-              {formatDate().format('dddd') ?? '---'}
+              {mounted ? formatDate(String(now)).format('dddd') : '---'}
             </time>
             <time className="text-accent order-1 md:order-2">
-              {formatDate().format('h:mm A') ?? '---'}
+              {mounted ? formatDate(String(now)).format('h:mm A') : '--:--'}
             </time>
           </div>
         </div>
@@ -30,14 +45,14 @@ export function Footer() {
             </p>
             <span className="mx-1.5 text-neutral-500">/</span>
             <a
-              href="/tnc.md"
               download
-              title="Terms and Conditions"
-              aria-label="Terms and Conditions"
+              href="/zira.my.id_tnc.md"
+              title="Terms & Conditions"
+              aria-label="Terms & Conditions"
               className="font-display text-accent text-right text-sm font-medium"
             >
               TnC
-              <span className="sr-only">(Terms and Conditions)</span>
+              <span className="sr-only">(Terms & Conditions)</span>
             </a>
           </div>
         </div>

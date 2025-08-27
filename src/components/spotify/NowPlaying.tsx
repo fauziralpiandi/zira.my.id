@@ -132,8 +132,8 @@ export function NowPlaying() {
               href={url}
               title={`Listen ${title} — ${artist} on Spotify`}
               aria-label={`Listen ${title} — ${artist} on Spotify`}
-              target="_blank"
               rel="noopener noreferrer nofollow"
+              target="_blank"
             >
               {title}
             </a>

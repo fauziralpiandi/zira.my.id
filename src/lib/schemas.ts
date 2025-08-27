@@ -3,127 +3,87 @@ import fs from 'fs/promises';
 import path from 'path';
 import { pluralize } from '@/lib/utils';
 
-function inverseWpm(word: number, wpm: number) {
-  const min = word / wpm;
-
-  return {
-    time: Math.round(min * 6e4),
-    minute: Math.max(1, Math.ceil(min)),
-  };
-}
-
-function countWord(text: unknown): number {
+const countWord = (text: unknown): number => {
   if (typeof text !== 'string' || !text.trim()) {
     return 0;
   }
 
-  return text
-    .split('\n\n')
-    .filter(block => !block.startsWith('```') && !block.endsWith('```'))
-    .join(' ')
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean).length;
-}
+  const clean = text
+    .replace(/<[^>]+>/gu, '') // HTML/JSX tags
+    .replace(/`[^`]*`/gu, '') // inline code
+    .replace(/(```|~~~)[\s\S]*?\1/gu, '') // fenced code blocks
+    .replace(/!\[[^\]]*\]\([^)]*\)/gu, '') // images
+    .replace(/\[([^\]]+)\]\([^)]*\)/gu, '$1') // links (keep text)
+    .replace(/(\*{1,3}|_{1,3}|~{1,2})(.*?)\1/gu, '$2') // formatting
+    .replace(/^(\s{0,3}#{1,6}|\s{0,3}>\s*|\s*[-*+]\s+)/gmu, '') // headings/lists/quotes
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ') // non-word chars
+    .trim();
 
-function readingStats(
-  text: unknown,
+  return clean ? clean.split(/\s+/).length : 0;
+};
+
+const inverseWpm = (word: number, wpm: number) => {
+  const minute = word / wpm;
+
+  return {
+    time: Math.round(minute * 60 * 1e3),
+    minute: Math.max(1, Math.ceil(minute)),
+  };
+};
+
+const readingStats = (
+  content: unknown,
+  key: 'word' | 'minute',
+  unit: string,
   wpm = 200,
-): { time: number; minute: number; word: number } {
-  try {
-    if (typeof text !== 'string') {
-      return { time: 0, minute: 0, word: 0 };
-    }
+): string => {
+  const word = countWord(content);
+  const { minute } = inverseWpm(word, wpm);
+  const value = key === 'word' ? word : minute;
 
-    const word = countWord(text);
-    const { time, minute } = inverseWpm(word, wpm);
+  return pluralize(value, unit);
+};
 
-    return { time, minute, word };
-  } catch {
-    throw new Error('Error calculating reading stats');
-  }
-}
-
-function wordCount(content: unknown): string {
-  try {
-    if (typeof content !== 'string' || content.trim() === '') {
-      if (
-        content !== undefined &&
-        content !== null &&
-        typeof content !== 'string'
-      ) {
-        throw new Error(`Invalid content type: ${typeof content}`);
-      }
-
-      return pluralize(0, 'word');
-    }
-
-    return pluralize(readingStats(content).word, 'word');
-  } catch {
-    throw new Error('Failed to count words');
-  }
-}
-
-function estimateReadTime(content: unknown): string {
-  try {
-    if (typeof content !== 'string' || content.trim() === '') {
-      if (
-        content !== undefined &&
-        content !== null &&
-        typeof content !== 'string'
-      ) {
-        throw new Error(`Invalid content type: ${typeof content}`);
-      }
-
-      return pluralize(0, 'min');
-    }
-
-    return pluralize(readingStats(content).minute, 'min');
-  } catch {
-    throw new Error('Error estimating read time');
-  }
-}
+const calculateWordCount = (content: unknown) =>
+  readingStats(content, 'word', 'word');
+const estimateReadTime = (content: unknown) =>
+  readingStats(content, 'minute', 'min');
 
 function getSlug(doc: Document): string {
-  if (!doc || !doc._raw?.sourceFileName) {
-    return '';
-  }
-
-  return doc._raw.sourceFileName.replace(/\.(md|mdx)$/, '');
+  return doc._raw.sourceFileName.replace(/\.(md|mdx)$/i, '');
 }
 
 async function findImage(
   doc: Document,
-  imgDir = 'public/imgs',
+  dir = 'public/imgs',
   prefix = '/imgs',
-): Promise<string | null> {
+): Promise<string> {
   const slug = getSlug(doc);
-  const possibleExts = ['webp', 'png', 'jpg', 'jpeg'];
-  const baseDir = path.join(process.cwd(), imgDir);
-  const toPublicPath = (filePath: string) =>
-    path.relative(baseDir, filePath).replace(/\\/g, '/');
-  const find = async (name: string) => {
-    const results = await Promise.allSettled(
-      possibleExts.map(async ext => {
-        const filePath = path.join(baseDir, `${name}.${ext}`);
-
-        await fs.access(filePath);
-
-        return path.posix.join(prefix, toPublicPath(filePath));
-      }),
-    );
-    const success = results.find(r => r.status === 'fulfilled') as
-      | PromiseFulfilledResult<string>
-      | undefined;
-
-    return success?.value ?? null;
-  };
+  const baseDir = path.join(process.cwd(), dir);
+  const exts = ['webp', 'png', 'jpg', 'jpeg', 'svg'];
+  const tryFind = [slug, 'placeholder'].flatMap(name =>
+    exts.map(ext => ({
+      name,
+      file: path.join(baseDir, `${name}.${ext}`),
+    })),
+  );
 
   try {
-    return (await find(slug)) || (await find('placeholder')) || null;
+    const image = await Promise.any(
+      tryFind.map(async ({ file }) => {
+        await fs.access(file);
+
+        return path.posix.join(
+          prefix,
+          path.relative(baseDir, file).replace(/\\/g, '/'),
+        );
+      }),
+    );
+
+    return image;
   } catch {
-    throw new Error('Error finding image');
+    throw new Error(`No image found for "${slug}"`);
   }
 }
 
-export { estimateReadTime, findImage, getSlug, wordCount };
+export { calculateWordCount, estimateReadTime, findImage, getSlug };

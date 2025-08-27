@@ -67,6 +67,7 @@ function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
           </p>
           <span className="mx-1.5 text-neutral-500">/</span>
           <a
+            download
             href="/zira.my.id_tnc.md"
             title="Terms & Conditions"
             aria-label="Terms & Conditions"

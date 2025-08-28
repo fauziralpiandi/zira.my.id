@@ -5,15 +5,14 @@ import { formatDate } from '@/lib/utils';
 import { NowPlaying } from '@/components/spotify';
 
 export function Footer() {
-  const [mounted, setMounted] = useState(false);
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState<ReturnType<typeof formatDate> | null>(null);
 
   useEffect(() => {
-    setMounted(true);
+    setNow(formatDate());
 
     const timer = setInterval(() => {
-      setNow(Date.now());
-    }, 1e3);
+      setNow(formatDate());
+    }, 6e4);
 
     return () => clearInterval(timer);
   }, []);
@@ -31,10 +30,10 @@ export function Footer() {
         >
           <div className="font-display flex flex-col items-end text-xs md:flex-row md:items-center md:gap-1.5 md:text-sm">
             <time className="order-2 text-neutral-400 md:order-1">
-              {mounted ? formatDate(String(now)).format('dddd') : '---'}
+              {now ? now.format('dddd') : '---'}
             </time>
             <time className="text-accent order-1 md:order-2">
-              {mounted ? formatDate(String(now)).format('h:mm A') : '--:--'}
+              {now ? now.format('h:mm A') : '--:--'}
             </time>
           </div>
         </div>

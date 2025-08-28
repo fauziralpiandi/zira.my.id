@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { saveCache } from './save-cache';
+import { saveCache } from './cache';
 
 type Artist = {
   name: string;

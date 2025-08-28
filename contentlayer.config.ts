@@ -1,9 +1,6 @@
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
-import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import remarkToc from 'remark-toc';
 import {
   calculateWordCount,
   estimateReadTime,
@@ -79,15 +76,8 @@ export default makeSource({
   contentDirPath: 'content',
   documentTypes: [Notes, Stories],
   mdx: {
-    remarkPlugins: [remarkGfm, remarkToc],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-        },
-      ],
       [
         rehypePrettyCode,
         {

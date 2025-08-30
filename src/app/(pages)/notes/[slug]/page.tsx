@@ -75,10 +75,10 @@ export default async function Note(props: {
         <div className="mb-10 flex flex-col items-start">
           <h1 className="text-xl font-bold text-amber-50">{post.title}</h1>
           <time
-            className="font-display text-accent text-xs font-light before:content-[attr(date-abs)] hover:before:content-[attr(date-rel)]"
             dateTime={post.published}
             date-abs={formatDate(post.published).format('dddd, MMM Do, YYYY')}
             date-rel={`Written ${formatDate(post.published).from()}\u2014`}
+            className="font-display text-accent text-xs font-light before:content-[attr(date-abs)] hover:before:content-[attr(date-rel)]"
           />
         </div>
         <Mdx code={post.body.code} />

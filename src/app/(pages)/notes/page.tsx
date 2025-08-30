@@ -50,7 +50,7 @@ function NoteItem({ post }: { post: Notes }) {
   );
 }
 
-export default function Noted() {
+export default function Notes() {
   return (
     <section>
       <p className="font-medium text-amber-50">

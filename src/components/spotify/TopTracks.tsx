@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { saveCache } from './save-cache';
+import { saveCache } from './cache';
 
 type Track = {
   title: string;
@@ -75,13 +75,13 @@ export function TopTracks() {
     return (
       <div className="grid animate-pulse grid-cols-5 gap-1.5">
         <span className="sr-only" aria-live="polite" role="status">
-          Loading top tracks...
+          Loading...
         </span>
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
-            className="aspect-square h-full w-full rounded-xs bg-neutral-900"
             aria-hidden="true"
+            className="aspect-square h-full w-full rounded-xs bg-neutral-900"
           />
         ))}
       </div>
@@ -97,8 +97,8 @@ export function TopTracks() {
         {Array.from({ length: 25 }).map((_, index) => (
           <div
             key={index}
-            className="aspect-square h-full w-full rounded-xs bg-neutral-900/50"
             aria-hidden="true"
+            className="aspect-square h-full w-full rounded-xs bg-neutral-900/50"
           />
         ))}
       </div>
@@ -117,13 +117,13 @@ export function TopTracks() {
               href={url}
               title={`Listen to ${title} \u2014 ${artist} on Spotify`}
               aria-label={`Listen to ${title} \u2014 ${artist} on Spotify`}
-              target="_blank"
               rel="noopener noreferrer nofollow"
+              target="_blank"
             >
               <figure
                 role="img"
-                className="group relative mx-auto aspect-square w-full rounded-xs"
                 aria-label={`${title} \u2014 ${artist}`}
+                className="group relative mx-auto aspect-square w-full rounded-xs"
               >
                 <span className="sr-only">
                   {title} &mdash; {artist}

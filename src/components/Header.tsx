@@ -20,6 +20,7 @@ export function Header() {
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
   useEffect(() => {
     if (!isOpen) {
       return;

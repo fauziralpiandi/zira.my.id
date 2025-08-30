@@ -2,17 +2,24 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 const WINDOW_MS = 6e4;
 const MAX_REQ = 100;
-
-const store = new Map<string, { count: number; reset: number }>();
-
 const SECURITY_HEADERS: Record<string, string> = {
   'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
   'X-Content-Type-Options': 'nosniff',
+  'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'geolocation=(), interest-cohort=()',
 };
 
-export function middleware(req: NextRequest) {
+const store = new Map<string, { count: number; reset: number }>();
+const config = {
+  matcher: ['/api/:path*', '/(.*)'],
+};
+
+function applySecurityHeaders(res: NextResponse) {
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) res.headers.set(k, v);
+}
+
+function middleware(req: NextRequest) {
   if (process.env.NODE_ENV !== 'production') {
     return NextResponse.next();
   }
@@ -71,10 +78,4 @@ export function middleware(req: NextRequest) {
   return res;
 }
 
-function applySecurityHeaders(res: NextResponse) {
-  for (const [k, v] of Object.entries(SECURITY_HEADERS)) res.headers.set(k, v);
-}
-
-export const config = {
-  matcher: ['/api/:path*', '/(.*)'],
-};
+export { config, middleware };

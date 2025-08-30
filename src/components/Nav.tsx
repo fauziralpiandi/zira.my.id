@@ -23,11 +23,11 @@ function DesktopNav({ pathname, navItems }: DesktopNav) {
         <Link
           key={path}
           href={path}
+          aria-current={pathname === path ? 'page' : undefined}
           className={cx(
             'font-display text-accent font-medium capitalize',
             pathname === path ? 'opacity-50' : '',
           )}
-          aria-current={pathname === path ? 'page' : undefined}
         >
           {name}
         </Link>
@@ -39,23 +39,23 @@ function DesktopNav({ pathname, navItems }: DesktopNav) {
 function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
   return (
     <nav
+      aria-hidden={!isOpen}
       className={cx(
         'animate fixed inset-0 right-0 z-20 flex flex-col items-center justify-center bg-neutral-950/80 backdrop-blur-3xl backdrop-grayscale md:hidden',
         isOpen ? 'visible opacity-100' : 'invisible opacity-0',
       )}
-      aria-hidden={!isOpen}
     >
       {Object.entries(navItems).map(([path, { name }]) => (
         <Link
           key={path}
           href={path}
           title={name}
+          aria-current={pathname === path ? 'page' : undefined}
+          onClick={closeNav}
           className={cx(
             'font-display text-accent py-2 text-5xl font-medium',
             pathname === path ? 'opacity-50' : '',
           )}
-          aria-current={pathname === path ? 'page' : undefined}
-          onClick={closeNav}
         >
           {name}
         </Link>
@@ -67,14 +67,14 @@ function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
           </p>
           <span className="mx-1.5 text-neutral-500">/</span>
           <a
-            href="/tnc.md"
             download
-            title="Terms and Conditions"
-            aria-label="Terms and Conditions"
+            href="/zira.my.id_tnc.md"
+            title="Terms & Conditions"
+            aria-label="Terms & Conditions"
             className="font-display text-accent text-right text-sm font-medium"
           >
             TnC
-            <span className="sr-only">(Terms and Conditions)</span>
+            <span className="sr-only">(Terms & Conditions)</span>
           </a>
         </div>
       </aside>

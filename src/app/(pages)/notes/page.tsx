@@ -40,8 +40,8 @@ function NoteItem({ post }: { post: Notes }) {
         <p className="text-lg leading-snug font-medium">{post.title}</p>
         <span className="sr-only">{post.summary}</span>
         <time
+          dateTime={post.published}
           className="font-display text-accent text-xs"
-          dateTime={formatDate(post.published).format('MMMM Do, YYYY')}
         >
           {formatDate(post.published).format('MMMM Do, YYYY')}
         </time>

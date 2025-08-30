@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   },
   title: {
     default: 'Fauzira Alpiandi',
-    template: '%s \u2014 Fauzira Alpiandi',
+    template: '%s \u007E Fauzira Alpiandi',
   },
-  description: 'All Cruise, No Breaks \u2014 Y Nada Más.',
+  description: 'All Cruise, No Breaks \u007E Y Nada Más.',
   openGraph: {
     title: 'Fauzira Alpiandi',
-    description: 'All Cruise, No Breaks \u2014 Y Nada Más.',
+    description: 'All Cruise, No Breaks \u007E Y Nada Más.',
     url: 'https://zira.my.id',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Fauzira Alpiandi',
-    description: 'All Cruise, No Breaks \u2014 Y Nada Más.',
+    description: 'All Cruise, No Breaks \u007E Y Nada Más.',
     card: 'summary_large_image',
     images: [
       {

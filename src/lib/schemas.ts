@@ -86,4 +86,30 @@ async function findImage(
   }
 }
 
-export { calculateWordCount, estimateReadTime, findImage, getSlug };
+const generateJsonLd = async (doc: Document) => {
+  const image = await findImage(doc).catch(() => '/api/og');
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: doc.title,
+    description: doc.summary,
+    datePublished: doc.published,
+    dateModified: doc.published,
+    image: `https://zira.my.id${image}`,
+    url: `https://zira.my.id/${doc._raw.flattenedPath}`,
+    author: {
+      '@type': 'Person',
+      name: 'Fauzira Alpiandi',
+      url: 'https://zira.my.id',
+    },
+  };
+};
+
+export {
+  calculateWordCount,
+  estimateReadTime,
+  findImage,
+  getSlug,
+  generateJsonLd,
+};

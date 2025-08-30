@@ -58,32 +58,39 @@ export default async function Story(props: {
   }
 
   return (
-    <section>
-      <div className="text-left">
-        <time
-          className="text-accent text-xs before:content-[attr(date-abs)] hover:before:content-[attr(date-rel)]"
-          dateTime={formatDate(post.published).format('dddd, MMM Do, YYYY')}
-          date-abs={`On ${formatDate(post.published).format('dddd, MMM Do, YYYY')}`}
-          date-rel={`Posted ${formatDate(post.published).from()}`}
-        />
-        <h1 className="font-display mt-3 mb-2.5 text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
-          {post.title}
-        </h1>
-        <p className="text-sm text-neutral-400 md:mx-auto">{post.summary}</p>
-      </div>
-      <figure className="relative right-[50%] left-[50%] my-8 aspect-2/1 w-screen translate-x-[-50%] bg-neutral-900 md:aspect-21/9 md:max-w-2xl md:rounded-lg">
-        <Image
-          src={post.image}
-          alt={post.title}
-          fill
-          priority
-          className="w-full object-cover md:rounded-lg"
-        />
-        <div className="absolute right-3 bottom-3 z-10">
-          <LikeButton slug={post.slug} />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(post.jsonLd),
+        }}
+      />
+      <section>
+        <div className="mb-10 flex flex-col items-start">
+          {post.image && (
+            <Image
+              className="mb-8 size-full rounded-3xl object-cover"
+              src={post.image}
+              alt={post.title}
+              width={768}
+              height={450}
+              priority
+            />
+          )}
+          <h1 className="text-3xl font-bold text-amber-50">{post.title}</h1>
+          <div className="mt-2 flex items-center gap-2 text-xs text-neutral-400">
+            <time dateTime={post.published}>
+              {formatDate(post.published).format('dddd, MMM Do, YYYY')}
+            </time>
+            <span>&middot;</span>
+            <span>{post.readTime}</span>
+          </div>
         </div>
-      </figure>
-      <Mdx code={post.body.code} />
-    </section>
+        <div className="prose prose-neutral prose-quoteless prose-invert prose-headings:font-display prose-headings:font-bold prose-headings:tracking-tight prose-a:font-medium prose-a:text-amber-50 prose-a:underline-offset-4 prose-a:decoration-amber-50/50 hover:prose-a:decoration-amber-50 prose-strong:font-medium prose-strong:text-amber-50 prose-code:rounded prose-code:bg-neutral-800 prose-code:px-1 prose-code:py-0.5 prose-code:font-medium prose-code:text-amber-50 prose-pre:border prose-pre:border-neutral-800 mx-auto max-w-none">
+          <Mdx code={post.body.code} />
+        </div>
+        <LikeButton slug={post.slug} />
+      </section>
+    </>
   );
 }

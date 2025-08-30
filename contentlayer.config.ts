@@ -6,6 +6,7 @@ import {
   estimateReadTime,
   findImage,
   getSlug,
+  generateJsonLd,
 } from '@/lib/schemas';
 
 const Notes = defineDocumentType(() => ({
@@ -34,6 +35,10 @@ const Notes = defineDocumentType(() => ({
     wordCount: {
       type: 'string',
       resolve: doc => calculateWordCount(doc.body.raw),
+    },
+    jsonLd: {
+      type: 'json',
+      resolve: generateJsonLd,
     },
   },
 }));
@@ -68,6 +73,10 @@ const Stories = defineDocumentType(() => ({
     readTime: {
       type: 'string',
       resolve: doc => estimateReadTime(doc.body.raw),
+    },
+    jsonLd: {
+      type: 'json',
+      resolve: generateJsonLd,
     },
   },
 }));

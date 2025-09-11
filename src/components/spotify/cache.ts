@@ -46,7 +46,7 @@ export async function saveCache<T>(
     const raw = accessLocalStorage<string>('get', key);
     const timestamp = accessLocalStorage<number>('get', `${key}:ts`);
 
-    if (!raw || !Number.isFinite(timestamp)) {
+    if (!raw || timestamp === null || !Number.isFinite(timestamp)) {
       return null;
     }
 

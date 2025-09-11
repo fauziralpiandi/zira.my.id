@@ -8,32 +8,34 @@ type LikeResponse = { count: number; error?: string };
 
 export function LikeButton({ slug }: { slug: string }) {
   const [count, setCount] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [hasLiked, setHasLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isAddingLike, setIsAddingLike] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLike = async () => {
-      try {
-        setIsLoading(true);
+      setIsLoading(true);
 
+      try {
         const res = await fetch(`/api/likes?slug=${slug}`);
 
         if (!res.ok) {
-          const data = await res.json().catch(() => ({}));
-
-          throw new Error(data.error || `HTTP ${res.status}`);
+          throw new Error(`HTTP ${res.status}`);
         }
 
         const data: LikeResponse = await res.json();
+
+        if (typeof data.count !== 'number') {
+          throw new Error('Invalid response data');
+        }
 
         setCount(data.count);
         setError(null);
       } catch (error) {
         const e = error instanceof Error ? error.message : 'Unknown error';
 
-        setError(e.includes('HTTP') ? 'Invalid response' : 'Network error');
+        setError(e.includes('HTTP') ? 'Invalid response' : 'Unknown error');
         setCount(null);
       } finally {
         setIsLoading(false);
@@ -47,19 +49,14 @@ export function LikeButton({ slug }: { slug: string }) {
   }, [slug]);
 
   const setCookie = (name: string, value: string, days: number) => {
-    try {
-      const date = new Date();
+    const date = new Date();
 
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1e3);
-      document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; SameSite=Lax`;
-    } catch {
-      // ignore
-    }
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1e3);
+    document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; SameSite=Lax`;
   };
+
   const addLike = useCallback(async () => {
-    if (hasLiked || isAddingLike) {
-      return;
-    }
+    if (hasLiked || isAddingLike) return;
 
     setCount(prev => (prev !== null ? prev + 1 : 1));
     setHasLiked(true);
@@ -73,12 +70,14 @@ export function LikeButton({ slug }: { slug: string }) {
       });
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-
-        throw new Error(data.error || `HTTP ${res.status}`);
+        throw new Error(`HTTP ${res.status}`);
       }
 
       const like: LikeResponse = await res.json();
+
+      if (typeof like.count !== 'number') {
+        throw new Error('Invalid response data');
+      }
 
       setCookie(`liked-${slug}`, 'true', 365);
       setCount(like.count);
@@ -86,9 +85,9 @@ export function LikeButton({ slug }: { slug: string }) {
     } catch (error) {
       const e = error instanceof Error ? error.message : 'Unknown error';
 
+      setError(e.includes('HTTP') ? 'Invalid response' : 'Unknown error');
       setCount(prev => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
-      setError(e.includes('HTTP') ? 'Invalid response' : 'Network error');
     } finally {
       setIsAddingLike(false);
     }

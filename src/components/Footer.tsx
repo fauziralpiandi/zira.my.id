@@ -12,7 +12,7 @@ export function Footer() {
 
     const timer = setInterval(() => {
       setNow(formatDate());
-    }, 6e4);
+    }, 15e3);
 
     return () => clearInterval(timer);
   }, []);

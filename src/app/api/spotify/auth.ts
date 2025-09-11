@@ -1,5 +1,11 @@
 function getEnvVar(key: string): string {
-  return process.env[key] ?? '';
+  const value = process.env[key];
+
+  if (!value) {
+    throw new Error(`Missing environment variable: ${key}`);
+  }
+
+  return value;
 }
 
 const SPOTIFY = Object.freeze({
@@ -16,9 +22,6 @@ const getBasicToken = (() => {
     if (cachedToken) {
       return cachedToken;
     }
-    if (!SPOTIFY.CLIENT_ID || !SPOTIFY.CLIENT_SECRET) {
-      throw new Error('Missing client credentials');
-    }
 
     return (cachedToken = Buffer.from(
       `${SPOTIFY.CLIENT_ID}:${SPOTIFY.CLIENT_SECRET}`,
@@ -28,10 +31,6 @@ const getBasicToken = (() => {
 
 export async function getAccessToken(): Promise<string> {
   try {
-    if (!SPOTIFY.REFRESH_TOKEN || !SPOTIFY.TOKEN_URL) {
-      throw new Error('Missing refresh token or token URL');
-    }
-
     const res = await fetch(SPOTIFY.TOKEN_URL, {
       method: 'POST',
       headers: {
@@ -46,22 +45,12 @@ export async function getAccessToken(): Promise<string> {
     });
 
     if (!res.ok) {
-      const status = res.status;
-
-      throw new Error(
-        status === 401
-          ? 'Invalid credentials'
-          : status === 429
-            ? 'Rate limit exceeded'
-            : status >= 500
-              ? 'Service unavailable'
-              : `HTTP ${status}`,
-      );
+      throw new Error(`HTTP ${res.status}`);
     }
 
     const data = await res.json();
 
-    if (!data.access_token || typeof data.access_token !== 'string') {
+    if (typeof data.access_token !== 'string' || !data.access_token) {
       throw new Error('Invalid token response');
     }
 
@@ -69,6 +58,6 @@ export async function getAccessToken(): Promise<string> {
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
 
-    throw new Error(`Authentication failed: ${e}`);
+    throw new Error(e);
   }
 }

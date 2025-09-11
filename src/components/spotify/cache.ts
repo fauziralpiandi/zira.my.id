@@ -3,48 +3,59 @@ type CacheEntry<T> = {
   timestamp: number;
 };
 
+function accessLocalStorage<T>(
+  action: 'get' | 'set' | 'remove',
+  key: string,
+  value?: T,
+): T | null {
+  if (typeof window === 'undefined') return null;
+
+  try {
+    if (action === 'get') {
+      return JSON.parse(localStorage.getItem(key) || 'null') as T;
+    }
+
+    if (action === 'set' && value !== undefined) {
+      localStorage.setItem(key, JSON.stringify(value));
+
+      return value;
+    }
+
+    if (action === 'remove') {
+      localStorage.removeItem(key);
+
+      return null;
+    }
+
+    return null;
+  } catch {
+    if (action === 'set' || action === 'remove') {
+      localStorage.removeItem(key);
+    }
+
+    return null;
+  }
+}
+
 export async function saveCache<T>(
   key: string,
   maxAge: number,
   fetchData: () => Promise<T>,
 ): Promise<T> {
   const getCache = (): CacheEntry<T> | null => {
-    if (typeof window === 'undefined') {
+    const raw = accessLocalStorage<string>('get', key);
+    const timestamp = accessLocalStorage<number>('get', `${key}:ts`);
+
+    if (!raw || !Number.isFinite(timestamp)) {
       return null;
     }
 
-    const raw = localStorage.getItem(key);
-    const rawTs = localStorage.getItem(`${key}:ts`);
-
-    if (!raw || !rawTs) {
-      return null;
-    }
-
-    const timestamp = Number(rawTs);
-
-    if (!Number.isFinite(timestamp)) {
-      return null;
-    }
-
-    try {
-      return { data: JSON.parse(raw) as T, timestamp };
-    } catch {
-      return null;
-    }
+    return { data: JSON.parse(raw) as T, timestamp };
   };
 
   const setCache = (data: T, timestamp: number): void => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    try {
-      localStorage.setItem(key, JSON.stringify(data));
-      localStorage.setItem(`${key}:ts`, timestamp.toString());
-    } catch {
-      localStorage.removeItem(key);
-      localStorage.removeItem(`${key}:ts`);
-    }
+    accessLocalStorage('set', key, data);
+    accessLocalStorage('set', `${key}:ts`, timestamp);
   };
 
   const now = Date.now();
@@ -63,6 +74,6 @@ export async function saveCache<T>(
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
 
-    throw new Error(`Failed to fetch data: ${e}`);
+    throw new Error(e);
   }
 }

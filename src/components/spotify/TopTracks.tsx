@@ -13,8 +13,8 @@ type Track = {
 
 export function TopTracks() {
   const [tracks, setTracks] = useState<Track[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -32,9 +32,7 @@ export function TopTracks() {
             });
 
             if (!res.ok) {
-              const errorData = await res.json().catch(() => ({}));
-
-              throw new Error(errorData.error || `HTTP ${res.status}`);
+              throw new Error(`HTTP ${res.status}`);
             }
 
             return await res.json();
@@ -48,10 +46,6 @@ export function TopTracks() {
         setTracks(data);
         setError(null);
       } catch (error) {
-        if (error instanceof Error && error.name === 'AbortError') {
-          return;
-        }
-
         const e = error instanceof Error ? error.message : 'Unknown error';
 
         setError(

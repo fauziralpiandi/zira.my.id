@@ -11,6 +11,7 @@ const SECURITY_HEADERS: Record<string, string> = {
 };
 
 const store = new Map<string, { count: number; reset: number }>();
+
 const config = {
   matcher: ['/api/:path*', '/(.*)'],
 };
@@ -21,7 +22,11 @@ function applySecurityHeaders(res: NextResponse) {
 
 function middleware(req: NextRequest) {
   if (process.env.NODE_ENV !== 'production') {
-    return NextResponse.next();
+    const res = NextResponse.next();
+
+    applySecurityHeaders(res);
+
+    return res;
   }
 
   const { pathname } = req.nextUrl;
@@ -49,6 +54,7 @@ function middleware(req: NextRequest) {
         'Retry-After',
         Math.ceil((rec.reset - now) / 1e3).toString(),
       );
+
       res.headers.set('X-RateLimit-Limit', MAX_REQ.toString());
       res.headers.set('X-RateLimit-Remaining', '0');
 

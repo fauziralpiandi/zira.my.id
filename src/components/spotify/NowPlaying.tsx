@@ -29,24 +29,12 @@ export function NowPlaying() {
       });
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-
-        throw new Error(data.error || `HTTP ${res.status}`);
+        throw new Error(`HTTP ${res.status}`);
       }
 
-      const data: NowPlaying = await res.json();
-
-      if (!data) {
-        throw new Error('Empty response');
-      }
-
-      setTrack(data);
+      setTrack(await res.json());
       setError(null);
     } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
-        return;
-      }
-
       const e = error instanceof Error ? error.message : 'Unknown error';
 
       setError(

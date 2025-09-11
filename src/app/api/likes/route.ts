@@ -4,9 +4,9 @@ const sql = process.env.DATABASE_URL
   ? database(process.env.DATABASE_URL)
   : null;
 
-function validateSlug(slug: unknown): string {
-  if (typeof slug !== 'string' || !slug.trim()) {
-    throw new Error('Invalid slug');
+function validateSlug(slug: string | null | undefined): string {
+  if (!slug || typeof slug !== 'string' || !slug.trim()) {
+    throw new Error('Slug is required');
   }
 
   return slug
@@ -20,6 +20,11 @@ async function parseRequest(
   req: Request,
 ): Promise<{ method: string; slug: string }> {
   const { method } = req;
+  const allowedMethods = ['GET', 'HEAD', 'POST'];
+
+  if (!allowedMethods.includes(method)) {
+    throw new Error('Method not allowed');
+  }
 
   if (method === 'GET' || method === 'HEAD') {
     const slug = new URL(req.url).searchParams.get('slug');
@@ -27,21 +32,17 @@ async function parseRequest(
     return { method, slug: validateSlug(slug) };
   }
 
-  if (method === 'POST') {
-    if (req.headers.get('Content-Type') !== 'application/json') {
-      throw new Error('Invalid Content-Type');
-    }
-
-    const body = await req.json();
-
-    if (typeof body !== 'object' || !body.slug) {
-      throw new Error('Invalid body');
-    }
-
-    return { method, slug: validateSlug(body.slug) };
+  if (req.headers.get('Content-Type') !== 'application/json') {
+    throw new Error('Invalid Content-Type');
   }
 
-  throw new Error('Method not allowed');
+  const body = await req.json();
+
+  if (!body || typeof body !== 'object' || !body.slug) {
+    throw new Error('Invalid body');
+  }
+
+  return { method, slug: validateSlug(body.slug) };
 }
 
 const routes = {
@@ -55,11 +56,17 @@ const routes = {
   GET: async (slug: string) => {
     const result =
       await sql!`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`;
-    const count = result.length ? result[0].count : 0;
+    const count = result.length ? Number(result[0].count) || 0 : 0;
 
-    return new Response(JSON.stringify({ slug, count }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return Response.json(
+      { slug, count, success: true },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        },
+      },
+    );
   },
 
   POST: async (slug: string) => {
@@ -71,32 +78,37 @@ const routes = {
       RETURNING count;
     `;
 
-    return new Response(JSON.stringify({ slug, count: result[0].count }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const count = Number(result[0].count) || 1;
+
+    return Response.json(
+      { slug, count, success: true },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        },
+      },
+    );
   },
 };
 
 async function handler(req: Request): Promise<Response> {
   try {
     if (!sql) {
-      throw new Error('Database unavailable');
+      return new Response('Database connection failed', { status: 500 });
     }
 
     const { method, slug } = await parseRequest(req);
 
-    if (!(method in routes)) {
-      throw new Error('Method not allowed');
-    }
-
     return await routes[method as keyof typeof routes](slug);
-  } catch (err) {
-    const e = err instanceof Error ? err.message : 'Unknown error';
+  } catch (error) {
+    const e = error instanceof Error ? error.message : 'Unknown error';
+    const status =
+      e.includes('Invalid') || e.includes('Method') || e.includes('slug')
+        ? 400
+        : 500;
 
-    return new Response(JSON.stringify({ error: e }), {
-      status: e.includes('Invalid') || e.includes('Method') ? 400 : 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(e, { status });
   }
 }
 

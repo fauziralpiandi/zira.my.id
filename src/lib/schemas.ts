@@ -3,8 +3,8 @@ import fs from 'fs/promises';
 import path from 'path';
 import { pluralize } from '@/lib/utils';
 
-const countWord = (text: unknown): number => {
-  if (typeof text !== 'string' || !text.trim()) {
+function countWord(text: string | null | undefined): number {
+  if (!text || typeof text !== 'string' || !text.trim()) {
     return 0;
   }
 
@@ -20,34 +20,37 @@ const countWord = (text: unknown): number => {
     .trim();
 
   return clean ? clean.split(/\s+/).length : 0;
-};
+}
 
-const inverseWpm = (word: number, wpm: number) => {
+function inverseWpm(word: number, wpm: number) {
   const minute = word / wpm;
 
   return {
     time: Math.round(minute * 60 * 1e3),
     minute: Math.max(1, Math.ceil(minute)),
   };
-};
+}
 
-const readingStats = (
-  content: unknown,
+function readingStats(
+  content: string | null | undefined,
   key: 'word' | 'minute',
   unit: string,
   wpm = 200,
-): string => {
+): string {
   const word = countWord(content);
   const { minute } = inverseWpm(word, wpm);
   const value = key === 'word' ? word : minute;
 
   return pluralize(value, unit);
-};
+}
 
-const calculateWordCount = (content: unknown) =>
-  readingStats(content, 'word', 'word');
-const estimateReadTime = (content: unknown) =>
-  readingStats(content, 'minute', 'min');
+function calculateWordCount(content: string | null | undefined) {
+  return readingStats(content, 'word', 'word');
+}
+
+function estimateReadTime(content: string | null | undefined) {
+  return readingStats(content, 'minute', 'min');
+}
 
 function getSlug(doc: Document): string {
   return doc._raw.sourceFileName.replace(/\.(md|mdx)$/i, '');
@@ -86,7 +89,7 @@ async function findImage(
   }
 }
 
-const generateJsonLd = async (doc: Document) => {
+async function generateJsonLd(doc: Document) {
   const image = await findImage(doc).catch(() => '/api/og');
 
   return {
@@ -104,7 +107,7 @@ const generateJsonLd = async (doc: Document) => {
       url: 'https://zira.my.id',
     },
   };
-};
+}
 
 export {
   calculateWordCount,

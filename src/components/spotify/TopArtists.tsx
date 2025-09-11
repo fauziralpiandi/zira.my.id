@@ -31,9 +31,7 @@ export function TopArtists() {
             });
 
             if (!res.ok) {
-              const errorData = await res.json().catch(() => ({}));
-
-              throw new Error(errorData.error || `HTTP ${res.status}`);
+              throw new Error(`HTTP ${res.status}`);
             }
 
             return await res.json();
@@ -47,10 +45,6 @@ export function TopArtists() {
         setArtists(data);
         setError(null);
       } catch (error) {
-        if (error instanceof Error && error.name === 'AbortError') {
-          return;
-        }
-
         const e = error instanceof Error ? error.message : 'Unknown error';
 
         setError(

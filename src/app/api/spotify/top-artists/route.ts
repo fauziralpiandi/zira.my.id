@@ -14,34 +14,25 @@ type Artist = {
 async function getTopArtists(
   accessToken: string,
 ): Promise<{ name: string; image: string; url: string }[]> {
-  if (!accessToken) {
-    throw new Error('Invalid access token');
-  }
-
   const data = await fetchSpotify<{ items: Artist[] }>(
     TOP_ARTISTS_URL,
     accessToken,
   );
+  const artists =
+    data.items?.filter(
+      artist =>
+        artist.name && artist.images[0]?.url && artist.external_urls?.spotify,
+    ) || [];
 
-  if (!data.items?.length) {
-    throw new Error('No artist data');
+  if (!artists.length) {
+    throw new Error('Invalid artist data');
   }
 
-  return data.items.map(artist => {
-    if (
-      !artist.name ||
-      !artist.images[0]?.url ||
-      !artist.external_urls.spotify
-    ) {
-      throw new Error('Invalid artist data');
-    }
-
-    return {
-      name: artist.name,
-      image: artist.images[0].url,
-      url: artist.external_urls.spotify,
-    };
-  });
+  return artists.map(artist => ({
+    name: artist.name,
+    image: artist.images[0].url,
+    url: artist.external_urls.spotify,
+  }));
 }
 
 export async function GET() {
@@ -49,18 +40,19 @@ export async function GET() {
     const accessToken = await getAccessToken();
 
     if (!accessToken) {
-      throw new Error('Invalid access token');
+      return NextResponse.json(
+        { error: 'Access token is required' },
+        { status: 400 },
+      );
     }
 
     const artists = await getTopArtists(accessToken);
 
-    return NextResponse.json(artists);
+    return NextResponse.json({ artists, success: true });
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
+    const status = e.includes('Invalid') || e.includes('No valid') ? 400 : 500;
 
-    return NextResponse.json(
-      { error: e },
-      { status: e.includes('Invalid') ? 400 : 500 },
-    );
+    return NextResponse.json({ error: e, success: false }, { status });
   }
 }

@@ -20,56 +20,47 @@ type SpotifyResponse = {
   items: Array<{ track: Track }>;
 };
 
-async function getTrackData(
-  accessToken: string,
-): Promise<{ title: string; artist: string; url: string; isPlaying: boolean }> {
-  if (!accessToken) {
-    throw new Error('Invalid access token');
+function formatTrack(data: SpotifyResponse): {
+  title: string;
+  artist: string;
+  url: string;
+  isPlaying: boolean;
+} {
+  const track = data.item ?? data.items?.[0]?.track;
+
+  if (
+    !track?.name ||
+    !track.album?.artists?.[0]?.name ||
+    !track.external_urls?.spotify
+  ) {
+    throw new Error('Invalid track data');
   }
 
-  const fetchTrack = async (url: string): Promise<SpotifyResponse> => {
-    try {
-      return await fetchSpotify<SpotifyResponse>(url, accessToken);
-    } catch {
-      throw new Error('Failed to fetch track data');
-    }
+  return {
+    title: track.name,
+    artist: track.album.artists[0].name,
+    url: track.external_urls.spotify,
+    isPlaying: !!data.is_playing,
   };
+}
 
-  const formatTrack = (
-    data: SpotifyResponse,
-  ): { title: string; artist: string; url: string; isPlaying: boolean } => {
-    const track = data.item ?? data.items?.[0]?.track;
+async function getTrackData(accessToken: string): Promise<{
+  title: string;
+  artist: string;
+  url: string;
+  isPlaying: boolean;
+}> {
+  const fetchTrack = (url: string) =>
+    fetchSpotify<SpotifyResponse>(url, accessToken);
+  const data = await fetchTrack(NOW_PLAYING_URL).catch(() =>
+    fetchTrack(RECENTLY_PLAYED_URL),
+  );
 
-    if (
-      !track?.name ||
-      !track.album?.artists?.[0]?.name ||
-      !track.external_urls?.spotify
-    ) {
-      throw new Error('Invalid track data');
-    }
-
-    return {
-      title: track.name,
-      artist: track.album.artists[0].name,
-      url: track.external_urls.spotify,
-      isPlaying: !!data.is_playing,
-    };
-  };
-
-  try {
-    const nowPlaying = await fetchTrack(NOW_PLAYING_URL);
-
-    if (
-      nowPlaying.is_playing &&
-      nowPlaying.currently_playing_type === 'track'
-    ) {
-      return formatTrack(nowPlaying);
-    }
-
-    return formatTrack(await fetchTrack(RECENTLY_PLAYED_URL));
-  } catch {
-    return formatTrack(await fetchTrack(RECENTLY_PLAYED_URL));
+  if (data.is_playing && data.currently_playing_type === 'track') {
+    return formatTrack(data);
   }
+
+  return formatTrack(await fetchTrack(RECENTLY_PLAYED_URL));
 }
 
 export async function GET() {
@@ -77,18 +68,19 @@ export async function GET() {
     const accessToken = await getAccessToken();
 
     if (!accessToken) {
-      throw new Error('Invalid access token');
+      return NextResponse.json(
+        { error: 'Access token is required' },
+        { status: 400 },
+      );
     }
 
     const result = await getTrackData(accessToken);
 
-    return NextResponse.json(result);
+    return NextResponse.json({ ...result, success: true });
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
+    const status = e.includes('Invalid') ? 400 : 500;
 
-    return NextResponse.json(
-      { error: e },
-      { status: e.includes('Invalid') ? 400 : 500 },
-    );
+    return NextResponse.json({ error: e, success: false }, { status });
   }
 }

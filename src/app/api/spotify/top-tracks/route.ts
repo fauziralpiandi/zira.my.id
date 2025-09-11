@@ -15,36 +15,29 @@ type Track = {
 async function getTopTracks(
   accessToken: string,
 ): Promise<{ title: string; artist: string; cover: string; url: string }[]> {
-  if (!accessToken) {
-    throw new Error('Invalid access token');
-  }
-
   const data = await fetchSpotify<{ items: Track[] }>(
     TOP_TRACKS_URL,
     accessToken,
   );
+  const tracks =
+    data.items?.filter(
+      track =>
+        track.name &&
+        track.artists[0]?.name &&
+        track.album.images[0]?.url &&
+        track.external_urls?.spotify,
+    ) || [];
 
-  if (!data.items?.length) {
-    throw new Error('No track data');
+  if (!tracks.length) {
+    throw new Error('Invalid track data');
   }
 
-  return data.items.map(track => {
-    if (
-      !track.name ||
-      !track.artists[0]?.name ||
-      !track.album.images[0]?.url ||
-      !track.external_urls.spotify
-    ) {
-      throw new Error('Invalid track data');
-    }
-
-    return {
-      title: track.name,
-      artist: track.artists.map(artist => artist.name).join(', '),
-      cover: track.album.images[0].url,
-      url: track.external_urls.spotify,
-    };
-  });
+  return tracks.map(track => ({
+    title: track.name,
+    artist: track.artists.map(artist => artist.name).join(', '),
+    cover: track.album.images[0].url,
+    url: track.external_urls.spotify,
+  }));
 }
 
 export async function GET() {
@@ -52,18 +45,19 @@ export async function GET() {
     const accessToken = await getAccessToken();
 
     if (!accessToken) {
-      throw new Error('Invalid access token');
+      return NextResponse.json(
+        { error: 'Access token is required' },
+        { status: 400 },
+      );
     }
 
     const tracks = await getTopTracks(accessToken);
 
-    return NextResponse.json(tracks);
+    return NextResponse.json({ tracks, success: true });
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
+    const status = e.includes('Invalid') || e.includes('No valid') ? 400 : 500;
 
-    return NextResponse.json(
-      { error: e },
-      { status: e.includes('Invalid') ? 400 : 500 },
-    );
+    return NextResponse.json({ error: e, success: false }, { status });
   }
 }

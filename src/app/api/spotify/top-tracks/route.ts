@@ -53,7 +53,7 @@ export async function GET() {
 
     const tracks = await getTopTracks(accessToken);
 
-    return NextResponse.json({ tracks, success: true });
+    return NextResponse.json(tracks);
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
     const status = e.includes('Invalid') || e.includes('No valid') ? 400 : 500;

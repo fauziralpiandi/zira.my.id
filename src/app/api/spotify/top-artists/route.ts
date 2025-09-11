@@ -48,7 +48,7 @@ export async function GET() {
 
     const artists = await getTopArtists(accessToken);
 
-    return NextResponse.json({ artists, success: true });
+    return NextResponse.json(artists);
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
     const status = e.includes('Invalid') || e.includes('No valid') ? 400 : 500;

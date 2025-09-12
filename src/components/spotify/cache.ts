@@ -43,14 +43,14 @@ export async function saveCache<T>(
   fetchData: () => Promise<T>,
 ): Promise<T> {
   const getCache = (): CacheEntry<T> | null => {
-    const raw = accessLocalStorage<string>('get', key);
+    const data = accessLocalStorage<T>('get', key);
     const timestamp = accessLocalStorage<number>('get', `${key}:ts`);
 
-    if (!raw || timestamp === null || !Number.isFinite(timestamp)) {
+    if (!data || timestamp === null || !Number.isFinite(timestamp)) {
       return null;
     }
 
-    return { data: JSON.parse(raw) as T, timestamp };
+    return { data, timestamp };
   };
 
   const setCache = (data: T, timestamp: number): void => {

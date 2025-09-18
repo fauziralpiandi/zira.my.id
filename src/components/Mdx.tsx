@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import type { MDXComponents } from 'mdx/types';
 import { useMDXComponent } from 'next-contentlayer2/hooks';
 import { Link } from 'next-view-transitions';
 import { PiArrowUpRight } from 'react-icons/pi';
@@ -62,23 +63,17 @@ function MdxPreCode({
   const [copied, setCopied] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
   const handleCopy = () => {
-    if (!preRef.current) {
-      return;
-    }
+    if (!preRef.current) return;
 
     const codeText = preRef.current.innerText;
 
-    if (!navigator.clipboard || !navigator.clipboard.writeText) {
-      return;
-    }
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return;
 
     navigator.clipboard.writeText(codeText).then(() => setCopied(true));
   };
 
   useEffect(() => {
-    if (!copied) {
-      return;
-    }
+    if (!copied) return;
 
     const timer = setTimeout(() => setCopied(false), 1e3);
 
@@ -115,7 +110,8 @@ function MdxPreCode({
 }
 
 export function Mdx({ code }: { code: string }) {
-  const BodyContent = useMDXComponent(code);
+  const content = useMDXComponent(code);
+  const BodyContent = content as React.FC<{ components?: MDXComponents }>;
 
   return (
     <article className="prose prose-neutral prose-invert mx-auto max-w-2xl">

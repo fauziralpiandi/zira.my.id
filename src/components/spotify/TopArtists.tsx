@@ -12,8 +12,8 @@ type Artist = {
 
 export function TopArtists() {
   const [artists, setArtists] = useState<Artist[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();

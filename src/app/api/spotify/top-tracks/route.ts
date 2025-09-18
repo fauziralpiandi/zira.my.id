@@ -19,6 +19,7 @@ async function getTopTracks(
     TOP_TRACKS_URL,
     accessToken,
   );
+  
   const tracks =
     data.items?.filter(
       track =>

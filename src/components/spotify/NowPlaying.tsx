@@ -72,7 +72,7 @@ export function NowPlaying() {
     isPlaying: false,
   };
 
-  if (loading && !track) {
+  if (loading) {
     return (
       <div className="flex animate-pulse items-center justify-center">
         <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">

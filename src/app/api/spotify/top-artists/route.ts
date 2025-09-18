@@ -18,6 +18,7 @@ async function getTopArtists(
     TOP_ARTISTS_URL,
     accessToken,
   );
+  
   const artists =
     data.items?.filter(
       artist =>

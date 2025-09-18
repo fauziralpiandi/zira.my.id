@@ -1,9 +1,5 @@
 import { neon as database } from '@neondatabase/serverless';
 
-const sql = process.env.DATABASE_URL
-  ? database(process.env.DATABASE_URL)
-  : null;
-
 function validateSlug(slug: string | null | undefined): string {
   if (!slug || typeof slug !== 'string' || !slug.trim()) {
     throw new Error('Slug is required');
@@ -45,12 +41,25 @@ async function parseRequest(
   return { method, slug: validateSlug(body.slug) };
 }
 
+const sql = process.env.DATABASE_URL
+  ? database(process.env.DATABASE_URL)
+  : null;
+
+const baseHeaders = {
+  'Content-Type': 'application/json',
+  'Cache-Control': 'no-cache, no-store, must-revalidate',
+  'Access-Control-Allow-Origin': '*',
+};
+
 const routes = {
   HEAD: async (slug: string) => {
     const result =
       await sql!`SELECT 1 FROM likes WHERE slug = ${slug} LIMIT 1;`;
 
-    return new Response(null, { status: result.length ? 200 : 404 });
+    return new Response(null, {
+      status: result.length ? 200 : 404,
+      headers: baseHeaders,
+    });
   },
 
   GET: async (slug: string) => {
@@ -60,12 +69,7 @@ const routes = {
 
     return Response.json(
       { slug, count, success: true },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-        },
-      },
+      { headers: baseHeaders },
     );
   },
 
@@ -82,12 +86,7 @@ const routes = {
 
     return Response.json(
       { slug, count, success: true },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-        },
-      },
+      { headers: baseHeaders },
     );
   },
 };
@@ -95,7 +94,10 @@ const routes = {
 async function handler(req: Request): Promise<Response> {
   try {
     if (!sql) {
-      return new Response('Database connection failed', { status: 500 });
+      return Response.json(
+        { success: false, error: 'Database connection failed' },
+        { status: 500, headers: baseHeaders },
+      );
     }
 
     const { method, slug } = await parseRequest(req);
@@ -108,8 +110,23 @@ async function handler(req: Request): Promise<Response> {
         ? 400
         : 500;
 
-    return new Response(e, { status });
+    return Response.json(
+      { success: false, error: e },
+      { status, headers: baseHeaders },
+    );
   }
+}
+
+// Preflight CORS
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      ...baseHeaders,
+      'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
 }
 
 export { handler as HEAD, handler as GET, handler as POST };

@@ -65,8 +65,8 @@ async function getTrackData(accessToken: string): Promise<{
     return formatTrack(data);
   }
 
-  const recentTracks = await fetchTrack(RECENTLY_PLAYED_URL):
-  
+  const recentTracks = await fetchTrack(RECENTLY_PLAYED_URL);
+
   return formatTrack(recentTracks);
 }
 

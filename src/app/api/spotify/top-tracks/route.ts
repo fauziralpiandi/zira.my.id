@@ -54,12 +54,9 @@ export async function GET() {
 
     const tracks = await getTopTracks(accessToken);
 
-    return NextResponse.json(
-      { tracks, success: true },
-      {
-        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
-      },
-    );
+    return NextResponse.json(tracks, {
+      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
+    });
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
     const status = e.includes('Invalid') || e.includes('No valid') ? 400 : 500;

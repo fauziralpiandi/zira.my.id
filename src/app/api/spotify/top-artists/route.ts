@@ -51,12 +51,9 @@ export async function GET() {
 
     const artists = await getTopArtists(accessToken);
 
-    return NextResponse.json(
-      { artists, success: true },
-      {
-        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
-      },
-    );
+    return NextResponse.json(artists, {
+      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
+    });
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
     const status = e.includes('Invalid') || e.includes('No valid') ? 400 : 500;

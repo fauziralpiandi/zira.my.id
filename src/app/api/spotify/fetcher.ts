@@ -52,7 +52,7 @@ export async function fetchSpotify<T>(
     return data as T;
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
-    
+
     throw new Error(e);
   }
 }

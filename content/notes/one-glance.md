@@ -74,7 +74,7 @@ One text away from becoming a memory. One call away from rewriting my whole godd
 
 I tell myself I’m being ridiculous. That it’s just the moonlight, the reflection in the water, the late-night haze making everything feel bigger than it really is.
 
-But **fuck that**—
+But **fuck that—**
 
 > **This isn’t just some late-night bullshit my brain made up. This is real as fuck, and I’d be a fucking idiot to pretend otherwise.**
 

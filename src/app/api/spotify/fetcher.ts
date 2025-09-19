@@ -29,6 +29,7 @@ export async function fetchSpotify<T>(
       url,
       {
         headers: {
+          ...(typeof ({} as FetchOptions).headers === 'object' ? {} : {}),
           Authorization: `Bearer ${accessToken}`,
           Accept: 'application/json',
         },
@@ -40,10 +41,18 @@ export async function fetchSpotify<T>(
       throw new Error(`HTTP ${res.status}`);
     }
 
-    return (await res.json()) as T;
+    let data: unknown;
+
+    try {
+      data = await res.json();
+    } catch {
+      throw new Error('Invalid JSON response');
+    }
+
+    return data as T;
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
-
+    
     throw new Error(e);
   }
 }

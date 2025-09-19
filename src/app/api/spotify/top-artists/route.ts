@@ -18,20 +18,22 @@ async function getTopArtists(
     TOP_ARTISTS_URL,
     accessToken,
   );
-  
+
   const artists =
     data.items?.filter(
       artist =>
-        artist.name && artist.images[0]?.url && artist.external_urls?.spotify,
+        artist.name &&
+        artist.images?.length > 0 &&
+        artist.external_urls?.spotify,
     ) || [];
 
   if (!artists.length) {
-    throw new Error('Invalid artist data');
+    throw new Error('No valid artist data');
   }
 
   return artists.map(artist => ({
     name: artist.name,
-    image: artist.images[0].url,
+    image: artist.images[0]?.url || '',
     url: artist.external_urls.spotify,
   }));
 }
@@ -42,14 +44,19 @@ export async function GET() {
 
     if (!accessToken) {
       return NextResponse.json(
-        { error: 'Access token is required' },
+        { error: 'Access token is required', success: false },
         { status: 400 },
       );
     }
 
     const artists = await getTopArtists(accessToken);
 
-    return NextResponse.json(artists);
+    return NextResponse.json(
+      { artists, success: true },
+      {
+        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
+      },
+    );
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
     const status = e.includes('Invalid') || e.includes('No valid') ? 400 : 500;

@@ -1,8 +1,3 @@
-type CacheEntry<T> = {
-  data: T;
-  timestamp: number;
-};
-
 function accessLocalStorage<T>(
   action: 'get' | 'set' | 'remove',
   key: string,
@@ -11,27 +6,28 @@ function accessLocalStorage<T>(
   if (typeof window === 'undefined') return null;
 
   try {
-    if (action === 'get') {
-      return JSON.parse(localStorage.getItem(key) || 'null') as T;
+    switch (action) {
+      case 'get':
+        return JSON.parse(localStorage.getItem(key) || 'null') as T;
+
+      case 'set':
+        if (value !== undefined) {
+          localStorage.setItem(key, JSON.stringify(value));
+
+          return value;
+        }
+
+        return null;
+
+      case 'remove':
+        localStorage.removeItem(key);
+        localStorage.removeItem(`${key}:ts`);
+
+        return null;
     }
-
-    if (action === 'set' && value !== undefined) {
-      localStorage.setItem(key, JSON.stringify(value));
-
-      return value;
-    }
-
-    if (action === 'remove') {
-      localStorage.removeItem(key);
-
-      return null;
-    }
-
-    return null;
   } catch {
-    if (action === 'set' || action === 'remove') {
-      localStorage.removeItem(key);
-    }
+    localStorage.removeItem(key);
+    localStorage.removeItem(`${key}:ts`);
 
     return null;
   }
@@ -42,38 +38,18 @@ export async function saveCache<T>(
   maxAge: number,
   fetchData: () => Promise<T>,
 ): Promise<T> {
-  const getCache = (): CacheEntry<T> | null => {
-    const data = accessLocalStorage<T>('get', key);
-    const timestamp = accessLocalStorage<number>('get', `${key}:ts`);
-
-    if (!data || timestamp === null || !Number.isFinite(timestamp)) {
-      return null;
-    }
-
-    return { data, timestamp };
-  };
-
-  const setCache = (data: T, timestamp: number): void => {
-    accessLocalStorage('set', key, data);
-    accessLocalStorage('set', `${key}:ts`, timestamp);
-  };
-
   const now = Date.now();
-  const cached = getCache();
+  const cached = accessLocalStorage<T>('get', key);
+  const timestamp = accessLocalStorage<number>('get', `${key}:ts`);
 
-  if (cached && now - cached.timestamp < maxAge) {
-    return cached.data;
+  if (cached && typeof timestamp === 'number' && now - timestamp < maxAge) {
+    return cached;
   }
 
-  try {
-    const data = await fetchData();
+  const data = await fetchData();
 
-    setCache(data, now);
+  accessLocalStorage('set', key, data);
+  accessLocalStorage('set', `${key}:ts`, now);
 
-    return data;
-  } catch (error) {
-    const e = error instanceof Error ? error.message : 'Unknown error';
-
-    throw new Error(e);
-  }
+  return data;
 }

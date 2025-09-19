@@ -27,8 +27,8 @@ export async function GET() {
         height: 630,
       },
     );
-  } catch {
-    return new Response('Failed to generate the OpenGraph Image', {
+  } catch (error) {
+    return new Response(`Failed to generate OG image: ${error}`, {
       status: 500,
     });
   }

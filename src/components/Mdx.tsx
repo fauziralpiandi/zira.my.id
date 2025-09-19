@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import type { MDXComponents } from 'mdx/types';
 import { useMDXComponent } from 'next-contentlayer2/hooks';
+import type { MDXComponents } from 'mdx/types';
 import { Link } from 'next-view-transitions';
 import { PiArrowUpRight } from 'react-icons/pi';
 import { LuCheck, LuCopy } from 'react-icons/lu';
@@ -16,9 +16,7 @@ type Link = {
 };
 
 function MdxLink({ href, children, className, ...props }: Link) {
-  if (!href || typeof href !== 'string') {
-    return null;
-  }
+  if (!href || typeof href !== 'string') return null;
 
   const isInternalLink = href.startsWith('/') || href.startsWith('#');
 

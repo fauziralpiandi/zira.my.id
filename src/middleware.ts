@@ -1,13 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-const WINDOW_MS = 6e4;
+const WINDOW_MS = 6e4; // 1 min
 const MAX_REQ = 100;
+
 const SECURITY_HEADERS: Record<string, string> = {
   'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'geolocation=(), interest-cohort=()',
+  'Permissions-Policy': 'geolocation=(), camera=(), microphone=()',
 };
 
 const store = new Map<string, { count: number; reset: number }>();
@@ -17,7 +18,9 @@ const config = {
 };
 
 function applySecurityHeaders(res: NextResponse) {
-  for (const [k, v] of Object.entries(SECURITY_HEADERS)) res.headers.set(k, v);
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) {
+    res.headers.set(k, v);
+  }
 }
 
 function middleware(req: NextRequest) {
@@ -32,13 +35,16 @@ function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith('/api/')) {
-    const ip = req.headers.get('x-forwarded-for') ?? 'unknown';
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown';
+
     const now = Date.now();
-    const rec = store.get(ip) ?? { count: 0, reset: now + WINDOW_MS };
+
+    let rec = store.get(ip) ?? { count: 0, reset: now + WINDOW_MS };
 
     if (now > rec.reset) {
-      rec.count = 0;
-      rec.reset = now + WINDOW_MS;
+      rec = { count: 0, reset: now + WINDOW_MS };
+      store.set(ip, rec);
     }
 
     rec.count++;
@@ -57,6 +63,10 @@ function middleware(req: NextRequest) {
 
       res.headers.set('X-RateLimit-Limit', MAX_REQ.toString());
       res.headers.set('X-RateLimit-Remaining', '0');
+      res.headers.set(
+        'X-RateLimit-Reset',
+        Math.floor(rec.reset / 1e3).toString(),
+      );
 
       applySecurityHeaders(res);
 

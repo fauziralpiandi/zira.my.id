@@ -6,7 +6,7 @@ import { LuMenu, LuX } from 'react-icons/lu';
 import { DesktopNav, MobileNav } from './Nav';
 import { FlipName } from './ui';
 
-const navItems = [
+const NAV_ITEMS = [
   { name: 'Stories', path: '/stories' },
   { name: 'Notes', path: '/notes' },
   { name: 'Misc', path: '/misc' },
@@ -22,9 +22,7 @@ export function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
+    if (!isOpen) return;
 
     document.body.style.overflow = 'hidden';
 
@@ -66,7 +64,7 @@ export function Header() {
       <MobileNav
         isOpen={isOpen}
         pathname={pathname}
-        navItems={navItems.reduce(
+        navItems={NAV_ITEMS.reduce(
           (acc, item) => ({ ...acc, [item.path]: item }),
           {},
         )}
@@ -74,7 +72,7 @@ export function Header() {
       />
       <DesktopNav
         pathname={pathname}
-        navItems={navItems.reduce(
+        navItems={NAV_ITEMS.reduce(
           (acc, item) => ({ ...acc, [item.path]: item }),
           {},
         )}

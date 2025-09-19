@@ -14,10 +14,10 @@ type Track = {
 };
 
 type SpotifyResponse = {
-  is_playing: boolean;
-  currently_playing_type: string;
-  item: Track | null;
-  items: Array<{ track: Track }>;
+  is_playing?: boolean;
+  currently_playing_type?: string;
+  item?: Track | null;
+  items?: Array<{ track: Track }>;
 };
 
 function formatTrack(data: SpotifyResponse): {
@@ -30,7 +30,7 @@ function formatTrack(data: SpotifyResponse): {
 
   if (
     !track?.name ||
-    !track.album?.artists?.[0]?.name ||
+    !track.album?.artists?.length ||
     !track.external_urls?.spotify
   ) {
     throw new Error('Invalid track data');
@@ -38,7 +38,7 @@ function formatTrack(data: SpotifyResponse): {
 
   return {
     title: track.name,
-    artist: track.album.artists[0].name,
+    artist: track.album.artists.map(a => a.name).join(', '),
     url: track.external_urls.spotify,
     isPlaying: !!data.is_playing,
   };
@@ -52,15 +52,22 @@ async function getTrackData(accessToken: string): Promise<{
 }> {
   const fetchTrack = (url: string) =>
     fetchSpotify<SpotifyResponse>(url, accessToken);
-  const data = await fetchTrack(NOW_PLAYING_URL).catch(() =>
-    fetchTrack(RECENTLY_PLAYED_URL),
-  );
 
-  if (data.is_playing && data.currently_playing_type === 'track') {
+  let data: SpotifyResponse | null = null;
+
+  try {
+    data = await fetchTrack(NOW_PLAYING_URL);
+  } catch {
+    // directly return recent tracks
+  }
+
+  if (data?.is_playing && data.currently_playing_type === 'track') {
     return formatTrack(data);
   }
 
-  return formatTrack(await fetchTrack(RECENTLY_PLAYED_URL));
+  const recentTracks = await fetchTrack(RECENTLY_PLAYED_URL):
+  
+  return formatTrack(recentTracks);
 }
 
 export async function GET() {
@@ -69,14 +76,20 @@ export async function GET() {
 
     if (!accessToken) {
       return NextResponse.json(
-        { error: 'Access token is required' },
+        { error: 'Access token is required', success: false },
         { status: 400 },
       );
     }
 
     const result = await getTrackData(accessToken);
 
-    return NextResponse.json({ ...result, success: true });
+    return NextResponse.json(
+      { ...result, success: true },
+      {
+        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
+        status: 200,
+      },
+    );
   } catch (error) {
     const e = error instanceof Error ? error.message : 'Unknown error';
     const status = e.includes('Invalid') ? 400 : 500;

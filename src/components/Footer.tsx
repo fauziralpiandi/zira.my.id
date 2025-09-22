@@ -45,7 +45,7 @@ export function Footer() {
             <span className="mx-1.5 text-neutral-500">/</span>
             <a
               download
-              href="/zira.my.id_tnc.md"
+              href="/fwzyrln.vercel.app_tnc.md"
               title="Terms & Conditions"
               aria-label="Terms & Conditions"
               className="font-display text-accent text-right text-sm font-medium"

@@ -5,19 +5,19 @@ import { notes, type Notes, totalWordCount } from '@/lib/contents';
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://zira.my.id/notes',
+    canonical: 'https://fwzyrln.vercel.app/notes',
   },
   title: 'Notes',
   description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} :)`,
   openGraph: {
     title: 'Notes',
     description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} :)`,
-    url: 'https://zira.my.id/notes',
+    url: 'https://fwzyrln.vercel.app/notes',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
     images: [
       {
-        url: 'https://zira.my.id/api/og',
+        url: 'https://fwzyrln.vercel.app/api/og',
       },
     ],
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://zira.my.id/api/og',
+        url: 'https://fwzyrln.vercel.app/api/og',
       },
     ],
   },

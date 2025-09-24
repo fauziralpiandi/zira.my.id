@@ -62,7 +62,7 @@ function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
       ))}
       <aside className="fixed bottom-0 block w-full p-8 md:hidden">
         <div className="flex items-center justify-center">
-          <p className="font-display text-xs text-neutral-400">
+          <p className="font-display text-sm text-neutral-400">
             &copy; {new Date().getFullYear()} Fauzira Alpiandi
           </p>
           <span className="mx-1.5 text-neutral-500">/</span>

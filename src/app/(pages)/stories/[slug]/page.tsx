@@ -18,19 +18,19 @@ export const generateMetadata = async (props: {
 
   return {
     alternates: {
-      canonical: `https://fwzyrln.vercel.app/stories/${post.slug}`,
+      canonical: `https://zira.my.id/stories/${post.slug}`,
     },
     title: post.title,
     description: post.summary,
     openGraph: {
       title: post.title,
       description: post.summary,
-      url: `https://fwzyrln.vercel.app/stories/${post.slug}`,
+      url: `https://zira.my.id/stories/${post.slug}`,
       siteName: 'Fauzira Alpiandi',
       type: 'article',
       images: [
         {
-          url: 'https://fwzyrln.vercel.app/api/og',
+          url: 'https://zira.my.id/api/og',
         },
       ],
     },
@@ -40,7 +40,7 @@ export const generateMetadata = async (props: {
       card: 'summary_large_image',
       images: [
         {
-          url: 'https://fwzyrln.vercel.app/api/og',
+          url: 'https://zira.my.id/api/og',
         },
       ],
     },

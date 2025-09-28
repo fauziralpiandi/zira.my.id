@@ -3,7 +3,7 @@ import { TopArtists, TopTracks } from '@/components/spotify';
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://fwzyrln.vercel.app/misc',
+    canonical: 'https://zira.my.id/misc',
   },
   title: 'Misc',
   description:
@@ -12,12 +12,12 @@ export const metadata: Metadata = {
     title: 'Misc',
     description:
       'A chaotic corner\u2014music felt, raw and real. Beats that move, questionable choices.',
-    url: 'https://fwzyrln.vercel.app/misc',
+    url: 'https://zira.my.id/misc',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
     images: [
       {
-        url: 'https://fwzyrln.vercel.app/og',
+        url: 'https://zira.my.id/og',
       },
     ],
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://fwzyrln.vercel.app/og',
+        url: 'https://zira.my.id/og',
       },
     ],
   },

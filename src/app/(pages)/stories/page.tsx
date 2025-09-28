@@ -6,19 +6,19 @@ import { stories, type Stories, totalReadTime } from '@/lib/contents';
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://fwzyrln.vercel.app/stories',
+    canonical: 'https://zira.my.id/stories',
   },
   title: 'Stories',
   description: `${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
   openGraph: {
     title: 'Stories',
     description: `${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
-    url: 'https://fwzyrln.vercel.app/stories',
+    url: 'https://zira.my.id/stories',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
     images: [
       {
-        url: 'https://fwzyrln.vercel.app/api/og',
+        url: 'https://zira.my.id/api/og',
       },
     ],
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://fwzyrln.vercel.app/api/og',
+        url: 'https://zira.my.id/api/og',
       },
     ],
   },

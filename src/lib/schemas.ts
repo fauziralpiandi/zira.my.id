@@ -99,12 +99,12 @@ async function generateJsonLd(doc: Document) {
     description: doc.summary,
     datePublished: doc.published,
     dateModified: doc.published,
-    image: `https://fwzyrln.vercel.app${image}`,
-    url: `https://fwzyrln.vercel.app/${doc._raw.flattenedPath}`,
+    image: `https://zira.my.id${image}`,
+    url: `https://zira.my.id/${doc._raw.flattenedPath}`,
     author: {
       '@type': 'Person',
       name: 'Fauzira Alpiandi',
-      url: 'https://fwzyrln.vercel.app',
+      url: 'https://zira.my.id',
     },
   };
 }

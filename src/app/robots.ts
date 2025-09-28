@@ -6,6 +6,6 @@ export default function Robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://fwzyrln.vercel.app/sitemap.xml',
+    sitemap: 'https://zira.my.id/sitemap.xml',
   };
 }

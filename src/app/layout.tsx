@@ -14,9 +14,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://fwzyrln.vercel.app'),
+  metadataBase: new URL('https://zira.my.id'),
   alternates: {
-    canonical: 'https://fwzyrln.vercel.app',
+    canonical: 'https://zira.my.id',
   },
   title: {
     default: 'Fauzira Alpiandi',
@@ -26,12 +26,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Fauzira Alpiandi',
     description: 'All Cruise, No Breaks \u007E Y Nada Más.',
-    url: 'https://fwzyrln.vercel.app',
+    url: 'https://zira.my.id',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
     images: [
       {
-        url: 'https://fwzyrln.vercel.app/api/og',
+        url: 'https://zira.my.id/api/og',
       },
     ],
   },
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://fwzyrln.vercel.app/api/og',
+        url: 'https://zira.my.id/api/og',
       },
     ],
   },

@@ -82,7 +82,7 @@ export default function Stories() {
         <span className="text-accent">stay tuned for more!</span>
       </p>
       <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {stories().map(post => (
+        {stories().map((post) => (
           <li key={post.slug}>
             <StoryCard post={post} />
           </li>

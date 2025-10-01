@@ -58,7 +58,7 @@ export function LikeButton({ slug }: { slug: string }) {
   const addLike = useCallback(async () => {
     if (hasLiked || isAddingLike) return;
 
-    setCount(prev => (prev !== null ? prev + 1 : 1));
+    setCount((prev) => (prev !== null ? prev + 1 : 1));
     setHasLiked(true);
     setIsAddingLike(true);
 
@@ -86,7 +86,7 @@ export function LikeButton({ slug }: { slug: string }) {
       const e = error instanceof Error ? error.message : 'Unknown error';
 
       setError(e.includes('HTTP') ? 'Invalid response' : 'Unknown error');
-      setCount(prev => (prev !== null ? prev - 1 : 0));
+      setCount((prev) => (prev !== null ? prev - 1 : 0));
       setHasLiked(false);
     } finally {
       setIsAddingLike(false);

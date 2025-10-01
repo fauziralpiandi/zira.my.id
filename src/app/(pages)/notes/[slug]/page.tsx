@@ -7,7 +7,7 @@ import { Mdx } from '@/components';
 export const dynamicParams = true;
 export const revalidate = 3600;
 export const generateStaticParams = async () => {
-  return notes().map(post => ({
+  return notes().map((post) => ({
     slug: post.slug,
   }));
 };
@@ -16,7 +16,7 @@ export const generateMetadata = async (props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> => {
   const params = await props.params;
-  const post = notes().find(post => post.slug === params.slug);
+  const post = notes().find((post) => post.slug === params.slug);
 
   if (!post) {
     return notFound();
@@ -57,7 +57,7 @@ export default async function Note(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-  const post = notes().find(post => post.slug === params.slug);
+  const post = notes().find((post) => post.slug === params.slug);
 
   if (!post) {
     return notFound();

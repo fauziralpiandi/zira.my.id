@@ -63,7 +63,7 @@ export default function Notes() {
         each one its own little chapter.
       </p>
       <ul className="my-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {notes().map(post => (
+        {notes().map((post) => (
           <li key={post.slug} className="flex items-start gap-2">
             <span className="text-neutral-500">&mdash;</span>
             <NoteItem post={post} />

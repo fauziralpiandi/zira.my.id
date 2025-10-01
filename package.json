@@ -5,9 +5,8 @@
   "author": "Fauzira Alpiandi <fwzyrln@gmail.com>",
   "type": "module",
   "scripts": {
-    "build": "next build --no-lint",
-    "check": "tsc --noEmit",
-    "clean": "rm -rf .next/cache",
+    "build": "next build --no-lint --turbopack",
+    "clean": "rm -rf .next/cache .contentlayer",
     "dev": "next dev --turbopack",
     "format": "prettier --write .",
     "generate": "contentlayer2 build",
@@ -15,10 +14,10 @@
     "start": "next start"
   },
   "dependencies": {
-    "@neondatabase/serverless": "1.0.1",
+    "@neondatabase/serverless": "1.0.2",
     "@vercel/analytics": "1.5.0",
     "clsx": "2.1.1",
-    "next": "15.5.3",
+    "next": "15.5.4",
     "next-view-transitions": "0.3.4",
     "react": "19.1.1",
     "react-dom": "19.1.1",
@@ -31,12 +30,12 @@
     "@tailwindcss/postcss": "4.1.13",
     "@tailwindcss/typography": "0.5.19",
     "@types/mdx": "2.0.13",
-    "@types/node": "24.5.2",
-    "@types/react": "19.1.13",
+    "@types/node": "24.6.1",
+    "@types/react": "19.1.16",
     "@types/react-dom": "19.1.9",
     "contentlayer2": "0.5.8",
-    "eslint": "9.35.0",
-    "eslint-config-next": "15.5.3",
+    "eslint": "9.36.0",
+    "eslint-config-next": "15.5.4",
     "mdx-bundler": "10.1.1",
     "next-contentlayer2": "0.5.8",
     "postcss": "8.5.6",
@@ -45,18 +44,11 @@
     "rehype-pretty-code": "0.14.1",
     "remark-gfm": "4.0.1",
     "tailwindcss": "4.1.13",
-    "typescript": "5.8.3"
+    "typescript": "5.9.3"
   },
   "prettier": {
-    "arrowParens": "avoid",
     "bracketSpacing": true,
-    "endOfLine": "lf",
-    "quoteProps": "as-needed",
-    "semi": true,
     "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "all",
-    "useTabs": false,
     "plugins": [
       "prettier-plugin-tailwindcss"
     ]

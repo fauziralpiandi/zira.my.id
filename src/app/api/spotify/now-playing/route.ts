@@ -38,7 +38,7 @@ function formatTrack(data: SpotifyResponse): {
 
   return {
     title: track.name,
-    artist: track.album.artists.map(a => a.name).join(', '),
+    artist: track.album.artists.map((a) => a.name).join(', '),
     url: track.external_urls.spotify,
     isPlaying: !!data.is_playing,
   };

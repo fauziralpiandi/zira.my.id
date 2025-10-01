@@ -21,7 +21,7 @@ async function getTopArtists(
 
   const artists =
     data.items?.filter(
-      artist =>
+      (artist) =>
         artist.name &&
         artist.images?.length > 0 &&
         artist.external_urls?.spotify,
@@ -31,7 +31,7 @@ async function getTopArtists(
     throw new Error('No valid artist data');
   }
 
-  return artists.map(artist => ({
+  return artists.map((artist) => ({
     name: artist.name,
     image: artist.images[0]?.url || '',
     url: artist.external_urls.spotify,

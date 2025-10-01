@@ -64,8 +64,8 @@ async function findImage(
   const slug = getSlug(doc);
   const baseDir = path.join(process.cwd(), dir);
   const exts = ['webp', 'png', 'jpg', 'jpeg', 'svg'];
-  const tryFind = [slug, 'placeholder'].flatMap(name =>
-    exts.map(ext => ({
+  const tryFind = [slug, 'placeholder'].flatMap((name) =>
+    exts.map((ext) => ({
       name,
       file: path.join(baseDir, `${name}.${ext}`),
     })),

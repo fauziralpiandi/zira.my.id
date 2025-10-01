@@ -34,7 +34,7 @@ const Notes = defineDocumentType(() => ({
     },
     wordCount: {
       type: 'string',
-      resolve: doc => calculateWordCount(doc.body.raw),
+      resolve: (doc) => calculateWordCount(doc.body.raw),
     },
     jsonLd: {
       type: 'json',
@@ -72,7 +72,7 @@ const Stories = defineDocumentType(() => ({
     },
     readTime: {
       type: 'string',
-      resolve: doc => estimateReadTime(doc.body.raw),
+      resolve: (doc) => estimateReadTime(doc.body.raw),
     },
     jsonLd: {
       type: 'json',

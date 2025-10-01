@@ -10,7 +10,7 @@ export const generateMetadata = async (props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> => {
   const params = await props.params;
-  const post = stories().find(post => post.slug === params.slug);
+  const post = stories().find((post) => post.slug === params.slug);
 
   if (!post) {
     return notFound();
@@ -51,7 +51,7 @@ export default async function Story(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-  const post = stories().find(post => post.slug === params.slug);
+  const post = stories().find((post) => post.slug === params.slug);
 
   if (!post) {
     return notFound();

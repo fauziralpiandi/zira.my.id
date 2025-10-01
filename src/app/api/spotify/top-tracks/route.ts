@@ -22,7 +22,7 @@ async function getTopTracks(
 
   const tracks =
     data.items?.filter(
-      track =>
+      (track) =>
         track.name &&
         track.artists?.length > 0 &&
         track.album?.images?.length > 0 &&
@@ -33,9 +33,9 @@ async function getTopTracks(
     throw new Error('No valid track data');
   }
 
-  return tracks.map(track => ({
+  return tracks.map((track) => ({
     title: track.name,
-    artist: track.artists.map(artist => artist.name).join(', '),
+    artist: track.artists.map((artist) => artist.name).join(', '),
     cover: track.album.images[0]?.url || '',
     url: track.external_urls.spotify,
   }));

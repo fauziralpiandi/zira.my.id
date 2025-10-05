@@ -31,6 +31,8 @@ export const generateMetadata = async (props: {
       images: [
         {
           url: `https://zira.my.id${post.image}`,
+          width: 1200,
+          height: 630,
         },
       ],
     },
@@ -41,6 +43,8 @@ export const generateMetadata = async (props: {
       images: [
         {
           url: `https://zira.my.id${post.image}`,
+          width: 1200,
+          height: 630,
         },
       ],
     },

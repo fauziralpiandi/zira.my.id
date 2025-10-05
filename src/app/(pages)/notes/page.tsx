@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://zira.my.id/api/og',
+        alt: 'Notes',
+        width: 1200,
+        height: 630
       },
     ],
   },
@@ -30,6 +33,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://zira.my.id/api/og',
+        alt: 'Notes',
+        width: 1200,
+        height: 630
       },
     ],
   },

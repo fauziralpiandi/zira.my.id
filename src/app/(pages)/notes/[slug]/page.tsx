@@ -37,6 +37,9 @@ export const generateMetadata = async (props: {
       images: [
         {
           url: 'https://zira.my.id/api/og',
+          alt: post.title,
+          width: 1200,
+          height: 630,
         },
       ],
     },
@@ -47,6 +50,9 @@ export const generateMetadata = async (props: {
       images: [
         {
           url: 'https://zira.my.id/api/og',
+          alt: post.title,
+          width: 1200,
+          height: 630,
         },
       ],
     },

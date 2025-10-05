@@ -5,7 +5,6 @@ export default function Robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/*',
-      disallow: '/api/*',
     },
     sitemap: 'https://zira.my.id/sitemap.xml',
   };

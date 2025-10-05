@@ -45,7 +45,7 @@ function StoryCard({ post }: { post: Stories }) {
             src={post.image}
             alt={post.title}
             fill
-            className="animate object-cover grayscale group-hover:scale-105"
+            className="animate object-cover group-hover:scale-105"
           />
           <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-neutral-950/75 p-4 backdrop-blur backdrop-grayscale">
             <div className="flex items-center space-x-1.5">

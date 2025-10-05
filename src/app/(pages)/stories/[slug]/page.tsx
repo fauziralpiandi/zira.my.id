@@ -84,7 +84,7 @@ export default async function Story(props: {
             alt={post.title}
             fill
             priority
-            className="w-full object-cover grayscale md:rounded-lg"
+            className="w-full object-cover md:rounded-lg"
           />
           <div className="absolute right-3 bottom-3 z-10">
             <LikeButton slug={post.slug} />

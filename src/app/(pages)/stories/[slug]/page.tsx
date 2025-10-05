@@ -30,9 +30,7 @@ export const generateMetadata = async (props: {
       type: 'article',
       images: [
         {
-          url: `https://zira.my.id${post.image}`,
-          width: 1200,
-          height: 630,
+          url: `https://zira.my.id/api/og?slug=${post.image}`,
         },
       ],
     },
@@ -42,9 +40,7 @@ export const generateMetadata = async (props: {
       card: 'summary_large_image',
       images: [
         {
-          url: `https://zira.my.id${post.image}`,
-          width: 1200,
-          height: 630,
+          url: `https://zira.my.id/api/og?slug=${post.image}`,
         },
       ],
     },

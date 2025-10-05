@@ -13,17 +13,13 @@ const SECURITY_HEADERS: Record<string, string> = {
 
 const store = new Map<string, { count: number; reset: number }>();
 
-const config = {
-  matcher: ['/api/:path*', '/(.*)'],
-};
-
 function applySecurityHeaders(res: NextResponse) {
   for (const [k, v] of Object.entries(SECURITY_HEADERS)) {
     res.headers.set(k, v);
   }
 }
 
-function middleware(req: NextRequest) {
+export function middleware(req: NextRequest) {
   if (process.env.NODE_ENV !== 'production') {
     const res = NextResponse.next();
 
@@ -94,4 +90,6 @@ function middleware(req: NextRequest) {
   return res;
 }
 
-export { config, middleware };
+export const config = {
+  matcher: ['/api/:path*', '/(.*)'],
+};

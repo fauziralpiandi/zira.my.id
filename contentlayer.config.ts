@@ -2,14 +2,13 @@ import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
 import {
-  calculateWordCount,
-  estimateReadTime,
   findImage,
-  getSlug,
   generateJsonLd,
+  getSlug,
+  readingStats,
 } from '@/lib/schemas';
 
-const Notes = defineDocumentType(() => ({
+const notes = defineDocumentType(() => ({
   name: 'Notes',
   filePathPattern: `notes/**/*.{md,mdx}`,
   contentType: 'mdx',
@@ -34,7 +33,7 @@ const Notes = defineDocumentType(() => ({
     },
     wordCount: {
       type: 'string',
-      resolve: (doc) => calculateWordCount(doc.body.raw),
+      resolve: (doc) => readingStats(doc.body.raw, 'word', 'word'),
     },
     jsonLd: {
       type: 'json',
@@ -43,7 +42,7 @@ const Notes = defineDocumentType(() => ({
   },
 }));
 
-const Stories = defineDocumentType(() => ({
+const stories = defineDocumentType(() => ({
   name: 'Stories',
   filePathPattern: `stories/**/*.{md,mdx}`,
   contentType: 'mdx',
@@ -72,7 +71,7 @@ const Stories = defineDocumentType(() => ({
     },
     readTime: {
       type: 'string',
-      resolve: (doc) => estimateReadTime(doc.body.raw),
+      resolve: (doc) => readingStats(doc.body.raw, 'minute', 'minute'),
     },
     jsonLd: {
       type: 'json',
@@ -83,7 +82,7 @@ const Stories = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Notes, Stories],
+  documentTypes: [notes, stories],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

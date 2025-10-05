@@ -18,14 +18,13 @@ export async function GET(req: Request) {
     if (post?.image) {
       return new ImageResponse(
         (
-          <img
-            src={`https://zira.my.id${post.image}`}
-            width={1200}
-            height={630}
+          <div
             style={{
               width: '1200px',
               height: '630px',
-              objectFit: 'cover',
+              backgroundImage: `url(https://zira.my.id${post.image})`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
             }}
           />
         ),

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { Link } from 'next-view-transitions';
 import { formatDate } from '@/lib/utils';
-import { notes, type Notes, totalWordCount } from '@/lib/contents';
+import { type Notes, calculateTotal, notes } from '@/lib/contents';
+
+const totalWordCount = () => calculateTotal(notes(), 'wordCount', 'word');
 
 export const metadata: Metadata = {
   alternates: {
@@ -35,8 +37,8 @@ export const metadata: Metadata = {
 
 function NoteItem({ post }: { post: Notes }) {
   return (
-    <div className="group">
-      <Link href={`notes/${post.slug}`} className="flex flex-col">
+    <div className="flex flex-col">
+      <Link href={`notes/${post.slug}`}>
         <p className="text-lg leading-snug font-medium">{post.title}</p>
         <span className="sr-only">{post.summary}</span>
         <time

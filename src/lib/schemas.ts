@@ -3,6 +3,10 @@ import fs from 'fs/promises';
 import path from 'path';
 import { pluralize } from '@/lib/utils';
 
+function getSlug(doc: Document): string {
+  return doc._raw.sourceFileName.replace(/\.(md|mdx)$/i, '');
+}
+
 function countWord(text: string | null | undefined): number {
   if (!text || typeof text !== 'string' || !text.trim()) {
     return 0;
@@ -42,18 +46,6 @@ function readingStats(
   const value = key === 'word' ? word : minute;
 
   return pluralize(value, unit);
-}
-
-function calculateWordCount(content: string | null | undefined) {
-  return readingStats(content, 'word', 'word');
-}
-
-function estimateReadTime(content: string | null | undefined) {
-  return readingStats(content, 'minute', 'min');
-}
-
-function getSlug(doc: Document): string {
-  return doc._raw.sourceFileName.replace(/\.(md|mdx)$/i, '');
 }
 
 async function findImage(
@@ -109,10 +101,4 @@ async function generateJsonLd(doc: Document) {
   };
 }
 
-export {
-  calculateWordCount,
-  estimateReadTime,
-  findImage,
-  getSlug,
-  generateJsonLd,
-};
+export { findImage, generateJsonLd, getSlug, readingStats };

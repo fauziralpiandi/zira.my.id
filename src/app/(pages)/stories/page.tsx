@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Link } from 'next-view-transitions';
 import { formatDate } from '@/lib/utils';
-import { stories, type Stories, totalReadTime } from '@/lib/contents';
+import { type Stories, calculateTotal, stories } from '@/lib/contents';
+
+const totalReadTime = () => calculateTotal(stories(), 'readTime', 'min');
 
 export const metadata: Metadata = {
   alternates: {

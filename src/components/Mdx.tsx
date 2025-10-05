@@ -16,7 +16,9 @@ type Link = {
 };
 
 function MdxLink({ href, children, className, ...props }: Link) {
-  if (!href || typeof href !== 'string') return null;
+  if (!href || typeof href !== 'string') {
+    return null;
+  }
 
   const isInternalLink = href.startsWith('/') || href.startsWith('#');
 
@@ -109,11 +111,11 @@ function MdxPreCode({
 
 export function Mdx({ code }: { code: string }) {
   const content = useMDXComponent(code);
-  const BodyContent = content as React.FC<{ components?: MDXComponents }>;
+  const Body = content as React.FC<{ components?: MDXComponents }>;
 
   return (
     <article className="prose prose-neutral prose-invert mx-auto max-w-2xl">
-      <BodyContent components={{ a: MdxLink, pre: MdxPreCode }} />
+      <Body components={{ a: MdxLink, pre: MdxPreCode }} />
     </article>
   );
 }

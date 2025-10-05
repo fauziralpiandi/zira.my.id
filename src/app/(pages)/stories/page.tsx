@@ -4,7 +4,7 @@ import { Link } from 'next-view-transitions';
 import { formatDate } from '@/lib/utils';
 import { type Stories, calculateTotal, stories } from '@/lib/contents';
 
-const totalReadTime = () => calculateTotal(stories(), 'readTime', 'min');
+const totalReadTime = () => calculateTotal(stories(), 'readTime', 'minute');
 
 export const metadata: Metadata = {
   alternates: {

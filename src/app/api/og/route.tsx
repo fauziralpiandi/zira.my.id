@@ -18,13 +18,16 @@ export async function GET(req: Request) {
     if (post?.image) {
       return new ImageResponse(
         (
-          <div
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={`https://zira.my.id${post.image}`}
+            alt={post.title}
+            width={1200}
+            height={630}
             style={{
               width: '1200px',
               height: '630px',
-              backgroundImage: `url(https://zira.my.id${post.image})`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
+              objectFit: 'cover',
             }}
           />
         ),

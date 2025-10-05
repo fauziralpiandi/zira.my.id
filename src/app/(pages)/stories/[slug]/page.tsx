@@ -30,7 +30,7 @@ export const generateMetadata = async (props: {
       type: 'article',
       images: [
         {
-          url: 'https://zira.my.id/api/og',
+          url: `https://zira.my.id${post.image}`,
         },
       ],
     },
@@ -40,7 +40,7 @@ export const generateMetadata = async (props: {
       card: 'summary_large_image',
       images: [
         {
-          url: 'https://zira.my.id/api/og',
+          url: `https://zira.my.id${post.image}`,
         },
       ],
     },
@@ -84,7 +84,7 @@ export default async function Story(props: {
             alt={post.title}
             fill
             priority
-            className="w-full object-cover md:rounded-lg"
+            className="w-full object-cover grayscale md:rounded-lg"
           />
           <div className="absolute right-3 bottom-3 z-10">
             <LikeButton slug={post.slug} />

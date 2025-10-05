@@ -78,7 +78,7 @@ export default function RootLayout({
               <feTurbulence
                 type="fractalNoise"
                 baseFrequency="1"
-                numOctaves="3"
+                numOctaves="5"
                 stitchTiles="stitch"
               />
               <feColorMatrix type="saturate" values="0" />

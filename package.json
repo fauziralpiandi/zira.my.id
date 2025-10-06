@@ -5,8 +5,8 @@
   "author": "Fauzira Alpiandi <fwzyrln@gmail.com>",
   "type": "module",
   "scripts": {
-    "build": "next build --no-lint --turbopack",
-    "clean": "rm -rf .next/cache .contentlayer",
+    "build": "next build --no-lint",
+    "clean": "rm -rf .next/cache",
     "dev": "next dev --turbopack",
     "format": "prettier --write .",
     "generate": "contentlayer2 build",
@@ -44,7 +44,7 @@
     "rehype-pretty-code": "0.14.1",
     "remark-gfm": "4.0.1",
     "tailwindcss": "4.1.14",
-    "typescript": "5.9.3"
+    "typescript": "5.8.3"
   },
   "prettier": {
     "bracketSpacing": true,

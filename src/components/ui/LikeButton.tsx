@@ -106,11 +106,8 @@ export function LikeButton({ slug }: { slug: string }) {
   if (error) {
     return (
       <div className="border-red/50 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale">
-        <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
-          <PiHeartFill className="h-5 w-5 fill-red-500" />
-          <span className="font-display translate-y-[1px] text-sm text-red-500">
-            Error!
-          </span>
+        <div className="flex items-center rounded-lg px-2 py-1.5">
+          <span className="font-display text-sm text-red-500">Error!</span>
         </div>
       </div>
     );

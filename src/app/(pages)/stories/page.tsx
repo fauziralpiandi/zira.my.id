@@ -4,17 +4,14 @@ import { Link } from 'next-view-transitions';
 import { formatDate } from '@/lib/utils';
 import { type Stories, calculateTotal, stories } from '@/lib/contents';
 
-const totalReadTime = () => calculateTotal(stories(), 'readTime', 'minute');
+const total = calculateTotal(stories(), 'readTime');
 
 export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://zira.my.id/stories',
-  },
   title: 'Stories',
-  description: `${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
+  description: `${total} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
   openGraph: {
     title: 'Stories',
-    description: `${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
+    description: `${total} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
     url: 'https://zira.my.id/stories',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -29,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Stories',
-    description: `${totalReadTime()} total of brain dumps\u2014from existential crises to making people\u2019s lives simple, and everything in between.`,
+    description: `${total} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
     card: 'summary_large_image',
     images: [
       {
@@ -81,13 +78,9 @@ export default function Stories() {
   return (
     <section>
       <p className="mb-12 font-medium text-amber-50">
-        This is{' '}
-        <span className="text-accent">
-          {totalReadTime()} of my brain dumps, explorations, and insights.
-        </span>{' '}
-        I touch on different topics, from existential crises to making
-        people&rsquo;s live simple , and everything in between&mdash;
-        <span className="text-accent">stay tuned for more!</span>
+        {total} min(s) of crafted experiences, learnings, and
+        explorations&mdash;longer reads on topics, ideas, and more, a story in
+        every post.
       </p>
       <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {stories().map((post) => (

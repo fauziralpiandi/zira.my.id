@@ -23,9 +23,6 @@ export const generateMetadata = async (props: {
   }
 
   return {
-    alternates: {
-      canonical: `https://zira.my.id/notes/${post.slug}`,
-    },
     title: post.title,
     description: post.summary,
     openGraph: {

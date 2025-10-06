@@ -3,17 +3,14 @@ import { Link } from 'next-view-transitions';
 import { formatDate } from '@/lib/utils';
 import { type Notes, calculateTotal, notes } from '@/lib/contents';
 
-const totalWordCount = () => calculateTotal(notes(), 'wordCount', 'word');
+const total = calculateTotal(notes(), 'wordCount');
 
 export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://zira.my.id/notes',
-  },
   title: 'Notes',
-  description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} :)`,
+  description: `Off-desk, I jot ${total} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
   openGraph: {
     title: 'Notes',
-    description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} :)`,
+    description: `Off-desk, I jot x word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
     url: 'https://zira.my.id/notes',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -28,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Notes',
-    description: `Blending the intangible with reality and finding simplicity in chaos\u2014I\u2019ve shared ${totalWordCount()} :)`,
+    description: `Off-desk, I jot x word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
     card: 'summary_large_image',
     images: [
       {
@@ -62,13 +59,8 @@ export default function Notes() {
   return (
     <section>
       <p className="font-medium text-amber-50">
-        Off-desk, <span className="text-accent">I write and tell stories</span>,
-        weaving together the intangible with reality, unraveling complexities
-        and finding simplicity in chaos.{' '}
-        <span className="text-accent">
-          I&rsquo;ve shared {totalWordCount()}&mdash;
-        </span>
-        each one its own little chapter.
+        Off-desk, I jot {total} word(s) of my thoughts—on life, reflections, and
+        everything in between—each one its own chapter.
       </p>
       <ul className="my-12 grid grid-cols-1 gap-4 md:grid-cols-2">
         {notes().map((post) => (
@@ -78,10 +70,6 @@ export default function Notes() {
           </li>
         ))}
       </ul>
-      <p className="text-xs text-neutral-300">
-        And hundreds of other records that linger still, confined to
-        paper&mdash;patiently awaiting their turn to feel important...
-      </p>
     </section>
   );
 }

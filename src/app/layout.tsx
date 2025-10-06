@@ -15,17 +15,16 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://zira.my.id'),
-  alternates: {
-    canonical: 'https://zira.my.id',
-  },
   title: {
     default: 'Fauzira Alpiandi',
     template: '%s \u007E Fauzira Alpiandi',
   },
-  description: 'All Cruise, No Breaks \u007E Y Nada Más.',
+  description:
+    'All cruise, no breaks \u007E throughout bits and breaths I drift, just me y nada más.',
   openGraph: {
     title: 'Fauzira Alpiandi',
-    description: 'All Cruise, No Breaks \u007E Y Nada Más.',
+    description:
+      'All cruise, no breaks \u007E throughout bits and breaths I drift, just me y nada más.',
     url: 'https://zira.my.id',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -40,7 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Fauzira Alpiandi',
-    description: 'All Cruise, No Breaks \u007E Y Nada Más.',
+    description:
+      'All cruise, no breaks \u007E throughout bits and breaths I drift, just me y nada más.',
     card: 'summary_large_image',
     images: [
       {

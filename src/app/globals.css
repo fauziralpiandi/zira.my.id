@@ -73,11 +73,6 @@
       pointer-events: none;
     }
 
-    mark {
-      color: inherit;
-      background-color: inherit;
-    }
-
     ::-webkit-scrollbar {
       display: none;
     }

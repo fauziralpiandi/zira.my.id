@@ -1,7 +1,6 @@
 import type { Document } from 'contentlayer2/core';
 import fs from 'fs/promises';
 import path from 'path';
-import { pluralize } from '@/lib/utils';
 
 function getSlug(doc: Document): string {
   return doc._raw.sourceFileName.replace(/\.(md|mdx)$/i, '');
@@ -38,14 +37,13 @@ function inverseWpm(word: number, wpm: number) {
 function readingStats(
   content: string | null | undefined,
   key: 'word' | 'minute',
-  unit: string,
   wpm = 200,
 ): string {
   const word = countWord(content);
   const { minute } = inverseWpm(word, wpm);
   const value = key === 'word' ? word : minute;
 
-  return pluralize(value, unit);
+  return String(value);
 }
 
 async function findImage(
@@ -77,7 +75,7 @@ async function findImage(
 
     return image;
   } catch {
-    throw new Error(`No image found for "${slug}"`);
+    throw new Error(`Image not found for "${slug}"`);
   }
 }
 

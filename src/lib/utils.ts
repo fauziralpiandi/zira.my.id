@@ -13,12 +13,4 @@ function formatDate(date?: string) {
   return waktos(date ?? Date.now(), { timezone: 'Asia/Jakarta' });
 }
 
-function pluralize(
-  value: number,
-  singular: string,
-  plural: string = `${singular}s`,
-) {
-  return `${value} ${value === 1 ? singular : plural}`;
-}
-
-export { cx, formatDate, pluralize };
+export { cx, formatDate };

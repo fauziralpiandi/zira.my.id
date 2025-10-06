@@ -15,15 +15,18 @@ const notes = defineDocumentType(() => ({
   fields: {
     title: {
       type: 'string',
-      required: true,
+      required: false,
+      default: 'Lorem ipsum dolor sit amet.',
     },
     summary: {
       type: 'string',
-      required: true,
+      required: false,
+      default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     published: {
       type: 'date',
-      required: true,
+      required: false,
+      default: new Date().toISOString(),
     },
   },
   computedFields: {
@@ -32,8 +35,8 @@ const notes = defineDocumentType(() => ({
       resolve: getSlug,
     },
     wordCount: {
-      type: 'string',
-      resolve: (doc) => readingStats(doc.body.raw, 'word', 'word'),
+      type: 'number',
+      resolve: (doc) => readingStats(doc.body.raw, 'word'),
     },
     jsonLd: {
       type: 'json',
@@ -49,15 +52,18 @@ const stories = defineDocumentType(() => ({
   fields: {
     title: {
       type: 'string',
-      required: true,
+      required: false,
+      default: 'Lorem ipsum dolor sit amet.',
     },
     summary: {
       type: 'string',
-      required: true,
+      required: false,
+      default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     published: {
       type: 'date',
-      required: true,
+      required: false,
+      default: new Date().toISOString(),
     },
   },
   computedFields: {
@@ -66,12 +72,12 @@ const stories = defineDocumentType(() => ({
       resolve: getSlug,
     },
     image: {
-      type: 'string',
+      type: 'image',
       resolve: findImage,
     },
     readTime: {
-      type: 'string',
-      resolve: (doc) => readingStats(doc.body.raw, 'minute', 'minute'),
+      type: 'number',
+      resolve: (doc) => readingStats(doc.body.raw, 'minute'),
     },
     jsonLd: {
       type: 'json',

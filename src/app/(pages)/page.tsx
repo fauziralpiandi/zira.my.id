@@ -10,7 +10,8 @@ export default function Home() {
             Fauzira Alpiandi
           </h1>
           <p className="max-w-md leading-snug font-light text-neutral-300 md:text-lg">
-            All Cruise, No Breaks &#126; Y Nada Más.
+            All cruise, no breaks &#126; throughout bits and breaths I drift,
+            just me y nada más.
           </p>
         </div>
       </div>

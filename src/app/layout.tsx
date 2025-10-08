@@ -71,15 +71,10 @@ export default function RootLayout({
             fontBody.variable,
             fontDisplay.variable,
             fontCode.variable,
-            'font-body antialiased',
-            'bg-neutral-950 text-neutral-50',
+            'font-body bg-neutral-950 text-neutral-50 antialiased',
           )}
         >
-          <svg
-            className="pointer-events-none fixed isolate z-50 mix-blend-soft-light"
-            width="100%"
-            height="100%"
-          >
+          <svg className="pointer-events-none fixed isolate z-50 h-full w-full mix-blend-soft-light">
             <filter id="noise">
               <feTurbulence
                 type="fractalNoise"
@@ -93,11 +88,9 @@ export default function RootLayout({
           </svg>
           <div className="flex min-h-screen flex-col p-8">
             <Header />
-            <div className="mx-auto flex w-full max-w-xl grow flex-col">
-              <main className="my-24 grow text-pretty break-words md:my-36">
-                {children}
-              </main>
-            </div>
+            <main className="mx-auto my-24 flex w-full max-w-xl grow flex-col text-pretty break-words md:my-36">
+              {children}
+            </main>
             <Footer />
             <Analytics mode="production" />
           </div>

@@ -2,7 +2,7 @@ import { Link } from 'next-view-transitions';
 
 export function FlipName() {
   return (
-    <h1 className="font-display text-accent font-medium">
+    <div className="font-display text-accent font-medium">
       <span className="group relative block overflow-hidden">
         <span
           aria-hidden="true"
@@ -32,6 +32,6 @@ export function FlipName() {
           </Link>
         </span>
       </span>
-    </h1>
+    </div>
   );
 }

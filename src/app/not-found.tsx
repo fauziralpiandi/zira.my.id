@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="grid min-h-72 place-items-center">
-      <div className="flex flex-col items-center gap-1 text-center">
+    <main className="grid min-h-72 place-items-center text-center">
+      <div className="flex flex-col items-center gap-1">
         <h1 className="font-display text-4xl font-bold tracking-tight">404</h1>
         <p className="text-accent text-sm font-medium tracking-tight">
           Ouch! Looks like this page took a detour&mdash;
@@ -25,6 +25,6 @@ export default function NotFound() {
           . Maybe you&rsquo;ll find something cooler.
         </p>
       </div>
-    </div>
+    </main>
   );
 }

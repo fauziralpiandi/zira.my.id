@@ -74,18 +74,18 @@ export default async function Note(props: {
           __html: JSON.stringify(post.jsonLd),
         }}
       />
-      <section>
+      <main>
         <div className="mb-10 flex flex-col items-start space-y-0.5">
           <h1 className="text-xl font-bold text-amber-50">{post.title}</h1>
           <time
             dateTime={post.date}
-            date-abs={formatDate(post.date).format('dddd, MMM Do, YYYY')}
-            date-rel={`Written ${formatDate(post.date).from()}\u2014`}
-            className="font-display text-accent text-xs font-light before:content-[attr(date-abs)] hover:before:content-[attr(date-rel)]"
+            date-absolute={formatDate(post.date).format('dddd, MMM Do, YYYY')}
+            data-relative={`Written ${formatDate(post.date).from()}\u2014`}
+            className="font-display text-accent text-xs font-light before:content-[attr(date-absolute)] hover:before:content-[attr(date-relative)]"
           />
         </div>
         <Mdx code={post.body.code} />
-      </section>
+      </main>
     </>
   );
 }

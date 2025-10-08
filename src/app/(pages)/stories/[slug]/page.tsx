@@ -68,7 +68,7 @@ export default async function Story(props: {
           __html: JSON.stringify(post.jsonLd),
         }}
       />
-      <section>
+      <main>
         <div className="text-left">
           <time
             dateTime={post.date}
@@ -81,7 +81,7 @@ export default async function Story(props: {
           </h1>
           <p className="text-sm text-neutral-400 md:mx-auto">{post.summary}</p>
         </div>
-        <figure className="relative right-[50%] left-[50%] my-8 aspect-2/1 w-screen translate-x-[-50%] bg-neutral-900 md:aspect-21/9 md:max-w-xl md:rounded-lg">
+        <figure className="relative right-1/2 left-1/2 my-8 aspect-2/1 w-screen -translate-x-1/2 bg-neutral-900 md:aspect-21/9 md:max-w-xl md:rounded-lg">
           <Image
             src={post.image}
             alt={post.title}
@@ -94,7 +94,7 @@ export default async function Story(props: {
           </div>
         </figure>
         <Mdx code={post.body.code} />
-      </section>
+      </main>
     </>
   );
 }

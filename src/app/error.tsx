@@ -14,8 +14,8 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="grid min-h-72 place-items-center">
-      <div className="flex flex-col items-center gap-1 text-center">
+    <main className="grid min-h-72 place-items-center text-center">
+      <div className="flex flex-col items-center gap-1">
         <h1 className="font-display text-4xl font-bold tracking-tight">
           Oops!
         </h1>
@@ -32,6 +32,6 @@ export default function Error({
           Try again?
         </button>
       </div>
-    </div>
+    </main>
   );
 }

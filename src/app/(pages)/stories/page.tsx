@@ -54,21 +54,16 @@ function StoryCard({ post }: { post: Stories }) {
             className="animate object-cover group-hover:scale-105"
           />
           <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-neutral-950/75 p-4 backdrop-blur backdrop-grayscale">
-            <div className="flex items-center space-x-1">
-              <time
-                dateTime={post.date}
-                className="font-display text-accent text-xs font-medium"
-              >
+            <div className="font-display text-accent flex items-center space-x-1 text-xs font-medium">
+              <time dateTime={post.date}>
                 {formatDate(post.date).format('MMMM Do, YYYY')}
               </time>
-              <span className="text-xs text-neutral-300">/</span>
-              <span className="font-display text-accent text-xs font-medium">
-                {post.readTime} min(s)
-              </span>
+              <span className="text-neutral-300">/</span>
+              <span>{post.readTime} min(s)</span>
             </div>
-            <h1 className="mt-1.5 line-clamp-2 text-lg leading-tight font-semibold">
+            <h2 className="mt-1.5 line-clamp-2 text-lg leading-tight font-semibold">
               {post.title}
-            </h1>
+            </h2>
             <span className="sr-only">{post.summary}</span>
           </div>
         </figure>
@@ -79,13 +74,13 @@ function StoryCard({ post }: { post: Stories }) {
 
 export default function Stories() {
   return (
-    <section>
-      <p className="mb-12 font-medium text-amber-50">
+    <main>
+      <h1 className="mb-12 font-medium text-amber-50">
         <span className="text-accent">
           {total} min(s) of crafted experiences, learnings, and explorations
         </span>
-        &mdash;longer reads on topics, ideas, and more, a story in every post.
-      </p>
+        &mdash;longer reads on topics, ideas, and more, a story in every post...
+      </h1>
       <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {stories().map((post) => (
           <li key={post.slug}>
@@ -93,6 +88,6 @@ export default function Stories() {
           </li>
         ))}
       </ul>
-    </section>
+    </main>
   );
 }

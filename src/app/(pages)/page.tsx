@@ -2,7 +2,7 @@ import { Eclipse } from '@/components/ui';
 
 export default function Home() {
   return (
-    <section className="grid min-h-72 place-items-center">
+    <main className="grid min-h-72 place-items-center">
       <div className="flex flex-col items-center gap-4 md:flex-row md:justify-around md:gap-8">
         <Eclipse />
         <div className="flex flex-col text-center md:text-left">
@@ -15,6 +15,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

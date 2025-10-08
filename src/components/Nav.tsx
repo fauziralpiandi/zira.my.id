@@ -74,7 +74,7 @@ function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
             className="font-display text-accent text-right text-sm font-medium"
           >
             TnC
-            <span className="sr-only">(Terms & Conditions)</span>
+            <span className="sr-only">Terms & Conditions</span>
           </a>
         </div>
       </aside>

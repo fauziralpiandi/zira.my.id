@@ -1,14 +1,14 @@
 import { allNotes, allStories } from 'contentlayer/generated';
 
 function calculateTotal<T>(items: T[], property: keyof T): string {
-  return String(
-    items.reduce((sum, item) => sum + parseInt(String(item[property])), 0),
-  );
+  return items
+    .reduce((sum, item) => sum + parseInt(String(item[property])), 0)
+    .toLocaleString('en-US');
 }
 
-function sortByDate<T extends { published: string }>(items: T[]): T[] {
+function sortByDate<T extends { date: string }>(items: T[]): T[] {
   return items.sort(
-    (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime(),
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 }
 

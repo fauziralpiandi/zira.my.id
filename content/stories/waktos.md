@@ -1,7 +1,7 @@
 ---
 title: Engineering of a Date Library
 summary: How a simple helper function evolved into a 5kB library that solves JavaScript date manipulation problems.
-published: 2025-09-24
+date: 2025-09-24
 ---
 
 ## It Started as a Helper Func.

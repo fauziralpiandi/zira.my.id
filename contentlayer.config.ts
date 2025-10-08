@@ -23,7 +23,7 @@ const notes = defineDocumentType(() => ({
       required: false,
       default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
-    published: {
+    date: {
       type: 'date',
       required: false,
       default: new Date().toISOString(),
@@ -60,7 +60,7 @@ const stories = defineDocumentType(() => ({
       required: false,
       default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
-    published: {
+    date: {
       type: 'date',
       required: false,
       default: new Date().toISOString(),

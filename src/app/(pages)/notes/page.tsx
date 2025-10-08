@@ -44,11 +44,8 @@ function NoteItem({ post }: { post: Notes }) {
       <Link href={`notes/${post.slug}`}>
         <p className="text-lg leading-snug font-medium">{post.title}</p>
         <span className="sr-only">{post.summary}</span>
-        <time
-          dateTime={post.published}
-          className="font-display text-accent text-xs"
-        >
-          {formatDate(post.published).format('MMMM Do, YYYY')}
+        <time dateTime={post.date} className="font-display text-accent text-xs">
+          {formatDate(post.date).format('MMMM Do, YYYY')}
         </time>
       </Link>
     </div>

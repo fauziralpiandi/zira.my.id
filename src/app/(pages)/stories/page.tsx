@@ -53,10 +53,10 @@ function StoryCard({ post }: { post: Stories }) {
           <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-neutral-950/75 p-4 backdrop-blur backdrop-grayscale">
             <div className="flex items-center space-x-1.5">
               <time
-                dateTime={post.published}
+                dateTime={post.date}
                 className="font-display text-accent text-xs font-medium"
               >
-                {formatDate(post.published).format('MMMM Do, YYYY')}
+                {formatDate(post.date).format('MMMM Do, YYYY')}
               </time>
               <span className="text-xs text-neutral-300">/</span>
               <span className="font-display text-accent text-xs font-medium">

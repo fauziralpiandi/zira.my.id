@@ -81,9 +81,10 @@ export default function Stories() {
   return (
     <section>
       <p className="mb-12 font-medium text-amber-50">
-        {total} min(s) of crafted experiences, learnings, and
-        explorations&mdash;longer reads on topics, ideas, and more, a story in
-        every post.
+        <span className="text-accent">
+          {total} min(s) of crafted experiences, learnings, and explorations
+        </span>
+        &mdash;longer reads on topics, ideas, and more, a story in every post.
       </p>
       <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {stories().map((post) => (

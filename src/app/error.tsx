@@ -19,9 +19,9 @@ export default function Error({
         <h1 className="font-display text-4xl font-bold tracking-tight">
           Oops!
         </h1>
-        <mark className="text-accent text-sm font-medium tracking-tight">
+        <p className="text-accent text-sm font-medium tracking-tight">
           Something went wrong&mdash;
-        </mark>
+        </p>
         <p className="font-display mt-3 max-w-md text-xs tracking-tight text-red-500">
           {error?.message ?? 'An unexpected error occurred. Please try again!'}
         </p>

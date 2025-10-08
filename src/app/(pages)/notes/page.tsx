@@ -42,7 +42,7 @@ function NoteItem({ post }: { post: Notes }) {
   return (
     <div className="flex flex-col">
       <Link href={`notes/${post.slug}`}>
-        <p className="text-lg leading-tight font-medium">{post.title}</p>
+        <p className="text-lg leading-5 font-medium">{post.title}</p>
         <span className="sr-only">{post.summary}</span>
         <time dateTime={post.date} className="font-display text-accent text-xs">
           {formatDate(post.date).format('MMMM Do, YYYY')}
@@ -56,8 +56,12 @@ export default function Notes() {
   return (
     <section>
       <p className="font-medium text-amber-50">
-        Off-desk, I jot {total} word(s) of my thoughts—on life, reflections, and
-        everything in between—each one its own chapter.
+        Off-desk,{' '}
+        <span className="text-accent">
+          I jot {total} word(s) of my thoughts
+        </span>
+        —on life, reflections, and everything in between—
+        <span className="text-accent">each one its own chapter...</span>
       </p>
       <ul className="my-12 grid grid-cols-1 gap-4 md:grid-cols-2">
         {notes().map((post) => (

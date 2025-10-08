@@ -132,10 +132,10 @@
   }
 
   blockquote {
-    @apply rounded-sm border-none bg-neutral-900/25 p-0;
+    @apply border-accent my-12 rounded border-l-2 p-0;
 
     > p {
-      @apply px-5 py-3 font-light text-neutral-400 not-italic before:content-none after:content-none;
+      @apply font-display px-5.5 py-1 leading-relaxed font-light text-neutral-400 not-italic before:content-none after:content-none;
     }
   }
 

@@ -75,7 +75,7 @@ export default async function Note(props: {
         }}
       />
       <section>
-        <div className="mb-10 flex flex-col items-start">
+        <div className="mb-10 flex flex-col items-start space-y-0.5">
           <h1 className="text-xl font-bold text-amber-50">{post.title}</h1>
           <time
             dateTime={post.date}

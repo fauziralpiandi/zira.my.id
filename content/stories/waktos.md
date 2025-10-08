@@ -48,31 +48,31 @@ DST (Daylight Saving Time) is the global prank humanity decided to play on progr
 
 1. Calculate initial UTC based on estimated offset:
 
-   ```ts caption="Estimate"
+   ```ts
    let estimatedUtc = local - offsetEstimate * MINUTE;
    ```
 
 2. Get actual offset for estimated UTC:
 
-   ```ts caption="Test"
+   ```ts
    const initialOffset = calcTimezoneOffset(estimatedUtc, tz);
    ```
 
 3. Adjust calculation based on difference:
 
-   ```ts caption="Refine"
+   ```ts
    estimatedUtc -= (initialOffset - offsetEstimate) * MINUTE;
    ```
 
 4. Test refined calculation:
 
-   ```ts caption="Validate"
+   ```ts
    const refinedOffset = calcTimezoneOffset(estimatedUtc, tz);
    ```
 
 5. Choose smaller offset to avoid double-counting:
 
-   ```ts caption="Decide"
+   ```ts
    const finalOffset = Math.min(initialOffset, refinedOffset);
    ```
 

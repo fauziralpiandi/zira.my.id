@@ -10,7 +10,7 @@ My personal website built with:
 - **Content SDK:** [Contentlayer 2](https://github.com/timlrx/contentlayer2)
 - **Database:** [Neon Database](https://neon.tech/)
 - **Analytics:** [Vercel Analytics](https://vercel.com/docs/analytics)
-- **API Integration:** [Spotify API](https://developer.spotify.com/)
+- **Integration:** [Spotify API](https://developer.spotify.com/)
 - **Deployment:** [Vercel](https://vercel.com/home)
 
 ## License

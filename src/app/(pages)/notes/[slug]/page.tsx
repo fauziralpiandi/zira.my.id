@@ -75,12 +75,12 @@ export default async function Note(props: {
         }}
       />
       <main>
-        <div className="mb-10 flex flex-col items-start space-y-0.5">
+        <div className="mb-12 flex flex-col items-start space-y-0.5">
           <h1 className="text-xl font-bold text-amber-50">{post.title}</h1>
           <time
             dateTime={post.date}
             date-absolute={formatDate(post.date).format('dddd, MMM Do, YYYY')}
-            data-relative={`Written ${formatDate(post.date).from()}\u2014`}
+            date-relative={`Written ${formatDate(post.date).from()}\u2014`}
             className="font-display text-accent text-xs font-light before:content-[attr(date-absolute)] hover:before:content-[attr(date-relative)]"
           />
         </div>

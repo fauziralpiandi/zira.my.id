@@ -19,12 +19,10 @@ export const metadata: Metadata = {
     default: 'Fauzira Alpiandi',
     template: '%s \u007E Fauzira Alpiandi',
   },
-  description:
-    'All cruise, no breaks \u007E throughout bits and breaths I drift, just me y nada más.',
+  description: 'A software engineer and writer building better experiences',
   openGraph: {
     title: 'Fauzira Alpiandi',
-    description:
-      'All cruise, no breaks \u007E throughout bits and breaths I drift, just me y nada más.',
+    description: 'A software engineer and writer building better experiences',
     url: 'https://zira.my.id',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -39,8 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Fauzira Alpiandi',
-    description:
-      'All cruise, no breaks \u007E throughout bits and breaths I drift, just me y nada más.',
+    description: 'A software engineer and writer building better experiences',
     card: 'summary_large_image',
     images: [
       {

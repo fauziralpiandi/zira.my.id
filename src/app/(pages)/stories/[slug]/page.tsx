@@ -69,19 +69,17 @@ export default async function Story(props: {
         }}
       />
       <main>
-        <div className="text-left">
-          <time
-            dateTime={post.date}
-            date-absolute={`On ${formatDate(post.date).format('dddd, MMM Do, YYYY')}`}
-            date-relative={`Posted ${formatDate(post.date).from()}`}
-            className="text-accent text-xs before:content-[attr(date-absolute)] hover:before:content-[attr(date-relative)]"
-          />
-          <h1 className="font-display mt-3 mb-2.5 text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
-            {post.title}
-          </h1>
-          <p className="text-sm text-neutral-400 md:mx-auto">{post.summary}</p>
-        </div>
-        <figure className="relative right-1/2 left-1/2 my-8 aspect-2/1 w-screen -translate-x-1/2 bg-neutral-900 md:aspect-21/9 md:max-w-xl md:rounded-lg">
+        <time
+          dateTime={post.date}
+          date-absolute={`On ${formatDate(post.date).format('dddd, MMM Do, YYYY')}`}
+          date-relative={`Posted ${formatDate(post.date).from()}`}
+          className="text-accent text-xs before:content-[attr(date-absolute)] hover:before:content-[attr(date-relative)]"
+        />
+        <h1 className="font-display mt-3 mb-2.5 text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
+          {post.title}
+        </h1>
+        <p className="text-sm text-neutral-400 md:mx-auto">{post.summary}</p>
+        <figure className="relative right-1/2 left-1/2 mt-8 mb-12 aspect-2/1 w-screen -translate-x-1/2 bg-neutral-900 md:aspect-21/9 md:max-w-xl md:rounded-lg">
           <Image
             src={post.image}
             alt={post.title}

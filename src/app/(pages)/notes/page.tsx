@@ -63,7 +63,7 @@ export default function Notes() {
         —on life, reflections, and everything in between—
         <span className="text-accent">each one its own chapter...</span>
       </h1>
-      <ul className="my-12 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <ul className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
         {notes().map((post) => (
           <li key={post.slug} className="flex items-start gap-2">
             <span className="text-neutral-500">&mdash;</span>

@@ -4,8 +4,7 @@ export default function Manifest(): MetadataRoute.Manifest {
   return {
     name: 'Fauzira Alpiandi',
     short_name: 'Fauzira Alpiandi',
-    description:
-      'All cruise, no breaks \u007E throughout bits and breaths I drift, just me y nada más.',
+    description: 'A software engineer and writer building better experiences',
     start_url: '/',
     display: 'standalone',
     background_color: '#0a0a0a',

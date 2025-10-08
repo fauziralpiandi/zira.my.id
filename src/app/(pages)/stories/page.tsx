@@ -46,7 +46,7 @@ function StoryCard({ post }: { post: Stories }) {
         href={`stories/${post.slug}`}
         className="flex h-full flex-col rounded"
       >
-        <figure className="relative aspect-3/2 overflow-hidden rounded border border-neutral-900 bg-neutral-900">
+        <figure className="relative aspect-16/9 overflow-hidden rounded border border-neutral-900 bg-neutral-900">
           <Image
             src={post.image}
             alt={post.title}
@@ -75,13 +75,13 @@ function StoryCard({ post }: { post: Stories }) {
 export default function Stories() {
   return (
     <main>
-      <h1 className="mb-12 font-medium text-amber-50">
+      <h1 className="font-medium text-amber-50">
         <span className="text-accent">
           {total} min(s) of crafted experiences, learnings, and explorations
         </span>
         &mdash;longer reads on topics, ideas, and more, a story in every post...
       </h1>
-      <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <ul className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
         {stories().map((post) => (
           <li key={post.slug}>
             <StoryCard post={post} />

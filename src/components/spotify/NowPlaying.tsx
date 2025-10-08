@@ -122,7 +122,6 @@ export function NowPlaying() {
               rel="noopener noreferrer nofollow"
               title={`Listen ${title} — ${artist} on Spotify`}
               aria-label={`Listen ${title} — ${artist} on Spotify`}
-              className="truncate"
             >
               {title}
             </a>

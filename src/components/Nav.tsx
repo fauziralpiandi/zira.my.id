@@ -25,7 +25,7 @@ function DesktopNav({ pathname, navItems }: DesktopNav) {
           href={path}
           aria-current={pathname === path ? 'page' : undefined}
           className={cx(
-            'font-display text-accent font-medium capitalize',
+            'font-display text-accent font-medium',
             pathname === path ? 'opacity-50' : '',
           )}
         >

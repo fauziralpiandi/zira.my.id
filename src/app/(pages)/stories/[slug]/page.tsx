@@ -72,9 +72,9 @@ export default async function Story(props: {
         <div className="text-left">
           <time
             dateTime={post.date}
-            date-abs={`On ${formatDate(post.date).format('dddd, MMM Do, YYYY')}`}
-            date-rel={`Posted ${formatDate(post.date).from()}`}
-            className="text-accent text-xs before:content-[attr(date-abs)] hover:before:content-[attr(date-rel)]"
+            date-absolute={`On ${formatDate(post.date).format('dddd, MMM Do, YYYY')}`}
+            date-relative={`Posted ${formatDate(post.date).from()}`}
+            className="text-accent text-xs before:content-[attr(date-absolute)] hover:before:content-[attr(date-relative)]"
           />
           <h1 className="font-display mt-3 mb-2.5 text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
             {post.title}

@@ -81,7 +81,7 @@ export default async function Story(props: {
           </h1>
           <p className="text-sm text-neutral-400 md:mx-auto">{post.summary}</p>
         </div>
-        <figure className="relative right-[50%] left-[50%] my-8 aspect-2/1 w-screen translate-x-[-50%] bg-neutral-900 md:aspect-21/9 md:max-w-2xl md:rounded-lg">
+        <figure className="relative right-[50%] left-[50%] my-8 aspect-2/1 w-screen translate-x-[-50%] bg-neutral-900 md:aspect-21/9 md:max-w-xl md:rounded-lg">
           <Image
             src={post.image}
             alt={post.title}

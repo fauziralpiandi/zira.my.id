@@ -114,7 +114,7 @@ export function Mdx({ code }: { code: string }) {
   const Body = content as React.FC<{ components?: MDXComponents }>;
 
   return (
-    <article className="prose prose-neutral prose-invert mx-auto max-w-2xl">
+    <article className="prose prose-neutral prose-invert mx-auto max-w-xl">
       <Body components={{ a: MdxLink, pre: MdxPreCode }} />
     </article>
   );

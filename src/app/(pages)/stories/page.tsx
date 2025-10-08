@@ -42,8 +42,11 @@ export const metadata: Metadata = {
 function StoryCard({ post }: { post: Stories }) {
   return (
     <div className="group h-full overflow-hidden">
-      <Link href={`stories/${post.slug}`} className="flex h-full flex-col">
-        <figure className="relative aspect-3/2 overflow-hidden border border-neutral-900 bg-neutral-900">
+      <Link
+        href={`stories/${post.slug}`}
+        className="flex h-full flex-col rounded"
+      >
+        <figure className="relative aspect-3/2 overflow-hidden rounded border border-neutral-900 bg-neutral-900">
           <Image
             src={post.image}
             alt={post.title}
@@ -51,7 +54,7 @@ function StoryCard({ post }: { post: Stories }) {
             className="animate object-cover group-hover:scale-105"
           />
           <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-neutral-950/75 p-4 backdrop-blur backdrop-grayscale">
-            <div className="flex items-center space-x-1.5">
+            <div className="flex items-center space-x-1">
               <time
                 dateTime={post.date}
                 className="font-display text-accent text-xs font-medium"
@@ -60,7 +63,7 @@ function StoryCard({ post }: { post: Stories }) {
               </time>
               <span className="text-xs text-neutral-300">/</span>
               <span className="font-display text-accent text-xs font-medium">
-                {post.readTime}
+                {post.readTime} min(s)
               </span>
             </div>
             <h1 className="mt-1.5 line-clamp-2 text-lg leading-tight font-semibold">

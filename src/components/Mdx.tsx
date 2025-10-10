@@ -8,14 +8,17 @@ import { PiArrowUpRight } from 'react-icons/pi';
 import { LuCheck, LuCopy } from 'react-icons/lu';
 import { cx } from '@/lib/utils';
 
-type Link = {
+function MdxLink({
+  href,
+  children,
+  className,
+  ...props
+}: {
   href: string;
   children: React.ReactNode;
   key?: string;
   className?: string;
-};
-
-function MdxLink({ href, children, className, ...props }: Link) {
+}) {
   if (!href || typeof href !== 'string') {
     return null;
   }
@@ -114,7 +117,7 @@ export function Mdx({ code }: { code: string }) {
   const Body = content as React.FC<{ components?: MDXComponents }>;
 
   return (
-    <article className="prose prose-neutral prose-invert mx-auto max-w-2xl">
+    <article className="prose prose-neutral prose-invert mx-auto max-w-xl">
       <Body components={{ a: MdxLink, pre: MdxPreCode }} />
     </article>
   );

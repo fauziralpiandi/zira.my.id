@@ -12,14 +12,19 @@ type Track = {
   external_urls: { spotify: string };
 };
 
-async function getTopTracks(
-  accessToken: string,
-): Promise<{ title: string; artist: string; cover: string; url: string }[]> {
-  const data = await fetchSpotify<{ items: Track[] }>(
-    TOP_TRACKS_URL,
-    accessToken,
-  );
+type Response = {
+  items: Track[];
+};
 
+type TopTracks = {
+  title: string;
+  artist: string;
+  cover: string;
+  url: string;
+};
+
+async function getTopTracks(accessToken: string): Promise<TopTracks[]> {
+  const data = await fetchSpotify<Response>(TOP_TRACKS_URL, accessToken);
   const tracks =
     data.items?.filter(
       (track) =>

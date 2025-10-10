@@ -1,19 +1,13 @@
 import { Link } from 'next-view-transitions';
 import { cx } from '@/lib/utils';
 
-type DesktopNav = {
+function DesktopNav({
+  pathname,
+  navItems,
+}: {
   pathname: string;
   navItems: Record<string, { name: string; path: string }>;
-};
-
-type MobileNav = {
-  isOpen: boolean;
-  pathname: string;
-  navItems: Record<string, { name: string; path: string }>;
-  closeNav: () => void;
-};
-
-function DesktopNav({ pathname, navItems }: DesktopNav) {
+}) {
   return (
     <nav
       className="hidden items-center space-x-6 md:flex"
@@ -25,7 +19,7 @@ function DesktopNav({ pathname, navItems }: DesktopNav) {
           href={path}
           aria-current={pathname === path ? 'page' : undefined}
           className={cx(
-            'font-display text-accent font-medium capitalize',
+            'font-display text-accent font-medium',
             pathname === path ? 'opacity-50' : '',
           )}
         >
@@ -36,7 +30,17 @@ function DesktopNav({ pathname, navItems }: DesktopNav) {
   );
 }
 
-function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
+function MobileNav({
+  isOpen,
+  pathname,
+  navItems,
+  closeNav,
+}: {
+  isOpen: boolean;
+  pathname: string;
+  navItems: Record<string, { name: string; path: string }>;
+  closeNav: () => void;
+}) {
   return (
     <nav
       aria-hidden={!isOpen}
@@ -74,7 +78,7 @@ function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
             className="font-display text-accent text-right text-sm font-medium"
           >
             TnC
-            <span className="sr-only">(Terms & Conditions)</span>
+            <span className="sr-only">Terms & Conditions</span>
           </a>
         </div>
       </aside>

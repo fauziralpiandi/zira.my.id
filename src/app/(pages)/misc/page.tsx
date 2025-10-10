@@ -39,16 +39,17 @@ export const metadata: Metadata = {
 
 export default function Misc() {
   return (
-    <section>
-      <p className="mb-12 font-medium text-amber-50">
-        Chaos lives here&mdash;music hits differently, beats hit harder, and
-        yeah... mischievous tastes in the mix. Dive in for your guilty
-        pleasures.
-      </p>
-      <div className="space-y-6">
+    <main>
+      <h1 className="font-medium text-amber-50">
+        <span className="text-accent">Chaos lives here</span>&mdash;music hits
+        differently, beats hit harder, and yeah... mischievous tastes in the
+        mix.{' '}
+        <span className="text-accent">Dive in for your guilty pleasures!</span>
+      </h1>
+      <div className="mt-12 space-y-6">
         <TopTracks />
         <TopArtists />
       </div>
-    </section>
+    </main>
   );
 }

@@ -125,9 +125,9 @@ export function TopTracks() {
                 <Image
                   src={cover}
                   alt={`Cover of ${title} by ${artist}`}
+                  quality={100}
                   fill
-                  loading="lazy"
-                  sizes="(max-width: 640px) 48px, (max-width: 1024px) 64px, 128px"
+                  sizes="(max-width: 640px) 33vw"
                   className="animate relative z-10 rounded-xs bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                 />
               </figure>

@@ -1,7 +1,9 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-@theme {
+@custom-variant hover (&:hover);
+
+@theme inline {
   --font-body: var(--font-body);
   --font-display: var(--font-display);
   --font-code: var(--font-code);
@@ -113,6 +115,10 @@
   }
 }
 
+@utility animate {
+  @apply transition-all duration-[500ms] ease-in-out;
+}
+
 @utility prose {
   hr {
     @apply border-accent mx-auto w-1/3;
@@ -132,18 +138,21 @@
   }
 
   blockquote {
-    @apply rounded-sm border-none bg-neutral-900/25 p-0;
+    @apply border-accent my-12 rounded border-l-2 p-0;
 
     > p {
-      @apply px-5 py-3 font-light text-neutral-400 not-italic before:content-none after:content-none;
+      @apply font-display px-5.5 py-1 leading-relaxed font-light text-neutral-400 not-italic before:content-none after:content-none;
     }
   }
 
   ul {
     @apply list-[square];
+
+    > li::marker {
+      @apply text-accent;
+    }
   }
 
-  ul > li::marker,
   ol > li::marker {
     @apply text-accent;
   }
@@ -158,19 +167,16 @@
   }
 
   pre {
-    @apply relative overflow-auto p-0;
-    @apply border border-neutral-900 bg-neutral-900/25;
+    @apply relative overflow-auto border border-neutral-900 bg-neutral-900/25 p-0;
 
     > code {
       @apply overflow-x-scroll py-2 text-[0.825rem];
       counter-reset: line;
 
-      &[data-line-numbers] {
-        > [data-line]::before {
-          counter-increment: line;
-          content: counter(line);
-          @apply mr-4 inline-block w-4 text-right text-xs text-neutral-500;
-        }
+      &[data-line-numbers] > [data-line]::before {
+        @apply mr-4 inline-block w-4 text-right text-xs text-neutral-500;
+        counter-increment: line;
+        content: counter(line);
       }
 
       > [data-line] {
@@ -188,9 +194,7 @@
   }
 
   [data-rehype-pretty-code-title] {
-    @apply font-code bg-neutral-900/50 text-xs text-neutral-300;
-    @apply rounded-md rounded-b-none border-x border-t border-neutral-900;
-    @apply max-w-full overflow-x-auto px-3 py-2 whitespace-nowrap;
+    @apply font-code max-w-full overflow-x-auto rounded-t-md rounded-b-none border border-neutral-900 bg-neutral-900/50 px-3 py-2 text-xs whitespace-nowrap text-neutral-300;
 
     + pre {
       @apply mt-0 rounded-t-none;
@@ -201,9 +205,3 @@
     @apply text-center text-xs text-neutral-500;
   }
 }
-
-@utility animate {
-  @apply transition-all duration-[500ms] ease-in-out;
-}
-
-@custom-variant hover (&:hover);

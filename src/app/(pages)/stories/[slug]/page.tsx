@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { allStories } from '@/lib/contents';
 import { formatDate } from '@/lib/utils';
-import { stories } from '@/lib/contents';
 import { LikeButton } from '@/components/ui';
 import { Mdx } from '@/components';
 
@@ -10,7 +10,7 @@ export const generateMetadata = async (props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> => {
   const params = await props.params;
-  const post = stories().find((post) => post.slug === params.slug);
+  const post = allStories().find((post) => post.slug === params.slug);
 
   if (!post) {
     return notFound();
@@ -22,7 +22,7 @@ export const generateMetadata = async (props: {
     openGraph: {
       title: post.title,
       description: post.summary,
-      url: `https://zira.my.id/stories/${post.slug}`,
+      url: `https://zira.my.id/${post._raw.flattenedPath}`,
       siteName: 'Fauzira Alpiandi',
       type: 'article',
       images: [
@@ -54,7 +54,7 @@ export default async function Story(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-  const post = stories().find((post) => post.slug === params.slug);
+  const post = allStories().find((post) => post.slug === params.slug);
 
   if (!post) {
     return notFound();
@@ -68,25 +68,25 @@ export default async function Story(props: {
           __html: JSON.stringify(post.jsonLd),
         }}
       />
-      <section>
-        <div className="text-left">
-          <time
-            dateTime={post.published}
-            date-abs={`On ${formatDate(post.published).format('dddd, MMM Do, YYYY')}`}
-            date-rel={`Posted ${formatDate(post.published).from()}`}
-            className="text-accent text-xs before:content-[attr(date-abs)] hover:before:content-[attr(date-rel)]"
-          />
-          <h1 className="font-display mt-3 mb-2.5 text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
-            {post.title}
-          </h1>
-          <p className="text-sm text-neutral-400 md:mx-auto">{post.summary}</p>
-        </div>
-        <figure className="relative right-[50%] left-[50%] my-8 aspect-2/1 w-screen translate-x-[-50%] bg-neutral-900 md:aspect-21/9 md:max-w-2xl md:rounded-lg">
+      <main>
+        <time
+          dateTime={post.date}
+          date-absolute={`On ${formatDate(post.date).format('dddd, MMM Do, YYYY')}`}
+          date-relative={`Posted ${formatDate(post.date).from()}`}
+          className="text-accent text-xs before:content-[attr(date-absolute)] hover:before:content-[attr(date-relative)]"
+        />
+        <h1 className="font-display mt-3 mb-2.5 text-3xl font-extrabold tracking-tight text-amber-50 md:mx-auto">
+          {post.title}
+        </h1>
+        <p className="text-sm text-neutral-400 md:mx-auto">{post.summary}</p>
+        <figure className="relative right-1/2 left-1/2 mt-8 mb-12 aspect-2/1 w-screen -translate-x-1/2 bg-neutral-900 md:aspect-21/9 md:max-w-xl md:rounded-lg">
           <Image
             src={post.image}
             alt={post.title}
+            quality={100}
             fill
-            priority
+            loading="eager"
+            sizes="(max-width: 768px) 100vw, 672px"
             className="w-full object-cover md:rounded-lg"
           />
           <div className="absolute right-3 bottom-3 z-10">
@@ -94,7 +94,7 @@ export default async function Story(props: {
           </div>
         </figure>
         <Mdx code={post.body.code} />
-      </section>
+      </main>
     </>
   );
 }

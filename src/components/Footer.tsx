@@ -8,7 +8,7 @@ export function Footer() {
   const [now, setNow] = useState<ReturnType<typeof formatDate> | null>(null);
 
   useEffect(() => {
-    setNow(formatDate());
+    Promise.resolve().then(() => setNow(formatDate()));
 
     const timer = setInterval(() => {
       setNow(formatDate());
@@ -20,7 +20,7 @@ export function Footer() {
   return (
     <footer className="relative">
       <hr className="absolute top-0 left-1/2 h-px w-screen -translate-x-1/2 border-neutral-900" />
-      <aside className="mt-8 flex grid grid-cols-2 items-center md:grid-cols-3">
+      <aside className="mt-8 grid grid-cols-2 items-center md:grid-cols-3">
         <div className="justify-self-start" aria-label="Now Playing (Spotify)">
           <NowPlaying />
         </div>
@@ -28,7 +28,7 @@ export function Footer() {
           className="justify-self-end md:justify-self-center"
           aria-label="Current Time (GMT+7)"
         >
-          <div className="font-display flex flex-col items-end text-xs md:flex-row md:items-center md:gap-1.5 md:text-sm">
+          <div className="font-display flex flex-col items-end gap-0 text-xs md:flex-row md:items-center md:gap-1.5 md:text-sm">
             <time className="order-2 text-neutral-400 md:order-1">
               {now ? now.format('dddd') : '---'}
             </time>
@@ -38,8 +38,8 @@ export function Footer() {
           </div>
         </div>
         <div className="hidden justify-self-end md:block">
-          <div className="flex items-center">
-            <p className="font-display text-sm text-neutral-400">
+          <div className="flex items-center text-sm">
+            <p className="font-display text-neutral-400">
               &copy; {new Date().getFullYear()} Fauzira Alpiandi
             </p>
             <span className="mx-1.5 text-neutral-500">/</span>
@@ -48,10 +48,10 @@ export function Footer() {
               href="/zira.my.id_tnc.md"
               title="Terms & Conditions"
               aria-label="Terms & Conditions"
-              className="font-display text-accent text-right text-sm font-medium"
+              className="font-display text-accent font-medium"
             >
               TnC
-              <span className="sr-only">(Terms & Conditions)</span>
+              <span className="sr-only">Terms & Conditions</span>
             </a>
           </div>
         </div>

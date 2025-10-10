@@ -18,7 +18,7 @@ export function Header() {
   const toggleNav = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
-    setIsOpen(false);
+    Promise.resolve().then(() => setIsOpen(false));
   }, [pathname]);
 
   useEffect(() => {

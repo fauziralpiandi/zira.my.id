@@ -1,12 +1,10 @@
 import type { Document } from 'contentlayer2/core';
-import fs from 'fs/promises';
-import path from 'path';
 
-function getSlug(doc: Document): string {
+function getSlug(doc: Document) {
   return doc._raw.sourceFileName.replace(/\.(md|mdx)$/i, '');
 }
 
-function countWord(text: string | null | undefined): number {
+function countWord(text: string | undefined) {
   if (!text || typeof text !== 'string' || !text.trim()) {
     return 0;
   }
@@ -22,7 +20,7 @@ function countWord(text: string | null | undefined): number {
     .replace(/[^\p{L}\p{N}\s]/gu, ' ') // non-word chars
     .trim();
 
-  return clean ? clean.split(/\s+/).length : 0;
+  return clean.split(/\s+/gu).length;
 }
 
 function inverseWpm(word: number, wpm: number) {
@@ -35,10 +33,10 @@ function inverseWpm(word: number, wpm: number) {
 }
 
 function readingStats(
-  content: string | null | undefined,
+  content: string | undefined,
   key: 'word' | 'minute',
-  wpm = 200,
-): string {
+  wpm = 225,
+) {
   const word = countWord(content);
   const { minute } = inverseWpm(word, wpm);
   const value = key === 'word' ? word : minute;
@@ -46,41 +44,15 @@ function readingStats(
   return String(value);
 }
 
-async function findImage(
-  doc: Document,
-  dir = 'public/imgs',
-  prefix = '/imgs',
-): Promise<string> {
+function getImage(doc: Document) {
   const slug = getSlug(doc);
-  const baseDir = path.join(process.cwd(), dir);
-  const exts = ['webp', 'png', 'jpg', 'jpeg', 'svg'];
-  const tryFind = [slug, 'placeholder'].flatMap((name) =>
-    exts.map((ext) => ({
-      name,
-      file: path.join(baseDir, `${name}.${ext}`),
-    })),
-  );
+  const path = `/imgs/${slug}.png`;
 
-  try {
-    const image = await Promise.any(
-      tryFind.map(async ({ file }) => {
-        await fs.access(file);
-
-        return path.posix.join(
-          prefix,
-          path.relative(baseDir, file).replace(/\\/g, '/'),
-        );
-      }),
-    );
-
-    return image;
-  } catch {
-    throw new Error(`Image not found for "${slug}"`);
-  }
+  return path;
 }
 
-async function generateJsonLd(doc: Document) {
-  const image = await findImage(doc).catch(() => '/api/og');
+function generateJsonLd(doc: Document) {
+  const image = getImage(doc);
 
   return {
     '@context': 'https://schema.org',
@@ -99,4 +71,4 @@ async function generateJsonLd(doc: Document) {
   };
 }
 
-export { findImage, generateJsonLd, getSlug, readingStats };
+export { generateJsonLd, getImage, getSlug, readingStats };

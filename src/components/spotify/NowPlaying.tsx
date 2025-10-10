@@ -108,25 +108,27 @@ export function NowPlaying() {
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex w-full items-center justify-center">
       <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
         <AudioWave
           isPlaying={isPlaying}
           aria-label={isPlaying ? 'Now playing...' : 'Last played...'}
         />
-        <div className="flex flex-col">
-          <h1 className="font-display line-clamp-1 text-sm leading-tight font-bold">
+        <div className="flex flex-col overflow-hidden">
+          <p className="font-display line-clamp-1 text-sm leading-tight font-bold">
             <a
               href={url}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
               title={`Listen ${title} — ${artist} on Spotify`}
               aria-label={`Listen ${title} — ${artist} on Spotify`}
-              rel="noopener noreferrer nofollow"
-              target="_blank"
             >
               {title}
             </a>
-          </h1>
-          <p className="line-clamp-1 text-xs text-neutral-400">{artist}</p>
+          </p>
+          <p className="line-clamp-1 truncate text-xs text-neutral-400">
+            {artist}
+          </p>
         </div>
       </div>
     </div>

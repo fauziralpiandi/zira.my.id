@@ -14,14 +14,14 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="grid min-h-72 place-items-center">
-      <div className="flex flex-col items-center gap-1 text-center">
+    <main className="grid min-h-72 place-items-center text-center">
+      <div className="flex flex-col items-center gap-1">
         <h1 className="font-display text-4xl font-bold tracking-tight">
           Oops!
         </h1>
-        <mark className="text-accent text-sm font-medium tracking-tight">
+        <p className="text-accent text-sm font-medium tracking-tight">
           Something went wrong&mdash;
-        </mark>
+        </p>
         <p className="font-display mt-3 max-w-md text-xs tracking-tight text-red-500">
           {error?.message ?? 'An unexpected error occurred. Please try again!'}
         </p>
@@ -32,6 +32,6 @@ export default function Error({
           Try again?
         </button>
       </div>
-    </div>
+    </main>
   );
 }

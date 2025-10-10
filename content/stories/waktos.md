@@ -1,7 +1,7 @@
 ---
 title: Engineering of a Date Library
 summary: How a simple helper function evolved into a 5kB library that solves JavaScript date manipulation problems.
-published: 2025-09-24
+date: 2025-09-24
 ---
 
 ## It Started as a Helper Func.
@@ -48,31 +48,31 @@ DST (Daylight Saving Time) is the global prank humanity decided to play on progr
 
 1. Calculate initial UTC based on estimated offset:
 
-   ```ts caption="Estimate"
+   ```ts
    let estimatedUtc = local - offsetEstimate * MINUTE;
    ```
 
 2. Get actual offset for estimated UTC:
 
-   ```ts caption="Test"
+   ```ts
    const initialOffset = calcTimezoneOffset(estimatedUtc, tz);
    ```
 
 3. Adjust calculation based on difference:
 
-   ```ts caption="Refine"
+   ```ts
    estimatedUtc -= (initialOffset - offsetEstimate) * MINUTE;
    ```
 
 4. Test refined calculation:
 
-   ```ts caption="Validate"
+   ```ts
    const refinedOffset = calcTimezoneOffset(estimatedUtc, tz);
    ```
 
 5. Choose smaller offset to avoid double-counting:
 
-   ```ts caption="Decide"
+   ```ts
    const finalOffset = Math.min(initialOffset, refinedOffset);
    ```
 

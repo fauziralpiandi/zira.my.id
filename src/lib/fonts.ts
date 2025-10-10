@@ -1,21 +1,22 @@
-import localFont from 'next/font/local';
+import {
+  Sofia_Sans,
+  Sofia_Sans_Semi_Condensed,
+  JetBrains_Mono,
+} from 'next/font/google';
 
-const fontBody = localFont({
+const fontBody = Sofia_Sans_Semi_Condensed({
+  subsets: ['latin'],
   variable: '--font-body',
-  src: '../../public/fonts/SofiaSansSemiCondensed[wght].woff2',
-  weight: '100 900',
 });
 
-const fontDisplay = localFont({
+const fontDisplay = Sofia_Sans({
+  subsets: ['latin'],
   variable: '--font-display',
-  src: '../../public/fonts/SofiaSans[wght].woff2',
-  weight: '100 900',
 });
 
-const fontCode = localFont({
+const fontCode = JetBrains_Mono({
+  subsets: ['latin'],
   variable: '--font-code',
-  src: '../../public/fonts/JetBrainsMono[wght].woff2',
-  weight: '100 800',
 });
 
 export { fontBody, fontDisplay, fontCode };

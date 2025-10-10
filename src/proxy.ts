@@ -19,7 +19,7 @@ function applySecurityHeaders(res: NextResponse) {
   }
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   if (process.env.NODE_ENV !== 'production') {
     const res = NextResponse.next();
 

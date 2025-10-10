@@ -1,11 +1,5 @@
 function getEnvVar(key: string): string {
-  const value = process.env[key];
-
-  if (!value) {
-    throw new Error(`Missing environment variable: ${key}`);
-  }
-
-  return value;
+  return process.env[key] ?? '';
 }
 
 const SPOTIFY = Object.freeze({
@@ -68,5 +62,5 @@ export async function getAccessToken(): Promise<string> {
   accessToken = data.access_token;
   tokenExpiry = now + expiresIn * 1e3 - 60 * 1e3; // 1 min buffer
 
-  return accessToken as string;
+  return String(accessToken);
 }

@@ -13,19 +13,21 @@ type Track = {
   external_urls: { spotify: string };
 };
 
-type SpotifyResponse = {
+type Response = {
   is_playing?: boolean;
   currently_playing_type?: string;
   item?: Track | null;
   items?: Array<{ track: Track }>;
 };
 
-function formatTrack(data: SpotifyResponse): {
+type NowPlaying = {
   title: string;
   artist: string;
   url: string;
   isPlaying: boolean;
-} {
+};
+
+function formatTrack(data: Response): NowPlaying {
   const track = data.item ?? data.items?.[0]?.track;
 
   if (
@@ -44,16 +46,10 @@ function formatTrack(data: SpotifyResponse): {
   };
 }
 
-async function getTrackData(accessToken: string): Promise<{
-  title: string;
-  artist: string;
-  url: string;
-  isPlaying: boolean;
-}> {
-  const fetchTrack = (url: string) =>
-    fetchSpotify<SpotifyResponse>(url, accessToken);
+async function getTrackData(accessToken: string): Promise<NowPlaying> {
+  const fetchTrack = (url: string) => fetchSpotify<Response>(url, accessToken);
 
-  let data: SpotifyResponse | null = null;
+  let data: Response | null = null;
 
   try {
     data = await fetchTrack(NOW_PLAYING_URL);

@@ -11,14 +11,18 @@ type Artist = {
   external_urls: { spotify: string };
 };
 
-async function getTopArtists(
-  accessToken: string,
-): Promise<{ name: string; image: string; url: string }[]> {
-  const data = await fetchSpotify<{ items: Artist[] }>(
-    TOP_ARTISTS_URL,
-    accessToken,
-  );
+type Response = {
+  items: Artist[];
+};
 
+type TopArtists = {
+  name: string;
+  image: string;
+  url: string;
+};
+
+async function getTopArtists(accessToken: string): Promise<TopArtists[]> {
+  const data = await fetchSpotify<Response>(TOP_ARTISTS_URL, accessToken);
   const artists =
     data.items?.filter(
       (artist) =>

@@ -20,7 +20,7 @@ export default function Home() {
             aria-label="GitHub profile"
             className="font-display text-accent mt-2 font-medium"
           >
-            {'</>'}
+            &lt;&#x2F;&gt;
           </a>
         </div>
       </div>

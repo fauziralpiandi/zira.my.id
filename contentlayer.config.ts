@@ -1,12 +1,7 @@
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
-import {
-  findImage,
-  generateJsonLd,
-  getSlug,
-  readingStats,
-} from '@/lib/schemas';
+import { generateJsonLd, getImage, getSlug, readingStats } from '@/lib/schemas';
 
 const notes = defineDocumentType(() => ({
   name: 'Notes',
@@ -73,7 +68,7 @@ const stories = defineDocumentType(() => ({
     },
     image: {
       type: 'image',
-      resolve: findImage,
+      resolve: getImage,
     },
     readTime: {
       type: 'number',

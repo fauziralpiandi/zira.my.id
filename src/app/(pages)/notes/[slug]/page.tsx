@@ -5,7 +5,7 @@ import { formatDate } from '@/lib/utils';
 import { Mdx } from '@/components';
 
 export const dynamicParams = true;
-export const revalidate = 3600;
+export const revalidate = 3600; // 1 hour
 export const generateStaticParams = async () => {
   return allNotes().map((post) => ({
     slug: post.slug,
@@ -28,7 +28,7 @@ export const generateMetadata = async (props: {
     openGraph: {
       title: post.title,
       description: post.summary,
-      url: `https://zira.my.id/notes/${post.slug}`,
+      url: `https://zira.my.id/${post._raw.flattenedPath}`,
       siteName: 'Fauzira Alpiandi',
       type: 'article',
       images: [

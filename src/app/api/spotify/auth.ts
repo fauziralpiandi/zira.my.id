@@ -62,5 +62,5 @@ export async function getAccessToken(): Promise<string> {
   accessToken = data.access_token;
   tokenExpiry = now + expiresIn * 1e3 - 60 * 1e3; // 1 min buffer
 
-  return accessToken as string;
+  return String(accessToken);
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Link } from 'next-view-transitions';
-import { formatDate } from '@/lib/utils';
 import { type Notes, allNotes, totalOf } from '@/lib/contents';
+import { formatDate } from '@/lib/utils';
 
 const totalWordCount = totalOf(allNotes(), 'wordCount');
 

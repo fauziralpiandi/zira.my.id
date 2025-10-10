@@ -1,19 +1,13 @@
 import { Link } from 'next-view-transitions';
 import { cx } from '@/lib/utils';
 
-type DesktopNav = {
+function DesktopNav({
+  pathname,
+  navItems,
+}: {
   pathname: string;
   navItems: Record<string, { name: string; path: string }>;
-};
-
-type MobileNav = {
-  isOpen: boolean;
-  pathname: string;
-  navItems: Record<string, { name: string; path: string }>;
-  closeNav: () => void;
-};
-
-function DesktopNav({ pathname, navItems }: DesktopNav) {
+}) {
   return (
     <nav
       className="hidden items-center space-x-6 md:flex"
@@ -36,7 +30,17 @@ function DesktopNav({ pathname, navItems }: DesktopNav) {
   );
 }
 
-function MobileNav({ isOpen, pathname, navItems, closeNav }: MobileNav) {
+function MobileNav({
+  isOpen,
+  pathname,
+  navItems,
+  closeNav,
+}: {
+  isOpen: boolean;
+  pathname: string;
+  navItems: Record<string, { name: string; path: string }>;
+  closeNav: () => void;
+}) {
   return (
     <nav
       aria-hidden={!isOpen}

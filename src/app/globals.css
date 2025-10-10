@@ -3,7 +3,7 @@
 
 @custom-variant hover (&:hover);
 
-@theme {
+@theme inline {
   --font-body: var(--font-body);
   --font-display: var(--font-display);
   --font-code: var(--font-code);

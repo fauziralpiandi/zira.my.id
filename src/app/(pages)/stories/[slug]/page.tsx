@@ -22,7 +22,7 @@ export const generateMetadata = async (props: {
     openGraph: {
       title: post.title,
       description: post.summary,
-      url: `https://zira.my.id/stories/${post.slug}`,
+      url: `https://zira.my.id/${post._raw.flattenedPath}`,
       siteName: 'Fauzira Alpiandi',
       type: 'article',
       images: [

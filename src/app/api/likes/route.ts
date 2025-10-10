@@ -1,8 +1,8 @@
 import { neon as database } from '@neondatabase/serverless';
 
-function validateSlug(slug: string | null | undefined): string {
+function validateSlug(slug: string | null): string {
   if (!slug || typeof slug !== 'string' || !slug.trim()) {
-    throw new Error('Slug is required');
+    throw new Error('Invalid slug');
   }
 
   return slug

@@ -8,7 +8,7 @@ export function Footer() {
   const [now, setNow] = useState<ReturnType<typeof formatDate> | null>(null);
 
   useEffect(() => {
-    setNow(formatDate());
+    Promise.resolve().then(() => setNow(formatDate()));
 
     const timer = setInterval(() => {
       setNow(formatDate());

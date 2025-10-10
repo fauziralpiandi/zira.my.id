@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Link } from 'next-view-transitions';
+import { type Stories, allStories, totalOf } from '@/lib/contents';
 import { formatDate } from '@/lib/utils';
-import { type Stories, calculateTotal, stories } from '@/lib/contents';
 
-const total = calculateTotal(stories(), 'readTime');
+const totalReadTime = totalOf(allStories(), 'readTime');
 
 export const metadata: Metadata = {
   title: 'Stories',
-  description: `${total} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+  description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
   openGraph: {
     title: 'Stories',
-    description: `${total} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
     url: 'https://zira.my.id/stories',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Stories',
-    description: `${total} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
     card: 'summary_large_image',
     images: [
       {
@@ -43,22 +43,24 @@ function StoryCard({ post }: { post: Stories }) {
   return (
     <div className="group h-full overflow-hidden">
       <Link
-        href={`stories/${post.slug}`}
+        href={post._raw.flattenedPath}
         className="flex h-full flex-col rounded"
       >
         <figure className="relative aspect-16/9 overflow-hidden rounded border border-neutral-900 bg-neutral-900">
           <Image
             src={post.image}
             alt={post.title}
+            quality={100}
             fill
+            sizes="(max-width: 640px) 100vw, 50vw"
             className="animate object-cover group-hover:scale-105"
           />
           <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-neutral-950/75 p-4 backdrop-blur backdrop-grayscale">
-            <div className="font-display text-accent flex items-center space-x-1 text-xs font-medium">
+            <div className="font-display text-accent flex items-center space-x-1.5 text-xs font-medium">
               <time dateTime={post.date}>
                 {formatDate(post.date).format('MMMM Do, YYYY')}
               </time>
-              <span className="text-neutral-300">/</span>
+              <span className="font-bold">&middot;</span>
               <span>{post.readTime} min(s)</span>
             </div>
             <h2 className="mt-1.5 line-clamp-2 text-lg leading-tight font-semibold">
@@ -77,12 +79,13 @@ export default function Stories() {
     <main>
       <h1 className="font-medium text-amber-50">
         <span className="text-accent">
-          {total} min(s) of crafted experiences, learnings, and explorations
+          {totalReadTime} min(s) of crafted experiences, learnings, and
+          explorations
         </span>
         &mdash;longer reads on topics, ideas, and more, a story in every post...
       </h1>
       <ul className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {stories().map((post) => (
+        {allStories().map((post) => (
           <li key={post.slug}>
             <StoryCard post={post} />
           </li>

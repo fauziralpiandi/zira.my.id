@@ -4,7 +4,7 @@
 
 My personal website built with:
 
-- **Framework:** [Next.js 16 (Beta)](https://nextjs.org/)
+- **Framework:** [Next.js 16 (beta)](https://nextjs.org/)
 - **Library:** [React 19](https://react.dev/)
 - **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
 - **Content SDK:** [Contentlayer 2](https://github.com/timlrx/contentlayer2)

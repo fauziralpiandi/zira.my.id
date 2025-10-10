@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
 import { Link } from 'next-view-transitions';
 import { formatDate } from '@/lib/utils';
-import { type Notes, calculateTotal, notes } from '@/lib/contents';
+import { type Notes, allNotes, totalOf } from '@/lib/contents';
 
-const total = calculateTotal(notes(), 'wordCount');
+const totalWordCount = totalOf(allNotes(), 'wordCount');
 
 export const metadata: Metadata = {
   title: 'Notes',
-  description: `Off-desk, I jot ${total} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
+  description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
   openGraph: {
     title: 'Notes',
-    description: `Off-desk, I jot x word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
+    description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
     url: 'https://zira.my.id/notes',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Notes',
-    description: `Off-desk, I jot x word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
+    description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
     card: 'summary_large_image',
     images: [
       {
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 function NoteItem({ post }: { post: Notes }) {
   return (
     <div className="flex flex-col">
-      <Link href={`notes/${post.slug}`}>
+      <Link href={post._raw.flattenedPath}>
         <h2 className="text-lg leading-5 font-medium">{post.title}</h2>
         <span className="sr-only">{post.summary}</span>
         <time dateTime={post.date} className="font-display text-accent text-xs">
@@ -58,13 +58,13 @@ export default function Notes() {
       <h1 className="font-medium text-amber-50">
         Off-desk,{' '}
         <span className="text-accent">
-          I jot {total} word(s) of my thoughts
+          I jot {totalWordCount} word(s) of my thoughts
         </span>
         —on life, reflections, and everything in between—
         <span className="text-accent">each one its own chapter...</span>
       </h1>
       <ul className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {notes().map((post) => (
+        {allNotes().map((post) => (
           <li key={post.slug} className="flex items-start gap-2">
             <span className="text-neutral-500">&mdash;</span>
             <NoteItem post={post} />

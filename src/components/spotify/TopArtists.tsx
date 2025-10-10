@@ -126,9 +126,9 @@ export function TopArtists() {
                   <Image
                     src={image}
                     alt={`${name}’s profile picture`}
+                    quality={100}
                     fill
-                    loading="lazy"
-                    sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 256px"
+                    sizes="(max-width: 640px) 20vw"
                     className="animate relative z-10 rounded-sm bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                   />
                 </figure>

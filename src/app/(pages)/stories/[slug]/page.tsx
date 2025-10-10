@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { allStories } from '@/lib/contents';
 import { formatDate } from '@/lib/utils';
-import { stories } from '@/lib/contents';
 import { LikeButton } from '@/components/ui';
 import { Mdx } from '@/components';
 
@@ -10,7 +10,7 @@ export const generateMetadata = async (props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> => {
   const params = await props.params;
-  const post = stories().find((post) => post.slug === params.slug);
+  const post = allStories().find((post) => post.slug === params.slug);
 
   if (!post) {
     return notFound();
@@ -54,7 +54,7 @@ export default async function Story(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-  const post = stories().find((post) => post.slug === params.slug);
+  const post = allStories().find((post) => post.slug === params.slug);
 
   if (!post) {
     return notFound();
@@ -83,8 +83,10 @@ export default async function Story(props: {
           <Image
             src={post.image}
             alt={post.title}
+            quality={100}
             fill
-            priority
+            loading="eager"
+            sizes="(max-width: 768px) 100vw, 672px"
             className="w-full object-cover md:rounded-lg"
           />
           <div className="absolute right-3 bottom-3 z-10">

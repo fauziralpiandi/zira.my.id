@@ -67,29 +67,21 @@ export default async function Note(props: {
   }
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(post.jsonLd),
-        }}
-      />
-      <main>
-        <div className="mb-12 flex flex-col items-start space-y-0.5">
-          <h1 className="text-xl font-bold text-amber-50">{post.title}</h1>
-          <div className="font-display text-accent flex items-center space-x-1.5 text-xs font-light">
-            <time
-              dateTime={post.date}
-              date-absolute={formatDate(post.date).format('dddd, MMM Do, YYYY')}
-              date-relative={`Written ${formatDate(post.date).from()}`}
-              className="before:content-[attr(date-absolute)] hover:before:content-[attr(date-relative)]"
-            />
-            <span className="font-bold">&middot;</span>
-            <span>{post.wordCount} word(s)</span>
-          </div>
+    <main>
+      <div className="mb-12 flex flex-col items-start space-y-0.5">
+        <h1 className="text-xl font-bold text-amber-50">{post.title}</h1>
+        <div className="font-display text-accent flex items-center space-x-1.5 text-xs font-light">
+          <time
+            dateTime={post.date}
+            date-absolute={formatDate(post.date).format('dddd, MMM Do, YYYY')}
+            date-relative={`Written ${formatDate(post.date).from()}`}
+            className="before:content-[attr(date-absolute)] hover:before:content-[attr(date-relative)]"
+          />
+          <span className="font-bold">&middot;</span>
+          <span>{post.wordCount} word(s)</span>
         </div>
-        <Mdx code={post.body.code} />
-      </main>
-    </>
+      </div>
+      <Mdx code={post.body.code} />
+    </main>
   );
 }

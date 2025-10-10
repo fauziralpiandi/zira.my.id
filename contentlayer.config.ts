@@ -33,10 +33,6 @@ const notes = defineDocumentType(() => ({
       type: 'number',
       resolve: (doc) => readingStats(doc.body.raw, 'word'),
     },
-    jsonLd: {
-      type: 'json',
-      resolve: generateJsonLd,
-    },
   },
 }));
 

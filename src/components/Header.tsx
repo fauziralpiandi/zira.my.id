@@ -45,7 +45,7 @@ export function Header() {
           height="24"
           width="24"
         >
-          <g transform="rotate(90, 16, 16)">
+          <g transform="rotate(45, 16, 16)">
             <path
               fill="#f7efd1"
               stroke="#f7efd1"

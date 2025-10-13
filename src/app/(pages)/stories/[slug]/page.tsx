@@ -83,7 +83,7 @@ export default async function Story(props: {
             alt={post.title}
             quality={100}
             fill
-            loading="eager"
+            preload
             sizes="(max-width: 768px) 100vw, 672px"
             className="w-full object-cover md:rounded-lg"
           />

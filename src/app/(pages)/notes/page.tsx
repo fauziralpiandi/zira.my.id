@@ -7,10 +7,10 @@ const totalWordCount = totalOf(allNotes(), 'wordCount');
 
 export const metadata: Metadata = {
   title: 'Notes',
-  description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
+  description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own little chapter...`,
   openGraph: {
     title: 'Notes',
-    description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
+    description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own little chapter...`,
     url: 'https://zira.my.id/notes',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Notes',
-    description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own chapter.`,
+    description: `Off-desk, I jot ${totalWordCount} word(s) of my thoughts\u2014on life, reflections, and everything in between\u2014each one its own little chapter...`,
     card: 'summary_large_image',
     images: [
       {
@@ -61,7 +61,7 @@ export default function Notes() {
           I jot {totalWordCount} word(s) of my thoughts
         </span>
         —on life, reflections, and everything in between—
-        <span className="text-accent">each one its own chapter...</span>
+        <span className="text-accent">each one its own little chapter...</span>
       </h1>
       <ul className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
         {allNotes().map((post) => (

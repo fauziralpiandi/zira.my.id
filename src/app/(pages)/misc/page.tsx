@@ -4,11 +4,11 @@ import { TopArtists, TopTracks } from '@/components/spotify';
 export const metadata: Metadata = {
   title: 'Misc',
   description:
-    'Chaos lives here\u2014music hits differently, beats hit harder, and yeah... mischievous tastes in the mix. Dive in for your guilty pleasures.',
+    'Chaos lives here\u2014music hits differently, beats hit harder, and yeah... mischievous tastes in the mix. Dive in for your guilty pleasures!',
   openGraph: {
     title: 'Misc',
     description:
-      'Chaos lives here\u2014music hits differently, beats hit harder, and yeah... mischievous tastes in the mix. Dive in for your guilty pleasures.',
+      'Chaos lives here\u2014music hits differently, beats hit harder, and yeah... mischievous tastes in the mix. Dive in for your guilty pleasures!',
     url: 'https://zira.my.id/misc',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     title: 'Misc',
     description:
-      'Chaos lives here\u2014music hits differently, beats hit harder, and yeah... mischievous tastes in the mix. Dive in for your guilty pleasures.',
+      'Chaos lives here\u2014music hits differently, beats hit harder, and yeah... mischievous tastes in the mix. Dive in for your guilty pleasures!',
     card: 'summary_large_image',
     images: [
       {

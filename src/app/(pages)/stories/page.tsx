@@ -8,10 +8,10 @@ const totalReadTime = totalOf(allStories(), 'readTime');
 
 export const metadata: Metadata = {
   title: 'Stories',
-  description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+  description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post...`,
   openGraph: {
     title: 'Stories',
-    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post...`,
     url: 'https://zira.my.id/stories',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Stories',
-    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post...`,
     card: 'summary_large_image',
     images: [
       {

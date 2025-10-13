@@ -1,24 +1,29 @@
-import { allNotes, allStories } from 'contentlayer/generated';
+import {
+  type Notes,
+  type Stories,
+  allNotes as notes,
+  allStories as stories,
+} from 'contentlayer/generated';
 
 function totalOf<T>(items: T[], property: keyof T): string {
   return items
-    .reduce((sum, item) => sum + parseInt(String(item[property])), 0)
+    .reduce((sum, item) => sum + Number(item[property]), 0)
     .toLocaleString('en-US');
 }
 
 function sortByDate<T extends { date: string }>(items: T[]): T[] {
-  return items.sort(
+  return [...items].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 }
 
-function sortedNotes() {
-  return sortByDate(allNotes);
+function allNotes(): Notes[] {
+  return sortByDate(notes);
 }
 
-function sortedStories() {
-  return sortByDate(allStories);
+function allStories(): Stories[] {
+  return sortByDate(stories);
 }
 
-export type { Notes, Stories } from 'contentlayer/generated';
-export { sortedNotes as allNotes, sortedStories as allStories, totalOf };
+export type { Notes, Stories };
+export { allNotes, allStories, totalOf };

@@ -1,7 +1,7 @@
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
-import { generateJsonLd, getImage, getSlug, readingStats } from '@/lib/schemas';
+import { generateJsonLd, getImage, getSlug, wordCount } from '@/lib/schemas';
 
 const notes = defineDocumentType(() => ({
   name: 'Notes',
@@ -31,7 +31,7 @@ const notes = defineDocumentType(() => ({
     },
     wordCount: {
       type: 'number',
-      resolve: (doc) => readingStats(doc.body.raw, 'word'),
+      resolve: (doc) => wordCount(doc.body.raw),
     },
   },
 }));
@@ -68,7 +68,7 @@ const stories = defineDocumentType(() => ({
     },
     readTime: {
       type: 'number',
-      resolve: (doc) => readingStats(doc.body.raw, 'minute'),
+      resolve: (doc) => Math.max(1, Math.ceil(wordCount(doc.body.raw) / 225)), // 225 wpm
     },
     jsonLd: {
       type: 'json',

@@ -64,9 +64,7 @@ export default async function Story(props: {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(post.jsonLd),
-        }}
+        dangerouslySetInnerHTML={{ __html: post.jsonLd }}
       />
       <main>
         <time

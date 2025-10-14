@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getAccessToken } from '../auth';
 import { fetchSpotify } from '../fetcher';
 
@@ -87,7 +87,7 @@ export async function GET(): Promise<NextResponse> {
     const result = await getTrackData(accessToken);
 
     return NextResponse.json(
-      { success: true, ...result },
+      { success: true, data: result },
       { status: 200, headers },
     );
   } catch (err) {

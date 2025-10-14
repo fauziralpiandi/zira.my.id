@@ -33,7 +33,9 @@ export function NowPlaying() {
           throw new Error(`HTTP ${res.status}`);
         }
 
-        setTrack(await res.json());
+        const json = await res.json();
+
+        setTrack(json.data);
         setError(false);
       } catch {
         setTrack(null);

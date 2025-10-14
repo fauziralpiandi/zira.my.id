@@ -7,6 +7,7 @@ import { saveCache } from './cache';
 type Track = {
   title: string;
   artist: string;
+  album: string;
   cover: string;
   url: string;
 };
@@ -55,7 +56,11 @@ export function TopTracks() {
 
   if (loading) {
     return (
-      <div className="grid animate-pulse grid-cols-5 gap-1.5">
+      <div
+        role="status"
+        aria-live="polite"
+        className="grid animate-pulse grid-cols-5 gap-1.5"
+      >
         {Array.from({ length: 25 }).map((_, i) => (
           <div
             key={i}
@@ -69,7 +74,7 @@ export function TopTracks() {
 
   if (error) {
     return (
-      <div className="grid grid-cols-5 gap-1.5">
+      <div role="alert" className="grid grid-cols-5 gap-1.5">
         {Array.from({ length: 25 }).map((_, i) => (
           <div
             key={i}
@@ -85,40 +90,42 @@ export function TopTracks() {
     <div className="grid grid-cols-5 gap-1.5">
       {Array.from({ length: 25 }).map((_, i) => {
         if (i < tracks.length) {
-          const { title, artist, cover, url } = tracks[i];
+          const { title, artist, album, cover, url } = tracks[i];
 
           return (
-            <a
-              key={i}
-              href={url}
-              title={`Listen to ${title} \u2014 ${artist} on Spotify`}
-              aria-label={`Listen to ${title} \u2014 ${artist} on Spotify`}
-              rel="noopener noreferrer nofollow"
-              target="_blank"
-            >
-              <figure
-                role="img"
-                aria-label={`${title} \u2014 ${artist}`}
-                className="group relative mx-auto aspect-square w-full rounded-xs"
+            <div key={i}>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                aria-label={`Listen ${title} \u2014 ${artist} on Spotify`}
+                title={`Listen ${title} \u2014 ${artist} on Spotify`}
               >
-                <span className="sr-only">
-                  {title} &mdash; {artist}
-                </span>
-                <Image
-                  src={cover}
-                  alt={`Cover of ${title} by ${artist}`}
-                  quality={100}
-                  fill
-                  sizes="(max-width: 640px) 33vw"
-                  className="animate relative z-10 rounded-xs bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
-                />
-              </figure>
-            </a>
+                <figure
+                  role="img"
+                  aria-label={`${album}\u2019s album cover`}
+                  className="group relative mx-auto aspect-square w-full rounded-xs"
+                >
+                  <span className="sr-only">
+                    {title} &mdash; {artist}
+                  </span>
+                  <Image
+                    src={cover}
+                    alt={`${album}\u2019s album cover`}
+                    fill
+                    quality={100}
+                    sizes="(max-width: 640px) 33vw"
+                    className="animate relative z-10 rounded-xs bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
+                  />
+                </figure>
+              </a>
+            </div>
           );
         } else {
           return (
             <div
               key={i}
+              aria-hidden="true"
               className="group relative aspect-square overflow-hidden rounded-xs"
             >
               <div className="h-full w-full bg-neutral-200/5" />

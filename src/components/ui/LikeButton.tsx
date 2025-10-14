@@ -61,9 +61,16 @@ export function LikeButton({ slug }: { slug: string }) {
 
   if (loading) {
     return (
-      <div className="border-accent/25 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale">
+      <div
+        role="status"
+        aria-label="Loading..."
+        className="border-accent/25 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale"
+      >
         <div className="flex animate-pulse items-center gap-1 rounded-lg px-2 py-1.5">
-          <PiSpinner className="fill-accent h-5 w-5 animate-spin" />
+          <PiSpinner
+            aria-hidden="true"
+            className="fill-accent h-5 w-5 animate-spin"
+          />
         </div>
       </div>
     );
@@ -71,9 +78,13 @@ export function LikeButton({ slug }: { slug: string }) {
 
   if (error) {
     return (
-      <div className="border-red/50 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale">
+      <div
+        role="alert"
+        aria-label="Failed to load like data"
+        className="border-red/50 flex items-center rounded-lg bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale"
+      >
         <div className="flex items-center rounded-lg px-2 py-1.5">
-          <span className="font-display text-sm text-red-500">Error!</span>
+          <span className="font-display text-sm text-red-500">ERROR</span>
         </div>
       </div>
     );
@@ -82,7 +93,7 @@ export function LikeButton({ slug }: { slug: string }) {
   return (
     <button
       onClick={addLike}
-      aria-label={hasLiked ? 'Liked!' : 'Like?'}
+      aria-label={hasLiked ? 'You liked this' : 'Like this post'}
       disabled={hasLiked || loading}
       className={cx(
         'border-accent/25 flex items-center rounded-lg border bg-neutral-950/50 backdrop-blur-sm backdrop-grayscale',
@@ -91,12 +102,12 @@ export function LikeButton({ slug }: { slug: string }) {
     >
       <div className="flex items-center gap-1 rounded-lg px-2 py-1.5">
         {hasLiked ? (
-          <PiHeartFill className="fill-accent h-5 w-5" />
+          <PiHeartFill aria-hidden="true" className="fill-accent h-5 w-5" />
         ) : (
-          <PiHeart className="fill-accent h-5 w-5" />
+          <PiHeart aria-hidden="true" className="fill-accent h-5 w-5" />
         )}
         <span className="font-display text-accent translate-y-[1px]">
-          {count !== null ? count : 0}
+          {count ?? 0}
         </span>
       </div>
     </button>

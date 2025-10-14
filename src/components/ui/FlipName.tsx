@@ -1,6 +1,9 @@
 import { Link } from 'next-view-transitions';
 
 export function FlipName() {
+  const title = 'fwzyrln_';
+  const hoverText = 'home';
+
   return (
     <div className="font-display text-accent font-medium">
       <span className="group relative block overflow-hidden">
@@ -8,23 +11,25 @@ export function FlipName() {
           aria-hidden="true"
           className="animate block whitespace-nowrap group-hover:-translate-y-full"
         >
-          {'fwzyrln_'.split('').map((letter, index) => (
+          {title.split('').map((letter, i) => (
             <span
-              key={index}
+              key={i}
               className="inline-block"
-              style={{ transitionDelay: `${index * 25}ms` }}
+              style={{ transitionDelay: `${i * 25}ms` }}
             >
               {letter === ' ' ? '\u00A0' : letter}
             </span>
           ))}
         </span>
         <span className="animate absolute top-0 left-0 block translate-y-full group-hover:translate-y-0">
-          <Link href="/" title="Home" aria-label="Go to Home">
-            {'home'.split('').map((letter, index) => (
+          <Link href="/" aria-label="Go to homepage" title="Home">
+            <span className="sr-only">Home</span>
+            {hoverText.split('').map((letter, i) => (
               <span
-                key={index}
+                key={i}
+                aria-hidden="true"
                 className="inline-block"
-                style={{ transitionDelay: `${index * 25}ms` }}
+                style={{ transitionDelay: `${i * 25}ms` }}
               >
                 {letter}
               </span>

@@ -81,9 +81,9 @@ export default async function Story(props: {
           <Image
             src={post.image}
             alt={post.title}
-            quality={100}
             fill
             preload
+            quality={100}
             sizes="(max-width: 768px) 100vw, 672px"
             className="w-full object-cover md:rounded-lg"
           />

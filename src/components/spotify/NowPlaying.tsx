@@ -67,7 +67,11 @@ export function NowPlaying() {
 
   if (loading) {
     return (
-      <div className="flex animate-pulse items-center justify-center">
+      <div
+        role="status"
+        aria-live="polite"
+        className="flex animate-pulse items-center justify-center"
+      >
         <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
           <div className="flex items-center justify-center">
             <AudioWave isPlaying={false} aria-label="Loading..." />
@@ -83,12 +87,12 @@ export function NowPlaying() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center">
+      <div role="alert" className="flex items-center justify-center">
         <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
           <div className="flex items-center justify-center">
             <AudioWave
               isPlaying={false}
-              aria-label="Can&rsquo;t connect to Spotify"
+              aria-label="Failed to load now playing"
             />
           </div>
           <div className="flex flex-col space-y-1.5">
@@ -113,8 +117,8 @@ export function NowPlaying() {
               href={url}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              title={`Listen ${title} — ${artist} on Spotify`}
-              aria-label={`Listen ${title} — ${artist} on Spotify`}
+              aria-label={`Listen ${title} \u2014 ${artist} on Spotify`}
+              title={`Listen ${title} \u2014 ${artist} on Spotify`}
             >
               {title}
             </a>

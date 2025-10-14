@@ -54,7 +54,11 @@ export function TopArtists() {
 
   if (loading) {
     return (
-      <div className="grid animate-pulse grid-cols-3 gap-3">
+      <div
+        role="status"
+        aria-live="polite"
+        className="grid animate-pulse grid-cols-3 gap-3"
+      >
         {Array.from({ length: 9 }).map((_, i) => (
           <div
             key={i}
@@ -70,7 +74,7 @@ export function TopArtists() {
 
   if (error) {
     return (
-      <div className="grid grid-cols-3 gap-3">
+      <div role="alert" className="grid grid-cols-3 gap-3">
         {Array.from({ length: 9 }).map((_, i) => (
           <div
             key={i}
@@ -94,22 +98,22 @@ export function TopArtists() {
             <div key={i}>
               <a
                 href={url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
                 title={`Follow ${name} on Spotify`}
                 aria-label={`Follow ${name} on Spotify`}
-                rel="noopener noreferrer nofollow"
-                target="_blank"
               >
                 <figure
                   role="img"
-                  aria-label={`${name}’s profile picture`}
+                  aria-label={`${name}\u2019s profile picture`}
                   className="group relative mx-auto aspect-square w-full rounded-sm"
                 >
                   <span className="sr-only">{name}</span>
                   <Image
                     src={image}
-                    alt={`${name}’s profile picture`}
-                    quality={100}
+                    alt={`${name}\u2019s profile picture`}
                     fill
+                    quality={100}
                     sizes="(max-width: 640px) 20vw"
                     className="animate relative z-10 rounded-sm bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                   />
@@ -121,6 +125,7 @@ export function TopArtists() {
           return (
             <div
               key={i}
+              aria-hidden="true"
               className="group relative aspect-square overflow-hidden rounded-sm"
             >
               <div className="h-full w-full bg-neutral-900" />

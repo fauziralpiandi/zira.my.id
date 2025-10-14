@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 function NoteItem({ post }: { post: Notes }) {
   return (
     <div className="flex flex-col">
-      <Link href={post._raw.flattenedPath}>
+      <Link href={post._raw.flattenedPath} title={post.title}>
         <h2 className="text-lg leading-5 font-medium">{post.title}</h2>
         <span className="sr-only">{post.summary}</span>
         <time dateTime={post.date} className="font-display text-accent text-xs">

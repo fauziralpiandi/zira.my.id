@@ -14,8 +14,8 @@ export default function Home() {
           </p>
           <a
             href="https://github.com/fauziralpiandi"
-            rel="noopener noreferrer"
             target="_blank"
+            rel="noopener noreferrer nofollow"
             title="GitHub profile"
             aria-label="GitHub profile"
             className="font-display text-accent mt-2 font-medium"

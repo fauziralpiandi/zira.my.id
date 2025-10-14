@@ -10,13 +10,14 @@ function DesktopNav({
 }) {
   return (
     <nav
-      className="hidden items-center space-x-6 md:flex"
       aria-label="Main navigation"
+      className="hidden items-center space-x-6 md:flex"
     >
       {Object.entries(navItems).map(([path, { name }]) => (
         <Link
           key={path}
           href={path}
+          title={name}
           aria-current={pathname === path ? 'page' : undefined}
           className={cx(
             'font-display text-accent font-medium',
@@ -43,6 +44,7 @@ function MobileNav({
 }) {
   return (
     <nav
+      aria-label="Main navigation"
       aria-hidden={!isOpen}
       className={cx(
         'animate fixed inset-0 right-0 z-20 flex flex-col items-center justify-center bg-neutral-950/80 backdrop-blur-3xl backdrop-grayscale md:hidden',
@@ -51,11 +53,11 @@ function MobileNav({
     >
       {Object.entries(navItems).map(([path, { name }]) => (
         <Link
+          onClick={closeNav}
           key={path}
           href={path}
           title={name}
           aria-current={pathname === path ? 'page' : undefined}
-          onClick={closeNav}
           className={cx(
             'font-display text-accent py-2 text-5xl font-medium',
             pathname === path ? 'opacity-50' : '',
@@ -69,16 +71,15 @@ function MobileNav({
           <p className="font-display text-sm text-neutral-400">
             &copy; {new Date().getFullYear()} Fauzira Alpiandi
           </p>
-          <span className="mx-1.5 text-neutral-500">/</span>
+          <span className="mx-1.5 text-neutral-500">&#x2F;</span>
           <a
             download
             href="/zira.my.id_tnc.md"
             title="Terms & Conditions"
-            aria-label="Terms & Conditions"
             className="font-display text-accent text-right text-sm font-medium"
           >
             TnC
-            <span className="sr-only">Terms & Conditions</span>
+            <span className="sr-only">Terms &amp; Conditions</span>
           </a>
         </div>
       </aside>

@@ -44,14 +44,15 @@ function StoryCard({ post }: { post: Stories }) {
     <div className="group h-full overflow-hidden">
       <Link
         href={post._raw.flattenedPath}
+        title={post.title}
         className="flex h-full flex-col rounded"
       >
         <figure className="relative aspect-16/9 overflow-hidden rounded border border-neutral-900 bg-neutral-900">
           <Image
             src={post.image}
             alt={post.title}
-            quality={100}
             fill
+            quality={100}
             sizes="(max-width: 640px) 100vw, 50vw"
             className="animate object-cover group-hover:scale-105"
           />

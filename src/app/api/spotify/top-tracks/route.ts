@@ -69,7 +69,7 @@ export async function GET(): Promise<NextResponse> {
     const result = await getTopTracks(accessToken);
 
     return NextResponse.json(
-      { success: true, ...result },
+      { success: true, result: result },
       { status: 200, headers },
     );
   } catch (err) {

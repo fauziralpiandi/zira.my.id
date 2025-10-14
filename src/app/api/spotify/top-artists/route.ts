@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getAccessToken } from '../auth';
 import { fetchSpotify } from '../fetcher';
 
@@ -66,7 +66,7 @@ export async function GET(): Promise<NextResponse> {
     const result = await getTopArtists(accessToken);
 
     return NextResponse.json(
-      { success: true, result },
+      { success: true, ...result },
       { status: 200, headers },
     );
   } catch (err) {

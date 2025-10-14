@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getAccessToken } from '../auth';
 import { fetchSpotify } from '../fetcher';
 
@@ -14,7 +14,7 @@ const headers = {
 type Track = {
   name: string;
   artists: Array<{ name: string }>;
-  album: { images: Array<{ url: string }> };
+  album: { name: string; images: Array<{ url: string }> };
   external_urls: { spotify: string };
 };
 
@@ -25,6 +25,7 @@ type SpotifyResponse = {
 type TopTracks = {
   title: string;
   artist: string;
+  album: string;
   cover: string;
   url: string;
 };
@@ -37,6 +38,7 @@ async function getTopTracks(accessToken: string): Promise<TopTracks[]> {
         track.name &&
         track.artists?.length > 0 &&
         track.album?.images?.length > 0 &&
+        track.album?.name &&
         track.external_urls?.spotify,
     ) || [];
 
@@ -47,6 +49,7 @@ async function getTopTracks(accessToken: string): Promise<TopTracks[]> {
   return tracks.map((track) => ({
     title: track.name,
     artist: track.artists.map((a) => a.name).join(', '),
+    album: track.album.name,
     cover: track.album.images[0]?.url || '',
     url: track.external_urls.spotify,
   }));
@@ -66,7 +69,7 @@ export async function GET(): Promise<NextResponse> {
     const result = await getTopTracks(accessToken);
 
     return NextResponse.json(
-      { success: true, result },
+      { success: true, ...result },
       { status: 200, headers },
     );
   } catch (err) {

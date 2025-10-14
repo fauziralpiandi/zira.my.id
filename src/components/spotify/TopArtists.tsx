@@ -13,47 +13,35 @@ type Artist = {
 export function TopArtists() {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchArtists = async () => {
+      setLoading(true);
+
       try {
         const data = await saveCache<Artist[]>(
           'top_artists',
-          7 * 24 * 60 * 60 * 1e3,
-
+          7 * 24 * 60 * 60 * 1e3, // weekly
           async () => {
             const res = await fetch('/api/spotify/top-artists', {
               signal: controller.signal,
-              headers: { 'Content-Type': 'application/json' },
-              cache: 'no-store',
             });
 
             if (!res.ok) {
               throw new Error(`HTTP ${res.status}`);
             }
 
-            return await res.json();
+            return res.json();
           },
         );
 
-        if (!Array.isArray(data)) {
-          throw new Error('Invalid data format');
-        }
-
-        setArtists(data);
-        setError(null);
-      } catch (error) {
-        const e = error instanceof Error ? error.message : 'Unknown error';
-
-        setError(
-          e.includes('Failed to fetch')
-            ? 'Failed to connect to Spotify'
-            : e.includes('HTTP') || e.includes('Invalid')
-              ? 'Invalid response'
-              : 'Unknown error',
-        );
+        setArtists(Array.isArray(data) ? data : []);
+        setError(false);
+      } catch {
+        setArtists([]);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -67,12 +55,9 @@ export function TopArtists() {
   if (loading) {
     return (
       <div className="grid animate-pulse grid-cols-3 gap-3">
-        <span className="sr-only" aria-live="polite" role="status">
-          Loading...
-        </span>
-        {Array.from({ length: 9 }).map((_, index) => (
+        {Array.from({ length: 9 }).map((_, i) => (
           <div
-            key={index}
+            key={i}
             aria-hidden="true"
             className="group relative aspect-square overflow-hidden rounded-sm"
           >
@@ -86,12 +71,9 @@ export function TopArtists() {
   if (error) {
     return (
       <div className="grid grid-cols-3 gap-3">
-        <span className="sr-only" role="alert">
-          Error: {error}
-        </span>
-        {Array.from({ length: 9 }).map((_, index) => (
+        {Array.from({ length: 9 }).map((_, i) => (
           <div
-            key={index}
+            key={i}
             aria-hidden="true"
             className="group relative aspect-square overflow-hidden rounded-sm"
           >
@@ -104,12 +86,12 @@ export function TopArtists() {
 
   return (
     <div className="grid grid-cols-3 gap-3">
-      {Array.from({ length: 9 }).map((_, index) => {
-        if (index < artists.length) {
-          const { name, image, url } = artists[index];
+      {Array.from({ length: 9 }).map((_, i) => {
+        if (i < artists.length) {
+          const { name, image, url } = artists[i];
 
           return (
-            <div key={index}>
+            <div key={i}>
               <a
                 href={url}
                 title={`Follow ${name} on Spotify`}
@@ -138,7 +120,7 @@ export function TopArtists() {
         } else {
           return (
             <div
-              key={index}
+              key={i}
               className="group relative aspect-square overflow-hidden rounded-sm"
             >
               <div className="h-full w-full bg-neutral-900" />

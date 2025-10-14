@@ -38,7 +38,6 @@ export async function getAccessToken(): Promise<string> {
     headers: {
       Authorization: `Basic ${getBasicToken()}`,
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Cache-Control': 'no-cache',
     },
     body: new URLSearchParams({
       grant_type: 'refresh_token',

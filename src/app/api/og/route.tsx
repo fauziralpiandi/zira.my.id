@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
     return new ImageResponse(
       (
@@ -20,7 +20,7 @@ export async function GET() {
             width="500"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g transform="translate(4, 4) rotate(45, 16, 16)">
+            <g transform="translate(4, 4) rotate(90, 16, 16)">
               <path
                 fill="#f7efd1"
                 stroke="#f7efd1"
@@ -36,9 +36,9 @@ export async function GET() {
         height: 630,
       },
     );
-  } catch (error) {
-    return new Response(`Failed to generate Open Graph image: ${error}`, {
-      status: 500,
-    });
+  } catch (err) {
+    console.error('GET /og:', err);
+
+    return new Response('Internal Server Error', { status: 500 });
   }
 }

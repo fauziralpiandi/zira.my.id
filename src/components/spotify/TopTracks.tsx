@@ -14,47 +14,35 @@ type Track = {
 export function TopTracks() {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchTracks = async () => {
+      setLoading(true);
+
       try {
         const data = await saveCache<Track[]>(
           'top_tracks',
-          24 * 60 * 60 * 1e3,
-
+          24 * 60 * 60 * 1e3, // daily
           async () => {
             const res = await fetch('/api/spotify/top-tracks', {
               signal: controller.signal,
-              headers: { 'Content-Type': 'application/json' },
-              cache: 'no-store',
             });
 
             if (!res.ok) {
               throw new Error(`HTTP ${res.status}`);
             }
 
-            return await res.json();
+            return res.json();
           },
         );
 
-        if (!Array.isArray(data)) {
-          throw new Error('Invalid data format');
-        }
-
-        setTracks(data);
-        setError(null);
-      } catch (error) {
-        const e = error instanceof Error ? error.message : 'Unknown error';
-
-        setError(
-          e.includes('Failed to fetch')
-            ? 'Failed to connect to Spotify'
-            : e.includes('HTTP') || e.includes('Invalid')
-              ? 'Invalid response'
-              : 'Unknown error',
-        );
+        setTracks(Array.isArray(data) ? data : []);
+        setError(false);
+      } catch {
+        setTracks([]);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -68,12 +56,9 @@ export function TopTracks() {
   if (loading) {
     return (
       <div className="grid animate-pulse grid-cols-5 gap-1.5">
-        <span className="sr-only" aria-live="polite" role="status">
-          Loading...
-        </span>
-        {Array.from({ length: 25 }).map((_, index) => (
+        {Array.from({ length: 25 }).map((_, i) => (
           <div
-            key={index}
+            key={i}
             aria-hidden="true"
             className="aspect-square h-full w-full rounded-xs bg-neutral-900"
           />
@@ -85,12 +70,9 @@ export function TopTracks() {
   if (error) {
     return (
       <div className="grid grid-cols-5 gap-1.5">
-        <span className="sr-only" role="alert">
-          Error: {error}
-        </span>
-        {Array.from({ length: 25 }).map((_, index) => (
+        {Array.from({ length: 25 }).map((_, i) => (
           <div
-            key={index}
+            key={i}
             aria-hidden="true"
             className="aspect-square h-full w-full rounded-xs bg-neutral-900/50"
           />
@@ -101,13 +83,13 @@ export function TopTracks() {
 
   return (
     <div className="grid grid-cols-5 gap-1.5">
-      {Array.from({ length: 25 }).map((_, index) => {
-        if (index < tracks.length) {
-          const { title, artist, cover, url } = tracks[index];
+      {Array.from({ length: 25 }).map((_, i) => {
+        if (i < tracks.length) {
+          const { title, artist, cover, url } = tracks[i];
 
           return (
             <a
-              key={index}
+              key={i}
               href={url}
               title={`Listen to ${title} \u2014 ${artist} on Spotify`}
               aria-label={`Listen to ${title} \u2014 ${artist} on Spotify`}
@@ -136,7 +118,7 @@ export function TopTracks() {
         } else {
           return (
             <div
-              key={index}
+              key={i}
               className="group relative aspect-square overflow-hidden rounded-xs"
             >
               <div className="h-full w-full bg-neutral-200/5" />

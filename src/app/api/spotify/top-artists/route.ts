@@ -66,7 +66,7 @@ export async function GET(): Promise<NextResponse> {
     const result = await getTopArtists(accessToken);
 
     return NextResponse.json(
-      { success: true, result: result },
+      { success: true, data: result },
       { status: 200, headers },
     );
   } catch (err) {

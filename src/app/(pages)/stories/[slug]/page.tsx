@@ -64,9 +64,7 @@ export default async function Story(props: {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(post.jsonLd),
-        }}
+        dangerouslySetInnerHTML={{ __html: post.jsonLd }}
       />
       <main>
         <time
@@ -83,9 +81,9 @@ export default async function Story(props: {
           <Image
             src={post.image}
             alt={post.title}
-            quality={100}
             fill
-            loading="eager"
+            preload
+            quality={100}
             sizes="(max-width: 768px) 100vw, 672px"
             className="w-full object-cover md:rounded-lg"
           />

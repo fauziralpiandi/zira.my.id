@@ -45,7 +45,7 @@ export function Header() {
           height="24"
           width="24"
         >
-          <g transform="rotate(90, 16, 16)">
+          <g transform="rotate(45, 16, 16)">
             <path
               fill="#f7efd1"
               stroke="#f7efd1"
@@ -58,8 +58,8 @@ export function Header() {
       </div>
       <button
         onClick={toggleNav}
+        aria-label="Toggle navigation menu"
         className="text-accent z-30 -mr-1 md:hidden"
-        aria-label="Toggle navigation"
       >
         {isOpen ? <LuX size={22} /> : <LuMenu size={22} />}
       </button>

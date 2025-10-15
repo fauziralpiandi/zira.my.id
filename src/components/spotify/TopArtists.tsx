@@ -13,47 +13,37 @@ type Artist = {
 export function TopArtists() {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchArtists = async () => {
+      setLoading(true);
+
       try {
         const data = await saveCache<Artist[]>(
           'top_artists',
-          7 * 24 * 60 * 60 * 1e3,
-
+          7 * 24 * 60 * 60 * 1e3, // weekly
           async () => {
             const res = await fetch('/api/spotify/top-artists', {
               signal: controller.signal,
-              headers: { 'Content-Type': 'application/json' },
-              cache: 'no-store',
             });
 
             if (!res.ok) {
               throw new Error(`HTTP ${res.status}`);
             }
 
-            return await res.json();
+            const json = await res.json();
+
+            return json.data;
           },
         );
 
-        if (!Array.isArray(data)) {
-          throw new Error('Invalid data format');
-        }
-
-        setArtists(data);
-        setError(null);
-      } catch (error) {
-        const e = error instanceof Error ? error.message : 'Unknown error';
-
-        setError(
-          e.includes('Failed to fetch')
-            ? 'Failed to connect to Spotify'
-            : e.includes('HTTP') || e.includes('Invalid')
-              ? 'Invalid response'
-              : 'Unknown error',
-        );
+        setArtists(Array.isArray(data) ? data : []);
+        setError(false);
+      } catch {
+        setArtists([]);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -66,13 +56,14 @@ export function TopArtists() {
 
   if (loading) {
     return (
-      <div className="grid animate-pulse grid-cols-3 gap-3">
-        <span className="sr-only" aria-live="polite" role="status">
-          Loading...
-        </span>
-        {Array.from({ length: 9 }).map((_, index) => (
+      <div
+        role="status"
+        aria-live="polite"
+        className="grid animate-pulse grid-cols-3 gap-3"
+      >
+        {Array.from({ length: 9 }).map((_, i) => (
           <div
-            key={index}
+            key={i}
             aria-hidden="true"
             className="group relative aspect-square overflow-hidden rounded-sm"
           >
@@ -85,13 +76,10 @@ export function TopArtists() {
 
   if (error) {
     return (
-      <div className="grid grid-cols-3 gap-3">
-        <span className="sr-only" role="alert">
-          Error: {error}
-        </span>
-        {Array.from({ length: 9 }).map((_, index) => (
+      <div role="alert" className="grid grid-cols-3 gap-3">
+        {Array.from({ length: 9 }).map((_, i) => (
           <div
-            key={index}
+            key={i}
             aria-hidden="true"
             className="group relative aspect-square overflow-hidden rounded-sm"
           >
@@ -104,30 +92,30 @@ export function TopArtists() {
 
   return (
     <div className="grid grid-cols-3 gap-3">
-      {Array.from({ length: 9 }).map((_, index) => {
-        if (index < artists.length) {
-          const { name, image, url } = artists[index];
+      {Array.from({ length: 9 }).map((_, i) => {
+        if (i < artists.length) {
+          const { name, image, url } = artists[i];
 
           return (
-            <div key={index}>
+            <div key={i}>
               <a
                 href={url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
                 title={`Follow ${name} on Spotify`}
                 aria-label={`Follow ${name} on Spotify`}
-                rel="noopener noreferrer nofollow"
-                target="_blank"
               >
                 <figure
                   role="img"
-                  aria-label={`${name}’s profile picture`}
+                  aria-label={`${name}\u2019s profile picture`}
                   className="group relative mx-auto aspect-square w-full rounded-sm"
                 >
                   <span className="sr-only">{name}</span>
                   <Image
                     src={image}
-                    alt={`${name}’s profile picture`}
-                    quality={100}
+                    alt={`${name}\u2019s profile picture`}
                     fill
+                    quality={100}
                     sizes="(max-width: 640px) 20vw"
                     className="animate relative z-10 rounded-sm bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
                   />
@@ -138,7 +126,8 @@ export function TopArtists() {
         } else {
           return (
             <div
-              key={index}
+              key={i}
+              aria-hidden="true"
               className="group relative aspect-square overflow-hidden rounded-sm"
             >
               <div className="h-full w-full bg-neutral-900" />

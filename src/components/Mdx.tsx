@@ -32,7 +32,6 @@ function MdxLink({
         target="_blank"
         rel="noopener noreferrer nofollow"
         title={`Visit external link (${href})`}
-        aria-label={`Visit external link (${href})`}
         className={className}
         {...props}
       >
@@ -50,7 +49,6 @@ function MdxLink({
       passHref
       href={href}
       title={`Navigate to (${href})`}
-      aria-label={`Navigate to (${href})`}
       className={className}
       {...props}
     >
@@ -87,8 +85,8 @@ function MdxPreCode({
     <pre ref={preRef} {...restProps} tabIndex={0} className="group relative">
       <button
         onClick={handleCopy}
+        aria-label="Copy code to clipboard"
         className="animate absolute top-2.5 right-2 opacity-0 group-focus-within:opacity-100"
-        aria-label="Copy to clipboard"
       >
         <span
           className={cx(

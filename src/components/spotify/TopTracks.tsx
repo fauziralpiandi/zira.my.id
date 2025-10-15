@@ -7,6 +7,7 @@ import { saveCache } from './cache';
 type Track = {
   title: string;
   artist: string;
+  album: string;
   cover: string;
   url: string;
 };
@@ -14,47 +15,37 @@ type Track = {
 export function TopTracks() {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchTracks = async () => {
+      setLoading(true);
+
       try {
         const data = await saveCache<Track[]>(
           'top_tracks',
-          24 * 60 * 60 * 1e3,
-
+          24 * 60 * 60 * 1e3, // daily
           async () => {
             const res = await fetch('/api/spotify/top-tracks', {
               signal: controller.signal,
-              headers: { 'Content-Type': 'application/json' },
-              cache: 'no-store',
             });
 
             if (!res.ok) {
               throw new Error(`HTTP ${res.status}`);
             }
 
-            return await res.json();
+            const json = await res.json();
+
+            return json.data;
           },
         );
 
-        if (!Array.isArray(data)) {
-          throw new Error('Invalid data format');
-        }
-
-        setTracks(data);
-        setError(null);
-      } catch (error) {
-        const e = error instanceof Error ? error.message : 'Unknown error';
-
-        setError(
-          e.includes('Failed to fetch')
-            ? 'Failed to connect to Spotify'
-            : e.includes('HTTP') || e.includes('Invalid')
-              ? 'Invalid response'
-              : 'Unknown error',
-        );
+        setTracks(Array.isArray(data) ? data : []);
+        setError(false);
+      } catch {
+        setTracks([]);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -67,13 +58,14 @@ export function TopTracks() {
 
   if (loading) {
     return (
-      <div className="grid animate-pulse grid-cols-5 gap-1.5">
-        <span className="sr-only" aria-live="polite" role="status">
-          Loading...
-        </span>
-        {Array.from({ length: 25 }).map((_, index) => (
+      <div
+        role="status"
+        aria-live="polite"
+        className="grid animate-pulse grid-cols-5 gap-1.5"
+      >
+        {Array.from({ length: 25 }).map((_, i) => (
           <div
-            key={index}
+            key={i}
             aria-hidden="true"
             className="aspect-square h-full w-full rounded-xs bg-neutral-900"
           />
@@ -84,13 +76,10 @@ export function TopTracks() {
 
   if (error) {
     return (
-      <div className="grid grid-cols-5 gap-1.5">
-        <span className="sr-only" role="alert">
-          Error: {error}
-        </span>
-        {Array.from({ length: 25 }).map((_, index) => (
+      <div role="alert" className="grid grid-cols-5 gap-1.5">
+        {Array.from({ length: 25 }).map((_, i) => (
           <div
-            key={index}
+            key={i}
             aria-hidden="true"
             className="aspect-square h-full w-full rounded-xs bg-neutral-900/50"
           />
@@ -101,42 +90,44 @@ export function TopTracks() {
 
   return (
     <div className="grid grid-cols-5 gap-1.5">
-      {Array.from({ length: 25 }).map((_, index) => {
-        if (index < tracks.length) {
-          const { title, artist, cover, url } = tracks[index];
+      {Array.from({ length: 25 }).map((_, i) => {
+        if (i < tracks.length) {
+          const { title, artist, album, cover, url } = tracks[i];
 
           return (
-            <a
-              key={index}
-              href={url}
-              title={`Listen to ${title} \u2014 ${artist} on Spotify`}
-              aria-label={`Listen to ${title} \u2014 ${artist} on Spotify`}
-              rel="noopener noreferrer nofollow"
-              target="_blank"
-            >
-              <figure
-                role="img"
-                aria-label={`${title} \u2014 ${artist}`}
-                className="group relative mx-auto aspect-square w-full rounded-xs"
+            <div key={i}>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                aria-label={`Listen ${title} \u2014 ${artist} on Spotify`}
+                title={`Listen ${title} \u2014 ${artist} on Spotify`}
               >
-                <span className="sr-only">
-                  {title} &mdash; {artist}
-                </span>
-                <Image
-                  src={cover}
-                  alt={`Cover of ${title} by ${artist}`}
-                  quality={100}
-                  fill
-                  sizes="(max-width: 640px) 33vw"
-                  className="animate relative z-10 rounded-xs bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
-                />
-              </figure>
-            </a>
+                <figure
+                  role="img"
+                  aria-label={`${album}\u2019s album cover`}
+                  className="group relative mx-auto aspect-square w-full rounded-xs"
+                >
+                  <span className="sr-only">
+                    {title} &mdash; {artist}
+                  </span>
+                  <Image
+                    src={cover}
+                    alt={`${album}\u2019s album cover`}
+                    fill
+                    quality={100}
+                    sizes="(max-width: 640px) 33vw"
+                    className="animate relative z-10 rounded-xs bg-neutral-900 object-cover grayscale group-hover:grayscale-0"
+                  />
+                </figure>
+              </a>
+            </div>
           );
         } else {
           return (
             <div
-              key={index}
+              key={i}
+              aria-hidden="true"
               className="group relative aspect-square overflow-hidden rounded-xs"
             >
               <div className="h-full w-full bg-neutral-200/5" />

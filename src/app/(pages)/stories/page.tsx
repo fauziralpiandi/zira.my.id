@@ -8,10 +8,10 @@ const totalReadTime = totalOf(allStories(), 'readTime');
 
 export const metadata: Metadata = {
   title: 'Stories',
-  description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+  description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post...`,
   openGraph: {
     title: 'Stories',
-    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post...`,
     url: 'https://zira.my.id/stories',
     siteName: 'Fauzira Alpiandi',
     type: 'website',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'Stories',
-    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post.`,
+    description: `${totalReadTime} min(s) of crafted experiences, learnings, and explorations\u2014longer reads on topics, ideas, and more, a story in every post...`,
     card: 'summary_large_image',
     images: [
       {
@@ -44,14 +44,15 @@ function StoryCard({ post }: { post: Stories }) {
     <div className="group h-full overflow-hidden">
       <Link
         href={post._raw.flattenedPath}
+        title={post.title}
         className="flex h-full flex-col rounded"
       >
         <figure className="relative aspect-16/9 overflow-hidden rounded border border-neutral-900 bg-neutral-900">
           <Image
             src={post.image}
             alt={post.title}
-            quality={100}
             fill
+            quality={100}
             sizes="(max-width: 640px) 100vw, 50vw"
             className="animate object-cover group-hover:scale-105"
           />

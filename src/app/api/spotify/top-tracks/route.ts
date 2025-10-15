@@ -5,32 +5,40 @@ import { fetchSpotify } from '../fetcher';
 const TOP_TRACKS_URL =
   'https://api.spotify.com/v1/me/top/tracks?limit=25&time_range=short_term';
 
+const headers = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Cache-Control': 'no-store',
+};
+
 type Track = {
   name: string;
   artists: Array<{ name: string }>;
-  album: { images: Array<{ url: string }> };
+  album: { name: string; images: Array<{ url: string }> };
   external_urls: { spotify: string };
 };
 
-type Response = {
+type SpotifyResponse = {
   items: Track[];
 };
 
 type TopTracks = {
   title: string;
   artist: string;
+  album: string;
   cover: string;
   url: string;
 };
 
 async function getTopTracks(accessToken: string): Promise<TopTracks[]> {
-  const data = await fetchSpotify<Response>(TOP_TRACKS_URL, accessToken);
+  const data = await fetchSpotify<SpotifyResponse>(TOP_TRACKS_URL, accessToken);
   const tracks =
     data.items?.filter(
       (track) =>
         track.name &&
         track.artists?.length > 0 &&
         track.album?.images?.length > 0 &&
+        track.album?.name &&
         track.external_urls?.spotify,
     ) || [];
 
@@ -40,32 +48,36 @@ async function getTopTracks(accessToken: string): Promise<TopTracks[]> {
 
   return tracks.map((track) => ({
     title: track.name,
-    artist: track.artists.map((artist) => artist.name).join(', '),
+    artist: track.artists.map((a) => a.name).join(', '),
+    album: track.album.name,
     cover: track.album.images[0]?.url || '',
     url: track.external_urls.spotify,
   }));
 }
 
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   try {
     const accessToken = await getAccessToken();
 
     if (!accessToken) {
       return NextResponse.json(
-        { error: 'Access token is required', success: false },
-        { status: 400 },
+        { success: false, error: 'Unauthorized' },
+        { status: 401, headers },
       );
     }
 
-    const tracks = await getTopTracks(accessToken);
+    const result = await getTopTracks(accessToken);
 
-    return NextResponse.json(tracks, {
-      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
-    });
-  } catch (error) {
-    const e = error instanceof Error ? error.message : 'Unknown error';
-    const status = e.includes('Invalid') || e.includes('No valid') ? 400 : 500;
+    return NextResponse.json(
+      { success: true, data: result },
+      { status: 200, headers },
+    );
+  } catch (err) {
+    console.error('GET /spotify/top-tracks:', err);
 
-    return NextResponse.json({ error: e, success: false }, { status });
+    return NextResponse.json(
+      { success: false, error: (err as Error).message },
+      { status: 500, headers },
+    );
   }
 }

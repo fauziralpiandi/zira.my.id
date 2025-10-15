@@ -71,7 +71,11 @@ export default function RootLayout({
             'font-body bg-neutral-950 text-neutral-50 antialiased',
           )}
         >
-          <svg className="pointer-events-none fixed isolate z-50 h-full w-full mix-blend-soft-light">
+          <svg
+            focusable="false"
+            aria-hidden="true"
+            className="pointer-events-none fixed isolate z-50 h-full w-full mix-blend-soft-light"
+          >
             <filter id="noise">
               <feTurbulence
                 type="fractalNoise"

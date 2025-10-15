@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AudioWave } from '@/components/ui';
 
 type NowPlaying = {
@@ -13,43 +13,38 @@ type NowPlaying = {
 export function NowPlaying() {
   const [track, setTrack] = useState<NowPlaying | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const controllerRef = useRef<AbortController | null>(null);
-  const fetchData = useCallback(async () => {
-    controllerRef.current?.abort();
-    controllerRef.current = new AbortController();
-
-    try {
-      setLoading(true);
-
-      const res = await fetch('/api/spotify/now-playing', {
-        signal: controllerRef.current.signal,
-        headers: { 'Content-Type': 'application/json' },
-        cache: 'no-store',
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
-
-      setTrack(await res.json());
-      setError(null);
-    } catch (error) {
-      const e = error instanceof Error ? error.message : 'Unknown error';
-
-      setError(
-        e.includes('Failed to fetch')
-          ? 'Failed to connect to Spotify'
-          : e.includes('HTTP') || e.includes('Empty')
-            ? 'Invalid response'
-            : 'Unknown error',
-      );
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
+    let controller = new AbortController();
+
+    const fetchData = async () => {
+      controller.abort();
+      controller = new AbortController();
+
+      setLoading(true);
+
+      try {
+        const res = await fetch('/api/spotify/now-playing', {
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        const json = await res.json();
+
+        setTrack(json.data);
+        setError(false);
+      } catch {
+        setTrack(null);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchData();
 
     if (process.env.NODE_ENV === 'production') {
@@ -58,23 +53,27 @@ export function NowPlaying() {
       return () => {
         clearInterval(interval);
 
-        controllerRef.current?.abort();
+        controller.abort();
       };
     }
 
-    return () => controllerRef.current?.abort();
-  }, [fetchData]);
+    return () => controller.abort();
+  }, []);
 
   const { title, artist, url, isPlaying } = track ?? {
     title: 'Unknown',
     artist: 'Unknown',
-    url: '#',
+    url: 'https://open.spotify.com',
     isPlaying: false,
   };
 
   if (loading) {
     return (
-      <div className="flex animate-pulse items-center justify-center">
+      <div
+        role="status"
+        aria-live="polite"
+        className="flex animate-pulse items-center justify-center"
+      >
         <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
           <div className="flex items-center justify-center">
             <AudioWave isPlaying={false} aria-label="Loading..." />
@@ -90,12 +89,12 @@ export function NowPlaying() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center">
+      <div role="alert" className="flex items-center justify-center">
         <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
           <div className="flex items-center justify-center">
             <AudioWave
               isPlaying={false}
-              aria-label="Can&rsquo;t connect to Spotify"
+              aria-label="Failed to load now playing"
             />
           </div>
           <div className="flex flex-col space-y-1.5">
@@ -120,8 +119,8 @@ export function NowPlaying() {
               href={url}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              title={`Listen ${title} — ${artist} on Spotify`}
-              aria-label={`Listen ${title} — ${artist} on Spotify`}
+              aria-label={`Listen ${title} \u2014 ${artist} on Spotify`}
+              title={`Listen ${title} \u2014 ${artist} on Spotify`}
             >
               {title}
             </a>

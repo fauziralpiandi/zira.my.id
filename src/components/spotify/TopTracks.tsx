@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { saveCache } from './cache';
+import { saveCache } from '@/lib/cache';
 
 type Track = {
   title: string;
@@ -24,8 +24,9 @@ export function TopTracks() {
 
       try {
         const data = await saveCache<Track[]>(
+          'spotify',
           'top_tracks',
-          24 * 60 * 60 * 1e3, // daily
+          86400, // daily
           async () => {
             const res = await fetch('/api/spotify/top-tracks', {
               signal: controller.signal,

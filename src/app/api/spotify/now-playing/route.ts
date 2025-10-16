@@ -1,29 +1,16 @@
 import { NextResponse } from 'next/server';
-import { getAccessToken } from '../auth';
-import { fetchSpotify } from '../fetcher';
+import { getAccessToken, fetchSpotify } from '../handler';
 
-const NOW_PLAYING_URL =
+const CURRENTLY_PLAYING_URL =
   'https://api.spotify.com/v1/me/player/currently-playing';
 const RECENTLY_PLAYED_URL =
   'https://api.spotify.com/v1/me/player/recently-played?limit=1';
-
-const headers = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  'Cache-Control': 'no-store',
-};
+const HEADERS = { 'Cache-Control': 'no-store' };
 
 type Track = {
   name: string;
-  album: { artists: Array<{ name: string }> };
+  album: { artists: { name: string }[] };
   external_urls: { spotify: string };
-};
-
-type SpotifyResponse = {
-  is_playing?: boolean;
-  currently_playing_type?: string;
-  item?: Track | null;
-  items?: Array<{ track: Track }>;
 };
 
 type NowPlaying = {
@@ -33,69 +20,65 @@ type NowPlaying = {
   isPlaying: boolean;
 };
 
-function formatTrack(data: SpotifyResponse): NowPlaying {
-  const track = data.item ?? data.items?.[0]?.track;
+const formatTrack = (track: Track, isPlaying: boolean): NowPlaying => ({
+  title: track.name,
+  artist: track.album.artists.map((artist) => artist.name).join(', '),
+  url: track.external_urls.spotify,
+  isPlaying,
+});
 
-  if (
-    !track?.name ||
-    !track.album?.artists?.length ||
-    !track.external_urls?.spotify
-  ) {
-    throw new Error('Invalid track data');
+const getTrackData = async (token: string): Promise<NowPlaying> => {
+  const fetchTrack = async (url: string) =>
+    fetchSpotify<{
+      is_playing: boolean;
+      currently_playing_type: string;
+      item: Track;
+      items: Array<{ track: Track }>;
+    }>(url, token);
+
+  const now = await fetchTrack(CURRENTLY_PLAYING_URL).catch(() => null);
+
+  if (now?.is_playing && now.currently_playing_type === 'track' && now.item) {
+    return formatTrack(now.item, true);
   }
 
-  return {
-    title: track.name,
-    artist: track.album.artists.map((a) => a.name).join(', '),
-    url: track.external_urls.spotify,
-    isPlaying: !!data.is_playing,
-  };
-}
+  const recent = await fetchTrack(RECENTLY_PLAYED_URL);
 
-async function getTrackData(accessToken: string): Promise<NowPlaying> {
-  const fetchTrack = (url: string) =>
-    fetchSpotify<SpotifyResponse>(url, accessToken);
-
-  let data: SpotifyResponse | null = null;
-
-  try {
-    data = await fetchTrack(NOW_PLAYING_URL);
-  } catch {
-    // will use recently played track instead
+  if (!recent.items?.[0]?.track) {
+    return {
+      title: '~',
+      artist: '~',
+      url: 'https://open.spotify.com',
+      isPlaying: false,
+    };
   }
 
-  if (data?.is_playing && data.currently_playing_type === 'track') {
-    return formatTrack(data);
-  }
-
-  const recentTracks = await fetchTrack(RECENTLY_PLAYED_URL);
-
-  return formatTrack(recentTracks);
-}
+  return formatTrack(recent.items[0].track, false);
+};
 
 export async function GET(): Promise<NextResponse> {
+  const token = await getAccessToken();
+
+  if (!token) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401, headers: HEADERS },
+    );
+  }
+
   try {
-    const accessToken = await getAccessToken();
-
-    if (!accessToken) {
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401, headers },
-      );
-    }
-
-    const result = await getTrackData(accessToken);
+    const result = await getTrackData(token);
 
     return NextResponse.json(
       { success: true, data: result },
-      { status: 200, headers },
+      { status: 200, headers: HEADERS },
     );
   } catch (err) {
     console.error('GET /spotify/now-playing:', err);
 
     return NextResponse.json(
       { success: false, error: (err as Error).message },
-      { status: 500, headers },
+      { status: 500, headers: HEADERS },
     );
   }
 }

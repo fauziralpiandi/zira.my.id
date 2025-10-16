@@ -50,7 +50,7 @@ export function Footer() {
               className="font-display text-accent font-medium"
             >
               TnC
-              <span className="sr-only">Terms & Conditions</span>
+              <span className="sr-only">Terms &amp; Conditions</span>
             </a>
           </div>
         </div>

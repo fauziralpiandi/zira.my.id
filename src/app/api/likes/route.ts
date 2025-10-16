@@ -1,12 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { neon as database } from '@neondatabase/serverless';
 
-const sql = database(process.env.DATABASE_URL!);
-const headers = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  'Cache-Control': 'no-store',
-};
+const SQL = database(process.env.DATABASE_URL!);
+const HEADERS = { 'Cache-Control': 'no-store' };
 
 function validateSlug(slug: string | null): string {
   if (!slug || !slug.trim()) {
@@ -24,19 +20,19 @@ async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const slug = validateSlug(req.nextUrl.searchParams.get('slug'));
     const rows =
-      await sql`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`;
+      await SQL`SELECT count FROM likes WHERE slug = ${slug} LIMIT 1;`;
     const count = rows.length ? Number(rows[0].count) || 0 : 0;
 
     return NextResponse.json(
       { success: true, slug, count },
-      { status: 200, headers },
+      { status: 200, headers: HEADERS },
     );
   } catch (err) {
     console.error('GET /likes:', err);
 
     return NextResponse.json(
       { success: false, error: (err as Error).message },
-      { status: 500, headers },
+      { status: 500, headers: HEADERS },
     );
   }
 }
@@ -45,7 +41,7 @@ async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const { slug } = await req.json();
     const validSlug = validateSlug(slug);
-    const rows = await sql`
+    const rows = await SQL`
       INSERT INTO likes (slug, count)
       VALUES (${validSlug}, 1)
       ON CONFLICT (slug)
@@ -57,14 +53,14 @@ async function POST(req: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(
       { success: true, slug: validSlug, count },
-      { status: 200, headers },
+      { status: 200, headers: HEADERS },
     );
   } catch (err) {
     console.error('POST /likes:', err);
 
     return NextResponse.json(
       { success: false, error: (err as Error).message },
-      { status: 500, headers },
+      { status: 500, headers: HEADERS },
     );
   }
 }

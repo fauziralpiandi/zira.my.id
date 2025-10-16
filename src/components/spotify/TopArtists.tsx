@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { saveCache } from './cache';
+import { saveCache } from '@/lib/cache';
 
 type Artist = {
   name: string;
@@ -22,8 +22,9 @@ export function TopArtists() {
 
       try {
         const data = await saveCache<Artist[]>(
+          'spotify',
           'top_artists',
-          7 * 24 * 60 * 60 * 1e3, // weekly
+          604800, // weekly
           async () => {
             const res = await fetch('/api/spotify/top-artists', {
               signal: controller.signal,

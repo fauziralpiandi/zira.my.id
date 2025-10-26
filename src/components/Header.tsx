@@ -7,8 +7,8 @@ import { DesktopNav, MobileNav } from './Nav';
 import { FlipName } from './ui';
 
 const NAV_ITEMS = [
-  { name: 'Stories', path: '/stories' },
-  { name: 'Notes', path: '/notes' },
+  /*  { name: 'Stories', path: '/stories' },
+  { name: 'Notes', path: '/notes' }, */
   { name: 'Misc', path: '/misc' },
 ];
 

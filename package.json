@@ -9,8 +9,8 @@
     "clean": "rm -rf .next/cache",
     "dev": "next dev --turbopack",
     "format": "prettier --write .",
-    "generate": "contentlayer2 build",
     "lint": "eslint --fix",
+    "prebuild": "contentlayer2 build",
     "start": "next start"
   },
   "prettier": {
@@ -24,6 +24,7 @@
     "@neondatabase/serverless": "1.0.2",
     "@vercel/analytics": "1.5.0",
     "clsx": "2.1.1",
+    "lib": "link:@/lib",
     "next": "16.0.0",
     "next-view-transitions": "0.3.4",
     "react": "19.2.0",

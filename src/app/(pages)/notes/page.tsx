@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import { Link } from 'next-view-transitions';
-import { type Notes, allNotes, totalOf } from '@/lib/contents';
+import { type Notes, allNotes } from 'contentlayer/generated';
 import { formatDate } from '@/lib/utils';
 
-const totalWordCount = totalOf(allNotes(), 'wordCount');
+const totalWordCount = () =>
+  allNotes
+    .reduce((sum, post) => sum + post.wordCount, 0)
+    .toLocaleString('en-US');
 
 export const metadata: Metadata = {
   title: 'Notes',
@@ -53,18 +56,21 @@ function NoteItem({ post }: { post: Notes }) {
 }
 
 export default function Notes() {
+  const sortedNotes = (a: Notes, b: Notes) =>
+    new Date(b.date).getTime() - new Date(a.date).getTime();
+
   return (
     <main>
       <h1 className="font-medium text-amber-50">
         Off-desk,{' '}
         <span className="text-accent">
-          I jot {totalWordCount} word(s) of my thoughts
+          I jot {totalWordCount()} word(s) of my thoughts
         </span>
         —on life, reflections, and everything in between—
         <span className="text-accent">each one its own little chapter...</span>
       </h1>
       <ul className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {allNotes().map((post) => (
+        {allNotes.sort(sortedNotes).map((post) => (
           <li key={post.slug} className="flex items-start gap-2">
             <span className="text-neutral-500">&mdash;</span>
             <NoteItem post={post} />

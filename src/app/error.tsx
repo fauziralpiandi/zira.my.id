@@ -2,13 +2,7 @@
 
 import { useEffect } from 'react';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
+export default function Error({ error }: { error: Error }) {
   useEffect(() => {
     throw error;
   }, [error]);
@@ -23,14 +17,8 @@ export default function Error({
           Something went wrong&mdash;
         </p>
         <p className="font-display mt-3 max-w-md text-xs tracking-tight text-red-500">
-          {error?.message ?? 'An unexpected error occurred. Please try again!'}
+          {error?.message ?? 'An unexpected error occurred'}
         </p>
-        <button
-          onClick={() => reset()}
-          className="text-accent mt-4 rounded-lg border border-neutral-800 bg-neutral-900 px-2 py-1 text-sm font-medium tracking-tight"
-        >
-          Try again?
-        </button>
       </div>
     </main>
   );

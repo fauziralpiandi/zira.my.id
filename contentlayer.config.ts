@@ -1,7 +1,7 @@
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
-import { generateJsonLd, getImage, getSlug, wordCount } from '@/lib/schemas';
+import { getSlug, wordCount } from '@/lib/schemas';
 
 const notes = defineDocumentType(() => ({
   name: 'Notes',
@@ -36,50 +36,9 @@ const notes = defineDocumentType(() => ({
   },
 }));
 
-const stories = defineDocumentType(() => ({
-  name: 'Stories',
-  filePathPattern: `stories/**/*.{md,mdx}`,
-  contentType: 'mdx',
-  fields: {
-    title: {
-      type: 'string',
-      required: false,
-      default: 'Lorem ipsum dolor sit amet.',
-    },
-    summary: {
-      type: 'string',
-      required: false,
-      default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    },
-    date: {
-      type: 'date',
-      required: false,
-      default: new Date().toISOString(),
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: getSlug,
-    },
-    image: {
-      type: 'image',
-      resolve: getImage,
-    },
-    readTime: {
-      type: 'number',
-      resolve: (doc) => Math.max(1, Math.ceil(wordCount(doc.body.raw) / 225)), // 225 wpm
-    },
-    jsonLd: {
-      type: 'json',
-      resolve: generateJsonLd,
-    },
-  },
-}));
-
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [notes, stories],
+  documentTypes: [notes],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

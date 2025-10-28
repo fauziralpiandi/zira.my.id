@@ -36,9 +36,9 @@ export function TopTracks() {
               throw new Error(`HTTP ${res.status}`);
             }
 
-            const json = await res.json();
+            const result = await res.json();
 
-            return json.data;
+            return result.data;
           },
         );
 

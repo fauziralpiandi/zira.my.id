@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAccessToken, fetchSpotify } from '../handler';
+import { getAccessToken, fetchSpotify } from '@/lib/spotify';
 
 const URL =
   'https://api.spotify.com/v1/me/top/tracks?limit=25&time_range=short_term';

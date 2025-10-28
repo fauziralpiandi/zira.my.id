@@ -33,9 +33,9 @@ export function NowPlaying() {
           throw new Error(`HTTP ${res.status}`);
         }
 
-        const json = await res.json();
+        const result = await res.json();
 
-        setTrack(json.data);
+        setTrack(result.data);
         setError(false);
       } catch {
         setTrack(null);
@@ -61,8 +61,8 @@ export function NowPlaying() {
   }, []);
 
   const { title, artist, url, isPlaying } = track ?? {
-    title: 'Unknown',
-    artist: 'Unknown',
+    title: '~',
+    artist: '~',
     url: 'https://open.spotify.com',
     isPlaying: false,
   };

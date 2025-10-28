@@ -31,7 +31,6 @@ function MdxLink({
         href={href}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        title={`Visit external link (${href})`}
         className={className}
         {...props}
       >
@@ -45,13 +44,7 @@ function MdxLink({
   }
 
   return (
-    <Link
-      passHref
-      href={href}
-      title={`Navigate to (${href})`}
-      className={className}
-      {...props}
-    >
+    <Link passHref href={href} className={className} {...props}>
       {children}
     </Link>
   );

@@ -53,7 +53,7 @@ For more information on how this license works, visit **[Creative Commons Licens
 
 ## 5. Third-Party Licensed Content
 
-Some content displayed on this site, such as **“Now Playing”** and **“Top (Artist and Tracks)”**, is sourced from **[Spotify’s Web API](https://developer.spotify.com/documentation/web-api/)** and remains the property of Spotify.
+Some content displayed on this site, such as **"Now Playing"** and **"Top (Artists and Tracks)"**, is sourced from **[Spotify’s Web API](https://developer.spotify.com/documentation/web-api/)** and remains the property of Spotify.
 
 **Important notes about Spotify content:**
 
@@ -99,7 +99,7 @@ To stay informed, periodically check this page for updates. Continued use of thi
 
 ---
 
-For any questions or concerns regarding these **Terms and Conditions**, please feel free to contact me via **[email](mailto:fwzyrln@gmail.com)**.
+For any questions or concerns regarding these **Terms & Conditions**, please feel free to contact me via **[email](mailto:fwzyrln@gmail.com)**.
 
 ---
 

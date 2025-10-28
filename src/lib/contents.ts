@@ -1,9 +1,4 @@
-import {
-  type Notes,
-  type Stories,
-  allNotes as notes,
-  allStories as stories,
-} from 'contentlayer/generated';
+import { type Notes, allNotes as notes } from 'contentlayer/generated';
 
 function totalOf<T>(items: T[], property: keyof T): string {
   return items
@@ -21,9 +16,5 @@ function allNotes(): Notes[] {
   return sortByDate(notes);
 }
 
-function allStories(): Stories[] {
-  return sortByDate(stories);
-}
-
-export type { Notes, Stories };
-export { allNotes, allStories, totalOf };
+export type { Notes };
+export { allNotes, totalOf };

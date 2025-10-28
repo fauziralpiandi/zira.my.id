@@ -1,16 +1,13 @@
 {
   "name": "zira.my.id",
   "private": true,
-  "license": "MIT",
-  "author": "Fauzira Alpiandi <fwzyrln@gmail.com>",
   "type": "module",
   "scripts": {
     "build": "next build --turbopack",
-    "clean": "rm -rf .next/cache",
     "dev": "next dev --turbopack",
     "format": "prettier --write .",
-    "generate": "contentlayer2 build",
     "lint": "eslint --fix",
+    "prebuild": "contentlayer2 build",
     "start": "next start"
   },
   "prettier": {
@@ -21,10 +18,9 @@
     ]
   },
   "dependencies": {
-    "@neondatabase/serverless": "1.0.2",
     "@vercel/analytics": "1.5.0",
     "clsx": "2.1.1",
-    "next": "16.0.0-beta.0",
+    "next": "16.0.0",
     "next-view-transitions": "0.3.4",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -34,30 +30,30 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",
-    "@tailwindcss/postcss": "4.1.14",
+    "@tailwindcss/postcss": "4.1.16",
     "@tailwindcss/typography": "0.5.19",
     "@types/mdx": "2.0.13",
-    "@types/node": "24.7.1",
+    "@types/node": "24.9.1",
     "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.1",
+    "@types/react-dom": "19.2.2",
     "babel-plugin-react-compiler": "1.0.0",
     "contentlayer2": "0.5.8",
-    "eslint": "9.37.0",
-    "eslint-config-next": "16.0.0-beta.0",
+    "eslint": "9.38.0",
+    "eslint-config-next": "16.0.0",
     "mdx-bundler": "10.1.1",
     "next-contentlayer2": "0.5.8",
     "postcss": "8.5.6",
     "prettier": "3.6.2",
-    "prettier-plugin-tailwindcss": "0.6.14",
+    "prettier-plugin-tailwindcss": "0.7.1",
     "rehype-pretty-code": "0.14.1",
     "remark-gfm": "4.0.1",
-    "tailwindcss": "4.1.14",
+    "tailwindcss": "4.1.16",
     "typescript": "5.8.3"
   },
   "pnpm": {
     "overrides": {
       "@types/react": "19.2.2",
-      "@types/react-dom": "19.2.1"
+      "@types/react-dom": "19.2.2"
     }
   }
 }

@@ -133,10 +133,6 @@
     @apply font-display tracking-tight text-amber-50;
   }
 
-  a {
-    @apply text-accent font-normal no-underline decoration-neutral-700 decoration-1 underline-offset-2 hover:underline;
-  }
-
   blockquote {
     @apply border-accent my-12 rounded border-l-2 p-0;
 
@@ -171,13 +167,6 @@
 
     > code {
       @apply overflow-x-scroll py-2 text-[0.825rem];
-      counter-reset: line;
-
-      &[data-line-numbers] > [data-line]::before {
-        @apply mr-4 inline-block w-4 text-right text-xs text-neutral-500;
-        counter-increment: line;
-        content: counter(line);
-      }
 
       > [data-line] {
         @apply border-l-2 border-l-transparent px-3;
@@ -188,7 +177,7 @@
       }
 
       [data-highlighted-chars] {
-        @apply rounded-md bg-neutral-800 p-1;
+        @apply rounded-md bg-neutral-800;
       }
     }
   }
@@ -199,9 +188,5 @@
     + pre {
       @apply mt-0 rounded-t-none;
     }
-  }
-
-  [data-rehype-pretty-code-caption] {
-    @apply text-center text-xs text-neutral-500;
   }
 }

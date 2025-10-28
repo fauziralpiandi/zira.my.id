@@ -26,32 +26,4 @@ function wordCount(text?: string): number {
   return tokens.length;
 }
 
-function getImage(doc: Document): string {
-  const slug = getSlug(doc);
-  const path = `/imgs/${slug}.png`;
-
-  return path;
-}
-
-function generateJsonLd(doc: Document): string {
-  const image = getImage(doc);
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: doc.title,
-    description: doc.summary,
-    datePublished: doc.published,
-    dateModified: doc.published,
-    image: `https://zira.my.id${image}`,
-    url: `https://zira.my.id/${doc._raw.flattenedPath}`,
-    author: {
-      '@type': 'Person',
-      name: 'Fauzira Alpiandi',
-      url: 'https://zira.my.id',
-    },
-  };
-
-  return JSON.stringify(jsonLd);
-}
-
-export { generateJsonLd, getImage, getSlug, wordCount };
+export { getSlug, wordCount };

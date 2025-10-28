@@ -7,7 +7,6 @@ import { DesktopNav, MobileNav } from './Nav';
 import { FlipName } from './ui';
 
 const NAV_ITEMS = [
-  { name: 'Stories', path: '/stories' },
   { name: 'Notes', path: '/notes' },
   { name: 'Misc', path: '/misc' },
 ];
@@ -34,9 +33,7 @@ export function Header() {
   return (
     <header
       className="fixed top-0 right-0 left-0 z-30 flex items-center justify-between bg-neutral-950 px-8 pt-6 pb-3"
-      style={{
-        boxShadow: '0px 0px 30px 50px #0a0a0a',
-      }}
+      style={{ boxShadow: '0px 0px 30px 50px #0a0a0a' }}
     >
       <div className="z-30 flex items-center space-x-2">
         <svg

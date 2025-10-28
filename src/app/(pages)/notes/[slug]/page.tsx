@@ -5,7 +5,7 @@ import { formatDate } from '@/lib/utils';
 import { Mdx } from '@/components';
 
 export const dynamicParams = true;
-export const revalidate = 3600; // 1 hour
+export const revalidate = 3600; // hourly
 export const generateStaticParams = async () => {
   return allNotes().map((post) => ({
     slug: post.slug,
